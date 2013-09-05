@@ -1,0 +1,168 @@
+//
+//  Grid.m
+//  molicula
+//
+//  Created by Eric Wolter on 9/4/13.
+//  Copyright (c) 2013 Eric Wolter. All rights reserved.
+//
+
+#import "Grid.h"
+#import "ColorTheme.h"
+#import "NSValue_GLKVector.h"
+
+@implementation Grid
+
+@synthesize holes;
+@synthesize modelViewMatrix;
+
+- (id)init {
+  if (self = [super init]) {
+    [self setupGrid];
+  }
+  
+  return self;
+}
+
+- (void)setupGrid {
+  self.holes = [[NSMutableArray alloc] initWithCapacity:GRID_WIDTH];
+  for (int x = 0; x < GRID_WIDTH; x++) {
+    NSMutableArray *column = [[NSMutableArray alloc] initWithCapacity:GRID_HEIGHT];
+    for (int y = 0; y < GRID_HEIGHT; y++) {
+      [column addObject:[[NSNull alloc] init]];
+    }
+    [self.holes addObject:column];
+  }
+  
+  CGPoint holeCoordinates[NUMBER_OF_HOLES] = {
+    CGPointMake(3, -1), CGPointMake(4, -1), CGPointMake(5, -1), CGPointMake(6, -1),
+    CGPointMake(2, 0), CGPointMake(3, 0), CGPointMake(4, 0), CGPointMake(5, 0), CGPointMake(6, 0),
+    CGPointMake(1, 1), CGPointMake(2, 1), CGPointMake(3, 1), CGPointMake(4, 1), CGPointMake(5, 1), CGPointMake(6, 1),
+    CGPointMake(0, 2), CGPointMake(1, 2), CGPointMake(2, 2), CGPointMake(3, 2), CGPointMake(4, 2), CGPointMake(5, 2),
+    CGPointMake(0, 3), CGPointMake(1, 3), CGPointMake(2, 3), CGPointMake(3, 3), CGPointMake(4, 3),
+    CGPointMake(0, 4), CGPointMake(1, 4), CGPointMake(2, 4), CGPointMake(3, 4)
+  };
+  
+  for (int i = 0; i < NUMBER_OF_HOLES; i++) {
+    CGPoint holeCoordinate = holeCoordinates[i];
+    
+    CGPoint arrayIndices = [Grid mapToArrayIndices:holeCoordinate];
+    
+    NSMutableArray *column = [self.holes objectAtIndex:arrayIndices.x];
+    
+    Hole *hole = [[Hole alloc] init];
+    
+    float x = HEXAGON_NARROW_WIDTH * holeCoordinate.x;
+    float y = -HEXAGON_HEIGHT * (0.5 * holeCoordinate.x + holeCoordinate.y);
+    
+    hole.position = GLKVector2Make(x, y);
+    hole.parent = self;
+    hole.logicalPosition = GLKVector2Make(holeCoordinate.x, holeCoordinate.y);
+    [column replaceObjectAtIndex:arrayIndices.y withObject:hole];
+  }
+  
+  float gridHeight = RENDER_HEX_HEIGHT * GRID_HEIGHT;
+  float hexWidth = RENDER_HEX_HEIGHT / sinf(GLKMathDegreesToRadians(60));
+  
+  // -----   -----   -----   -----
+  //     -----   -----   -----
+  float gridWidth = GRID_WIDTH * hexWidth - (GRID_WIDTH - 1) * hexWidth / 4.0f;
+  
+  self.modelViewMatrix = GLKMatrix4Identity;
+  self.modelViewMatrix = GLKMatrix4Scale(self.modelViewMatrix, RENDER_HEX_HEIGHT / 2.0f, RENDER_HEX_HEIGHT / 2.0f, 1.0f);
+  self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-gridWidth / 2.0f + hexWidth / 2.0f, gridHeight / 2.0f, 0.0f), self.modelViewMatrix);
+}
+
+- (void)render:(GLKBaseEffect *)effect {
+  effect.constantColor = [[ColorTheme sharedSingleton] hole];
+  for (NSArray *column in self.holes) {
+    for (id hole in column) {
+      if (hole != [NSNull null]) {
+        [hole render:effect];
+      }
+    }
+  }
+}
+
+- (bool)snapMolecule:(Molecule *)molecule {
+  NSMutableArray *filledHoles = [[NSMutableArray alloc] initWithCapacity:molecule.atoms.count];
+  GLKVector2 offset;
+  GLKVector2 snapOffset;
+  
+  for (NSValue *value in [molecule getAtomPositionsInWorld])
+  {
+    GLKVector2 atomWorldCoordinate = [value GLKVector2Value];
+    BOOL isOverGrid = NO;
+    
+    for (NSArray *column in self.holes) {
+      for (Hole *hole in column) {
+        if (hole != (id)[NSNull null]) {
+          offset = GLKVector2Subtract([self getHoleWorldCoordinates:hole],atomWorldCoordinate);
+          if (GLKVector2Length(offset) < RENDER_HEX_HEIGHT / 2.0f)
+          {
+            snapOffset = GLKVector2Make(offset.x, offset.y);
+            if (hole.content)
+            {
+              return NO;
+            }
+            isOverGrid = YES;
+            [filledHoles addObject:hole];
+            break;
+          }
+        }
+      }
+    }
+    
+    if (!isOverGrid)
+    {
+      return NO;
+    }
+  }
+  [molecule snap:snapOffset toHoles:filledHoles];
+  return YES;
+}
+
+- (GLKVector2)getHoleWorldCoordinates:(Hole *)hole {
+  
+  GLKVector4 homogeneousCoordinate = GLKVector4Make(hole.position.x, hole.position.y, 0, 1);
+  GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(self.modelViewMatrix, homogeneousCoordinate);
+  
+  return GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
+}
+
+- (bool)isFilled {
+  for (NSArray *column in self.holes) {
+    for (Hole *hole in column) {
+      if (hole != (id)[NSNull null]) {
+        if (!hole.content) {
+          return NO;
+        }
+      }
+    }
+  }
+  return YES;
+}
+
++ (CGPoint)mapToArrayIndices:(CGPoint)gridCoordinates {
+  return CGPointMake(gridCoordinates.x, gridCoordinates.y + 1);
+}
+
++ (CGPoint)mapToGridCoordinates:(CGPoint)arrayIndices {
+  return CGPointMake(arrayIndices.x, arrayIndices.y - 1);
+}
+
+-(NSString*)toString {
+  NSMutableString *solution = [[NSMutableString alloc] init];
+  for (NSArray *column in self.holes) {
+    for (Hole *hole in column) {
+      if (hole != (id)[NSNull null]) {
+        [solution appendString:((Molecule *)hole.content).identifer];
+      } else {
+        [solution appendString:@"0"];
+      }
+    }
+  }
+  return solution;
+}
+
+
+@end

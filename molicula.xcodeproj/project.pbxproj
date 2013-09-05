@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		077F9A7617D7CBB0004F1960 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7517D7CBB0004F1960 /* UIKit.framework */; };
+		077F9A7817D7CBB0004F1960 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7717D7CBB0004F1960 /* Foundation.framework */; };
+		077F9A7A17D7CBB0004F1960 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7917D7CBB0004F1960 /* CoreGraphics.framework */; };
+		077F9A7C17D7CBB0004F1960 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7B17D7CBB0004F1960 /* GLKit.framework */; };
+		077F9A7E17D7CBB0004F1960 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7D17D7CBB0004F1960 /* OpenGLES.framework */; };
+		077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8217D7CBB0004F1960 /* InfoPlist.strings */; };
+		077F9A8617D7CBB0004F1960 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8517D7CBB0004F1960 /* main.m */; };
+		077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8917D7CBB0004F1960 /* AppDelegate.m */; };
+		077F9A8C17D7CBB0004F1960 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8B17D7CBB0004F1960 /* Default.png */; };
+		077F9A8E17D7CBB0004F1960 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8D17D7CBB0004F1960 /* Default@2x.png */; };
+		077F9A9017D7CBB0004F1960 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8F17D7CBB0004F1960 /* Default-568h@2x.png */; };
+		077F9A9317D7CBB0004F1960 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9117D7CBB0004F1960 /* MainStoryboard.storyboard */; };
+		077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9417D7CBB0004F1960 /* Shader.fsh */; };
+		077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9617D7CBB0004F1960 /* Shader.vsh */; };
+		077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A9917D7CBB0004F1960 /* GameViewController.m */; };
+		077F9AA217D7CBB0004F1960 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9AA117D7CBB0004F1960 /* SenTestingKit.framework */; };
+		077F9AA317D7CBB0004F1960 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7517D7CBB0004F1960 /* UIKit.framework */; };
+		077F9AA417D7CBB0004F1960 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7717D7CBB0004F1960 /* Foundation.framework */; };
+		077F9AAC17D7CBB1004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AAA17D7CBB1004F1960 /* InfoPlist.strings */; };
+		077F9AAF17D7CBB1004F1960 /* moliculaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AAE17D7CBB1004F1960 /* moliculaTests.m */; };
+		077F9ABA17D7CC44004F1960 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AB917D7CC44004F1960 /* Grid.m */; };
+		077F9AC017D7CCB8004F1960 /* Molecule.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9ABF17D7CCB8004F1960 /* Molecule.m */; };
+		077F9AC317D7CCE7004F1960 /* Hole.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AC217D7CCE7004F1960 /* Hole.m */; };
+		077F9AC617D7CCF6004F1960 /* Atom.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AC517D7CCF6004F1960 /* Atom.m */; };
+		077F9AC917D7CD02004F1960 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AC817D7CD02004F1960 /* Helper.m */; };
+		077F9ACC17D7CD35004F1960 /* Hexagon.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9ACB17D7CD35004F1960 /* Hexagon.m */; };
+		077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9ACE17D7CD41004F1960 /* ColorTheme.m */; };
+		077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */; };
+		077F9AD717D7D206004F1960 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9AD617D7D206004F1960 /* Crashlytics.framework */; };
+		077F9AD917D7D60E004F1960 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AD817D7D60E004F1960 /* Icon-72@2x.png */; };
+		077F9ADB17D7D613004F1960 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9ADA17D7D613004F1960 /* Icon-72.png */; };
+		077F9ADD17D8636A004F1960 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9ADC17D8636A004F1960 /* Default-Portrait@2x~ipad.png */; };
+		077F9ADF17D8636D004F1960 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9ADE17D8636D004F1960 /* Default-Portrait~ipad.png */; };
+		077F9AE117D86372004F1960 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AE017D86371004F1960 /* Default-Landscape@2x~ipad.png */; };
+		077F9AE317D86375004F1960 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AE217D86375004F1960 /* Default-Landscape~ipad.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		077F9AA517D7CBB0004F1960 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 077F9A6A17D7CBB0004F1960 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 077F9A7117D7CBB0004F1960;
+			remoteInfo = molicula;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		077F9A7217D7CBB0004F1960 /* molicula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = molicula.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		077F9A7517D7CBB0004F1960 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		077F9A7717D7CBB0004F1960 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		077F9A7917D7CBB0004F1960 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		077F9A7B17D7CBB0004F1960 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		077F9A7D17D7CBB0004F1960 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		077F9A8117D7CBB0004F1960 /* molicula-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "molicula-Info.plist"; sourceTree = "<group>"; };
+		077F9A8317D7CBB0004F1960 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		077F9A8517D7CBB0004F1960 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		077F9A8717D7CBB0004F1960 /* molicula-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "molicula-Prefix.pch"; sourceTree = "<group>"; };
+		077F9A8817D7CBB0004F1960 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		077F9A8917D7CBB0004F1960 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		077F9A8B17D7CBB0004F1960 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		077F9A8D17D7CBB0004F1960 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		077F9A8F17D7CBB0004F1960 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		077F9A9217D7CBB0004F1960 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		077F9A9417D7CBB0004F1960 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		077F9A9617D7CBB0004F1960 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		077F9A9817D7CBB0004F1960 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		077F9A9917D7CBB0004F1960 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		077F9AA017D7CBB0004F1960 /* moliculaTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = moliculaTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		077F9AA117D7CBB0004F1960 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		077F9AA917D7CBB1004F1960 /* moliculaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "moliculaTests-Info.plist"; sourceTree = "<group>"; };
+		077F9AAB17D7CBB1004F1960 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		077F9AAD17D7CBB1004F1960 /* moliculaTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = moliculaTests.h; sourceTree = "<group>"; };
+		077F9AAE17D7CBB1004F1960 /* moliculaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = moliculaTests.m; sourceTree = "<group>"; };
+		077F9AB817D7CC44004F1960 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
+		077F9AB917D7CC44004F1960 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
+		077F9ABE17D7CCB8004F1960 /* Molecule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Molecule.h; sourceTree = "<group>"; };
+		077F9ABF17D7CCB8004F1960 /* Molecule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Molecule.m; sourceTree = "<group>"; };
+		077F9AC117D7CCE7004F1960 /* Hole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hole.h; sourceTree = "<group>"; };
+		077F9AC217D7CCE7004F1960 /* Hole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hole.m; sourceTree = "<group>"; };
+		077F9AC417D7CCF6004F1960 /* Atom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Atom.h; sourceTree = "<group>"; };
+		077F9AC517D7CCF6004F1960 /* Atom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Atom.m; sourceTree = "<group>"; };
+		077F9AC717D7CD02004F1960 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		077F9AC817D7CD02004F1960 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
+		077F9ACA17D7CD35004F1960 /* Hexagon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hexagon.h; sourceTree = "<group>"; };
+		077F9ACB17D7CD35004F1960 /* Hexagon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hexagon.m; sourceTree = "<group>"; };
+		077F9ACD17D7CD41004F1960 /* ColorTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorTheme.h; sourceTree = "<group>"; };
+		077F9ACE17D7CD41004F1960 /* ColorTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorTheme.m; sourceTree = "<group>"; };
+		077F9AD017D7CD4D004F1960 /* MoleculeFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoleculeFactory.h; sourceTree = "<group>"; };
+		077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoleculeFactory.m; sourceTree = "<group>"; };
+		077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSValue_GLKVector.h; sourceTree = "<group>"; };
+		077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITouch_TouchSorting.h; sourceTree = "<group>"; };
+		077F9AD617D7D206004F1960 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		077F9AD817D7D60E004F1960 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		077F9ADA17D7D613004F1960 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		077F9ADC17D8636A004F1960 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		077F9ADE17D8636D004F1960 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		077F9AE017D86371004F1960 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		077F9AE217D86375004F1960 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		077F9A6F17D7CBB0004F1960 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				077F9A7617D7CBB0004F1960 /* UIKit.framework in Frameworks */,
+				077F9A7817D7CBB0004F1960 /* Foundation.framework in Frameworks */,
+				077F9A7A17D7CBB0004F1960 /* CoreGraphics.framework in Frameworks */,
+				077F9A7C17D7CBB0004F1960 /* GLKit.framework in Frameworks */,
+				077F9A7E17D7CBB0004F1960 /* OpenGLES.framework in Frameworks */,
+				077F9AD717D7D206004F1960 /* Crashlytics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		077F9A9C17D7CBB0004F1960 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				077F9AA217D7CBB0004F1960 /* SenTestingKit.framework in Frameworks */,
+				077F9AA317D7CBB0004F1960 /* UIKit.framework in Frameworks */,
+				077F9AA417D7CBB0004F1960 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		077F9A6917D7CBB0004F1960 = {
+			isa = PBXGroup;
+			children = (
+				077F9AE217D86375004F1960 /* Default-Landscape~ipad.png */,
+				077F9AE017D86371004F1960 /* Default-Landscape@2x~ipad.png */,
+				077F9ADE17D8636D004F1960 /* Default-Portrait~ipad.png */,
+				077F9ADC17D8636A004F1960 /* Default-Portrait@2x~ipad.png */,
+				077F9ADA17D7D613004F1960 /* Icon-72.png */,
+				077F9AD817D7D60E004F1960 /* Icon-72@2x.png */,
+				077F9A7F17D7CBB0004F1960 /* molicula */,
+				077F9AA717D7CBB0004F1960 /* moliculaTests */,
+				077F9A7417D7CBB0004F1960 /* Frameworks */,
+				077F9A7317D7CBB0004F1960 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		077F9A7317D7CBB0004F1960 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				077F9A7217D7CBB0004F1960 /* molicula.app */,
+				077F9AA017D7CBB0004F1960 /* moliculaTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		077F9A7417D7CBB0004F1960 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				077F9AD617D7D206004F1960 /* Crashlytics.framework */,
+				077F9A7517D7CBB0004F1960 /* UIKit.framework */,
+				077F9A7717D7CBB0004F1960 /* Foundation.framework */,
+				077F9A7917D7CBB0004F1960 /* CoreGraphics.framework */,
+				077F9A7B17D7CBB0004F1960 /* GLKit.framework */,
+				077F9A7D17D7CBB0004F1960 /* OpenGLES.framework */,
+				077F9AA117D7CBB0004F1960 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		077F9A7F17D7CBB0004F1960 /* molicula */ = {
+			isa = PBXGroup;
+			children = (
+				077F9A8817D7CBB0004F1960 /* AppDelegate.h */,
+				077F9A8917D7CBB0004F1960 /* AppDelegate.m */,
+				077F9A9117D7CBB0004F1960 /* MainStoryboard.storyboard */,
+				077F9A9417D7CBB0004F1960 /* Shader.fsh */,
+				077F9A9617D7CBB0004F1960 /* Shader.vsh */,
+				077F9A9817D7CBB0004F1960 /* GameViewController.h */,
+				077F9A9917D7CBB0004F1960 /* GameViewController.m */,
+				077F9A8017D7CBB0004F1960 /* Supporting Files */,
+				077F9AB817D7CC44004F1960 /* Grid.h */,
+				077F9AB917D7CC44004F1960 /* Grid.m */,
+				077F9ABE17D7CCB8004F1960 /* Molecule.h */,
+				077F9ABF17D7CCB8004F1960 /* Molecule.m */,
+				077F9AC117D7CCE7004F1960 /* Hole.h */,
+				077F9AC217D7CCE7004F1960 /* Hole.m */,
+				077F9AC417D7CCF6004F1960 /* Atom.h */,
+				077F9AC517D7CCF6004F1960 /* Atom.m */,
+				077F9AC717D7CD02004F1960 /* Helper.h */,
+				077F9AC817D7CD02004F1960 /* Helper.m */,
+				077F9ACA17D7CD35004F1960 /* Hexagon.h */,
+				077F9ACB17D7CD35004F1960 /* Hexagon.m */,
+				077F9ACD17D7CD41004F1960 /* ColorTheme.h */,
+				077F9ACE17D7CD41004F1960 /* ColorTheme.m */,
+				077F9AD017D7CD4D004F1960 /* MoleculeFactory.h */,
+				077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */,
+				077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */,
+				077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */,
+			);
+			path = molicula;
+			sourceTree = "<group>";
+		};
+		077F9A8017D7CBB0004F1960 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				077F9A8117D7CBB0004F1960 /* molicula-Info.plist */,
+				077F9A8217D7CBB0004F1960 /* InfoPlist.strings */,
+				077F9A8517D7CBB0004F1960 /* main.m */,
+				077F9A8717D7CBB0004F1960 /* molicula-Prefix.pch */,
+				077F9A8B17D7CBB0004F1960 /* Default.png */,
+				077F9A8D17D7CBB0004F1960 /* Default@2x.png */,
+				077F9A8F17D7CBB0004F1960 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		077F9AA717D7CBB0004F1960 /* moliculaTests */ = {
+			isa = PBXGroup;
+			children = (
+				077F9AAD17D7CBB1004F1960 /* moliculaTests.h */,
+				077F9AAE17D7CBB1004F1960 /* moliculaTests.m */,
+				077F9AA817D7CBB1004F1960 /* Supporting Files */,
+			);
+			path = moliculaTests;
+			sourceTree = "<group>";
+		};
+		077F9AA817D7CBB1004F1960 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				077F9AA917D7CBB1004F1960 /* moliculaTests-Info.plist */,
+				077F9AAA17D7CBB1004F1960 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		077F9A7117D7CBB0004F1960 /* molicula */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 077F9AB217D7CBB1004F1960 /* Build configuration list for PBXNativeTarget "molicula" */;
+			buildPhases = (
+				077F9A6E17D7CBB0004F1960 /* Sources */,
+				077F9A6F17D7CBB0004F1960 /* Frameworks */,
+				077F9A7017D7CBB0004F1960 /* Resources */,
+				077F9AD517D7D1ED004F1960 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = molicula;
+			productName = molicula;
+			productReference = 077F9A7217D7CBB0004F1960 /* molicula.app */;
+			productType = "com.apple.product-type.application";
+		};
+		077F9A9F17D7CBB0004F1960 /* moliculaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 077F9AB517D7CBB1004F1960 /* Build configuration list for PBXNativeTarget "moliculaTests" */;
+			buildPhases = (
+				077F9A9B17D7CBB0004F1960 /* Sources */,
+				077F9A9C17D7CBB0004F1960 /* Frameworks */,
+				077F9A9D17D7CBB0004F1960 /* Resources */,
+				077F9A9E17D7CBB0004F1960 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				077F9AA617D7CBB0004F1960 /* PBXTargetDependency */,
+			);
+			name = moliculaTests;
+			productName = moliculaTests;
+			productReference = 077F9AA017D7CBB0004F1960 /* moliculaTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		077F9A6A17D7CBB0004F1960 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Eric Wolter";
+			};
+			buildConfigurationList = 077F9A6D17D7CBB0004F1960 /* Build configuration list for PBXProject "molicula" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 077F9A6917D7CBB0004F1960;
+			productRefGroup = 077F9A7317D7CBB0004F1960 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				077F9A7117D7CBB0004F1960 /* molicula */,
+				077F9A9F17D7CBB0004F1960 /* moliculaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		077F9A7017D7CBB0004F1960 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */,
+				077F9A8C17D7CBB0004F1960 /* Default.png in Resources */,
+				077F9A8E17D7CBB0004F1960 /* Default@2x.png in Resources */,
+				077F9A9017D7CBB0004F1960 /* Default-568h@2x.png in Resources */,
+				077F9A9317D7CBB0004F1960 /* MainStoryboard.storyboard in Resources */,
+				077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */,
+				077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */,
+				077F9AD917D7D60E004F1960 /* Icon-72@2x.png in Resources */,
+				077F9ADB17D7D613004F1960 /* Icon-72.png in Resources */,
+				077F9ADD17D8636A004F1960 /* Default-Portrait@2x~ipad.png in Resources */,
+				077F9ADF17D8636D004F1960 /* Default-Portrait~ipad.png in Resources */,
+				077F9AE117D86372004F1960 /* Default-Landscape@2x~ipad.png in Resources */,
+				077F9AE317D86375004F1960 /* Default-Landscape~ipad.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		077F9A9D17D7CBB0004F1960 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				077F9AAC17D7CBB1004F1960 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		077F9A9E17D7CBB0004F1960 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		077F9AD517D7D1ED004F1960 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run bd56c9755da175dbceef21610d31133901bb338b";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		077F9A6E17D7CBB0004F1960 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				077F9A8617D7CBB0004F1960 /* main.m in Sources */,
+				077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */,
+				077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */,
+				077F9ABA17D7CC44004F1960 /* Grid.m in Sources */,
+				077F9AC017D7CCB8004F1960 /* Molecule.m in Sources */,
+				077F9AC317D7CCE7004F1960 /* Hole.m in Sources */,
+				077F9AC617D7CCF6004F1960 /* Atom.m in Sources */,
+				077F9AC917D7CD02004F1960 /* Helper.m in Sources */,
+				077F9ACC17D7CD35004F1960 /* Hexagon.m in Sources */,
+				077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */,
+				077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		077F9A9B17D7CBB0004F1960 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				077F9AAF17D7CBB1004F1960 /* moliculaTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		077F9AA617D7CBB0004F1960 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 077F9A7117D7CBB0004F1960 /* molicula */;
+			targetProxy = 077F9AA517D7CBB0004F1960 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		077F9A8217D7CBB0004F1960 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				077F9A8317D7CBB0004F1960 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		077F9A9117D7CBB0004F1960 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				077F9A9217D7CBB0004F1960 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		077F9AAA17D7CBB1004F1960 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				077F9AAB17D7CBB1004F1960 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		077F9AB017D7CBB1004F1960 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		077F9AB117D7CBB1004F1960 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		077F9AB317D7CBB1004F1960 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
+				INFOPLIST_FILE = "molicula/molicula-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		077F9AB417D7CBB1004F1960 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
+				INFOPLIST_FILE = "molicula/molicula-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		077F9AB617D7CBB1004F1960 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/molicula.app/molicula";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
+				INFOPLIST_FILE = "moliculaTests/moliculaTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		077F9AB717D7CBB1004F1960 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/molicula.app/molicula";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
+				INFOPLIST_FILE = "moliculaTests/moliculaTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		077F9A6D17D7CBB0004F1960 /* Build configuration list for PBXProject "molicula" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				077F9AB017D7CBB1004F1960 /* Debug */,
+				077F9AB117D7CBB1004F1960 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		077F9AB217D7CBB1004F1960 /* Build configuration list for PBXNativeTarget "molicula" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				077F9AB317D7CBB1004F1960 /* Debug */,
+				077F9AB417D7CBB1004F1960 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		077F9AB517D7CBB1004F1960 /* Build configuration list for PBXNativeTarget "moliculaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				077F9AB617D7CBB1004F1960 /* Debug */,
+				077F9AB717D7CBB1004F1960 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 077F9A6A17D7CBB0004F1960 /* Project object */;
+}
