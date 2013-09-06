@@ -521,9 +521,7 @@ typedef enum {
     // continue updating so the finish animation can be played
     shouldStopUpdating = NO;
     
-    NSLog(@"found solution!!!");
     NSString *solution = [grid toString];
-    NSLog(@"%@", solution);
     finishAnimation = YES;
     for(Molecule *molecule in molecules) {
       if(!molecule.isSnapped) {
@@ -540,8 +538,6 @@ typedef enum {
       [standardUserDefaults setObject:[solutions arrayByAddingObject:solution] forKey:@"solutions"];
       [standardUserDefaults synchronize];
     }
-    
-    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
   }
 }
 
@@ -552,7 +548,9 @@ typedef enum {
     if (pointerTouch == touch)
     {
       pointerTouch = nil;
-      [grid snapMolecule:activeMolecule];
+      for(Molecule *molecule in molecules) {
+        [grid snapMolecule:molecule];
+      }
       activeMolecule = nil;
       
       shouldStopUpdating = YES;

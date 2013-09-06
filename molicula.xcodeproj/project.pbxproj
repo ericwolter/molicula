@@ -577,6 +577,7 @@
 				077F9AB417D7CBB1004F1960 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		077F9AB517D7CBB1004F1960 /* Build configuration list for PBXNativeTarget "moliculaTests" */ = {
 			isa = XCConfigurationList;
@@ -585,6 +586,7 @@
 				077F9AB717D7CBB1004F1960 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
