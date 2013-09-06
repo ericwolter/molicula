@@ -205,6 +205,42 @@
 -(GLKVector4)purple {
   return GLKVector4Make(RGB(123), RGB(42), RGB(130), 1);
 }
+#elif defined(THEME_IOS7)
+-(GLKVector4)bg {
+  return GLKVector4Make(RGB(240.0f), RGB(239.0f), RGB(236.0f), 1);
+}
+
+-(GLKVector4)hole {
+  return GLKVector4Make(0.56f, 0.56f, 0.58f, 1);
+}
+
+-(GLKVector4)blue {
+  return GLKVector4Make(0.0f, 0.49f, 0.96f, 1);
+}
+
+-(GLKVector4)red {
+  return GLKVector4Make(1.0f, 0.22f, 0.22f, 1);
+}
+
+-(GLKVector4)green {
+  return GLKVector4Make(0.27f, 0.85f, 0.46f, 1);
+}
+
+-(GLKVector4)yellow {
+  return GLKVector4Make(1.0f, 0.79f, 0.28f, 1);
+}
+
+-(GLKVector4)orange {
+  return GLKVector4Make(1.0f, 0.58f, 0.21f, 1);
+}
+
+-(GLKVector4)white {
+  return GLKVector4Make(0.78f, 0.78f, 0.8f, 1);
+}
+
+-(GLKVector4)purple {
+  return GLKVector4Make(0.35f, 0.35f, 0.81f, 1);
+}
 #endif
 
 @end
