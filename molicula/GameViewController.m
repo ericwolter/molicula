@@ -340,10 +340,16 @@ typedef enum {
         [molecules removeObjectAtIndex:moleculeIndex];
         [molecules addObject:m];
         [m unsnap];
+        for(Molecule *molecule in molecules) {
+          if(molecule!=activeMolecule) {
+            [grid snapMolecule:molecule];
+          }
+        }
         // only a single molecule can be selected -> so stop here
         return;
       }
     }
+
   }
   else if (transformTouch == nil)
   {
@@ -548,9 +554,7 @@ typedef enum {
     if (pointerTouch == touch)
     {
       pointerTouch = nil;
-      for(Molecule *molecule in molecules) {
-        [grid snapMolecule:molecule];
-      }
+      [grid snapMolecule:activeMolecule];
       activeMolecule = nil;
       
       shouldStopUpdating = YES;
