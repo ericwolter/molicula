@@ -400,7 +400,7 @@ typedef enum {
   }
 }
 
-- (void) touchesMoved:(NSSet *) __unused touches withEvent:(UIEvent *) __unused event
+- (void) touchesMoved:(NSSet *)__unused touches withEvent:(UIEvent *)event
 {
   if (!activeMolecule)
   {
@@ -413,11 +413,12 @@ typedef enum {
   }
   
   CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
-  CGPoint previous = [self touchPointToGLPoint:[pointerTouch previousLocationInView:self.view]];
   
-  CGPoint diff = CGPointMake(point.x - previous.x, point.y - previous.y);
-  
-  [activeMolecule translate:GLKVector2Make(diff.x, diff.y)];
+  if(event.allTouches.count == 1) {
+    CGPoint previous = [self touchPointToGLPoint:[pointerTouch previousLocationInView:self.view]];
+    CGPoint diff = CGPointMake(point.x - previous.x, point.y - previous.y);
+    [activeMolecule translate:GLKVector2Make(diff.x, diff.y)];
+  }
   
   if (transformTouch != nil)
   {
@@ -429,8 +430,8 @@ typedef enum {
     // determine quadrant
     Quadrant quadrant = [self determineTouchQuadrantFor:modifierPoint RelativeTo:point];
     
-    const int rotate_treshhold = 10;
-    const int reflect_threshold = 10;
+    const float rotate_treshhold = 10.0f;
+    const float reflect_threshold = 10.0f;
     
     switch(quadrant) {
       case QuadrantTop:
