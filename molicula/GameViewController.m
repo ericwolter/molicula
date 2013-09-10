@@ -349,7 +349,7 @@ typedef enum {
         return;
       }
     }
-
+    pointerTouch = nil;
   }
   else if (transformTouch == nil)
   {
