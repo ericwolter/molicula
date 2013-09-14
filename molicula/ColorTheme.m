@@ -8,7 +8,7 @@
 
 #import "ColorTheme.h"
 
-#define THEME_THERESA_2
+#define THEME_5
 
 @implementation ColorTheme
 
@@ -200,6 +200,42 @@
 
 -(GLKVector4)white {
   return GLKVector4Make(RGB(203.0f), RGB(203.0f), RGB(203.0f), 1);
+}
+
+-(GLKVector4)purple {
+  return GLKVector4Make(RGB(123), RGB(42), RGB(130), 1);
+}
+#elif defined(THEME_5)
+-(GLKVector4)bg {
+  return GLKVector4Make(RGB(240.0f), RGB(239.0f), RGB(236.0f), 1);
+}
+
+-(GLKVector4)hole {
+  return GLKVector4Make(RGB(84.0f), RGB(84.0f), RGB(84.0f), 1);
+}
+
+-(GLKVector4)blue {
+  return GLKVector4Make(RGB(17), RGB(140), RGB(199), 1);
+}
+
+-(GLKVector4)red {
+  return GLKVector4Make(RGB(181), RGB(9), RGB(29), 1);
+}
+
+-(GLKVector4)green {
+  return GLKVector4Make(RGB(135), RGB(200), RGB(10), 1);
+}
+
+-(GLKVector4)yellow {
+  return GLKVector4Make(RGB(255), RGB(205), RGB(0), 1);
+}
+
+-(GLKVector4)orange {
+  return GLKVector4Make(RGB(255), RGB(124), RGB(29), 1);
+}
+
+-(GLKVector4)white {
+  return GLKVector4Make(RGB(57), RGB(201), RGB(190), 1);
 }
 
 -(GLKVector4)purple {

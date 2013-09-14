@@ -12,6 +12,7 @@
 #import "Grid.h"
 #import "ColorTheme.h"
 #import "NSValue_GLKVector.h"
+#import "Tutorial.h"
 
 @interface GameViewController () {
   /**
@@ -28,6 +29,8 @@
    * Holds the left over molecule for the finish animation
    */
   Molecule *leftOverMolecule;
+  
+  Tutorial *tutorial;
   
   /**
    * Contains all molecules in the current game.
@@ -53,7 +56,7 @@
   CGPoint horizontalMovement;
   
   BOOL finishAnimation;
-  float finishTimer;
+  int finishTimer;
 }
 
 /**
@@ -132,6 +135,7 @@ typedef enum {
   
   [self setupGL];
   [self setupGrid];
+  tutorial = [[Tutorial alloc] init];
 }
 
 - (void)applicationWillResignActive {
@@ -294,18 +298,21 @@ typedef enum {
   }
   if (finishAnimation) {
     [leftOverMolecule rotateClockwise];
-    finishTimer += self.timeSinceLastUpdate;
+    finishTimer += 1;
     
-    if(finishTimer > 1.0f) {
-      finishTimer = 0.0f;
+    if(finishTimer > 7*5) {
+      finishTimer = 0;
       finishAnimation = false;
       shouldStopUpdating = YES;
     }
   }
-  //  [activeMolecule update:self.timeSinceLastUpdate];
 }
 
 - (void)glkView:(GLKView *) __unused view drawInRect:(CGRect) __unused rect {
+  [self render];
+}
+
+-(void)render {
   GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
   glClearColor(bg.x, bg.y, bg.z, bg.w);
   glClear(GL_COLOR_BUFFER_BIT);
@@ -315,9 +322,16 @@ typedef enum {
   for (Molecule *molecule in molecules) {
     [molecule render:self.effect];
   }
+  
+  if(pointerTouch != nil) {
+    CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
+    [tutorial setPosition:GLKVector2Make(point.x, point.y)];
+    self.effect.constantColor = activeMolecule.color;
+    [tutorial render:self.effect];
+  }
 }
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *) __unused event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *) __unused event
 {
   self.paused = NO;
   
@@ -535,11 +549,19 @@ typedef enum {
     
     NSString *solution = [grid toString];
     finishAnimation = YES;
-    for(Molecule *molecule in molecules) {
+    
+    for (int moleculeIndex = molecules.count - 1; moleculeIndex >= 0; moleculeIndex--)
+    {
+      Molecule *molecule = [molecules objectAtIndex:moleculeIndex];
       if(!molecule.isSnapped) {
         leftOverMolecule = molecule;
+        [molecules removeObjectAtIndex:moleculeIndex];
+        [molecules addObject:leftOverMolecule];
         break;
       }
+    }
+    
+    for(Molecule *molecule in molecules) {
     }
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSArray *solutions = [standardUserDefaults arrayForKey:@"solutions"];

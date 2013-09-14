@@ -42,6 +42,7 @@
 		077F9ADF17D8636D004F1960 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9ADE17D8636D004F1960 /* Default-Portrait~ipad.png */; };
 		077F9AE117D86372004F1960 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AE017D86371004F1960 /* Default-Landscape@2x~ipad.png */; };
 		077F9AE317D86375004F1960 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AE217D86375004F1960 /* Default-Landscape~ipad.png */; };
+		07F16FD317E0F79300D15F36 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F16FD217E0F79300D15F36 /* Tutorial.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,8 @@
 		077F9ADE17D8636D004F1960 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		077F9AE017D86371004F1960 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		077F9AE217D86375004F1960 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		07F16FD117E0F79300D15F36 /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tutorial.h; sourceTree = "<group>"; };
+		07F16FD217E0F79300D15F36 /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tutorial.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +206,8 @@
 				077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */,
 				077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */,
 				077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */,
+				07F16FD117E0F79300D15F36 /* Tutorial.h */,
+				07F16FD217E0F79300D15F36 /* Tutorial.m */,
 			);
 			path = molicula;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				077F9ACC17D7CD35004F1960 /* Hexagon.m in Sources */,
 				077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */,
 				077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */,
+				07F16FD317E0F79300D15F36 /* Tutorial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
