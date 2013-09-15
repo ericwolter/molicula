@@ -427,17 +427,18 @@ typedef enum {
   }
   
   CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
-  CGPoint previous = [self touchPointToGLPoint:[pointerTouch previousLocationInView:self.view]];
-  CGPoint diff = CGPointMake(point.x - previous.x, point.y - previous.y);
-  
-  if(event.allTouches.count > 1) {
-    const float move_threshold = 1.0f;
-    if(diff.x*diff.x+diff.y*diff.y > move_threshold) {
-      [activeMolecule translate:GLKVector2Make(diff.x, diff.y)];
-    }
-  } else {
-    [activeMolecule translate:GLKVector2Make(diff.x, diff.y)];
-  }
+//  CGPoint previous = [self touchPointToGLPoint:[pointerTouch previousLocationInView:self.view]];
+//  CGPoint diff = CGPointMake(point.x - previous.x, point.y - previous.y);
+//  
+//  if(event.allTouches.count > 1) {
+//    const float move_threshold = 1.0f;
+//    if(diff.x*diff.x+diff.y*diff.y > move_threshold) {
+//      [activeMolecule translate:GLKVector2Make(diff.x, diff.y)];
+//    }
+//  } else {
+//    [activeMolecule translate:GLKVector2Make(diff.x, diff.y)];
+//  }
+  activeMolecule.position = GLKVector2Make(point.x, point.y);
   
   if (transformTouch != nil)
   {

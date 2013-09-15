@@ -278,6 +278,13 @@
   [self updateAabb];
 }
 
+- (void)setPosition:(GLKVector2)position {
+  _position = position;
+  
+  [self updateModelViewMatrix];
+  [self updateAabb];
+}
+
 - (void)rotateClockwise {
   if (isReflected) {
     self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(60), 0, 0, 1), self.orientation);
