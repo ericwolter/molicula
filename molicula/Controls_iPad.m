@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Eric Wolter. All rights reserved.
 //
 
-#import "Tutorial.h"
+#import "Controls_iPad.h"
 #import "ColorTheme.h"
 
-@implementation Tutorial
+@implementation Controls_iPad
 
 @synthesize modelViewMatrix, parent;
 @synthesize position = _position;

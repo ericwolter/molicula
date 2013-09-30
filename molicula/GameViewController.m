@@ -12,7 +12,6 @@
 #import "Grid.h"
 #import "ColorTheme.h"
 #import "NSValue_GLKVector.h"
-#import "Tutorial.h"
 
 @interface GameViewController () {
   /**
@@ -21,16 +20,9 @@
   Grid *grid;
   
   /**
-   * Whenever the user picks up a molecule this holds a pointer to it.
-   */
-  Molecule *activeMolecule;
-  
-  /**
    * Holds the left over molecule for the finish animation
    */
   Molecule *leftOverMolecule;
-  
-  Tutorial *tutorial;
   
   /**
    * Contains all molecules in the current game.
@@ -43,27 +35,17 @@
    */
   BOOL shouldStopUpdating;
   
-  BOOL isRotationInProgress;
-  BOOL isMirroringInProgress;
-  
   CGFloat transformRotationAngle;
   CGFloat transformMirroringOffset;
   
   BOOL finishAnimation;
   int finishTimer;
-  
-  UITouch *pointerTouch;
-  UITouch *transformTouch;
 }
 
 /**
  * The OpenGL context.
  */
 @property(strong, nonatomic) EAGLContext *context;
-/**
- * The GLKit provided drawing helper.
- */
-@property(strong, nonatomic) GLKBaseEffect *effect;
 
 /**
  * Enum type used to describe the quadrant the transform touch is relative
@@ -135,7 +117,6 @@ typedef enum {
   
   [self setupGL];
   [self setupGrid];
-  tutorial = [[Tutorial alloc] init];
 }
 
 - (void)applicationWillResignActive {
@@ -239,26 +220,12 @@ typedef enum {
 
 - (void)layoutMolecules {
   
-//  NSUInteger count = molecules.count;
-//  for (NSUInteger i = 0; i < count; ++i) {
-//    // Select a random element between i and end of array to swap with.
-//    NSInteger nElements = count - i;
-//    NSInteger n = (arc4random_uniform(nElements)) + i;
-//    [molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
-//  }
-//  for(NSUInteger i = 0; i < count; ++i) {
-//    Molecule *molecule = [molecules objectAtIndex:i];
-//    for (NSUInteger j = 0; j < arc4random_uniform(6); ++j) {
-//      [molecule rotateClockwise];
-//    }
-//  }
-  
   GLKVector2 directions[7] = { GLKVector2Make(0.000000f, 3.000000f), GLKVector2Make(-2.934872f, 2.038362f), GLKVector2Make(-3.871667f, -0.753814f), GLKVector2Make(-1.585160f, -2.754376f), GLKVector2Make(1.514443f, -2.776668f), GLKVector2Make(3.846348f, -0.823502f), GLKVector2Make(2.992000f, 1.991096f)};
   
   for (NSUInteger i = 0; i < molecules.count; ++i) {
     Molecule *molecule = [molecules objectAtIndex:i];
     
-    [molecule translate:GLKVector2MultiplyScalar(directions[i], 96)];
+    [molecule translate:GLKVector2MultiplyScalar(directions[i], LAYOUT_DISTANCE)];
     [molecule updateAabb];
     [self enforceScreenBoundsForMolecule:molecule];
   }
@@ -315,7 +282,7 @@ typedef enum {
   [self render];
 }
 
--(void)render {
+- (void)render {
   GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
   glClearColor(bg.x, bg.y, bg.z, bg.w);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -324,13 +291,6 @@ typedef enum {
   
   for (Molecule *molecule in molecules) {
     [molecule render:self.effect];
-  }
-  
-  if(pointerTouch != nil) {
-    CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
-    [tutorial setPosition:GLKVector2Make(point.x, point.y)];
-    self.effect.constantColor = activeMolecule.color;
-    [tutorial render:self.effect andRotationInProgress:isRotationInProgress andMirroringInProgress:isMirroringInProgress];
   }
 }
 

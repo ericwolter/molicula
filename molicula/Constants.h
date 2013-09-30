@@ -11,6 +11,8 @@
 
 #define IS_IPAD                   (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
 
+#define LAYOUT_DISTANCE           (IS_IPAD ? 96 : 48)
+
 #define RENDER_HEX_HEIGHT         (IS_IPAD ? 60.0f : 40.0f)
 #define RENDER_RADIUS             (RENDER_HEX_HEIGHT / 2.0f)
 

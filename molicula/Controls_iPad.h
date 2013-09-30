@@ -10,7 +10,7 @@
 #import <GLKit/GLKit.h>
 #import "Constants.h"
 
-@interface Tutorial : NSObject {
+@interface Controls_iPad : NSObject {
   GLKVector2 rightArc[((TUTORIAL_RESOLUTION/TUTORIAL_ARC_RATIO)+1)*2];
   GLuint rightArcBuffer;
   
