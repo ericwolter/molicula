@@ -34,14 +34,4 @@
 #define HEXAGON_HALF_WIDTH        (HEXAGON_WIDTH / 2.0f)
 #define HEXAGON_NARROW_WIDTH      (HEXAGON_HALF_WIDTH + HEXAGON_WIDTH / 4.0f)
 
-#define M_TAU                     (M_PI * 2.0f)
-
-#define TUTORIAL_RESOLUTION       (65)
-#define TUTORIAL_ARC_RATIO        (5)
-#define TUTORIAL_SCALE            (IS_IPAD ? 128 : 96)
-#define ARROW_THICKNESS           (0.1f)
-#define ARROW_TIP_HEIGHT          (0.1f)
-#define ARROW_TIP_WIDTH           (0.2f)
-#define BAR_OFFSET_Y              (0.0f)
-
 #endif

@@ -11,22 +11,36 @@
 #import "Molecule.h"
 
 @interface GameViewController : GLKViewController <UIGestureRecognizerDelegate> {
-  BOOL isRotationInProgress;
-  BOOL isMirroringInProgress;
-
   UITouch *pointerTouch;
-  UITouch *transformTouch;
+  
+  /**
+   * Holds the main playing grid.
+   */
+  Grid *grid;
   
   /**
    * Whenever the user picks up a molecule this holds a pointer to it.
    */
   Molecule *activeMolecule;
+  
+  /**
+   * Contains all molecules in the current game.
+   */
+  NSMutableArray *molecules;
+  
+  BOOL shouldStopUpdating;
 }
 
 @property(strong, nonatomic) GLKBaseEffect *effect;
 
+- (void)applicationWillResignActive;
+
 - (void)render;
 
 - (CGPoint) touchPointToGLPoint:(CGPoint)point;
+
+- (void)enforceScreenBoundsForMolecule:(Molecule *)molecule;
+
+- (void)checkForSolution;
 
 @end

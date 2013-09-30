@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
+        <!--Game View Controller i Phone-->
         <scene sceneID="hIb-hH-hkC">
             <objects>
-                <viewController id="6Fm-Pz-kJy" customClass="GameViewController" sceneMemberID="viewController">
+                <viewController id="6Fm-Pz-kJy" customClass="GameViewController_iPhone" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2l5-dC-CQx"/>
                         <viewControllerLayoutGuide type="bottom" id="UVD-Ms-k1N"/>

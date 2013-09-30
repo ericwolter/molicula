@@ -139,6 +139,11 @@
     
     [self updateModelViewMatrix];
     [self updateAabb];
+    
+//    glGenBuffers(1, &boundingBoxBuffer);
+//    glBindBuffer(GL_ARRAY_BUFFER, boundingBoxBuffer);
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(boundingBoxVertices), boundingBoxVertices, GL_STATIC_DRAW);
+//    glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
   
   return self;
