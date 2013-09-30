@@ -466,7 +466,7 @@ typedef enum {
       transformRotationAngle = newTransformRotationAngle;
     } else if (isMirroringInProgress) {
       CGFloat newTransformMirroringOffset = transformLocation.x;
-      [activeMolecule mirror:GLKMathDegreesToRadians(newTransformMirroringOffset - transformMirroringOffset)];
+      [activeMolecule mirror:GLKMathDegreesToRadians(newTransformMirroringOffset - transformMirroringOffset) * 0.8f];
       transformMirroringOffset = newTransformMirroringOffset;
     }
     
@@ -541,7 +541,12 @@ typedef enum {
   {
     if (pointerTouch == touch)
     {
+      [activeMolecule snapOrientation];
+      isRotationInProgress = false;
+      isMirroringInProgress = false;
+      
       pointerTouch = nil;
+      transformTouch = nil;
       [grid snapMolecule:activeMolecule];
       activeMolecule = nil;
       
@@ -551,6 +556,7 @@ typedef enum {
     if (transformTouch == touch)
     {
       transformTouch = nil;
+      
       [activeMolecule snapOrientation];
       isRotationInProgress = false;
       isMirroringInProgress = false;
