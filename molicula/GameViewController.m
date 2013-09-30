@@ -43,17 +43,11 @@
    */
   BOOL shouldStopUpdating;
   
-  /**
-   * Cumulates the vertical movement of the transform to trigger it once it
-   * reaches a certain threshold
-   */
-  CGPoint verticalMovement;
+  BOOL isRotationInProgress;
+  BOOL isMirroringInProgress;
   
-  /**
-   * Cumulates the horizontal movement of the transform to trigger it once it
-   * reaches a certain threshold
-   */
-  CGPoint horizontalMovement;
+  CGFloat transformRotationAngle;
+  CGFloat transformMirroringOffset;
   
   BOOL finishAnimation;
   int finishTimer;
@@ -128,6 +122,8 @@ typedef enum {
   
   GLKView *view = (GLKView *) self.view;
   view.context = self.context;
+  view.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
+  view.drawableDepthFormat = GLKViewDrawableDepthFormat16;
   view.drawableMultisample = GLKViewDrawableMultisample4X;
   view.multipleTouchEnabled = YES;
   view.exclusiveTouch = YES;
@@ -239,19 +235,19 @@ typedef enum {
 
 - (void)layoutMolecules {
   
-  NSUInteger count = molecules.count;
-  for (NSUInteger i = 0; i < count; ++i) {
-    // Select a random element between i and end of array to swap with.
-    NSInteger nElements = count - i;
-    NSInteger n = (arc4random_uniform(nElements)) + i;
-    [molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
-  }
-  for(NSUInteger i = 0; i < count; ++i) {
-    Molecule *molecule = [molecules objectAtIndex:i];
-    for (NSUInteger j = 0; j < arc4random_uniform(6); ++j) {
-      [molecule rotateClockwise];
-    }
-  }
+//  NSUInteger count = molecules.count;
+//  for (NSUInteger i = 0; i < count; ++i) {
+//    // Select a random element between i and end of array to swap with.
+//    NSInteger nElements = count - i;
+//    NSInteger n = (arc4random_uniform(nElements)) + i;
+//    [molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
+//  }
+//  for(NSUInteger i = 0; i < count; ++i) {
+//    Molecule *molecule = [molecules objectAtIndex:i];
+//    for (NSUInteger j = 0; j < arc4random_uniform(6); ++j) {
+//      [molecule rotateClockwise];
+//    }
+//  }
   
   GLKVector2 directions[7] = { GLKVector2Make(0.000000f, 3.000000f), GLKVector2Make(-2.934872f, 2.038362f), GLKVector2Make(-3.871667f, -0.753814f), GLKVector2Make(-1.585160f, -2.754376f), GLKVector2Make(1.514443f, -2.776668f), GLKVector2Make(3.846348f, -0.823502f), GLKVector2Make(2.992000f, 1.991096f)};
   
@@ -269,7 +265,10 @@ typedef enum {
   int width = (int) [self.view bounds].size.width;
   int height = (int) [self.view bounds].size.height;
   
-  GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-width / 2, width / 2, -height / 2, height / 2, -1, 1);
+  GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-width / 2, width / 2, -height / 2, height / 2, 0.0f, 1000.0f);
+  
+//  GLfloat ratio = width/height;
+//  projectionMatrix = GLKMatrix4MakePerspective(90.0f, ratio, -10.0f, 10.0f);
   self.effect.transform.projectionMatrix = projectionMatrix;
   
   [self updateOnce];
@@ -297,7 +296,7 @@ typedef enum {
     shouldStopUpdating = NO;
   }
   if (finishAnimation) {
-    [leftOverMolecule rotateClockwise];
+    [leftOverMolecule rotate:GLKMathDegreesToRadians(60)];
     finishTimer += 1;
     
     if(finishTimer > 7*5) {
@@ -315,7 +314,7 @@ typedef enum {
 -(void)render {
   GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
   glClearColor(bg.x, bg.y, bg.z, bg.w);
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   [grid render:self.effect];
   
@@ -327,7 +326,7 @@ typedef enum {
     CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
     [tutorial setPosition:GLKVector2Make(point.x, point.y)];
     self.effect.constantColor = activeMolecule.color;
-    [tutorial render:self.effect];
+    [tutorial render:self.effect andRotationInProgress:isRotationInProgress andMirroringInProgress:isMirroringInProgress];
   }
 }
 
@@ -369,6 +368,11 @@ typedef enum {
   else if (transformTouch == nil)
   {
     transformTouch = [touches anyObject];
+    
+    CGPoint pointerLocation = [pointerTouch locationInView:self.view];
+    CGPoint transformLocation = [transformTouch locationInView:self.view];
+    transformRotationAngle = atan2(transformLocation.y - pointerLocation.y, transformLocation.x - pointerLocation.x);
+    transformMirroringOffset = transformLocation.x;
   }
 }
 
@@ -432,75 +436,40 @@ typedef enum {
   
   if (transformTouch != nil)
   {
-    CGPoint modifierPoint = [self touchPointToGLPoint:[transformTouch locationInView:self.view]];
-    CGPoint modifierPrevious = [self touchPointToGLPoint:[transformTouch previousLocationInView:self.view]];
-    
-    CGPoint modifierDiff = CGPointMake(modifierPoint.x - modifierPrevious.x, modifierPoint.y - modifierPrevious.y);
-    
-    // determine quadrant
-    Quadrant quadrant = [self determineTouchQuadrantFor:modifierPoint RelativeTo:point];
-    
-    const float rotate_treshhold = 10.0f;
-    const float reflect_threshold = 10.0f;
-    
-    switch(quadrant) {
-      case QuadrantTop:
-        horizontalMovement = CGPointMake(horizontalMovement.x + modifierDiff.x, horizontalMovement.y + modifierDiff.y);
-        if (horizontalMovement.x > reflect_threshold || horizontalMovement.x < -reflect_threshold)
-        {
-          horizontalMovement = CGPointMake(0, 0);
-          verticalMovement = CGPointMake(0, 0);
-          transformTouch = nil;
-          [activeMolecule reflect];
-        }
-        break;
-      case QuadrantLeft:
-        verticalMovement = CGPointMake(verticalMovement.x + modifierDiff.x, verticalMovement.y + modifierDiff.y);
-        if (verticalMovement.y > rotate_treshhold)
-        {
-          horizontalMovement = CGPointMake(0, 0);
-          verticalMovement = CGPointMake(0, 0);
-          transformTouch = nil;
-          [activeMolecule rotateClockwise];
-        }
-        else if (verticalMovement.y < -rotate_treshhold)
-        {
-          horizontalMovement = CGPointMake(0, 0);
-          verticalMovement = CGPointMake(0, 0);
-          transformTouch = nil;
-          [activeMolecule rotateCounterClockwise];
-        }
-        break;
-      case QuadrantRight:
-        verticalMovement = CGPointMake(verticalMovement.x + modifierDiff.x, verticalMovement.y + modifierDiff.y);
-        if (verticalMovement.y > rotate_treshhold)
-        {
-          horizontalMovement = CGPointMake(0, 0);
-          verticalMovement = CGPointMake(0, 0);
-          transformTouch = nil;
-          [activeMolecule rotateCounterClockwise];
-        }
-        else if (verticalMovement.y < -rotate_treshhold)
-        {
-          horizontalMovement = CGPointMake(0, 0);
-          verticalMovement = CGPointMake(0, 0);
-          transformTouch = nil;
-          [activeMolecule rotateClockwise];
-        }
-        break;
-      case QuadrantBottom:
-        horizontalMovement = CGPointMake(horizontalMovement.x + modifierDiff.x, horizontalMovement.y + modifierDiff.y);
-        if (horizontalMovement.x > reflect_threshold || horizontalMovement.x < -reflect_threshold)
-        {
-          horizontalMovement = CGPointMake(0, 0);
-          verticalMovement = CGPointMake(0, 0);
-          transformTouch = nil;
-          [activeMolecule reflect];
-        }
-        break;
-      default:
-        break;
+    if (!isRotationInProgress && !isMirroringInProgress) {
+      CGPoint modifierPoint = [self touchPointToGLPoint:[transformTouch locationInView:self.view]];
+      
+      // determine quadrant
+      Quadrant quadrant = [self determineTouchQuadrantFor:modifierPoint RelativeTo:point];
+      switch(quadrant) {
+        case QuadrantLeft:
+        case QuadrantRight:
+          isRotationInProgress = true;
+          isMirroringInProgress = false;
+          break;
+        case QuadrantTop:
+        case QuadrantBottom:
+          isRotationInProgress = false;
+          isMirroringInProgress = true;
+          break;
+        default:
+          break;
+      }
     }
+    
+    CGPoint pointerLocation = [pointerTouch locationInView:self.view];
+    CGPoint transformLocation = [transformTouch locationInView:self.view];
+    
+    if (isRotationInProgress) {
+      CGFloat newTransformRotationAngle = atan2(transformLocation.y - pointerLocation.y, transformLocation.x - pointerLocation.x);
+      [activeMolecule rotate:newTransformRotationAngle-transformRotationAngle];
+      transformRotationAngle = newTransformRotationAngle;
+    } else if (isMirroringInProgress) {
+      CGFloat newTransformMirroringOffset = transformLocation.x;
+      [activeMolecule mirror:GLKMathDegreesToRadians(newTransformMirroringOffset - transformMirroringOffset)];
+      transformMirroringOffset = newTransformMirroringOffset;
+    }
+    
   }
   
   [self enforceScreenBoundsForMolecule:activeMolecule];
@@ -582,8 +551,9 @@ typedef enum {
     if (transformTouch == touch)
     {
       transformTouch = nil;
-      horizontalMovement = CGPointMake(0, 0);
-      verticalMovement = CGPointMake(0, 0);
+      [activeMolecule snapOrientation];
+      isRotationInProgress = false;
+      isMirroringInProgress = false;
     }
   }
 }

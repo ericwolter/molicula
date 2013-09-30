@@ -69,7 +69,7 @@
   
   self.modelViewMatrix = GLKMatrix4Identity;
   self.modelViewMatrix = GLKMatrix4Scale(self.modelViewMatrix, RENDER_HEX_HEIGHT / 2.0f, RENDER_HEX_HEIGHT / 2.0f, 1.0f);
-  self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-gridWidth / 2.0f + hexWidth / 2.0f, gridHeight / 2.0f, 0.0f), self.modelViewMatrix);
+  self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-gridWidth / 2.0f + hexWidth / 2.0f, gridHeight / 2.0f, -500.0f), self.modelViewMatrix);
 }
 
 - (void)render:(GLKBaseEffect *)effect {

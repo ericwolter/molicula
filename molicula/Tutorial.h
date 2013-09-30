@@ -52,7 +52,7 @@ static const float BAR_OFFSET_Y = 0.0f;
 @property(nonatomic) GLKVector2 position;
 @property GLKMatrix4 modelViewMatrix;
 
-- (void)render:(GLKBaseEffect *)effect;
+- (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress;
 - (void)updateModelViewMatrix;
 
 @end

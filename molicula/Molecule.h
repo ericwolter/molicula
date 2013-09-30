@@ -31,7 +31,6 @@ static const float BOND_WIDTH = CIRCLE_RADIUS * 0.3f;
 @property(nonatomic) GLKVector2 position;
 @property(nonatomic) GLKQuaternion orientation;
 @property(nonatomic) GLKVector2 center;
-@property(nonatomic) BOOL isReflected;
 @property(nonatomic) BOOL isSnapped;
 @property(nonatomic) NSArray *snappedHoles;
 @property GLKVector2 aabbMin;
@@ -58,11 +57,9 @@ static const float BOND_WIDTH = CIRCLE_RADIUS * 0.3f;
 
 - (void)translate:(GLKVector2)translation;
 
-- (void)rotateClockwise;
-
-- (void)rotateCounterClockwise;
-
-- (void)reflect;
+- (void)rotate:(CGFloat)angle;
+- (void)mirror:(CGFloat)angle;
+- (void)snapOrientation;
 
 - (NSArray*)getAtomPositionsInWorld;
 

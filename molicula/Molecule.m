@@ -17,7 +17,6 @@
 @synthesize position = _position;
 @synthesize orientation = _orientation;
 @synthesize center = _center;
-@synthesize isReflected;
 
 + (CGPoint)mapToArrayIndices:(CGPoint)atomCoordinates {
   return CGPointMake(atomCoordinates.x, atomCoordinates.y + 1);
@@ -211,15 +210,9 @@
 - (void)updateModelViewMatrix {
   self.modelViewMatrix = GLKMatrix4Identity;
   self.modelViewMatrix = GLKMatrix4Multiply(self.modelViewMatrix, GLKMatrix4MakeTranslation(-_center.x, -_center.y, 0));
-  self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(self.orientation), self.modelViewMatrix);
-  if (isReflected) {
-    GLKVector2 axis = GLKVector2Make(0, 1);
-    GLKMatrix4 reflection;
-    reflection = [self GLKMatrix4MakeReflection:axis];
-    self.modelViewMatrix = GLKMatrix4Multiply(reflection, self.modelViewMatrix);
-  }
   self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(RENDER_RADIUS, RENDER_RADIUS, 1.0f), self.modelViewMatrix);
-  self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(self.position.x, self.position.y, 0), self.modelViewMatrix);
+  self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(self.orientation), self.modelViewMatrix);
+  self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(self.position.x, self.position.y, -500.0f), self.modelViewMatrix);
 }
 
 - (void)renderBonds:(GLKBaseEffect *)effect {
@@ -285,30 +278,57 @@
   [self updateAabb];
 }
 
-- (void)rotateClockwise {
-  if (isReflected) {
-    self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(60), 0, 0, 1), self.orientation);
-  } else {
-    self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(-60), 0, 0, 1), self.orientation);
+- (void)rotate:(CGFloat)angle {
+  self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(-angle, 0, 0, 1), self.orientation);
+  [self updateModelViewMatrix];
+  [self updateAabb];
+}
+
+- (void)snapOrientation {
+  // see: http://math.stackexchange.com/questions/90081/quaternion-distance
+  const GLKQuaternion allowedOrientations[12] = {
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(60), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(120), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(240), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(300), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(60), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(120), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(240), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(300), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+  };
+  
+  GLKQuaternion normOrientation = GLKQuaternionNormalize(self.orientation);
+  
+  int closestOrientationIndex = -1;
+  float closestDistance = FLT_MAX;
+  
+  for (int i = 0; i < 12; i++) {
+    GLKQuaternion allowedOrientation = allowedOrientations[i];
+    float innerProduct =
+      normOrientation.x * allowedOrientation.x +
+      normOrientation.y * allowedOrientation.y +
+      normOrientation.z * allowedOrientation.z +
+      normOrientation.w * allowedOrientation.w;
+    float distance = 1 - innerProduct * innerProduct;
+    
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestOrientationIndex = i;
+    }
   }
+  
+  self.orientation = allowedOrientations[closestOrientationIndex];
   
   [self updateModelViewMatrix];
   [self updateAabb];
 }
 
-- (void)rotateCounterClockwise {
-  if (isReflected) {
-    self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(-60), 0, 0, 1), self.orientation);
-  } else {
-    self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(60), 0, 0, 1), self.orientation);
-  }
-  
-  [self updateModelViewMatrix];
-  [self updateAabb];
-}
-
-- (void)reflect {
-  isReflected = isReflected ^ 1;
+-(void)mirror:(CGFloat)angle {
+  self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(angle, 0, 1, 0), self.orientation);
   
   [self updateModelViewMatrix];
   [self updateAabb];

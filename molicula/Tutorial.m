@@ -20,21 +20,7 @@
   [self updateModelViewMatrix];
 }
 
-- (void)render:(GLKBaseEffect *)effect {
-  effect.constantColor = GLKVector4Make(effect.constantColor.x, effect.constantColor.y, effect.constantColor.z, 0.5f);
-  effect.transform.modelviewMatrix = self.modelViewMatrix;
-  [effect prepareToDraw];
-  
-  glEnable(GL_BLEND);
-  glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-//  
-//  glBindBuffer(GL_ARRAY_BUFFER, quadrantCrossBuffer);
-//  glEnableVertexAttribArray(GLKVertexAttribPosition);
-//  glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, 0);
-//  glDrawArrays(GL_TRIANGLES, 0, 6);
-//  glDisableVertexAttribArray(GLKVertexAttribPosition);
-//  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  
+- (void)renderRotation {
   glBindBuffer(GL_ARRAY_BUFFER, rightArcBuffer);
   glEnableVertexAttribArray(GLKVertexAttribPosition);
   glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, 0);
@@ -62,7 +48,9 @@
   glDrawArrays(GL_TRIANGLES, 0, 6);
   glDisableVertexAttribArray(GLKVertexAttribPosition);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
-  
+}
+
+- (void)renderMirroring {
   glBindBuffer(GL_ARRAY_BUFFER, topBarBuffer);
   glEnableVertexAttribArray(GLKVertexAttribPosition);
   glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, 0);
@@ -90,6 +78,24 @@
   glDrawArrays(GL_TRIANGLES, 0, 6);
   glDisableVertexAttribArray(GLKVertexAttribPosition);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+- (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress {
+  effect.constantColor = GLKVector4Make(effect.constantColor.x, effect.constantColor.y, effect.constantColor.z, 0.5f);
+  effect.transform.modelviewMatrix = self.modelViewMatrix;
+  [effect prepareToDraw];
+  
+  glEnable(GL_BLEND);
+  glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+
+  if (isRotationInProgress && !isMirroringInProgress) {
+    [self renderRotation];
+  } else if (!isRotationInProgress && isMirroringInProgress){
+    [self renderMirroring];
+  } else {
+    [self renderRotation];
+    [self renderMirroring];
+  }
 }
 
 - (void)updateModelViewMatrix {
