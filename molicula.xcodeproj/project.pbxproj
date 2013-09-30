@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */; };
+		07124B9D17F9999500D7B5CD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9C17F9999500D7B5CD /* Default-568h@2x.png */; };
+		07124BA317F99AE900D7B5CD /* GameViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 07124BA217F99AE900D7B5CD /* GameViewController_iPad.m */; };
+		07124BA617F99B2B00D7B5CD /* GameViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 07124BA517F99B2B00D7B5CD /* GameViewController_iPhone.m */; };
 		077F9A7617D7CBB0004F1960 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7517D7CBB0004F1960 /* UIKit.framework */; };
 		077F9A7817D7CBB0004F1960 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7717D7CBB0004F1960 /* Foundation.framework */; };
 		077F9A7A17D7CBB0004F1960 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7917D7CBB0004F1960 /* CoreGraphics.framework */; };
@@ -15,10 +19,7 @@
 		077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8217D7CBB0004F1960 /* InfoPlist.strings */; };
 		077F9A8617D7CBB0004F1960 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8517D7CBB0004F1960 /* main.m */; };
 		077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8917D7CBB0004F1960 /* AppDelegate.m */; };
-		077F9A8C17D7CBB0004F1960 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8B17D7CBB0004F1960 /* Default.png */; };
-		077F9A8E17D7CBB0004F1960 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8D17D7CBB0004F1960 /* Default@2x.png */; };
-		077F9A9017D7CBB0004F1960 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8F17D7CBB0004F1960 /* Default-568h@2x.png */; };
-		077F9A9317D7CBB0004F1960 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9117D7CBB0004F1960 /* MainStoryboard.storyboard */; };
+		077F9A9317D7CBB0004F1960 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9117D7CBB0004F1960 /* Main_iPad.storyboard */; };
 		077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9417D7CBB0004F1960 /* Shader.fsh */; };
 		077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9617D7CBB0004F1960 /* Shader.vsh */; };
 		077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A9917D7CBB0004F1960 /* GameViewController.m */; };
@@ -36,14 +37,8 @@
 		077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9ACE17D7CD41004F1960 /* ColorTheme.m */; };
 		077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */; };
 		077F9AD717D7D206004F1960 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9AD617D7D206004F1960 /* Crashlytics.framework */; };
-		077F9ADD17D8636A004F1960 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9ADC17D8636A004F1960 /* Default-Portrait@2x~ipad.png */; };
-		077F9ADF17D8636D004F1960 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9ADE17D8636D004F1960 /* Default-Portrait~ipad.png */; };
-		077F9AE117D86372004F1960 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AE017D86371004F1960 /* Default-Landscape@2x~ipad.png */; };
-		077F9AE317D86375004F1960 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AE217D86375004F1960 /* Default-Landscape~ipad.png */; };
 		07F16FD317E0F79300D15F36 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F16FD217E0F79300D15F36 /* Tutorial.m */; };
 		07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07F16FD417E725AD00D15F36 /* appstore_description.rtf */; };
-		07F16FD717E7374F00D15F36 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F16FD617E7374F00D15F36 /* Icon-72.png */; };
-		07F16FD917E7375300D15F36 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F16FD817E7375300D15F36 /* Icon-72@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +52,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
+		07124B9C17F9999500D7B5CD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07124BA117F99AE900D7B5CD /* GameViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController_iPad.h; sourceTree = "<group>"; };
+		07124BA217F99AE900D7B5CD /* GameViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController_iPad.m; sourceTree = "<group>"; };
+		07124BA417F99B2B00D7B5CD /* GameViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController_iPhone.h; sourceTree = "<group>"; };
+		07124BA517F99B2B00D7B5CD /* GameViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController_iPhone.m; sourceTree = "<group>"; };
+		07124BB517F9A63900D7B5CD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		077F9A7217D7CBB0004F1960 /* molicula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = molicula.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		077F9A7517D7CBB0004F1960 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		077F9A7717D7CBB0004F1960 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -69,10 +71,7 @@
 		077F9A8717D7CBB0004F1960 /* molicula-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "molicula-Prefix.pch"; sourceTree = "<group>"; };
 		077F9A8817D7CBB0004F1960 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		077F9A8917D7CBB0004F1960 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		077F9A8B17D7CBB0004F1960 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		077F9A8D17D7CBB0004F1960 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		077F9A8F17D7CBB0004F1960 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		077F9A9217D7CBB0004F1960 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		077F9A9217D7CBB0004F1960 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		077F9A9417D7CBB0004F1960 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
 		077F9A9617D7CBB0004F1960 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		077F9A9817D7CBB0004F1960 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
@@ -102,15 +101,9 @@
 		077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSValue_GLKVector.h; sourceTree = "<group>"; };
 		077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITouch_TouchSorting.h; sourceTree = "<group>"; };
 		077F9AD617D7D206004F1960 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		077F9ADC17D8636A004F1960 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
-		077F9ADE17D8636D004F1960 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
-		077F9AE017D86371004F1960 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
-		077F9AE217D86375004F1960 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		07F16FD117E0F79300D15F36 /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tutorial.h; sourceTree = "<group>"; };
 		07F16FD217E0F79300D15F36 /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tutorial.m; sourceTree = "<group>"; };
 		07F16FD417E725AD00D15F36 /* appstore_description.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = appstore_description.rtf; sourceTree = "<group>"; };
-		07F16FD617E7374F00D15F36 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
-		07F16FD817E7375300D15F36 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,11 +133,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07124B9E17F999E900D7B5CD /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				07F16FD117E0F79300D15F36 /* Tutorial.h */,
+				07F16FD217E0F79300D15F36 /* Tutorial.m */,
+				077F9A9817D7CBB0004F1960 /* GameViewController.h */,
+				077F9A9917D7CBB0004F1960 /* GameViewController.m */,
+				077F9A8817D7CBB0004F1960 /* AppDelegate.h */,
+				077F9A8917D7CBB0004F1960 /* AppDelegate.m */,
+				077F9A9417D7CBB0004F1960 /* Shader.fsh */,
+				077F9A9617D7CBB0004F1960 /* Shader.vsh */,
+				077F9AB817D7CC44004F1960 /* Grid.h */,
+				077F9AB917D7CC44004F1960 /* Grid.m */,
+				077F9ABE17D7CCB8004F1960 /* Molecule.h */,
+				077F9ABF17D7CCB8004F1960 /* Molecule.m */,
+				077F9AC117D7CCE7004F1960 /* Hole.h */,
+				077F9AC217D7CCE7004F1960 /* Hole.m */,
+				077F9AC417D7CCF6004F1960 /* Atom.h */,
+				077F9AC517D7CCF6004F1960 /* Atom.m */,
+				077F9AC717D7CD02004F1960 /* Helper.h */,
+				077F9AC817D7CD02004F1960 /* Helper.m */,
+				077F9ACA17D7CD35004F1960 /* Hexagon.h */,
+				077F9ACB17D7CD35004F1960 /* Hexagon.m */,
+				077F9ACD17D7CD41004F1960 /* ColorTheme.h */,
+				077F9ACE17D7CD41004F1960 /* ColorTheme.m */,
+				077F9AD017D7CD4D004F1960 /* MoleculeFactory.h */,
+				077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */,
+				077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */,
+				077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */,
+				07124BB517F9A63900D7B5CD /* Constants.h */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		07124B9F17F999FE00D7B5CD /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */,
+				07124BA417F99B2B00D7B5CD /* GameViewController_iPhone.h */,
+				07124BA517F99B2B00D7B5CD /* GameViewController_iPhone.m */,
+			);
+			name = iPhone;
+			sourceTree = "<group>";
+		};
+		07124BA017F99A0200D7B5CD /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				077F9A9117D7CBB0004F1960 /* Main_iPad.storyboard */,
+				07124BA117F99AE900D7B5CD /* GameViewController_iPad.h */,
+				07124BA217F99AE900D7B5CD /* GameViewController_iPad.m */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
 		077F9A6917D7CBB0004F1960 = {
 			isa = PBXGroup;
 			children = (
-				07F16FD817E7375300D15F36 /* Icon-72@2x.png */,
-				07F16FD617E7374F00D15F36 /* Icon-72.png */,
+				07124B9C17F9999500D7B5CD /* Default-568h@2x.png */,
 				077F9A7F17D7CBB0004F1960 /* molicula */,
 				077F9AA717D7CBB0004F1960 /* moliculaTests */,
 				077F9A7417D7CBB0004F1960 /* Frameworks */,
@@ -178,34 +224,10 @@
 		077F9A7F17D7CBB0004F1960 /* molicula */ = {
 			isa = PBXGroup;
 			children = (
-				077F9A8817D7CBB0004F1960 /* AppDelegate.h */,
-				077F9A8917D7CBB0004F1960 /* AppDelegate.m */,
-				077F9A9117D7CBB0004F1960 /* MainStoryboard.storyboard */,
-				077F9A9417D7CBB0004F1960 /* Shader.fsh */,
-				077F9A9617D7CBB0004F1960 /* Shader.vsh */,
-				077F9A9817D7CBB0004F1960 /* GameViewController.h */,
-				077F9A9917D7CBB0004F1960 /* GameViewController.m */,
+				07124BA017F99A0200D7B5CD /* iPad */,
+				07124B9F17F999FE00D7B5CD /* iPhone */,
+				07124B9E17F999E900D7B5CD /* Shared */,
 				077F9A8017D7CBB0004F1960 /* Supporting Files */,
-				077F9AB817D7CC44004F1960 /* Grid.h */,
-				077F9AB917D7CC44004F1960 /* Grid.m */,
-				077F9ABE17D7CCB8004F1960 /* Molecule.h */,
-				077F9ABF17D7CCB8004F1960 /* Molecule.m */,
-				077F9AC117D7CCE7004F1960 /* Hole.h */,
-				077F9AC217D7CCE7004F1960 /* Hole.m */,
-				077F9AC417D7CCF6004F1960 /* Atom.h */,
-				077F9AC517D7CCF6004F1960 /* Atom.m */,
-				077F9AC717D7CD02004F1960 /* Helper.h */,
-				077F9AC817D7CD02004F1960 /* Helper.m */,
-				077F9ACA17D7CD35004F1960 /* Hexagon.h */,
-				077F9ACB17D7CD35004F1960 /* Hexagon.m */,
-				077F9ACD17D7CD41004F1960 /* ColorTheme.h */,
-				077F9ACE17D7CD41004F1960 /* ColorTheme.m */,
-				077F9AD017D7CD4D004F1960 /* MoleculeFactory.h */,
-				077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */,
-				077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */,
-				077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */,
-				07F16FD117E0F79300D15F36 /* Tutorial.h */,
-				07F16FD217E0F79300D15F36 /* Tutorial.m */,
 			);
 			path = molicula;
 			sourceTree = "<group>";
@@ -213,17 +235,10 @@
 		077F9A8017D7CBB0004F1960 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				077F9AE217D86375004F1960 /* Default-Landscape~ipad.png */,
-				077F9AE017D86371004F1960 /* Default-Landscape@2x~ipad.png */,
-				077F9ADE17D8636D004F1960 /* Default-Portrait~ipad.png */,
-				077F9ADC17D8636A004F1960 /* Default-Portrait@2x~ipad.png */,
 				077F9A8117D7CBB0004F1960 /* molicula-Info.plist */,
 				077F9A8217D7CBB0004F1960 /* InfoPlist.strings */,
 				077F9A8517D7CBB0004F1960 /* main.m */,
 				077F9A8717D7CBB0004F1960 /* molicula-Prefix.pch */,
-				077F9A8B17D7CBB0004F1960 /* Default.png */,
-				077F9A8D17D7CBB0004F1960 /* Default@2x.png */,
-				077F9A8F17D7CBB0004F1960 /* Default-568h@2x.png */,
 				07F16FD417E725AD00D15F36 /* appstore_description.rtf */,
 			);
 			name = "Supporting Files";
@@ -321,19 +336,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */,
-				077F9A8C17D7CBB0004F1960 /* Default.png in Resources */,
-				077F9A8E17D7CBB0004F1960 /* Default@2x.png in Resources */,
-				077F9A9017D7CBB0004F1960 /* Default-568h@2x.png in Resources */,
-				077F9A9317D7CBB0004F1960 /* MainStoryboard.storyboard in Resources */,
+				077F9A9317D7CBB0004F1960 /* Main_iPad.storyboard in Resources */,
+				07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */,
 				077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */,
 				077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */,
-				077F9ADD17D8636A004F1960 /* Default-Portrait@2x~ipad.png in Resources */,
-				077F9ADF17D8636D004F1960 /* Default-Portrait~ipad.png in Resources */,
-				077F9AE117D86372004F1960 /* Default-Landscape@2x~ipad.png in Resources */,
-				077F9AE317D86375004F1960 /* Default-Landscape~ipad.png in Resources */,
+				07124B9D17F9999500D7B5CD /* Default-568h@2x.png in Resources */,
 				07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */,
-				07F16FD717E7374F00D15F36 /* Icon-72.png in Resources */,
-				07F16FD917E7375300D15F36 /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,8 +396,10 @@
 				077F9AC017D7CCB8004F1960 /* Molecule.m in Sources */,
 				077F9AC317D7CCE7004F1960 /* Hole.m in Sources */,
 				077F9AC617D7CCF6004F1960 /* Atom.m in Sources */,
+				07124BA617F99B2B00D7B5CD /* GameViewController_iPhone.m in Sources */,
 				077F9AC917D7CD02004F1960 /* Helper.m in Sources */,
 				077F9ACC17D7CD35004F1960 /* Hexagon.m in Sources */,
+				07124BA317F99AE900D7B5CD /* GameViewController_iPad.m in Sources */,
 				077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */,
 				077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */,
 				07F16FD317E0F79300D15F36 /* Tutorial.m in Sources */,
@@ -423,12 +433,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		077F9A9117D7CBB0004F1960 /* MainStoryboard.storyboard */ = {
+		077F9A9117D7CBB0004F1960 /* Main_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				077F9A9217D7CBB0004F1960 /* en */,
 			);
-			name = MainStoryboard.storyboard;
+			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		077F9AAA17D7CBB1004F1960 /* InfoPlist.strings */ = {
@@ -511,6 +521,7 @@
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -530,6 +541,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -14,11 +14,6 @@
 #import "Atom.h"
 #import "Grid.h"
 
-static const int MOLECULE_SIZE = 5;
-static const int NUMBER_OF_BOND_VERTICES = 4;
-
-static const float BOND_WIDTH = CIRCLE_RADIUS * 0.3f;
-
 @interface Molecule : NSObject {
   GLKVector2 *bondPoints;
   GLushort *bondIndices;

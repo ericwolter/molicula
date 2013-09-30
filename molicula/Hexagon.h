@@ -8,15 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
-
-static const float HEXAGON_HEIGHT = 2.0f;
-static const float HEXAGON_WIDTH = (2.0f * HEXAGON_HEIGHT) / 1.73205080757; // (2 * h) / sqrt(3)
-static const float HEXAGON_HALF_WIDTH = HEXAGON_WIDTH / 2.0f;
-static const float HEXAGON_NARROW_WIDTH = HEXAGON_HALF_WIDTH + HEXAGON_WIDTH / 4.0f;
-
-static const float CIRCLE_SCALE = 0.9f;
-static const float CIRCLE_RADIUS = (HEXAGON_HEIGHT / 2.0f) * CIRCLE_SCALE;
-static const int CIRCLE_RESOLUTION = 64;
+#import "Constants.h"
 
 @interface Hexagon : NSObject {
   GLKVector2 vertices[CIRCLE_RESOLUTION];

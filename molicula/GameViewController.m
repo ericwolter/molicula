@@ -51,6 +51,9 @@
   
   BOOL finishAnimation;
   int finishTimer;
+  
+  UITouch *pointerTouch;
+  UITouch *transformTouch;
 }
 
 /**
@@ -93,6 +96,7 @@ typedef enum {
 - (void)enforceScreenBoundsForMolecule:(Molecule *)molecule;
 - (void)layoutMolecules;
 - (void)checkForSolution;
+- (void)applicationWillResignActive;
 
 @end
 

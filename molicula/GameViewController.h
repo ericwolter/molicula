@@ -9,11 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 
-@interface GameViewController : GLKViewController <UIGestureRecognizerDelegate> {
-  UITouch *pointerTouch;
-  UITouch *transformTouch;
-}
-
-- (void)applicationWillResignActive;
+@interface GameViewController : GLKViewController <UIGestureRecognizerDelegate>
 
 @end
