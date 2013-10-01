@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller i Pad-->
+        <!--Game View Controller-->
         <scene sceneID="4">
             <objects>
-                <viewController id="2" customClass="GameViewController_iPad" sceneMemberID="viewController">
+                <viewController id="2" customClass="GameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UI2-LR-rm2"/>
                         <viewControllerLayoutGuide type="bottom" id="EjX-Cg-N5q"/>
