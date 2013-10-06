@@ -155,7 +155,11 @@
   for (NSArray *column in self.holes) {
     for (Hole *hole in column) {
       if (hole != (id)[NSNull null]) {
-        [solution appendString:((Molecule *)hole.content).identifer];
+        if (hole.content == nil) {
+          [solution appendString:@"-"];
+        } else {
+          [solution appendString:((Molecule *)hole.content).identifer];
+        }
       } else {
         [solution appendString:@"0"];
       }

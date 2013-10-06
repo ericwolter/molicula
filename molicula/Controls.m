@@ -104,7 +104,6 @@
   self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(self.position.x, self.position.y, 0), self.modelViewMatrix);
 }
 
-
 - (void)initRightArrow {
     for (int i = 0; i <= TUTORIAL_RESOLUTION/TUTORIAL_ARC_RATIO; i++) {
         float theta = ((float) i / TUTORIAL_RESOLUTION) * M_TAU;
@@ -263,6 +262,64 @@
   }
   
   return self;
+}
+
+- (ControlTransform)hitTestAt:(CGPoint)point around:(Molecule *)molecule {
+  GLKVector2 vector = GLKVector2Make(point.x, point.y);
+  
+  CGFloat distance = GLKVector2Distance(vector, molecule.position);
+  if(distance <= (1.0f * TUTORIAL_SCALE) * 1.2f && distance >= ((1.0f - ARROW_THICKNESS) * TUTORIAL_SCALE) * 0.8f) {
+    switch ([self determineTouchQuadrantFor:point RelativeTo:CGPointMake(molecule.position.x, molecule.position.y)]) {
+      case QuadrantLeft:
+      case QuadrantRight:
+        return Rotate;
+      case QuadrantTop:
+      case QuadrantBottom:
+        return Mirror;
+      default:
+        return None;
+    }
+  }
+  
+  return None;
+}
+
+- (Quadrant)determineTouchQuadrantFor:(CGPoint)transformPoint RelativeTo:(CGPoint)pointerPoint {
+  
+  CGPoint ascendingDiagonal[2] = { pointerPoint, CGPointMake(pointerPoint.x + 1, pointerPoint.y + 1) };
+  CGPoint descendingDiagonal[2] = { pointerPoint, CGPointMake(pointerPoint.x + 1, pointerPoint.y - 1) };
+  
+  LinePosition ascendingSide = [self determineOnWhichSideOfLine:ascendingDiagonal LiesPoint:transformPoint];
+  LinePosition descendingSide = [self determineOnWhichSideOfLine:descendingDiagonal LiesPoint:transformPoint];
+  
+  if (ascendingSide == PointOnRightSide && descendingSide == PointOnRightSide) {
+    return QuadrantTop;
+  } else if (ascendingSide == PointOnRightSide && descendingSide == PointOnLeftSide) {
+    return QuadrantLeft;
+  } else if (ascendingSide == PointOnLeftSide && descendingSide == PointOnRightSide) {
+    return QuadrantRight;
+  } else if (ascendingSide == PointOnLeftSide && descendingSide == PointOnLeftSide) {
+    return QuadrantBottom;
+  } else {
+    return QuadrantUndefined;
+  }
+}
+
+- (LinePosition)determineOnWhichSideOfLine:(CGPoint*)line LiesPoint:(CGPoint)point {
+  // the pseudo distance will be zero if the point on the line
+  // otherwise it will be positive for the 'right' side and negative for the
+  // 'left' side
+  float pseudoDistance = (line[1].x - line[0].x) * (point.y - line[0].y) - (line[1].y - line[0].y) * (point.x - line[0].x);
+  
+  int side = (pseudoDistance > 0) - (pseudoDistance < 0);
+  
+  if (side < 0) {
+    return PointOnLeftSide;
+  } else if (side > 0) {
+    return PointOnRightSide;
+  } else {
+    return PointOnLine;
+  }
 }
 
 @end

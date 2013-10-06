@@ -35,6 +35,7 @@
   UITouch *transformTouch;
   
   UITouch *pointerTouch;
+  UITouch *controlTouch;
   
   /**
    * Holds the main playing grid.
@@ -57,35 +58,12 @@
   BOOL isMirroringInProgress;
 }
 
-/**
- * Enum type used to describe the quadrant the transform touch is relative
- * to the pointer touch
- */
-typedef enum {
-  QuadrantUndefined,
-  QuadrantTop,
-  QuadrantBottom,
-  QuadrantLeft,
-  QuadrantRight
-} Quadrant;
-
-/**
- * Enum type used to describe on which side a point lies relative to a line.
- */
-typedef enum {
-  PointOnLine,
-  PointOnLeftSide,
-  PointOnRightSide
-} LinePosition;
-
 @property(strong, nonatomic) EAGLContext *context;
 @property(strong, nonatomic) GLKBaseEffect *effect;
 
 - (void)render;
 
 - (CGPoint) touchPointToGLPoint:(CGPoint)point;
-- (Quadrant)determineTouchQuadrantFor:(CGPoint)transformPoint RelativeTo:(CGPoint)pointerPoint;
-- (LinePosition)determineOnWhichSideOfLine:(CGPoint*)line LiesPoint:(CGPoint)point;
 
 - (void)enforceScreenBoundsForMolecule:(Molecule *)molecule;
 
@@ -342,19 +320,41 @@ typedef enum {
     return;
   }
   
-  if (pointerTouch == nil)
-  {
-    pointerTouch = [touches anyObject];
-    CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
-    
+  UITouch *touch = [touches anyObject];
+  CGPoint touchPoint = [self touchPointToGLPoint:[touch locationInView:self.view]];
+  
+  if (activeMolecule != nil) {
+    ControlTransform transform = [controls hitTestAt:touchPoint around:activeMolecule];
+    switch (transform) {
+      case Rotate:
+        controlTouch = touch;
+        isRotationInProgress = YES;
+        
+        transformRotationAngle = atan2(touchPoint.y - activeMolecule.position.y, touchPoint.x - activeMolecule.position.x);
+        
+        return;
+      case Mirror:
+        controlTouch = touch;
+        isMirroringInProgress = YES;
+        
+        transformMirroringOffset = touchPoint.x;
+        return;
+      default:
+        break;
+    }
+  }
+  
+  if (pointerTouch == nil) {
+
     // check if any molecule was selected
     for (int moleculeIndex = molecules.count - 1; moleculeIndex >= 0; moleculeIndex--)
     {
       Molecule *m = [molecules objectAtIndex:moleculeIndex];
-      if ([m hitTest:point])
+      if ([m hitTest:touchPoint])
       {
+        pointerTouch = touch;
         activeMolecule = m;
-        activeMolecule.position = GLKVector2Make(point.x, point.y);
+        activeMolecule.position = GLKVector2Make(touchPoint.x, touchPoint.y);
         [molecules removeObjectAtIndex:moleculeIndex];
         [molecules addObject:m];
         [m unsnap];
@@ -367,15 +367,8 @@ typedef enum {
         return;
       }
     }
-    pointerTouch = nil;
+  
     activeMolecule = nil;
-  } else if (transformTouch == nil) {
-    transformTouch = [touches anyObject];
-    
-    CGPoint pointerLocation = [pointerTouch locationInView:self.view];
-    CGPoint transformLocation = [transformTouch locationInView:self.view];
-    transformRotationAngle = atan2(transformLocation.y - pointerLocation.y, transformLocation.x - pointerLocation.x);
-    transformMirroringOffset = transformLocation.x;
   }
 }
 
@@ -386,51 +379,64 @@ typedef enum {
     return;
   }
   
-  if (pointerTouch == nil)
+  NSLog(@"%@", [grid toString]);
+  
+  if (pointerTouch != nil)
   {
-    return;
+    CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
+    activeMolecule.position = GLKVector2Make(point.x, point.y);
   }
   
-  CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
-  activeMolecule.position = GLKVector2Make(point.x, point.y);
-  
-  if (transformTouch != nil)
-  {
-    if (!isRotationInProgress && !isMirroringInProgress) {
-      CGPoint modifierPoint = [self touchPointToGLPoint:[transformTouch locationInView:self.view]];
-      
-      // determine quadrant
-      Quadrant quadrant = [self determineTouchQuadrantFor:modifierPoint RelativeTo:point];
-      switch(quadrant) {
-        case QuadrantLeft:
-        case QuadrantRight:
-          isRotationInProgress = true;
-          isMirroringInProgress = false;
-          break;
-        case QuadrantTop:
-        case QuadrantBottom:
-          isRotationInProgress = false;
-          isMirroringInProgress = true;
-          break;
-        default:
-          break;
-      }
-    }
-    
-    CGPoint pointerLocation = [pointerTouch locationInView:self.view];
-    CGPoint transformLocation = [transformTouch locationInView:self.view];
-    
+  if(controlTouch != nil) {
+    CGPoint controlPoint = [self touchPointToGLPoint:[controlTouch locationInView:self.view]];
     if (isRotationInProgress) {
-      CGFloat newTransformRotationAngle = atan2(transformLocation.y - pointerLocation.y, transformLocation.x - pointerLocation.x);
-      [activeMolecule rotate:newTransformRotationAngle-transformRotationAngle];
+      CGFloat newTransformRotationAngle = atan2(controlPoint.y - activeMolecule.position.y, controlPoint.x - activeMolecule.position.x);
+      [activeMolecule rotate:transformRotationAngle-newTransformRotationAngle];
       transformRotationAngle = newTransformRotationAngle;
     } else if (isMirroringInProgress) {
-      CGFloat newTransformMirroringOffset = transformLocation.x;
-      [activeMolecule mirror:GLKMathDegreesToRadians(newTransformMirroringOffset - transformMirroringOffset)];
+      CGFloat newTransformMirroringOffset = controlPoint.x;
+      [activeMolecule mirror:GLKMathDegreesToRadians(transformMirroringOffset - newTransformMirroringOffset)];
       transformMirroringOffset = newTransformMirroringOffset;
     }
     
   }
+//  if (transformTouch != nil)
+//  {
+//    if (!isRotationInProgress && !isMirroringInProgress) {
+//      CGPoint modifierPoint = [self touchPointToGLPoint:[transformTouch locationInView:self.view]];
+//      
+//      // determine quadrant
+//      Quadrant quadrant = [self determineTouchQuadrantFor:modifierPoint RelativeTo:point];
+//      switch(quadrant) {
+//        case QuadrantLeft:
+//        case QuadrantRight:
+//          isRotationInProgress = true;
+//          isMirroringInProgress = false;
+//          break;
+//        case QuadrantTop:
+//        case QuadrantBottom:
+//          isRotationInProgress = false;
+//          isMirroringInProgress = true;
+//          break;
+//        default:
+//          break;
+//      }
+//    }
+//    
+//    CGPoint pointerLocation = [pointerTouch locationInView:self.view];
+//    CGPoint transformLocation = [transformTouch locationInView:self.view];
+//    
+//    if (isRotationInProgress) {
+//      CGFloat newTransformRotationAngle = atan2(transformLocation.y - pointerLocation.y, transformLocation.x - pointerLocation.x);
+//      [activeMolecule rotate:newTransformRotationAngle-transformRotationAngle];
+//      transformRotationAngle = newTransformRotationAngle;
+//    } else if (isMirroringInProgress) {
+//      CGFloat newTransformMirroringOffset = transformLocation.x;
+//      [activeMolecule mirror:GLKMathDegreesToRadians(newTransformMirroringOffset - transformMirroringOffset)];
+//      transformMirroringOffset = newTransformMirroringOffset;
+//    }
+//    
+//  }
   
   [self enforceScreenBoundsForMolecule:activeMolecule];
 }
@@ -441,24 +447,24 @@ typedef enum {
   {
     if (pointerTouch == touch)
     {
-      [activeMolecule snapOrientation];
-      isRotationInProgress = false;
-      isMirroringInProgress = false;
-      
       pointerTouch = nil;
-      transformTouch = nil;
+      shouldStopUpdating = YES;
+      
+      [activeMolecule snapOrientation];
       [grid snapMolecule:activeMolecule];
       
-      shouldStopUpdating = YES;
       [self checkForSolution];
     }
-    if (transformTouch == touch)
-    {
-      transformTouch = nil;
+    if(controlTouch == touch) {
+      controlTouch = nil;
       
-      [activeMolecule snapOrientation];
       isRotationInProgress = false;
       isMirroringInProgress = false;
+      
+      [activeMolecule snapOrientation];
+      [grid snapMolecule:activeMolecule];
+      
+      [self checkForSolution];
     }
   }
 }
@@ -487,44 +493,6 @@ typedef enum {
     bounding.y -= upOut;
   }
   [molecule translate:bounding];
-}
-
-- (Quadrant)determineTouchQuadrantFor:(CGPoint)transformPoint RelativeTo:(CGPoint)pointerPoint {
-  
-  CGPoint ascendingDiagonal[2] = { pointerPoint, CGPointMake(pointerPoint.x + 1, pointerPoint.y + 1) };
-  CGPoint descendingDiagonal[2] = { pointerPoint, CGPointMake(pointerPoint.x + 1, pointerPoint.y - 1) };
-  
-  LinePosition ascendingSide = [self determineOnWhichSideOfLine:ascendingDiagonal LiesPoint:transformPoint];
-  LinePosition descendingSide = [self determineOnWhichSideOfLine:descendingDiagonal LiesPoint:transformPoint];
-  
-  if (ascendingSide == PointOnRightSide && descendingSide == PointOnRightSide) {
-    return QuadrantTop;
-  } else if (ascendingSide == PointOnRightSide && descendingSide == PointOnLeftSide) {
-    return QuadrantLeft;
-  } else if (ascendingSide == PointOnLeftSide && descendingSide == PointOnRightSide) {
-    return QuadrantRight;
-  } else if (ascendingSide == PointOnLeftSide && descendingSide == PointOnLeftSide) {
-    return QuadrantBottom;
-  } else {
-    return QuadrantUndefined;
-  }
-}
-
-- (LinePosition)determineOnWhichSideOfLine:(CGPoint*)line LiesPoint:(CGPoint)point {
-  // the pseudo distance will be zero if the point on the line
-  // otherwise it will be positive for the 'right' side and negative for the
-  // 'left' side
-  float pseudoDistance = (line[1].x - line[0].x) * (point.y - line[0].y) - (line[1].y - line[0].y) * (point.x - line[0].x);
-  
-  int side = (pseudoDistance > 0) - (pseudoDistance < 0);
-  
-  if (side < 0) {
-    return PointOnLeftSide;
-  } else if (side > 0) {
-    return PointOnRightSide;
-  } else {
-    return PointOnLine;
-  }
 }
 
 - (void)checkForSolution

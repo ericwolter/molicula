@@ -8,7 +8,35 @@
 
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
+#import "Molecule.h"
 #import "Constants.h"
+
+typedef enum {
+  None,
+  Rotate,
+  Mirror
+} ControlTransform;
+
+/**
+ * Enum type used to describe the quadrant the transform touch is relative
+ * to the pointer touch
+ */
+typedef enum {
+  QuadrantUndefined,
+  QuadrantTop,
+  QuadrantBottom,
+  QuadrantLeft,
+  QuadrantRight
+} Quadrant;
+
+/**
+ * Enum type used to describe on which side a point lies relative to a line.
+ */
+typedef enum {
+  PointOnLine,
+  PointOnLeftSide,
+  PointOnRightSide
+} LinePosition;
 
 @interface Controls : NSObject {
   GLKVector2 rightArc[((TUTORIAL_RESOLUTION/TUTORIAL_ARC_RATIO)+1)*2];
@@ -43,6 +71,9 @@
 
 - (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress;
 - (void)updateModelViewMatrix;
+- (ControlTransform)hitTestAt:(CGPoint)point around:(Molecule *)molecule;
+- (Quadrant)determineTouchQuadrantFor:(CGPoint)transformPoint RelativeTo:(CGPoint)pointerPoint;
+- (LinePosition)determineOnWhichSideOfLine:(CGPoint*)line LiesPoint:(CGPoint)point;
 
 @end
 
