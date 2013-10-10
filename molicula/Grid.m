@@ -83,42 +83,61 @@
   }
 }
 
-- (bool)snapMolecule:(Molecule *)molecule {
-  NSMutableArray *filledHoles = [[NSMutableArray alloc] initWithCapacity:molecule.atoms.count];
-  GLKVector2 offset;
-  GLKVector2 snapOffset;
+- (DropResult*)drop:(Molecule *)molecule {
+  DropResult *result = [[DropResult alloc] init];
+  result.isOverGrid = NO;
+  result.molecule = molecule;
   
-  for (NSValue *value in [molecule getAtomPositionsInWorld])
-  {
-    GLKVector2 atomWorldCoordinate = [value GLKVector2Value];
-    BOOL isOverGrid = NO;
+  result.holes = [[NSMutableArray alloc] initWithCapacity:molecule.atoms.count];
+  
+  // for each atom three possible scenarios are possible
+  // 1. atom is not over the grid at all -> no drop result
+  // 2. atom is over a filled hole -> no drop result
+  // 3. atom is over an empty hole -> drop result
+  for(NSValue *wrappedAtomWorldCoordinate in [molecule getAtomPositionsInWorld]) {
+    GLKVector2 atomWorldCoordinate = [wrappedAtomWorldCoordinate GLKVector2Value];
     
+    BOOL isAtomOverGrid = NO;
+    
+    // iterate over the 2-dimensional holes array
     for (NSArray *column in self.holes) {
       for (Hole *hole in column) {
-        if (hole != (id)[NSNull null]) {
-          offset = GLKVector2Subtract([self getHoleWorldCoordinates:hole],atomWorldCoordinate);
-          if (GLKVector2Length(offset) < RENDER_HEX_HEIGHT / 2.0f)
-          {
-            snapOffset = GLKVector2Make(offset.x, offset.y);
-            if (hole.content)
-            {
-              return NO;
+        if(hole != (id)[NSNull null]) {
+          
+          // how far away is the atom from the hole in world coordinates
+          GLKVector2 offset = GLKVector2Subtract([self getHoleWorldCoordinates:hole], atomWorldCoordinate);
+          if(GLKVector2Length(offset) < RENDER_HEX_HEIGHT / 2.0f) {
+            
+            // check if the hole is already filled, if yes we can end the complete check
+            // if only a single atom can not be dropped the complete molecule also can't
+            if(hole.content) {
+              result.isOverGrid = NO;
+              return result;
             }
-            isOverGrid = YES;
-            [filledHoles addObject:hole];
+            result.offset = GLKVector2Make(offset.x, offset.y);
+            [result.holes addObject:hole];
+            
+            isAtomOverGrid = YES;
             break;
           }
         }
       }
+      
+      if(isAtomOverGrid) {
+        break;
+      }
     }
     
-    if (!isOverGrid)
-    {
-      return NO;
+    // check if the hole is even above the grid, if not we can end the complete check
+    // if only a single atom is not over the grid, the complete molecule can't be dropped
+    if (!isAtomOverGrid) {
+      result.isOverGrid = NO;
+      return result;
     }
   }
-  [molecule snap:snapOffset toHoles:filledHoles];
-  return YES;
+  
+  result.isOverGrid = YES;
+  return result;
 }
 
 - (GLKVector2)getHoleWorldCoordinates:(Hole *)hole {

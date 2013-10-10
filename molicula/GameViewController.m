@@ -327,6 +327,7 @@
     ControlTransform transform = [controls hitTestAt:touchPoint around:activeMolecule];
     switch (transform) {
       case Rotate:
+        NSLog(@"beganTransform Rotate");
         controlTouch = touch;
         isRotationInProgress = YES;
         
@@ -334,6 +335,7 @@
         
         return;
       case Mirror:
+        NSLog(@"beganTransform Rotate");
         controlTouch = touch;
         isMirroringInProgress = YES;
         
@@ -352,6 +354,7 @@
       Molecule *m = [molecules objectAtIndex:moleculeIndex];
       if ([m hitTest:touchPoint])
       {
+        NSLog(@"beganMovement");
         pointerTouch = touch;
         activeMolecule = m;
         activeMolecule.position = GLKVector2Make(touchPoint.x, touchPoint.y);
@@ -359,8 +362,11 @@
         [molecules addObject:m];
         [m unsnap];
         for(Molecule *molecule in molecules) {
-          if(molecule!=activeMolecule) {
-            [grid snapMolecule:molecule];
+          if(molecule != activeMolecule) {
+            DropResult *result = [grid drop:molecule];
+            if(result.isOverGrid) {
+              [molecule snap:result.offset toHoles:result.holes];
+            }
           }
         }
         // only a single molecule can be selected -> so stop here
@@ -372,19 +378,18 @@
   }
 }
 
-- (void) touchesMoved:(NSSet *)__unused touches withEvent:(UIEvent *)event
+- (void) touchesMoved:(NSSet *) touches withEvent:(UIEvent *)event
 {
   if (!activeMolecule)
   {
     return;
   }
   
-  NSLog(@"%@", [grid toString]);
-  
   if (pointerTouch != nil)
   {
     CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
     activeMolecule.position = GLKVector2Make(point.x, point.y);
+    NSLog(@"pointerMoved: %f,%f", point.x,point.y);
   }
   
   if(controlTouch != nil) {
@@ -451,7 +456,10 @@
       shouldStopUpdating = YES;
       
       [activeMolecule snapOrientation];
-      [grid snapMolecule:activeMolecule];
+      DropResult *result = [grid drop:activeMolecule];
+      if(result.isOverGrid) {
+        [activeMolecule snap:result.offset toHoles:result.holes];
+      }
       
       [self checkForSolution];
     }
@@ -462,7 +470,10 @@
       isMirroringInProgress = false;
       
       [activeMolecule snapOrientation];
-      [grid snapMolecule:activeMolecule];
+      DropResult *result = [grid drop:activeMolecule];
+      if(result.isOverGrid) {
+        [activeMolecule snap:result.offset toHoles:result.holes];
+      }
       
       [self checkForSolution];
     }

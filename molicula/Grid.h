@@ -10,8 +10,7 @@
 #import "Hexagon.h"
 #import "Hole.h"
 #import "Molecule.h"
-
-@class Molecule;
+#import "DropResult.h"
 
 @interface Grid : NSObject
 
@@ -20,7 +19,7 @@
 
 - (void)setupGrid;
 - (void)render:(GLKBaseEffect *)effect;
-- (bool)snapMolecule:(Molecule *)molecule;
+- (DropResult*)drop:(Molecule *)molecule;
 - (bool)isFilled;
 
 - (GLKVector2)getHoleWorldCoordinates:(Hole *)hole;
