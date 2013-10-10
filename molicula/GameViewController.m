@@ -403,46 +403,7 @@
       [activeMolecule mirror:GLKMathDegreesToRadians(transformMirroringOffset - newTransformMirroringOffset)];
       transformMirroringOffset = newTransformMirroringOffset;
     }
-    
   }
-//  if (transformTouch != nil)
-//  {
-//    if (!isRotationInProgress && !isMirroringInProgress) {
-//      CGPoint modifierPoint = [self touchPointToGLPoint:[transformTouch locationInView:self.view]];
-//      
-//      // determine quadrant
-//      Quadrant quadrant = [self determineTouchQuadrantFor:modifierPoint RelativeTo:point];
-//      switch(quadrant) {
-//        case QuadrantLeft:
-//        case QuadrantRight:
-//          isRotationInProgress = true;
-//          isMirroringInProgress = false;
-//          break;
-//        case QuadrantTop:
-//        case QuadrantBottom:
-//          isRotationInProgress = false;
-//          isMirroringInProgress = true;
-//          break;
-//        default:
-//          break;
-//      }
-//    }
-//    
-//    CGPoint pointerLocation = [pointerTouch locationInView:self.view];
-//    CGPoint transformLocation = [transformTouch locationInView:self.view];
-//    
-//    if (isRotationInProgress) {
-//      CGFloat newTransformRotationAngle = atan2(transformLocation.y - pointerLocation.y, transformLocation.x - pointerLocation.x);
-//      [activeMolecule rotate:newTransformRotationAngle-transformRotationAngle];
-//      transformRotationAngle = newTransformRotationAngle;
-//    } else if (isMirroringInProgress) {
-//      CGFloat newTransformMirroringOffset = transformLocation.x;
-//      [activeMolecule mirror:GLKMathDegreesToRadians(newTransformMirroringOffset - transformMirroringOffset)];
-//      transformMirroringOffset = newTransformMirroringOffset;
-//    }
-//    
-//  }
-  
   [self enforceScreenBoundsForMolecule:activeMolecule];
 }
 
