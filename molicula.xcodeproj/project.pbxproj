@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07115F0A180959470044735C /* Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F09180959470044735C /* Animator.m */; };
+		07115F0E180959FF0044735C /* BaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F0D180959FF0044735C /* BaseAnimation.m */; };
+		07115F1418095A6F0044735C /* TranslateAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F1318095A6F0044735C /* TranslateAnimation.m */; };
 		07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */; };
 		0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0774AD7A17FB2A70008D8B2E /* Images.xcassets */; };
 		077F9A7617D7CBB0004F1960 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7517D7CBB0004F1960 /* UIKit.framework */; };
@@ -51,6 +54,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07115F08180959470044735C /* Animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animator.h; sourceTree = "<group>"; };
+		07115F09180959470044735C /* Animator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animator.m; sourceTree = "<group>"; };
+		07115F0C180959FF0044735C /* BaseAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAnimation.h; sourceTree = "<group>"; };
+		07115F0D180959FF0044735C /* BaseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAnimation.m; sourceTree = "<group>"; };
+		07115F1218095A6F0044735C /* TranslateAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslateAnimation.h; sourceTree = "<group>"; };
+		07115F1318095A6F0044735C /* TranslateAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateAnimation.m; sourceTree = "<group>"; };
 		07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		07124BB517F9A63900D7B5CD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0774AD7A17FB2A70008D8B2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -130,9 +139,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07115F0B1809598A0044735C /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				07115F08180959470044735C /* Animator.h */,
+				07115F09180959470044735C /* Animator.m */,
+				07115F0C180959FF0044735C /* BaseAnimation.h */,
+				07115F0D180959FF0044735C /* BaseAnimation.m */,
+				07115F1218095A6F0044735C /* TranslateAnimation.h */,
+				07115F1318095A6F0044735C /* TranslateAnimation.m */,
+			);
+			name = Animations;
+			sourceTree = "<group>";
+		};
 		07124B9E17F999E900D7B5CD /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				07115F0B1809598A0044735C /* Animations */,
 				07F16FD117E0F79300D15F36 /* Controls.h */,
 				07F16FD217E0F79300D15F36 /* Controls.m */,
 				077F9A9817D7CBB0004F1960 /* GameViewController.h */,
@@ -397,9 +420,12 @@
 				077F9AC017D7CCB8004F1960 /* Molecule.m in Sources */,
 				077F9AC317D7CCE7004F1960 /* Hole.m in Sources */,
 				077F9AC617D7CCF6004F1960 /* Atom.m in Sources */,
+				07115F0A180959470044735C /* Animator.m in Sources */,
+				07115F0E180959FF0044735C /* BaseAnimation.m in Sources */,
 				077F9AC917D7CD02004F1960 /* Helper.m in Sources */,
 				077F9ACC17D7CD35004F1960 /* Hexagon.m in Sources */,
 				077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */,
+				07115F1418095A6F0044735C /* TranslateAnimation.m in Sources */,
 				077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */,
 				07F16FD317E0F79300D15F36 /* Controls.m in Sources */,
 			);

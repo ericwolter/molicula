@@ -13,6 +13,8 @@
 #import "ColorTheme.h"
 #import "NSValue_GLKVector.h"
 #import "Controls.h"
+#import "Animator.h"
+#import "TranslateAnimation.h"
 
 @interface GameViewController () {
   /**
@@ -56,6 +58,8 @@
   
   BOOL isRotationInProgress;
   BOOL isMirroringInProgress;
+  
+  Animator *animator;
 }
 
 @property(strong, nonatomic) EAGLContext *context;
@@ -112,6 +116,7 @@
   [self setupGrid];
   
   controls = [[Controls alloc] init];
+  animator = [[Animator alloc] init];
 }
 
 - (void)applicationWillResignActive {
@@ -268,10 +273,13 @@
 #pragma mark - GLKView and GLKViewController delegate methods
 
 - (void)update {
-  if (shouldStopUpdating == YES) {
+  if (shouldStopUpdating == YES && [animator hasRunningAnimation] == NO) {
     self.paused = YES;
     shouldStopUpdating = NO;
+  } else {
+    [animator update:self.timeSinceLastUpdate];
   }
+  
   if (finishAnimation) {
     [leftOverMolecule rotate:GLKMathDegreesToRadians(60)];
     finishTimer += 1;
@@ -417,6 +425,8 @@
       [activeMolecule snapOrientation];
       DropResult *result = [grid drop:activeMolecule];
       if(result.isOverGrid) {
+        TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTranslation:result.offset];
+        [animator.runningAnimation addObject:animation];
         [activeMolecule snap:result.offset toHoles:result.holes];
       }
       
@@ -431,6 +441,8 @@
       [activeMolecule snapOrientation];
       DropResult *result = [grid drop:activeMolecule];
       if(result.isOverGrid) {
+        TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTranslation:result.offset];
+        [animator.runningAnimation addObject:animation];
         [activeMolecule snap:result.offset toHoles:result.holes];
       }
       

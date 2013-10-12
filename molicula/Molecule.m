@@ -365,7 +365,6 @@
   for (Hole *hole in self.snappedHoles) {
     hole.content = self;
   }
-  [self translate:offset];
 }
 
 - (void)unsnap {
