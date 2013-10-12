@@ -95,7 +95,6 @@
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   
   if (!self.context) {
-    NSLog(@"%@", @"Failed to create ES context");
   }
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:NULL];
@@ -327,7 +326,6 @@
     ControlTransform transform = [controls hitTestAt:touchPoint around:activeMolecule];
     switch (transform) {
       case Rotate:
-        NSLog(@"beganTransform Rotate");
         controlTouch = touch;
         isRotationInProgress = YES;
         
@@ -335,7 +333,6 @@
         
         return;
       case Mirror:
-        NSLog(@"beganTransform Rotate");
         controlTouch = touch;
         isMirroringInProgress = YES;
         
@@ -387,7 +384,10 @@
   {
     CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
     CGPoint previousPoint = [self touchPointToGLPoint:[pointerTouch previousLocationInView:self.view]];
-    [activeMolecule translate:GLKVector2Make(point.x-previousPoint.x, point.y-previousPoint.y)];
+    GLKVector2 translate = GLKVector2Make(point.x-previousPoint.x, point.y-previousPoint.y);
+    if(GLKVector2Length(translate) > 1.0f) {
+      [activeMolecule translate:translate];
+    }
   }
   
   if(controlTouch != nil) {
