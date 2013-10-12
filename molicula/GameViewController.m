@@ -354,10 +354,8 @@
       Molecule *m = [molecules objectAtIndex:moleculeIndex];
       if ([m hitTest:touchPoint])
       {
-        NSLog(@"beganMovement");
         pointerTouch = touch;
         activeMolecule = m;
-        activeMolecule.position = GLKVector2Make(touchPoint.x, touchPoint.y);
         [molecules removeObjectAtIndex:moleculeIndex];
         [molecules addObject:m];
         [m unsnap];
@@ -388,8 +386,8 @@
   if (pointerTouch != nil)
   {
     CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
-    activeMolecule.position = GLKVector2Make(point.x, point.y);
-    NSLog(@"pointerMoved: %f,%f", point.x,point.y);
+    CGPoint previousPoint = [self touchPointToGLPoint:[pointerTouch previousLocationInView:self.view]];
+    [activeMolecule translate:GLKVector2Make(point.x-previousPoint.x, point.y-previousPoint.y)];
   }
   
   if(controlTouch != nil) {
