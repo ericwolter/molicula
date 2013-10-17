@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Molecule.h"
 
+#define MIN_ANIMATION_DISTANCE 0.00001f
+
 @interface BaseAnimation : NSObject
 
 @property BOOL isDone;

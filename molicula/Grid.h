@@ -19,7 +19,7 @@
 
 - (void)setupGrid;
 - (void)render:(GLKBaseEffect *)effect;
-- (DropResult*)drop:(Molecule *)molecule;
+- (DropResult*)drop:(Molecule *)molecule withFutureOrientation:(GLKQuaternion)orientation;
 - (bool)isFilled;
 
 - (GLKVector2)getHoleWorldCoordinates:(Hole *)hole;

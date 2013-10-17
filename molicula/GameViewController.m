@@ -15,6 +15,7 @@
 #import "Controls.h"
 #import "Animator.h"
 #import "TranslateAnimation.h"
+#import "RotationAnimation.h"
 
 @interface GameViewController () {
   /**
@@ -366,7 +367,7 @@
         [m unsnap];
         for(Molecule *molecule in molecules) {
           if(molecule != activeMolecule) {
-            DropResult *result = [grid drop:molecule];
+            DropResult *result = [grid drop:molecule withFutureOrientation:molecule.orientation];
             if(result.isOverGrid) {
               [molecule snap:result.offset toHoles:result.holes];
             }
@@ -422,10 +423,13 @@
       pointerTouch = nil;
       shouldStopUpdating = YES;
       
-      [activeMolecule snapOrientation];
-      DropResult *result = [grid drop:activeMolecule];
+      GLKQuaternion targetOrientation = [activeMolecule snapOrientation];
+      RotationAnimation *animation = [[RotationAnimation alloc] initWithMolecule:activeMolecule AndTarget:targetOrientation];
+      [animator.runningAnimation addObject:animation];
+      
+      DropResult *result = [grid drop:activeMolecule withFutureOrientation:targetOrientation];
       if(result.isOverGrid) {
-        TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTranslation:result.offset];
+        TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTarget:GLKVector2Add(activeMolecule.position, result.offset)];
         [animator.runningAnimation addObject:animation];
         [activeMolecule snap:result.offset toHoles:result.holes];
       }
@@ -438,10 +442,13 @@
       isRotationInProgress = false;
       isMirroringInProgress = false;
       
-      [activeMolecule snapOrientation];
-      DropResult *result = [grid drop:activeMolecule];
+      GLKQuaternion targetOrientation = [activeMolecule snapOrientation];
+      RotationAnimation *animation = [[RotationAnimation alloc] initWithMolecule:activeMolecule AndTarget:targetOrientation];
+      [animator.runningAnimation addObject:animation];
+      
+      DropResult *result = [grid drop:activeMolecule withFutureOrientation:targetOrientation];
       if(result.isOverGrid) {
-        TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTranslation:result.offset];
+        TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTarget:GLKVector2Add(activeMolecule.position, result.offset)];
         [animator.runningAnimation addObject:animation];
         [activeMolecule snap:result.offset toHoles:result.holes];
       }

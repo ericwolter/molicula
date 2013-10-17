@@ -54,8 +54,10 @@
 
 - (void)rotate:(CGFloat)angle;
 - (void)mirror:(CGFloat)angle;
-- (void)snapOrientation;
+- (GLKQuaternion)snapOrientation;
 
+- (GLKMatrix4)buildModelViewMatrixWithMassCenter:(GLKVector2)massCenter andScalingFactor:(float)scalingFactor andOrientation:(GLKQuaternion)orientation andWorldPosition:(GLKVector2)worldPosition;
 - (NSArray*)getAtomPositionsInWorld;
+- (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation;
 
 @end

@@ -10,6 +10,7 @@
 		07115F0A180959470044735C /* Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F09180959470044735C /* Animator.m */; };
 		07115F0E180959FF0044735C /* BaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F0D180959FF0044735C /* BaseAnimation.m */; };
 		07115F1418095A6F0044735C /* TranslateAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F1318095A6F0044735C /* TranslateAnimation.m */; };
+		07115F171809661E0044735C /* RotationAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F161809661E0044735C /* RotationAnimation.m */; };
 		07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */; };
 		0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0774AD7A17FB2A70008D8B2E /* Images.xcassets */; };
 		077F9A7617D7CBB0004F1960 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7517D7CBB0004F1960 /* UIKit.framework */; };
@@ -60,6 +61,8 @@
 		07115F0D180959FF0044735C /* BaseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAnimation.m; sourceTree = "<group>"; };
 		07115F1218095A6F0044735C /* TranslateAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslateAnimation.h; sourceTree = "<group>"; };
 		07115F1318095A6F0044735C /* TranslateAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateAnimation.m; sourceTree = "<group>"; };
+		07115F151809661E0044735C /* RotationAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationAnimation.h; sourceTree = "<group>"; };
+		07115F161809661E0044735C /* RotationAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationAnimation.m; sourceTree = "<group>"; };
 		07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		07124BB517F9A63900D7B5CD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0774AD7A17FB2A70008D8B2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 				07115F0D180959FF0044735C /* BaseAnimation.m */,
 				07115F1218095A6F0044735C /* TranslateAnimation.h */,
 				07115F1318095A6F0044735C /* TranslateAnimation.m */,
+				07115F151809661E0044735C /* RotationAnimation.h */,
+				07115F161809661E0044735C /* RotationAnimation.m */,
 			);
 			name = Animations;
 			sourceTree = "<group>";
@@ -412,6 +417,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07115F171809661E0044735C /* RotationAnimation.m in Sources */,
 				077F9A8617D7CBB0004F1960 /* main.m in Sources */,
 				077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */,
 				07E1B58218071B9F002D79A1 /* DropResult.m in Sources */,

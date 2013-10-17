@@ -10,9 +10,12 @@
 
 @interface TranslateAnimation : BaseAnimation
 
+@property GLKVector2 start;
 @property GLKVector2 end;
-@property GLKVector2 velocity;
+@property GLKVector2 delta;
+@property float distance;
+@property float progress;
 
--(id)initWithMolecule:(Molecule *)molecule AndTranslation:(GLKVector2) translationVector;
+-(id)initWithMolecule:(Molecule *)molecule AndTarget:(GLKVector2) target;
 
 @end

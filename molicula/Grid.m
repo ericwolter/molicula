@@ -83,7 +83,7 @@
   }
 }
 
-- (DropResult*)drop:(Molecule *)molecule {
+- (DropResult*)drop:(Molecule *)molecule withFutureOrientation:(GLKQuaternion)orientation {
   DropResult *result = [[DropResult alloc] init];
   result.isOverGrid = NO;
   result.molecule = molecule;
@@ -94,7 +94,7 @@
   // 1. atom is not over the grid at all -> no drop result
   // 2. atom is over a filled hole -> no drop result
   // 3. atom is over an empty hole -> drop result
-  for(NSValue *wrappedAtomWorldCoordinate in [molecule getAtomPositionsInWorld]) {
+  for(NSValue *wrappedAtomWorldCoordinate in [molecule getAtomPositionsInWorldWithFutureOrientation:orientation]) {
     GLKVector2 atomWorldCoordinate = [wrappedAtomWorldCoordinate GLKVector2Value];
     
     BOOL isAtomOverGrid = NO;

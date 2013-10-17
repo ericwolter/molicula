@@ -12,29 +12,37 @@
 
 @implementation TranslateAnimation
 
-@synthesize end = _end;
-@synthesize velocity = _velocity;
+@synthesize start;
+@synthesize end;
+@synthesize delta;
+@synthesize distance;
+@synthesize progress;
 
--(id)initWithMolecule:(Molecule *)molecule AndTranslation:(GLKVector2) translationVector; {
+-(id)initWithMolecule:(Molecule *)molecule AndTarget:(GLKVector2) target {
   self = [super initWithMolecule:molecule];
   if (self) {
-    self.end = GLKVector2Add(self.molecule.position, translationVector);
-    self.velocity = GLKVector2MultiplyScalar(GLKVector2Normalize(translationVector), LINEAR_VELOCITY);
+    
+    self.start = self.molecule.position;
+    self.end = target;
+    
+    self.delta = GLKVector2Subtract(self.end, self.start);
+    self.distance = GLKVector2Length(self.delta);
   }
   return self;
 }
 
 -(void)update:(NSTimeInterval)deltaT {
-  GLKVector2 deltaX = GLKVector2MultiplyScalar(self.velocity, deltaT);
-  
-  GLKVector2 remaining = GLKVector2Subtract(self.end, self.molecule.position);
-  
-  if (GLKVector2Length(deltaX) > GLKVector2Length(remaining)) {
-    deltaX = remaining;
+  if(isnan(self.distance) || self.distance < MIN_ANIMATION_DISTANCE) {
+    self.progress = 1.0f;
     self.isDone = YES;
+  } else {
+    self.progress += (deltaT * LINEAR_VELOCITY) / self.distance;
+    if (self.progress > 1.0f) {
+      self.progress = 1.0f;
+      self.isDone = YES;
+    }
   }
-  
-  [self.molecule translate:deltaX];
+  self.molecule.position = GLKVector2Add(self.start, GLKVector2MultiplyScalar(self.delta, self.progress));
 }
 
 @end
