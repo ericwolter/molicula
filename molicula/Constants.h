@@ -11,6 +11,8 @@
 
 #define IS_IPAD                   (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
 
+#define CONTROL_MIRROR_VELOCITY   (IS_IPAD ? 1.2f : 2.4f)
+
 #define LAYOUT_DISTANCE           (IS_IPAD ? 96 : 48)
 
 #define RENDER_HEX_HEIGHT         (IS_IPAD ? 60.0f : 30.0f)

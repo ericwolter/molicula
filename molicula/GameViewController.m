@@ -407,7 +407,7 @@
       transformRotationAngle = newTransformRotationAngle;
     } else if (isMirroringInProgress) {
       CGFloat newTransformMirroringOffset = controlPoint.x;
-      [activeMolecule mirror:GLKMathDegreesToRadians(transformMirroringOffset - newTransformMirroringOffset)];
+      [activeMolecule mirror:GLKMathDegreesToRadians(transformMirroringOffset - newTransformMirroringOffset) * CONTROL_MIRROR_VELOCITY];
       transformMirroringOffset = newTransformMirroringOffset;
     }
   }
