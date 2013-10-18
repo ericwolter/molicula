@@ -118,6 +118,22 @@
   
   controls = [[Controls alloc] init];
   animator = [[Animator alloc] init];
+  
+//  UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+////  [button addTarget:self
+////             action:@selector(aMethod:)
+////   forControlEvents:UIControlEventTouchDown];
+//  UIImage *revealIcon = [UIImage imageNamed:@"Hamburger"];
+//  [button setImage:revealIcon forState:UIControlStateNormal];
+//  
+//  if([[UIDevice currentDevice].systemVersion floatValue] >= 7.0) {
+//    button.frame = CGRectMake(0.0f, 12.0f, 44.0f, 44.0f);
+//  } else {
+//    button.frame = CGRectMake(0.0f, 0.0f, 44.0f, 44.0f);
+//  }
+//  GLKVector4 c = [[ColorTheme sharedSingleton] hole];
+//  button.tintColor = [UIColor colorWithRed:c.x green:c.y blue:c.z alpha:1.0f];
+//  [view addSubview:button];
 }
 
 - (void)applicationWillResignActive {
@@ -367,8 +383,14 @@
         [m unsnap];
         for(Molecule *molecule in molecules) {
           if(molecule != activeMolecule) {
-            DropResult *result = [grid drop:molecule withFutureOrientation:molecule.orientation];
+            GLKQuaternion targetOrientation = [molecule snapOrientation];
+            RotationAnimation *animation = [[RotationAnimation alloc] initWithMolecule:molecule AndTarget:targetOrientation];
+            [animator.runningAnimation addObject:animation];
+            
+            DropResult *result = [grid drop:molecule withFutureOrientation:targetOrientation];
             if(result.isOverGrid) {
+              TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, result.offset)];
+              [animator.runningAnimation addObject:animation];
               [molecule snap:result.offset toHoles:result.holes];
             }
           }
