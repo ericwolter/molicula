@@ -239,7 +239,7 @@
 }
 
 -(GLKVector4)purple {
-  return GLKVector4Make(RGB(120), RGB(0), RGB(131), 1);
+  return GLKVector4Make(RGB(145), RGB(50), RGB(155), 1);
 }
 #elif defined(THEME_IOS7)
 -(GLKVector4)bg {

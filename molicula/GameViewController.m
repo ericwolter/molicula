@@ -596,6 +596,10 @@ typedef enum {
         [activeMolecule snap:result.offset toHoles:result.holes];
       }
       
+      if(pointerTouch == nil) {
+        shouldStopUpdating = YES;
+      }
+      
       [self checkForSolution];
     }
   }
