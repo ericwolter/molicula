@@ -45,6 +45,7 @@ typedef enum {
   CGFloat transformMirroringOffset;
   CGFloat cumulativeMirroringAngle;
   MirroringDirection mirroringDirection;
+  CGPoint previousTouchPoint;
   
   Controls *controls;
   UITouch *transformTouch;
@@ -379,8 +380,6 @@ typedef enum {
     }
   }
   
-  CALayer *present = self.view.layer.presentationLayer;
-  NSLog(@"bounds: %f,%f", present.bounds.size.width, present.bounds.size.height);
   [self setProjection];
 }
 
@@ -456,6 +455,7 @@ typedef enum {
       if ([m hitTest:touchPoint])
       {
         pointerTouch = touch;
+        previousTouchPoint = touchPoint;
         activeMolecule = m;
         [molecules removeObjectAtIndex:moleculeIndex];
         [molecules addObject:m];
@@ -533,9 +533,10 @@ typedef enum {
   if (pointerTouch != nil)
   {
     CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
-    CGPoint previousPoint = [self touchPointToGLPoint:[pointerTouch previousLocationInView:self.view]];
-    GLKVector2 translate = GLKVector2Make(point.x-previousPoint.x, point.y-previousPoint.y);
+    GLKVector2 translate = GLKVector2Make(point.x-previousTouchPoint.x, point.y-previousTouchPoint.y);
+    NSLog(@"translate: %f,%f", translate.x,translate.y);
     [activeMolecule translate:translate];
+    previousTouchPoint = point;
   }
   
   if(controlTouch != nil) {
