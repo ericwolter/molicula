@@ -401,6 +401,7 @@
   CGPoint touchPoint = [self touchPointToGLPoint:[touch locationInView:self.view]];
   
   if (activeMolecule != nil) {
+    [activeMolecule unsnap];
     ControlTransform transform = [controls hitTestAt:touchPoint around:activeMolecule];
     switch (transform) {
       case Rotate:
