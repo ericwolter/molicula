@@ -27,6 +27,9 @@
    * In order to conserve battery the screen is only drawn at the refresh rate
    * if the user is currently moving a molecule.
    */
+  
+  float trueWidth;
+  float trueHeight;
 
   BOOL finishAnimation;
   int finishTimer;
@@ -109,8 +112,12 @@
   view.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
   view.drawableDepthFormat = GLKViewDrawableDepthFormat16;
   view.drawableMultisample = GLKViewDrawableMultisample4X;
+  view.contentMode = UIViewContentModeCenter;
   view.multipleTouchEnabled = YES;
   view.exclusiveTouch = YES;
+  
+  [self updateTrueSize];
+  
   [self setPreferredFramesPerSecond:60];
   
   [self setupGL];
@@ -262,10 +269,41 @@
   }
 }
 
+- (void)updateTrueSize {
+  trueWidth = self.view.bounds.size.width;
+  trueHeight = self.view.bounds.size.height;
+}
+
+- (void)viewDidLayoutSubviews {
+  
+  [self updateTrueSize];
+  
+  NSLog(@"viewDidLayoutSubviews");
+  float width, height;
+  width = self.view.frame.size.width;
+  height = self.view.frame.size.height;
+  NSLog(@"viewFrameBounds: %f,%f", width, height);
+  float x,y;
+  x = self.view.frame.origin.x;
+  y = self.view.frame.origin.y;
+  NSLog(@"viewFrameOrigin: %f,%f", x, y);
+  float size = self.view.frame.size.width > self.view.frame.size.height ?
+  self.view.frame.size.width : self.view.frame.size.height;
+  
+  float offset_x = size - self.view.frame.size.width;
+  float offset_y = size - self.view.frame.size.height;
+  
+  [self.view setFrame:CGRectMake(
+                                 -offset_x/2.0f,
+                                 -offset_y/2.0f,
+                                 size,
+                                 size)];
+}
+
 - (void)setProjection
 {
-  int width = (int) [self.view bounds].size.width;
-  int height = (int) [self.view bounds].size.height;
+  float width = [self.view bounds].size.width;
+  float height = [self.view bounds].size.height;
   
   GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-width / 2, width / 2, -height / 2, height / 2, 0.0f, 1000.0f);
   self.effect.transform.projectionMatrix = projectionMatrix;
@@ -276,6 +314,10 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation) __unused fromInterfaceOrientation
 {
   [self setProjection];
+  for (NSUInteger i = 0; i < molecules.count; ++i) {
+    Molecule *molecule = [molecules objectAtIndex:i];
+    [self enforceScreenBoundsForMolecule:molecule];
+  }
 }
 
 - (void)tearDownGL {
@@ -307,6 +349,16 @@
       shouldStopUpdating = YES;
     }
   }
+  NSLog(@"update");
+  float width, height;
+  width = self.view.frame.size.width;
+  height = self.view.frame.size.height;
+  NSLog(@"viewFrameBounds: %f,%f", width, height);
+  float x,y;
+  x = self.view.frame.origin.x;
+  y = self.view.frame.origin.y;
+  NSLog(@"viewFrameOrigin: %f,%f", x, y);
+//  [self setProjection];
 }
 
 - (void)glkView:(GLKView *) __unused view drawInRect:(CGRect) __unused rect {
@@ -339,6 +391,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *) __unused event
 {
   self.paused = NO;
+  [self update];
   
   if(finishAnimation) {
     return;
@@ -482,9 +535,11 @@
 
 - (void)enforceScreenBoundsForMolecule:(Molecule *)molecule {
   
+  NSLog(@"trueSize: %f,%f", trueWidth, trueHeight);
+  
   GLKVector2 bounding = GLKVector2Make(0, 0);
-  float leftOut = molecule.aabbMin.x - (-self.view.bounds.size.width / 2);
-  float rightOut = molecule.aabbMax.x - self.view.bounds.size.width / 2;
+  float leftOut = molecule.aabbMin.x - (-trueWidth / 2);
+  float rightOut = molecule.aabbMax.x - trueWidth / 2;
   if (leftOut < 0)
   {
     bounding.x -= leftOut;
@@ -493,8 +548,8 @@
   {
     bounding.x -= rightOut;
   }
-  float downOut = molecule.aabbMin.y - (-self.view.bounds.size.height / 2);
-  float upOut = molecule.aabbMax.y - self.view.bounds.size.height / 2;
+  float downOut = molecule.aabbMin.y - (-trueHeight / 2);
+  float upOut = molecule.aabbMax.y - trueHeight / 2;
   if (downOut < 0)
   {
     bounding.y -= downOut;
