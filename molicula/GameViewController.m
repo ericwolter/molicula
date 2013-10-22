@@ -17,6 +17,13 @@
 #import "TranslateAnimation.h"
 #import "RotationAnimation.h"
 
+typedef enum {
+  NoDirection,
+  NegativeDirection,
+  PositiveDirection
+} MirroringDirection;
+
+
 @interface GameViewController () {
   /**
    * Holds the left over molecule for the finish animation
@@ -36,6 +43,8 @@
   
   CGFloat transformRotationAngle;
   CGFloat transformMirroringOffset;
+  CGFloat cumulativeMirroringAngle;
+  MirroringDirection mirroringDirection;
   
   Controls *controls;
   UITouch *transformTouch;
@@ -89,16 +98,25 @@
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   [self setProjection];
+  [self updateOnce];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
   pointerTouch = nil;
-  transformTouch = nil;
+  controlTouch = nil;
+  activeMolecule = nil;
+  isRotationInProgress = false;
+  isMirroringInProgress = false;
+  cumulativeMirroringAngle = 0.0f;
+  mirroringDirection = NoDirection;
+  
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  NSLog(@"viewDidLoad");
   
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   
@@ -112,19 +130,17 @@
   view.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
   view.drawableDepthFormat = GLKViewDrawableDepthFormat16;
   view.drawableMultisample = GLKViewDrawableMultisample4X;
-  view.contentMode = UIViewContentModeCenter;
   view.multipleTouchEnabled = YES;
   view.exclusiveTouch = YES;
-  
+  [self setPreferredFramesPerSecond:60];
   [self updateTrueSize];
   
-  [self setPreferredFramesPerSecond:60];
-  
   [self setupGL];
-  [self setupGrid];
   
-  controls = [[Controls alloc] init];
   animator = [[Animator alloc] init];
+  controls = [[Controls alloc] init];
+  
+  [self setupGrid];
   
 //  UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 ////  [button addTarget:self
@@ -276,44 +292,57 @@
 
 - (void)viewDidLayoutSubviews {
   
-  [self updateTrueSize];
-  
-  NSLog(@"viewDidLayoutSubviews");
-  float width, height;
-  width = self.view.frame.size.width;
-  height = self.view.frame.size.height;
-  NSLog(@"viewFrameBounds: %f,%f", width, height);
-  float x,y;
-  x = self.view.frame.origin.x;
-  y = self.view.frame.origin.y;
-  NSLog(@"viewFrameOrigin: %f,%f", x, y);
-  float size = self.view.frame.size.width > self.view.frame.size.height ?
-  self.view.frame.size.width : self.view.frame.size.height;
-  
-  float offset_x = size - self.view.frame.size.width;
-  float offset_y = size - self.view.frame.size.height;
-  
-  [self.view setFrame:CGRectMake(
-                                 -offset_x/2.0f,
-                                 -offset_y/2.0f,
-                                 size,
-                                 size)];
+//  [self updateTrueSize];
+//  
+//  float size = self.view.frame.size.width > self.view.frame.size.height ?
+//  self.view.frame.size.width * 1.5f : self.view.frame.size.height * 1.5f;
+//  
+//  NSLog(@"viewDidLayoutSubviews: %f, %f = %f", self.view.frame.size.width, self.view.frame.size.height, size);
+//  
+//  float offset_x = size - self.view.frame.size.width;
+//  float offset_y = size - self.view.frame.size.height;
+//  
+//  [self.view setFrame:CGRectMake(
+//                                 -offset_x/2.0f,
+//                                 -offset_y/2.0f,
+//                                 size,
+//                                 size)];
 }
 
 - (void)setProjection
 {
   float width = [self.view bounds].size.width;
   float height = [self.view bounds].size.height;
+  width = [self.view.layer.presentationLayer bounds].size.width;
+  height = [self.view.layer.presentationLayer bounds].size.height;
   
   GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-width / 2, width / 2, -height / 2, height / 2, 0.0f, 1000.0f);
   self.effect.transform.projectionMatrix = projectionMatrix;
-  
-  [self updateOnce];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation) __unused fromInterfaceOrientation
 {
-  [self setProjection];
+  shouldStopUpdating = YES;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+  self.paused = NO;
+  
+  pointerTouch = nil;
+  controlTouch = nil;
+  activeMolecule = nil;
+  isRotationInProgress = false;
+  isMirroringInProgress = false;
+  cumulativeMirroringAngle = 0.0f;
+  mirroringDirection = NoDirection;
+  
+  if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation) !=
+      UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+    float tmp = trueHeight;
+    trueHeight = trueWidth;
+    trueWidth = tmp;
+  }
+  
   for (NSUInteger i = 0; i < molecules.count; ++i) {
     Molecule *molecule = [molecules objectAtIndex:i];
     [self enforceScreenBoundsForMolecule:molecule];
@@ -349,16 +378,10 @@
       shouldStopUpdating = YES;
     }
   }
-  NSLog(@"update");
-  float width, height;
-  width = self.view.frame.size.width;
-  height = self.view.frame.size.height;
-  NSLog(@"viewFrameBounds: %f,%f", width, height);
-  float x,y;
-  x = self.view.frame.origin.x;
-  y = self.view.frame.origin.y;
-  NSLog(@"viewFrameOrigin: %f,%f", x, y);
-//  [self setProjection];
+  
+  CALayer *present = self.view.layer.presentationLayer;
+  NSLog(@"bounds: %f,%f", present.bounds.size.width, present.bounds.size.height);
+  [self setProjection];
 }
 
 - (void)glkView:(GLKView *) __unused view drawInRect:(CGRect) __unused rect {
@@ -414,6 +437,8 @@
       case Mirror:
         controlTouch = touch;
         isMirroringInProgress = YES;
+        cumulativeMirroringAngle = 0.0f;
+        mirroringDirection = NoDirection;
         
         transformMirroringOffset = touchPoint.x;
         return;
@@ -455,7 +480,47 @@
     }
   
     activeMolecule = nil;
+    shouldStopUpdating = YES;
   }
+}
+
+- (CGFloat)constrainMirroring:(CGFloat)angle {
+  cumulativeMirroringAngle += angle;
+  if(cumulativeMirroringAngle < -M_PI_4) {
+    mirroringDirection = NegativeDirection;
+  } else if (cumulativeMirroringAngle > M_PI_4) {
+    mirroringDirection = PositiveDirection;
+  }
+  
+//  NSLog(@"delta, cum: %f,%f", angle, cumulativeMirroringAngle);
+  switch (mirroringDirection) {
+    case NegativeDirection:
+      if (cumulativeMirroringAngle < -M_PI) {
+        angle -= cumulativeMirroringAngle - (-M_PI);
+        cumulativeMirroringAngle = -M_PI;
+//        NSLog(@"-< delta, cum: %f,%f", angle, cumulativeMirroringAngle);
+      } else if (cumulativeMirroringAngle > 0) {
+        angle -= cumulativeMirroringAngle - 0;
+        cumulativeMirroringAngle = 0;
+//        NSLog(@"-> delta, cum: %f,%f", angle, cumulativeMirroringAngle);
+      }
+      break;
+    case PositiveDirection:
+      if (cumulativeMirroringAngle > M_PI) {
+        angle -= cumulativeMirroringAngle - M_PI;
+        cumulativeMirroringAngle = M_PI;
+//        NSLog(@"+> delta, cum: %f,%f", angle, cumulativeMirroringAngle);
+      } else if (cumulativeMirroringAngle < 0) {
+        angle -= cumulativeMirroringAngle - 0;
+        cumulativeMirroringAngle = 0;
+//        NSLog(@"+< delta, cum: %f,%f", angle, cumulativeMirroringAngle);
+      }
+      break;
+    default:
+      break;
+  }
+  
+  return angle;
 }
 
 - (void) touchesMoved:(NSSet *) touches withEvent:(UIEvent *)event
@@ -470,9 +535,7 @@
     CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
     CGPoint previousPoint = [self touchPointToGLPoint:[pointerTouch previousLocationInView:self.view]];
     GLKVector2 translate = GLKVector2Make(point.x-previousPoint.x, point.y-previousPoint.y);
-    if(GLKVector2Length(translate) > 1.0f) {
-      [activeMolecule translate:translate];
-    }
+    [activeMolecule translate:translate];
   }
   
   if(controlTouch != nil) {
@@ -483,7 +546,8 @@
       transformRotationAngle = newTransformRotationAngle;
     } else if (isMirroringInProgress) {
       CGFloat newTransformMirroringOffset = controlPoint.x;
-      [activeMolecule mirror:GLKMathDegreesToRadians(transformMirroringOffset - newTransformMirroringOffset) * CONTROL_MIRROR_VELOCITY];
+      CGFloat deltaAngle = GLKMathDegreesToRadians(transformMirroringOffset - newTransformMirroringOffset) * CONTROL_MIRROR_VELOCITY;
+      [activeMolecule mirror:[self constrainMirroring:deltaAngle]];
       transformMirroringOffset = newTransformMirroringOffset;
     }
   }
@@ -518,6 +582,9 @@
       isRotationInProgress = false;
       isMirroringInProgress = false;
       
+      cumulativeMirroringAngle = 0.0f;
+      mirroringDirection = NoDirection;
+      
       GLKQuaternion targetOrientation = [activeMolecule snapOrientation];
       RotationAnimation *animation = [[RotationAnimation alloc] initWithMolecule:activeMolecule AndTarget:targetOrientation];
       [animator.runningAnimation addObject:animation];
@@ -535,8 +602,6 @@
 }
 
 - (void)enforceScreenBoundsForMolecule:(Molecule *)molecule {
-  
-  NSLog(@"trueSize: %f,%f", trueWidth, trueHeight);
   
   GLKVector2 bounding = GLKVector2Make(0, 0);
   float leftOut = molecule.aabbMin.x - (-trueWidth / 2);
@@ -559,7 +624,8 @@
   {
     bounding.y -= upOut;
   }
-  [molecule translate:bounding];
+  TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, bounding)];
+  [animator.runningAnimation addObject:animation];
 }
 
 - (void)checkForSolution
