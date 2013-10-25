@@ -30,6 +30,8 @@ typedef enum {
    */
   Molecule *leftOverMolecule;
   
+  bool duringDeviceRotation;
+  
   /**
    * In order to conserve battery the screen is only drawn at the refresh rate
    * if the user is currently moving a molecule.
@@ -116,8 +118,6 @@ typedef enum {
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  NSLog(@"viewDidLoad");
   
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   
@@ -293,29 +293,28 @@ typedef enum {
 
 - (void)viewDidLayoutSubviews {
   
-//  [self updateTrueSize];
-//  
-//  float size = self.view.frame.size.width > self.view.frame.size.height ?
-//  self.view.frame.size.width * 1.5f : self.view.frame.size.height * 1.5f;
-//  
-//  NSLog(@"viewDidLayoutSubviews: %f, %f = %f", self.view.frame.size.width, self.view.frame.size.height, size);
-//  
-//  float offset_x = size - self.view.frame.size.width;
-//  float offset_y = size - self.view.frame.size.height;
-//  
-//  [self.view setFrame:CGRectMake(
-//                                 -offset_x/2.0f,
-//                                 -offset_y/2.0f,
-//                                 size,
-//                                 size)];
+  [self updateTrueSize];
+  
+  float size = self.view.frame.size.width > self.view.frame.size.height ?
+  self.view.frame.size.width : self.view.frame.size.height;
+  
+  float offset_x = size - self.view.frame.size.width;
+  float offset_y = size - self.view.frame.size.height;
+  
+  [self.view setFrame:CGRectMake(
+                                 -offset_x/2.0f,
+                                 -offset_y/2.0f,
+                                 size,
+                                 size)];
+  [self setProjection];
 }
 
 - (void)setProjection
 {
   float width = [self.view bounds].size.width;
   float height = [self.view bounds].size.height;
-  width = [self.view.layer.presentationLayer bounds].size.width;
-  height = [self.view.layer.presentationLayer bounds].size.height;
+//  width = [self.view.layer.presentationLayer bounds].size.width;
+//  height = [self.view.layer.presentationLayer bounds].size.height;
   
   GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-width / 2, width / 2, -height / 2, height / 2, 0.0f, 1000.0f);
   self.effect.transform.projectionMatrix = projectionMatrix;
@@ -324,10 +323,13 @@ typedef enum {
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation) __unused fromInterfaceOrientation
 {
   shouldStopUpdating = YES;
+  duringDeviceRotation = NO;
+  [self setProjection];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
   self.paused = NO;
+  duringDeviceRotation = YES;
   
   pointerTouch = nil;
   controlTouch = nil;
@@ -336,7 +338,7 @@ typedef enum {
   isMirroringInProgress = false;
   cumulativeMirroringAngle = 0.0f;
   mirroringDirection = NoDirection;
-  
+
   if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation) !=
       UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
     float tmp = trueHeight;
@@ -380,7 +382,6 @@ typedef enum {
     }
   }
   
-  [self setProjection];
 }
 
 - (void)glkView:(GLKView *) __unused view drawInRect:(CGRect) __unused rect {
@@ -534,7 +535,6 @@ typedef enum {
   {
     CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
     GLKVector2 translate = GLKVector2Make(point.x-previousTouchPoint.x, point.y-previousTouchPoint.y);
-    NSLog(@"translate: %f,%f", translate.x,translate.y);
     [activeMolecule translate:translate];
     previousTouchPoint = point;
   }
@@ -630,6 +630,7 @@ typedef enum {
     bounding.y -= upOut;
   }
   TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, bounding)];
+  animation.linearVelocity *= 2.0f;
   [animator.runningAnimation addObject:animation];
 }
 

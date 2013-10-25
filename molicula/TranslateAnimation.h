@@ -13,6 +13,7 @@
 @property GLKVector2 start;
 @property GLKVector2 end;
 @property GLKVector2 delta;
+@property CGFloat linearVelocity;
 @property float distance;
 @property float progress;
 

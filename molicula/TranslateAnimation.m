@@ -15,13 +15,14 @@
 @synthesize start;
 @synthesize end;
 @synthesize delta;
+@synthesize linearVelocity;
 @synthesize distance;
 @synthesize progress;
 
 -(id)initWithMolecule:(Molecule *)molecule AndTarget:(GLKVector2) target {
   self = [super initWithMolecule:molecule];
   if (self) {
-    
+    self.linearVelocity = LINEAR_VELOCITY;
     self.start = self.molecule.position;
     self.end = target;
     
@@ -36,7 +37,7 @@
     self.progress = 1.0f;
     self.isDone = YES;
   } else {
-    self.progress += (deltaT * LINEAR_VELOCITY) / self.distance;
+    self.progress += (deltaT * self.linearVelocity) / self.distance;
     if (self.progress > 1.0f) {
       self.progress = 1.0f;
       self.isDone = YES;
