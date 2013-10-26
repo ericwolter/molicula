@@ -131,6 +131,7 @@ typedef enum {
   view.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
   view.drawableDepthFormat = GLKViewDrawableDepthFormat16;
   view.drawableMultisample = GLKViewDrawableMultisample4X;
+  view.contentMode = UIViewContentModeRedraw;
   view.multipleTouchEnabled = YES;
   view.exclusiveTouch = YES;
   [self setPreferredFramesPerSecond:60];
