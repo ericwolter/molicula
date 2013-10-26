@@ -211,7 +211,7 @@
 }
 
 -(GLKVector4)hole {
-  return GLKVector4Make(RGB(90.0f), RGB(90.0f), RGB(89.0f), 1);
+  return GLKVector4Make(RGB(109.0f), RGB(109.0f), RGB(107.0f), 1);
 }
 
 -(GLKVector4)blue {
