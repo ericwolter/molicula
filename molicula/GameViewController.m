@@ -308,6 +308,7 @@ typedef enum {
                                  size,
                                  size)];
   [self setProjection];
+  [self.view layoutSubviews];
 }
 
 - (void)setProjection
