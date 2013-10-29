@@ -40,6 +40,7 @@
 		077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */; };
 		077F9AD717D7D206004F1960 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9AD617D7D206004F1960 /* Crashlytics.framework */; };
 		07E1B58218071B9F002D79A1 /* DropResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B58118071B9F002D79A1 /* DropResult.m */; };
+		07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E8B78D181FC28100804CC1 /* Default-568h@2x.png */; };
 		07F16FD317E0F79300D15F36 /* Controls.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F16FD217E0F79300D15F36 /* Controls.m */; };
 		07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07F16FD417E725AD00D15F36 /* appstore_description.rtf */; };
 /* End PBXBuildFile section */
@@ -110,6 +111,7 @@
 		077F9AD617D7D206004F1960 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		07E1B58018071B9F002D79A1 /* DropResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropResult.h; sourceTree = "<group>"; };
 		07E1B58118071B9F002D79A1 /* DropResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropResult.m; sourceTree = "<group>"; };
+		07E8B78D181FC28100804CC1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		07F16FD117E0F79300D15F36 /* Controls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controls.h; sourceTree = "<group>"; };
 		07F16FD217E0F79300D15F36 /* Controls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controls.m; sourceTree = "<group>"; };
 		07F16FD417E725AD00D15F36 /* appstore_description.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = appstore_description.rtf; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 		077F9A8017D7CBB0004F1960 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				07E8B78D181FC28100804CC1 /* Default-568h@2x.png */,
 				077F9A8117D7CBB0004F1960 /* molicula-Info.plist */,
 				077F9A8217D7CBB0004F1960 /* InfoPlist.strings */,
 				077F9A8517D7CBB0004F1960 /* main.m */,
@@ -368,6 +371,7 @@
 				077F9A9317D7CBB0004F1960 /* Main_iPad.storyboard in Resources */,
 				07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */,
 				077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */,
+				07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */,
 				077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */,
 				07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */,
 			);
