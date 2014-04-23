@@ -131,7 +131,6 @@ typedef enum {
   view.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
   view.drawableDepthFormat = GLKViewDrawableDepthFormat16;
   view.drawableMultisample = GLKViewDrawableMultisample4X;
-  view.contentMode = UIViewContentModeRedraw;
   view.multipleTouchEnabled = YES;
   view.exclusiveTouch = YES;
   [self setPreferredFramesPerSecond:60];
@@ -292,31 +291,36 @@ typedef enum {
   trueHeight = self.view.bounds.size.height;
 }
 
-- (void)viewDidLayoutSubviews {
-  
-  [self updateTrueSize];
-  
+- (void)makeSquareFrame {
   float size = self.view.frame.size.width > self.view.frame.size.height ?
   self.view.frame.size.width : self.view.frame.size.height;
-  
+
   float offset_x = size - self.view.frame.size.width;
   float offset_y = size - self.view.frame.size.height;
-  
+
   [self.view setFrame:CGRectMake(
                                  -offset_x/2.0f,
                                  -offset_y/2.0f,
                                  size,
                                  size)];
   [self setProjection];
-  [self.view layoutSubviews];
+}
+
+- (void)makeRectFrame {
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  [self.view setFrame:CGRectMake(0.0f,0.0f, screenRect.size.width, screenRect.size.height)];
+  [self.view setFrame:CGRectMake(0.0f,0.0f, screenRect.size.width, screenRect.size.height)];
+  [self setProjection];
+}
+
+- (void)viewWillLayoutSubviews {
+  [self makeSquareFrame];
 }
 
 - (void)setProjection
 {
-  float width = [self.view bounds].size.width;
-  float height = [self.view bounds].size.height;
-//  width = [self.view.layer.presentationLayer bounds].size.width;
-//  height = [self.view.layer.presentationLayer bounds].size.height;
+  float width = self.view.bounds.size.width;
+  float height = self.view.bounds.size.height;
   
   GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-width / 2, width / 2, -height / 2, height / 2, 0.0f, 1000.0f);
   self.effect.transform.projectionMatrix = projectionMatrix;
@@ -326,7 +330,7 @@ typedef enum {
 {
   shouldStopUpdating = YES;
   duringDeviceRotation = NO;
-  [self setProjection];
+  [self makeRectFrame];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {

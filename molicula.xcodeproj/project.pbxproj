@@ -13,11 +13,6 @@
 		07115F171809661E0044735C /* RotationAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F161809661E0044735C /* RotationAnimation.m */; };
 		07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */; };
 		0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0774AD7A17FB2A70008D8B2E /* Images.xcassets */; };
-		077F9A7617D7CBB0004F1960 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7517D7CBB0004F1960 /* UIKit.framework */; };
-		077F9A7817D7CBB0004F1960 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7717D7CBB0004F1960 /* Foundation.framework */; };
-		077F9A7A17D7CBB0004F1960 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7917D7CBB0004F1960 /* CoreGraphics.framework */; };
-		077F9A7C17D7CBB0004F1960 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7B17D7CBB0004F1960 /* GLKit.framework */; };
-		077F9A7E17D7CBB0004F1960 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7D17D7CBB0004F1960 /* OpenGLES.framework */; };
 		077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8217D7CBB0004F1960 /* InfoPlist.strings */; };
 		077F9A8617D7CBB0004F1960 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8517D7CBB0004F1960 /* main.m */; };
 		077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8917D7CBB0004F1960 /* AppDelegate.m */; };
@@ -25,8 +20,6 @@
 		077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9417D7CBB0004F1960 /* Shader.fsh */; };
 		077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9617D7CBB0004F1960 /* Shader.vsh */; };
 		077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A9917D7CBB0004F1960 /* GameViewController.m */; };
-		077F9AA317D7CBB0004F1960 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7517D7CBB0004F1960 /* UIKit.framework */; };
-		077F9AA417D7CBB0004F1960 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7717D7CBB0004F1960 /* Foundation.framework */; };
 		077F9AAC17D7CBB1004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AAA17D7CBB1004F1960 /* InfoPlist.strings */; };
 		077F9AAF17D7CBB1004F1960 /* moliculaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AAE17D7CBB1004F1960 /* moliculaTests.m */; };
 		077F9ABA17D7CC44004F1960 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AB917D7CC44004F1960 /* Grid.m */; };
@@ -67,11 +60,6 @@
 		07124BB517F9A63900D7B5CD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0774AD7A17FB2A70008D8B2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		077F9A7217D7CBB0004F1960 /* molicula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = molicula.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		077F9A7517D7CBB0004F1960 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		077F9A7717D7CBB0004F1960 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		077F9A7917D7CBB0004F1960 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		077F9A7B17D7CBB0004F1960 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		077F9A7D17D7CBB0004F1960 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		077F9A8117D7CBB0004F1960 /* molicula-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "molicula-Info.plist"; sourceTree = "<group>"; };
 		077F9A8317D7CBB0004F1960 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		077F9A8517D7CBB0004F1960 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -120,11 +108,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				077F9A7617D7CBB0004F1960 /* UIKit.framework in Frameworks */,
-				077F9A7817D7CBB0004F1960 /* Foundation.framework in Frameworks */,
-				077F9A7A17D7CBB0004F1960 /* CoreGraphics.framework in Frameworks */,
-				077F9A7C17D7CBB0004F1960 /* GLKit.framework in Frameworks */,
-				077F9A7E17D7CBB0004F1960 /* OpenGLES.framework in Frameworks */,
 				077F9AD717D7D206004F1960 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,8 +116,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				077F9AA317D7CBB0004F1960 /* UIKit.framework in Frameworks */,
-				077F9AA417D7CBB0004F1960 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,11 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				077F9AD617D7D206004F1960 /* Crashlytics.framework */,
-				077F9A7517D7CBB0004F1960 /* UIKit.framework */,
-				077F9A7717D7CBB0004F1960 /* Foundation.framework */,
-				077F9A7917D7CBB0004F1960 /* CoreGraphics.framework */,
-				077F9A7B17D7CBB0004F1960 /* GLKit.framework */,
-				077F9A7D17D7CBB0004F1960 /* OpenGLES.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
