@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Eric Wolter. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface moliculaTests : SenTestCase
+@interface moliculaTests : XCTestCase
 
 @end

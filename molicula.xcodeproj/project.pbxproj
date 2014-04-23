@@ -25,7 +25,6 @@
 		077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9417D7CBB0004F1960 /* Shader.fsh */; };
 		077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9617D7CBB0004F1960 /* Shader.vsh */; };
 		077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A9917D7CBB0004F1960 /* GameViewController.m */; };
-		077F9AA217D7CBB0004F1960 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9AA117D7CBB0004F1960 /* SenTestingKit.framework */; };
 		077F9AA317D7CBB0004F1960 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7517D7CBB0004F1960 /* UIKit.framework */; };
 		077F9AA417D7CBB0004F1960 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9A7717D7CBB0004F1960 /* Foundation.framework */; };
 		077F9AAC17D7CBB1004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AAA17D7CBB1004F1960 /* InfoPlist.strings */; };
@@ -84,8 +83,7 @@
 		077F9A9617D7CBB0004F1960 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		077F9A9817D7CBB0004F1960 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		077F9A9917D7CBB0004F1960 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
-		077F9AA017D7CBB0004F1960 /* moliculaTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = moliculaTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		077F9AA117D7CBB0004F1960 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		077F9AA017D7CBB0004F1960 /* moliculaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = moliculaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		077F9AA917D7CBB1004F1960 /* moliculaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "moliculaTests-Info.plist"; sourceTree = "<group>"; };
 		077F9AAB17D7CBB1004F1960 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		077F9AAD17D7CBB1004F1960 /* moliculaTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = moliculaTests.h; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				077F9AA217D7CBB0004F1960 /* SenTestingKit.framework in Frameworks */,
 				077F9AA317D7CBB0004F1960 /* UIKit.framework in Frameworks */,
 				077F9AA417D7CBB0004F1960 /* Foundation.framework in Frameworks */,
 			);
@@ -226,7 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				077F9A7217D7CBB0004F1960 /* molicula.app */,
-				077F9AA017D7CBB0004F1960 /* moliculaTests.octest */,
+				077F9AA017D7CBB0004F1960 /* moliculaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -240,7 +237,6 @@
 				077F9A7917D7CBB0004F1960 /* CoreGraphics.framework */,
 				077F9A7B17D7CBB0004F1960 /* GLKit.framework */,
 				077F9A7D17D7CBB0004F1960 /* OpenGLES.framework */,
-				077F9AA117D7CBB0004F1960 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -326,8 +322,8 @@
 			);
 			name = moliculaTests;
 			productName = moliculaTests;
-			productReference = 077F9AA017D7CBB0004F1960 /* moliculaTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 077F9AA017D7CBB0004F1960 /* moliculaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -335,6 +331,7 @@
 		077F9A6A17D7CBB0004F1960 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Eric Wolter";
 				TargetAttributes = {
@@ -549,6 +546,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -568,6 +566,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -591,15 +590,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/molicula.app/molicula";
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"\\\"$(SDKROOT)/Developer/Library/Frameworks\\\"",
+					"\\\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\\\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				INFOPLIST_FILE = "moliculaTests/moliculaTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -608,15 +607,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/molicula.app/molicula";
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"\\\"$(SDKROOT)/Developer/Library/Frameworks\\\"",
+					"\\\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\\\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				INFOPLIST_FILE = "moliculaTests/moliculaTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
