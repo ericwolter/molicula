@@ -42,8 +42,13 @@ static GLuint vertexBuffer;
 
 - (void)render:(GLKBaseEffect *)effect {
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
-  effect.transform.modelviewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.modelViewMatrix);
+  effect.transform.modelviewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, GLKMatrix4Multiply(self.modelViewMatrix, self.objectMatrix));
   [effect prepareToDraw];
+  
+  NSLog(@"Hexagon render object: %@", NSStringFromGLKMatrix4(self.objectMatrix));
+  NSLog(@"Hexagon render model: %@", NSStringFromGLKMatrix4(self.modelViewMatrix));
+  NSLog(@"Hexagon render parent: %@", NSStringFromGLKMatrix4([self.parent modelViewMatrix]));
+  NSLog(@"Hexagon render effect: %@", NSStringFromGLKMatrix4(effect.transform.modelviewMatrix));
   
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
   glEnableVertexAttribArray(GLKVertexAttribPosition);
@@ -68,8 +73,8 @@ static GLuint vertexBuffer;
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
+    self.objectMatrix = GLKMatrix4MakeScale(CIRCLE_SCALE, CIRCLE_SCALE, 1.0f);
     self.modelViewMatrix = GLKMatrix4Identity;
-    self.modelViewMatrix = GLKMatrix4Scale(self.modelViewMatrix, CIRCLE_SCALE, CIRCLE_SCALE, 1.0f);
   }
   
   return self;

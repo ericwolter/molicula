@@ -67,13 +67,20 @@
   //     -----   -----   -----
   float gridWidth = GRID_WIDTH * hexWidth - (GRID_WIDTH - 1) * hexWidth / 4.0f;
   
+  self.objectMatrix = GLKMatrix4MakeScale(RENDER_HEX_HEIGHT / 2.0f, RENDER_HEX_HEIGHT / 2.0f, 1.0f);
+  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-gridWidth / 2.0f + hexWidth / 2.0f, gridHeight / 2.0f, -500.0f), self.objectMatrix);
   self.modelViewMatrix = GLKMatrix4Identity;
-  self.modelViewMatrix = GLKMatrix4Scale(self.modelViewMatrix, RENDER_HEX_HEIGHT / 2.0f, RENDER_HEX_HEIGHT / 2.0f, 1.0f);
-  self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-gridWidth / 2.0f + hexWidth / 2.0f, gridHeight / 2.0f, -500.0f), self.modelViewMatrix);
 }
 
 - (void)render:(GLKBaseEffect *)effect {
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  self.modelViewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
   effect.constantColor = [[ColorTheme sharedSingleton] hole];
+
+  NSLog(@"Grid render self: %@", NSStringFromGLKMatrix4(self.modelViewMatrix));
+  NSLog(@"Grid render parent: %@", NSStringFromGLKMatrix4([self.parent modelViewMatrix]));
+  NSLog(@"Grid render effect: %@", NSStringFromGLKMatrix4(effect.transform.modelviewMatrix));
+
   for (NSArray *column in self.holes) {
     for (id hole in column) {
       if (hole != [NSNull null]) {

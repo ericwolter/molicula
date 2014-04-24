@@ -12,6 +12,7 @@
 		07115F1418095A6F0044735C /* TranslateAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F1318095A6F0044735C /* TranslateAnimation.m */; };
 		07115F171809661E0044735C /* RotationAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F161809661E0044735C /* RotationAnimation.m */; };
 		07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */; };
+		076C702A19096F2500F0084D /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076C702919096F2500F0084D /* GameView.m */; };
 		0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0774AD7A17FB2A70008D8B2E /* Images.xcassets */; };
 		077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8217D7CBB0004F1960 /* InfoPlist.strings */; };
 		077F9A8617D7CBB0004F1960 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8517D7CBB0004F1960 /* main.m */; };
@@ -58,6 +59,8 @@
 		07115F161809661E0044735C /* RotationAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationAnimation.m; sourceTree = "<group>"; };
 		07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		07124BB517F9A63900D7B5CD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		076C702819096F2500F0084D /* GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
+		076C702919096F2500F0084D /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
 		0774AD7A17FB2A70008D8B2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		077F9A7217D7CBB0004F1960 /* molicula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = molicula.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		077F9A8117D7CBB0004F1960 /* molicula-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "molicula-Info.plist"; sourceTree = "<group>"; };
@@ -170,6 +173,8 @@
 				07124BB517F9A63900D7B5CD /* Constants.h */,
 				07E1B58018071B9F002D79A1 /* DropResult.h */,
 				07E1B58118071B9F002D79A1 /* DropResult.m */,
+				076C702819096F2500F0084D /* GameView.h */,
+				076C702919096F2500F0084D /* GameView.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -400,6 +405,7 @@
 				07E1B58218071B9F002D79A1 /* DropResult.m in Sources */,
 				077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */,
 				077F9ABA17D7CC44004F1960 /* Grid.m in Sources */,
+				076C702A19096F2500F0084D /* GameView.m in Sources */,
 				077F9AC017D7CCB8004F1960 /* Molecule.m in Sources */,
 				077F9AC317D7CCE7004F1960 /* Hole.m in Sources */,
 				077F9AC617D7CCF6004F1960 /* Atom.m in Sources */,

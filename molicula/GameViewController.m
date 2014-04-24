@@ -16,6 +16,7 @@
 #import "Animator.h"
 #import "TranslateAnimation.h"
 #import "RotationAnimation.h"
+#import "GameView.h"
 
 typedef enum {
   NoDirection,
@@ -25,6 +26,9 @@ typedef enum {
 
 
 @interface GameViewController () {
+  
+  GameView *gameView;
+  
   /**
    * Holds the left over molecule for the finish animation
    */
@@ -138,6 +142,9 @@ typedef enum {
   [self setPreferredFramesPerSecond:60];
   [self updateTrueSize];
   [self setupGL];
+  
+  gameView = (GameView *)view.delegate;
+  [gameView enableGrid];
   
   animator = [[Animator alloc] init];
   controls = [[Controls alloc] init];
@@ -354,6 +361,8 @@ typedef enum {
   
   GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-width / 2, width / 2, -height / 2, height / 2, 0.0f, 1000.0f);
   self.effect.transform.projectionMatrix = projectionMatrix;
+  
+  [gameView updateProjection:CGSizeMake(width, height)];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation) __unused fromInterfaceOrientation

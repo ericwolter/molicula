@@ -17,6 +17,7 @@
 
 @property(nonatomic) GLKVector2 position;
 @property GLKMatrix4 modelViewMatrix;
+@property GLKMatrix4 objectMatrix;
 
 - (void)render:(GLKBaseEffect *)effect;
 
