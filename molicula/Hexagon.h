@@ -11,8 +11,6 @@
 #import "Constants.h"
 
 @interface Hexagon : NSObject {
-  GLKVector2 vertices[CIRCLE_RESOLUTION];
-  GLuint vertexBuffer;
 }
 
 @property id parent;

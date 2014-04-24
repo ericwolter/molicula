@@ -9,6 +9,8 @@
 #import "Hexagon.h"
 #import "ColorTheme.h"
 
+static GLuint vertexBuffer;
+
 @implementation Hexagon
 
 @synthesize modelViewMatrix, parent;
@@ -53,6 +55,7 @@
 
 - (id)init {
   if (self = [super init]) {
+    GLKVector2 vertices[CIRCLE_RESOLUTION];
     for (int i = 0; i < CIRCLE_RESOLUTION; i++) {
       float theta = ((float) i / CIRCLE_RESOLUTION) * 2 * M_PI;
       

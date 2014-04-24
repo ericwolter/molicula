@@ -74,6 +74,7 @@ typedef enum {
   
   BOOL isRotationInProgress;
   BOOL isMirroringInProgress;
+  BOOL isDisappearInProgress;
   
   Animator *animator;
 }
@@ -100,6 +101,7 @@ typedef enum {
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
+  isDisappearInProgress = NO;
   [self setProjection];
   [self updateOnce];
 }
@@ -135,7 +137,6 @@ typedef enum {
   view.exclusiveTouch = YES;
   [self setPreferredFramesPerSecond:60];
   [self updateTrueSize];
-  
   [self setupGL];
   
   animator = [[Animator alloc] init];
@@ -287,11 +288,22 @@ typedef enum {
 }
 
 - (void)updateTrueSize {
-  trueWidth = self.view.bounds.size.width;
-  trueHeight = self.view.bounds.size.height;
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+    trueWidth = screenRect.size.height;
+    trueHeight = screenRect.size.width;
+  } else {
+    trueWidth = screenRect.size.width;
+    trueHeight = screenRect.size.height;
+  }
 }
 
 - (void)makeSquareFrame {
+  NSLog(@"makeSquareFrame");
+  NSLog(@"self.view.bounds.origin:(%f,%f)",self.view.bounds.origin.x,self.view.bounds.origin.y);
+  NSLog(@"self.view.bounds.size:(%f,%f)",self.view.bounds.size.width,self.view.bounds.size.height);
+  NSLog(@"self.view.frame.origin:(%f,%f)",self.view.frame.origin.x,self.view.frame.origin.y);
+  NSLog(@"self.view.frame.size:(%f,%f)",self.view.frame.size.width,self.view.frame.size.height);
   float size = self.view.frame.size.width > self.view.frame.size.height ?
   self.view.frame.size.width : self.view.frame.size.height;
 
@@ -307,20 +319,38 @@ typedef enum {
 }
 
 - (void)makeRectFrame {
+  NSLog(@"makeRectFrame");
+  NSLog(@"self.view.bounds.origin:(%f,%f)",self.view.bounds.origin.x,self.view.bounds.origin.y);
+  NSLog(@"self.view.bounds.size:(%f,%f)",self.view.bounds.size.width,self.view.bounds.size.height);
+  NSLog(@"self.view.frame.origin:(%f,%f)",self.view.frame.origin.x,self.view.frame.origin.y);
+  NSLog(@"self.view.frame.size:(%f,%f)",self.view.frame.size.width,self.view.frame.size.height);
+  
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   [self.view setFrame:CGRectMake(0.0f,0.0f, screenRect.size.width, screenRect.size.height)];
-  [self.view setFrame:CGRectMake(0.0f,0.0f, screenRect.size.width, screenRect.size.height)];
+  if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+    [self.view setFrame:CGRectMake(0.0f,0.0f, screenRect.size.height, screenRect.size.width)];
+  }
+
   [self setProjection];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+//  NSLog(@"viewWillDisappear");
+//  isDisappearInProgress = YES;
+//  [self makeRectFrame];
+}
+
 - (void)viewWillLayoutSubviews {
-  [self makeSquareFrame];
+//  if(!isDisappearInProgress) {
+//    [self makeSquareFrame];
+//  }
 }
 
 - (void)setProjection
 {
-  float width = self.view.bounds.size.width;
-  float height = self.view.bounds.size.height;
+  float width, height;
+  width = [self.view.layer.presentationLayer bounds].size.width;
+  height = [self.view.layer.presentationLayer bounds].size.height;
   
   GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-width / 2, width / 2, -height / 2, height / 2, 0.0f, 1000.0f);
   self.effect.transform.projectionMatrix = projectionMatrix;
@@ -330,7 +360,7 @@ typedef enum {
 {
   shouldStopUpdating = YES;
   duringDeviceRotation = NO;
-  [self makeRectFrame];
+  [self setProjection];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -374,6 +404,7 @@ typedef enum {
     self.paused = YES;
     shouldStopUpdating = NO;
   } else {
+    [self setProjection];
     [animator update:self.timeSinceLastUpdate];
   }
   
