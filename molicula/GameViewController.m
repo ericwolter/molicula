@@ -145,6 +145,7 @@ typedef enum {
   
   gameView = (GameView *)view.delegate;
   [gameView enableGrid];
+  [gameView addMolecule:[MoleculeFactory blueMolecule]];
   
   animator = [[Animator alloc] init];
   controls = [[Controls alloc] init];

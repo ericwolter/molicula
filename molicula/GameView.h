@@ -15,12 +15,16 @@
 }
 
 @property(strong, nonatomic) GLKBaseEffect *effect;
-@property(strong, nonatomic) Grid *grid;
 @property GLKMatrix4 modelViewMatrix;
+
+@property(strong, nonatomic) Grid *grid;
+@property(strong, nonatomic) NSMutableArray *molecules;
 
 - (void)updateProjection:(CGSize)size;
 
 - (void)enableGrid;
 - (void)disableGrid;
+
+- (void)addMolecule:(Molecule *)molecule;
 
 @end

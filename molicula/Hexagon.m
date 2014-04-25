@@ -45,11 +45,6 @@ static GLuint vertexBuffer;
   effect.transform.modelviewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, GLKMatrix4Multiply(self.modelViewMatrix, self.objectMatrix));
   [effect prepareToDraw];
   
-  NSLog(@"Hexagon render object: %@", NSStringFromGLKMatrix4(self.objectMatrix));
-  NSLog(@"Hexagon render model: %@", NSStringFromGLKMatrix4(self.modelViewMatrix));
-  NSLog(@"Hexagon render parent: %@", NSStringFromGLKMatrix4([self.parent modelViewMatrix]));
-  NSLog(@"Hexagon render effect: %@", NSStringFromGLKMatrix4(effect.transform.modelviewMatrix));
-  
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
   glEnableVertexAttribArray(GLKVertexAttribPosition);
   glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, 0);

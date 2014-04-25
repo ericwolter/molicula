@@ -16,7 +16,6 @@
 @synthesize atoms, color, identifer;
 @synthesize position = _position;
 @synthesize orientation = _orientation;
-@synthesize center = _center;
 
 + (CGPoint)mapToArrayIndices:(CGPoint)atomCoordinates {
   return CGPointMake(atomCoordinates.x, atomCoordinates.y + 1);
@@ -35,7 +34,7 @@
 
 - (void)buildAtomsAt:(CGPoint *)atomCoordinates {
   
-  _center = GLKVector2Make(0, 0);
+  self.center = GLKVector2Make(0, 0);
   
   for (int i = 0; i < MOLECULE_SIZE; i++) {
     CGPoint atomCoordinate = atomCoordinates[i];
@@ -49,12 +48,12 @@
     float y = -HEXAGON_HEIGHT * (0.5 * atomCoordinate.x + atomCoordinate.y);
     
     atom.position = GLKVector2Make(x, y);
-    _center = GLKVector2Add(_center, atom.position);
+    self.center = GLKVector2Add(_center, atom.position);
     atom.parent = self;
     [column replaceObjectAtIndex:arrayIndices.y withObject:atom];
   }
   
-  _center = GLKVector2DivideScalar(_center, MOLECULE_SIZE);
+  self.center = GLKVector2DivideScalar(_center, MOLECULE_SIZE);
 }
 
 - (NSMutableArray *)connectAtoms {
@@ -137,6 +136,10 @@
     self.position = GLKVector2Make(0, 0);
     self.orientation = GLKQuaternionIdentity;
     
+    self.objectMatrix = GLKMatrix4Identity;
+    self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-self.center.x, -self.center.y, 0.0f), self.objectMatrix);
+    self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(RENDER_RADIUS, RENDER_RADIUS, 1.0f), self.objectMatrix);
+    
     [self updateModelViewMatrix];
     [self updateAabb];
     
@@ -213,19 +216,21 @@
 }
 
 - (void)updateModelViewMatrix {
-  self.modelViewMatrix = [self buildModelViewMatrixWithMassCenter:self.center andScalingFactor:RENDER_RADIUS andOrientation:self.orientation andWorldPosition:self.position];
+  self.worldTransformMatrix = [self buildModelViewMatrixWithMassCenter:self.center andScalingFactor:RENDER_RADIUS andOrientation:self.orientation andWorldPosition:self.position];
 }
 
 - (GLKMatrix4)buildModelViewMatrixWithMassCenter:(GLKVector2)massCenter andScalingFactor:(float)scalingFactor andOrientation:(GLKQuaternion)orientation andWorldPosition:(GLKVector2)worldPosition {
   GLKMatrix4 modelViewMatrix = GLKMatrix4Identity;
-  modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, GLKMatrix4MakeTranslation(-massCenter.x, -massCenter.y, 0));
-  modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(scalingFactor, scalingFactor, 1.0f), modelViewMatrix);
   modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(orientation), modelViewMatrix);
   modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(worldPosition.x, worldPosition.y, -500.0f), modelViewMatrix);
   return modelViewMatrix;
 }
 
 - (void)renderBonds:(GLKBaseEffect *)effect {
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  
+  self.modelViewMatrix = GLKMatrix4Multiply(self.worldTransformMatrix, GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix));
+
   effect.transform.modelviewMatrix = self.modelViewMatrix;
   [effect prepareToDraw];
   

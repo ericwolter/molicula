@@ -77,10 +77,6 @@
   self.modelViewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
   effect.constantColor = [[ColorTheme sharedSingleton] hole];
 
-  NSLog(@"Grid render self: %@", NSStringFromGLKMatrix4(self.modelViewMatrix));
-  NSLog(@"Grid render parent: %@", NSStringFromGLKMatrix4([self.parent modelViewMatrix]));
-  NSLog(@"Grid render effect: %@", NSStringFromGLKMatrix4(effect.transform.modelviewMatrix));
-
   for (NSArray *column in self.holes) {
     for (id hole in column) {
       if (hole != [NSNull null]) {

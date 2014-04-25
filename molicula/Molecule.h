@@ -20,6 +20,8 @@
   int numberOfBonds;
 }
 
+@property id parent;
+
 @property NSMutableArray *atoms;
 @property(nonatomic, copy) NSString *identifer;
 @property GLKVector4 color;
@@ -30,7 +32,10 @@
 @property(nonatomic) NSArray *snappedHoles;
 @property GLKVector2 aabbMin;
 @property GLKVector2 aabbMax;
+
+@property GLKMatrix4 objectMatrix;
 @property GLKMatrix4 modelViewMatrix;
+@property GLKMatrix4 worldTransformMatrix;
 
 - (void)updateAabb;
 
