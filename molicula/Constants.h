@@ -17,6 +17,7 @@
 
 #define RENDER_HEX_HEIGHT         (IS_IPAD ? 60.0f : 30.0f)
 #define RENDER_RADIUS             (RENDER_HEX_HEIGHT / 2.0f)
+#define HIT_RADIUS                (RENDER_RADIUS * 1.1f)
 
 #define GRID_WIDTH                (7)
 #define GRID_HEIGHT               (6)

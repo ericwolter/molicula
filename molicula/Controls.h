@@ -66,14 +66,14 @@ typedef enum {
 
 @property id parent;
 
-@property(nonatomic) GLKVector2 position;
+@property(nonatomic) GLKVector4 position;
 @property GLKMatrix4 modelViewMatrix;
 
 - (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress;
 - (void)updateModelViewMatrix;
-- (ControlTransform)hitTestAt:(CGPoint)point around:(Molecule *)molecule;
-- (Quadrant)determineTouchQuadrantFor:(CGPoint)transformPoint RelativeTo:(CGPoint)pointerPoint;
-- (LinePosition)determineOnWhichSideOfLine:(CGPoint*)line LiesPoint:(CGPoint)point;
+- (ControlTransform)hitTestAt:(GLKVector2)point around:(Molecule *)molecule;
+- (Quadrant)determineTouchQuadrantFor:(GLKVector2)transformPoint RelativeTo:(GLKVector2)pointerPoint;
+- (LinePosition)determineOnWhichSideOfLine:(GLKVector2*)line LiesPoint:(GLKVector2)point;
 
 @end
 

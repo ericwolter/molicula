@@ -17,7 +17,7 @@
 @interface Molecule : NSObject {
   GLKVector2 *bondPoints;
   GLushort *bondIndices;
-  int numberOfBonds;
+  NSInteger numberOfBonds;
 }
 
 @property id parent;
@@ -35,15 +35,12 @@
 
 @property GLKMatrix4 objectMatrix;
 @property GLKMatrix4 modelViewMatrix;
-@property GLKMatrix4 worldTransformMatrix;
 
 - (void)updateAabb;
 
 - (void)render:(GLKBaseEffect *)effect;
 
-- (void)updateModelViewMatrix;
-
-- (BOOL)hitTest:(CGPoint)point;
+- (BOOL)hitTest:(GLKVector2)point;
 
 - (void)snap:(GLKVector2)offset toHoles:(NSArray *)holes;
 
@@ -55,13 +52,14 @@
 
 - (GLKVector4)mapIdentifierToColor;
 
+- (GLKVector4)getCenterPosition;
+
 - (void)translate:(GLKVector2)translation;
 
 - (void)rotate:(CGFloat)angle;
 - (void)mirror:(CGFloat)angle;
 - (GLKQuaternion)snapOrientation;
 
-- (GLKMatrix4)buildModelViewMatrixWithMassCenter:(GLKVector2)massCenter andScalingFactor:(float)scalingFactor andOrientation:(GLKQuaternion)orientation andWorldPosition:(GLKVector2)worldPosition;
 - (NSArray*)getAtomPositionsInWorld;
 - (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation;
 

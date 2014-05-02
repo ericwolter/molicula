@@ -16,24 +16,6 @@ static GLuint vertexBuffer;
 @synthesize modelViewMatrix, parent;
 @synthesize position = _position;
 
-//- (GLKVector2 *) vertices
-//{
-//    if (vertexData == nil)
-//    {
-//        vertexData = [NSMutableData dataWithLength:sizeof(GLKVector2) * CIRCLE_RESOLUTION];
-//    }
-//    return [vertexData mutableBytes];
-//}
-//
-//- (GLKVector4 *) vertexColors
-//{
-//    if (vertexColorData == nil)
-//    {
-//        vertexColorData = [NSMutableData dataWithLength:sizeof(GLKVector4) * CIRCLE_RESOLUTION];
-//    }
-//    return [vertexColorData mutableBytes];
-//}
-
 - (void)setPosition:(GLKVector2)position {
   _position = position;
   

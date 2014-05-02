@@ -63,13 +63,10 @@
                         <viewControllerLayoutGuide type="top" id="2l5-dC-CQx"/>
                         <viewControllerLayoutGuide type="bottom" id="UVD-Ms-k1N"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="psZ-oD-fJv" customClass="GLKView">
+                    <view key="view" contentMode="scaleToFill" id="psZ-oD-fJv" customClass="GameView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="delegate" destination="wRa-0n-hSY" id="MEk-xw-a0t"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="ncc-uu-9AY">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="PX4-HB-Ikn">
@@ -80,7 +77,6 @@
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5E-46-CWi" sceneMemberID="firstResponder"/>
-                <customObject id="wRa-0n-hSY" customClass="GameView"/>
             </objects>
             <point key="canvasLocation" x="435" y="-160"/>
         </scene>

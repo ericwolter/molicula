@@ -14,7 +14,7 @@
 @synthesize modelViewMatrix, parent;
 @synthesize position = _position;
 
-- (void)setPosition:(GLKVector2)position {
+- (void)setPosition:(GLKVector4)position {
   _position = position;
   
   [self updateModelViewMatrix];
@@ -82,7 +82,8 @@
 
 - (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress {
   effect.constantColor = GLKVector4Make(effect.constantColor.x, effect.constantColor.y, effect.constantColor.z, 0.5f);
-  effect.transform.modelviewMatrix = self.modelViewMatrix;
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  effect.transform.modelviewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.modelViewMatrix);
   [effect prepareToDraw];
   
   glEnable(GL_BLEND);
@@ -264,12 +265,11 @@
   return self;
 }
 
-- (ControlTransform)hitTestAt:(CGPoint)point around:(Molecule *)molecule {
-  GLKVector2 vector = GLKVector2Make(point.x, point.y);
+- (ControlTransform)hitTestAt:(GLKVector2)point around:(Molecule *)molecule {
   
-  CGFloat distance = GLKVector2Distance(vector, molecule.position);
+  CGFloat distance = GLKVector2Distance(point, molecule.position);
   if(distance <= (1.0f * TUTORIAL_SCALE) * 1.2f && distance >= ((1.0f - ARROW_THICKNESS) * TUTORIAL_SCALE) * 0.8f) {
-    switch ([self determineTouchQuadrantFor:point RelativeTo:CGPointMake(molecule.position.x, molecule.position.y)]) {
+    switch ([self determineTouchQuadrantFor:point RelativeTo:GLKVector2Make(molecule.position.x, molecule.position.y)]) {
       case QuadrantLeft:
       case QuadrantRight:
         return Rotate;
@@ -284,10 +284,10 @@
   return None;
 }
 
-- (Quadrant)determineTouchQuadrantFor:(CGPoint)transformPoint RelativeTo:(CGPoint)pointerPoint {
+- (Quadrant)determineTouchQuadrantFor:(GLKVector2)transformPoint RelativeTo:(GLKVector2)pointerPoint {
   
-  CGPoint ascendingDiagonal[2] = { pointerPoint, CGPointMake(pointerPoint.x + 1, pointerPoint.y + 1) };
-  CGPoint descendingDiagonal[2] = { pointerPoint, CGPointMake(pointerPoint.x + 1, pointerPoint.y - 1) };
+  GLKVector2 ascendingDiagonal[2] = { pointerPoint, GLKVector2Add(pointerPoint, GLKVector2Make(1, 1)) };
+  GLKVector2 descendingDiagonal[2] = { pointerPoint, GLKVector2Add(pointerPoint, GLKVector2Make(1, -1)) };
   
   LinePosition ascendingSide = [self determineOnWhichSideOfLine:ascendingDiagonal LiesPoint:transformPoint];
   LinePosition descendingSide = [self determineOnWhichSideOfLine:descendingDiagonal LiesPoint:transformPoint];
@@ -305,7 +305,7 @@
   }
 }
 
-- (LinePosition)determineOnWhichSideOfLine:(CGPoint*)line LiesPoint:(CGPoint)point {
+- (LinePosition)determineOnWhichSideOfLine:(GLKVector2*)line LiesPoint:(GLKVector2)point {
   // the pseudo distance will be zero if the point on the line
   // otherwise it will be positive for the 'right' side and negative for the
   // 'left' side

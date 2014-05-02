@@ -51,7 +51,7 @@ typedef enum {
   CGFloat transformMirroringOffset;
   CGFloat cumulativeMirroringAngle;
   MirroringDirection mirroringDirection;
-  CGPoint previousTouchPoint;
+  GLKVector2 previousTouchPoint;
   
   Controls *controls;
   UITouch *transformTouch;
@@ -84,7 +84,6 @@ typedef enum {
 }
 
 @property(strong, nonatomic) EAGLContext *context;
-@property(strong, nonatomic) GLKBaseEffect *effect;
 
 - (void)render;
 
@@ -132,23 +131,23 @@ typedef enum {
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:NULL];
   
-  GLKView *view = (GLKView *) self.view;
-  view.context = self.context;
-  view.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
-  view.drawableDepthFormat = GLKViewDrawableDepthFormat16;
-  view.drawableMultisample = GLKViewDrawableMultisample4X;
-  view.multipleTouchEnabled = YES;
-  view.exclusiveTouch = YES;
+  gameView = (GameView *) self.view;
+  gameView.context = self.context;
+  gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
+  gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
+  gameView.drawableMultisample = GLKViewDrawableMultisample4X;
+  gameView.multipleTouchEnabled = YES;
+  gameView.exclusiveTouch = YES;
   [self setPreferredFramesPerSecond:60];
   [self updateTrueSize];
   [self setupGL];
   
-  gameView = (GameView *)view.delegate;
   [gameView enableGrid];
-  [gameView addMolecule:[MoleculeFactory blueMolecule]];
+  [gameView addMolecule:[MoleculeFactory purpleMolecule]];
   
   animator = [[Animator alloc] init];
   controls = [[Controls alloc] init];
+  controls.parent = gameView;
   
   [self setupGrid];
   
@@ -181,7 +180,6 @@ typedef enum {
     [EAGLContext setCurrentContext:nil];
   }
   
-  self.effect = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -203,7 +201,6 @@ typedef enum {
 
 - (void)setupGL {
   [EAGLContext setCurrentContext:self.context];
-  self.effect = [[GLKBaseEffect alloc] init];
 }
 
 - (void)setupGrid {
@@ -257,13 +254,13 @@ typedef enum {
   //    [grid snapMolecule:m];
   //  }
   
-  [molecules addObject:[MoleculeFactory blueMolecule]];
-  [molecules addObject:[MoleculeFactory greenMolecule]];
-  [molecules addObject:[MoleculeFactory yellowMolecule]];
-  [molecules addObject:[MoleculeFactory whiteMolecule]];
-  [molecules addObject:[MoleculeFactory orangeMolecule]];
-  [molecules addObject:[MoleculeFactory redMolecule]];
-  [molecules addObject:[MoleculeFactory purpleMolecule]];
+//  [molecules addObject:[MoleculeFactory blueMolecule]];
+//  [molecules addObject:[MoleculeFactory greenMolecule]];
+//  [molecules addObject:[MoleculeFactory yellowMolecule]];
+//  [molecules addObject:[MoleculeFactory whiteMolecule]];
+//  [molecules addObject:[MoleculeFactory orangeMolecule]];
+//  [molecules addObject:[MoleculeFactory redMolecule]];
+//  [molecules addObject:[MoleculeFactory purpleMolecule]];
   
   [self layoutMolecules];
 }
@@ -274,7 +271,7 @@ typedef enum {
   for (NSUInteger i = 0; i < count; ++i) {
     // Select a random element between i and end of array to swap with.
     NSInteger nElements = count - i;
-    NSInteger n = (arc4random_uniform(nElements)) + i;
+    NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
     [molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
   }
   for(NSUInteger i = 0; i < count; ++i) {
@@ -360,9 +357,6 @@ typedef enum {
   width = [self.view.layer.presentationLayer bounds].size.width;
   height = [self.view.layer.presentationLayer bounds].size.height;
   
-  GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-width / 2, width / 2, -height / 2, height / 2, 0.0f, 1000.0f);
-  self.effect.transform.projectionMatrix = projectionMatrix;
-  
   [gameView updateProjection:CGSizeMake(width, height)];
 }
 
@@ -431,26 +425,29 @@ typedef enum {
   
 }
 
-- (void)glkView:(GLKView *) __unused view drawInRect:(CGRect) __unused rect {
-  [self render];
-}
-
-- (void)render {
-  GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
-  glClearColor(bg.x, bg.y, bg.z, bg.w);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  
-  [grid render:self.effect];
-  
-  for (Molecule *molecule in molecules) {
-    [molecule render:self.effect];
-  }
+- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
+  [gameView render];
   
   if(activeMolecule != nil) {
-    [controls setPosition:activeMolecule.position];
-    self.effect.constantColor = activeMolecule.color;
-    [controls render:self.effect andRotationInProgress:isRotationInProgress andMirroringInProgress:isMirroringInProgress];
+    
+    [controls setPosition:[activeMolecule getCenterPosition]];
+    gameView.effect.constantColor = activeMolecule.color;
+    [controls render:gameView.effect andRotationInProgress:isRotationInProgress andMirroringInProgress:isMirroringInProgress];
   }
+}
+
+
+- (void)render {
+//  GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
+//  glClearColor(bg.x, bg.y, bg.z, bg.w);
+//  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//  
+//  [grid render:self.effect];
+//  
+//  for (Molecule *molecule in molecules) {
+//    [molecule render:self.effect];
+//  }
+//  
 }
 
 - (CGPoint) touchPointToGLPoint:(CGPoint)point
@@ -468,17 +465,20 @@ typedef enum {
   }
   
   UITouch *touch = [touches anyObject];
-  CGPoint touchPoint = [self touchPointToGLPoint:[touch locationInView:self.view]];
+  CGPoint viewCoordinate = [touch locationInView:self.view];
+  NSLog(@"touchesBegan: viewCoordinate: %@", NSStringFromCGPoint(viewCoordinate));
+  GLKVector2 openglCoordinate = [gameView convertViewCoordinateToOpenGLCoordinate:viewCoordinate];
+  NSLog(@"touchesBegan: openglCoordinate: %@", NSStringFromGLKVector2(openglCoordinate));
   
   if (activeMolecule != nil) {
     [activeMolecule unsnap];
-    ControlTransform transform = [controls hitTestAt:touchPoint around:activeMolecule];
+    ControlTransform transform = [controls hitTestAt:openglCoordinate around:activeMolecule];
     switch (transform) {
       case Rotate:
         controlTouch = touch;
         isRotationInProgress = YES;
         
-        transformRotationAngle = atan2(touchPoint.y - activeMolecule.position.y, touchPoint.x - activeMolecule.position.x);
+        transformRotationAngle = atan2(openglCoordinate.y - activeMolecule.position.y, openglCoordinate.x - activeMolecule.position.x);
         
         return;
       case Mirror:
@@ -487,7 +487,7 @@ typedef enum {
         cumulativeMirroringAngle = 0.0f;
         mirroringDirection = NoDirection;
         
-        transformMirroringOffset = touchPoint.x;
+        transformMirroringOffset = openglCoordinate.x;
         return;
       default:
         break;
@@ -497,18 +497,18 @@ typedef enum {
   if (pointerTouch == nil) {
 
     // check if any molecule was selected
-    for (int moleculeIndex = molecules.count - 1; moleculeIndex >= 0; moleculeIndex--)
+    for (NSInteger moleculeIndex = gameView.molecules.count - 1; moleculeIndex >= 0; moleculeIndex--)
     {
-      Molecule *m = [molecules objectAtIndex:moleculeIndex];
-      if ([m hitTest:touchPoint])
+      Molecule *m = [gameView.molecules objectAtIndex:moleculeIndex];
+      if ([m hitTest:openglCoordinate])
       {
+        NSLog(@"molecule hit!");
         pointerTouch = touch;
-        previousTouchPoint = touchPoint;
+        previousTouchPoint = openglCoordinate;
         activeMolecule = m;
-        [molecules removeObjectAtIndex:moleculeIndex];
-        [molecules addObject:m];
+        [gameView bringToFront:moleculeIndex];
         [m unsnap];
-        for(Molecule *molecule in molecules) {
+        for(Molecule *molecule in gameView.molecules) {
           if(molecule != activeMolecule) {
             GLKQuaternion targetOrientation = [molecule snapOrientation];
             RotationAnimation *animation = [[RotationAnimation alloc] initWithMolecule:molecule AndTarget:targetOrientation];
@@ -580,10 +580,11 @@ typedef enum {
   
   if (pointerTouch != nil)
   {
-    CGPoint point = [self touchPointToGLPoint:[pointerTouch locationInView:self.view]];
-    GLKVector2 translate = GLKVector2Make(point.x-previousTouchPoint.x, point.y-previousTouchPoint.y);
+    CGPoint viewCoordinate = [pointerTouch locationInView:self.view];
+    GLKVector2 openglCoordinate = [gameView convertViewCoordinateToOpenGLCoordinate:viewCoordinate];
+    GLKVector2 translate = GLKVector2Subtract(openglCoordinate, previousTouchPoint);
     [activeMolecule translate:translate];
-    previousTouchPoint = point;
+    previousTouchPoint = openglCoordinate;
   }
   
   if(controlTouch != nil) {
@@ -691,7 +692,7 @@ typedef enum {
     NSString *solution = [grid toString];
     finishAnimation = YES;
     
-    for (int moleculeIndex = molecules.count - 1; moleculeIndex >= 0; moleculeIndex--)
+    for (NSInteger moleculeIndex = molecules.count - 1; moleculeIndex >= 0; moleculeIndex--)
     {
       Molecule *molecule = [molecules objectAtIndex:moleculeIndex];
       if(!molecule.isSnapped) {

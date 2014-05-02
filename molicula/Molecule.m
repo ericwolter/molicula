@@ -10,6 +10,7 @@
 #import "Helper.h"
 #import "NSValue_GLKVector.h"
 #import "ColorTheme.h"
+#import "GameView.h"
 
 @implementation Molecule
 
@@ -140,8 +141,8 @@
     self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-self.center.x, -self.center.y, 0.0f), self.objectMatrix);
     self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(RENDER_RADIUS, RENDER_RADIUS, 1.0f), self.objectMatrix);
     
-    [self updateModelViewMatrix];
-    [self updateAabb];
+//    [self updateModelViewMatrix];
+//    [self updateAabb];
     
 //    glGenBuffers(1, &boundingBoxBuffer);
 //    glBindBuffer(GL_ARRAY_BUFFER, boundingBoxBuffer);
@@ -215,28 +216,10 @@
   return reflection;
 }
 
-- (void)updateModelViewMatrix {
-  self.worldTransformMatrix = [self buildModelViewMatrixWithMassCenter:self.center andScalingFactor:RENDER_RADIUS andOrientation:self.orientation andWorldPosition:self.position];
-}
-
-- (GLKMatrix4)buildModelViewMatrixWithMassCenter:(GLKVector2)massCenter andScalingFactor:(float)scalingFactor andOrientation:(GLKQuaternion)orientation andWorldPosition:(GLKVector2)worldPosition {
-  GLKMatrix4 modelViewMatrix = GLKMatrix4Identity;
-  modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(orientation), modelViewMatrix);
-  modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(worldPosition.x, worldPosition.y, -500.0f), modelViewMatrix);
-  return modelViewMatrix;
-}
-
 - (void)renderBonds:(GLKBaseEffect *)effect {
-  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
-  
-  self.modelViewMatrix = GLKMatrix4Multiply(self.worldTransformMatrix, GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix));
-
-  effect.transform.modelviewMatrix = self.modelViewMatrix;
-  [effect prepareToDraw];
-  
   glEnableVertexAttribArray(GLKVertexAttribPosition);
   glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, bondPoints);
-  glDrawElements(GL_TRIANGLES, 6 * numberOfBonds, GL_UNSIGNED_SHORT, bondIndices);
+  glDrawElements(GL_TRIANGLES, (GLsizei)(6 * numberOfBonds), GL_UNSIGNED_SHORT, bondIndices);
   glDisableVertexAttribArray(GLKVertexAttribPosition);
 }
 
@@ -251,59 +234,56 @@
 }
 
 - (void)render:(GLKBaseEffect *)effect {
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  self.modelViewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
+  
   effect.constantColor = self.color;
+  effect.transform.modelviewMatrix = self.modelViewMatrix;
+  [effect prepareToDraw];
+  
   [self renderBonds:effect];
   [self renderAtoms:effect];
 }
 
-- (BOOL)hitTest:(CGPoint)point {
-  if ( (point.x > self.aabbMin.x && point.y > self.aabbMin.y && point.x < self.aabbMax.x && point.y < self.aabbMax.y) )
-  {
-    NSArray *worldPositions = [self getAtomPositionsInWorld];
+- (BOOL)hitTest:(GLKVector2)point {
+  NSArray *worldPositions = [self getAtomPositionsInWorld];
+
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  float radius = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make(HIT_RADIUS, HIT_RADIUS, 0.0f)).x;
+  
+  for(NSValue *value in worldPositions) {
+    GLKVector2 position = [value GLKVector2Value];
     
-    for(NSValue *value in worldPositions) {
-      GLKVector2 position = [value GLKVector2Value];
-      GLKVector2 pointVector = GLKVector2Make(point.x, point.y);
-      
-      if (GLKVector2Distance(pointVector, position) < RENDER_RADIUS * 1.1f)
-      {
-        return YES;
-      }
+    if (GLKVector2Distance(point, position) < radius)
+    {
+      return YES;
     }
-    
-    return NO;
   }
-  else
-  {
-    return NO;
-  }
+  
+  return NO;
 }
 
 - (void)translate:(GLKVector2)translation {
-  self.position = GLKVector2Add(self.position, translation);
-  
-  [self updateModelViewMatrix];
-  [self updateAabb];
+  GLKMatrix4 invertedParentModelViewMatrix = [self.parent invertedModelViewMatrix];
+  GLKVector4 objectTranslation = GLKMatrix4MultiplyVector4(invertedParentModelViewMatrix, GLKVector4Make(translation.x, translation.y, 0, 0));
+  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(objectTranslation.x, objectTranslation.y, 0), self.objectMatrix);
 }
 
 - (void)setPosition:(GLKVector2)position {
   _position = position;
-  
-  [self updateModelViewMatrix];
+
   [self updateAabb];
 }
 
 - (void)setOrientation:(GLKQuaternion)orientation {
   _orientation = orientation;
   
-  [self updateModelViewMatrix];
   [self updateAabb];
 }
 
 - (void)rotate:(CGFloat)angle {
   self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(-angle, 0, 0, 1), self.orientation);
   self.orientation = GLKQuaternionNormalize(self.orientation);
-  [self updateModelViewMatrix];
   [self updateAabb];
 }
 
@@ -350,12 +330,14 @@
 -(void)mirror:(CGFloat)angle {
   self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(angle, 0, 1, 0), self.orientation);
   
-  [self updateModelViewMatrix];
   [self updateAabb];
 }
 
 - (NSArray *)getAtomPositionsInWorld {
   NSMutableArray *worldCoordinates = [[NSMutableArray alloc] init];
+  
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
   
   for (int x = 0; x < GRID_WIDTH; x++) {
     NSArray *column = [self.atoms objectAtIndex:x];
@@ -363,7 +345,7 @@
       Atom *atom = [column objectAtIndex:y];
       if (atom != (id) [NSNull null]) {
         GLKVector4 homogeneousCoordinate = GLKVector4Make(atom.position.x, atom.position.y, 0, 1);
-        GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(self.modelViewMatrix, homogeneousCoordinate);
+        GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(screenTransformMatrix, homogeneousCoordinate);
         GLKVector2 worldCoordinate2d = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
         
         [worldCoordinates addObject:[NSValue valueWithGLKVector2:worldCoordinate2d]];
@@ -375,7 +357,11 @@
 }
 
 - (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation {
+  NSLog(@"getAtomPositionsInWorldWithFutureOrientation");
   NSMutableArray *worldCoordinates = [[NSMutableArray alloc] init];
+  
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
   
   for (int x = 0; x < GRID_WIDTH; x++) {
     NSArray *column = [self.atoms objectAtIndex:x];
@@ -383,9 +369,11 @@
       Atom *atom = [column objectAtIndex:y];
       if (atom != (id) [NSNull null]) {
         GLKVector4 homogeneousCoordinate = GLKVector4Make(atom.position.x, atom.position.y, 0, 1);
-        GLKMatrix4 modelViewMatrix = [self buildModelViewMatrixWithMassCenter:self.center andScalingFactor:RENDER_RADIUS andOrientation:orientation andWorldPosition:self.position];
-        GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(modelViewMatrix, homogeneousCoordinate);
+        NSLog(@"atom in objectSpace: %@", NSStringFromGLKVector4(homogeneousCoordinate));
+        GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(screenTransformMatrix, homogeneousCoordinate);
+        NSLog(@"atom in worldSpace: %@", NSStringFromGLKVector4(homogeneousWorldCoordinate));
         GLKVector2 worldCoordinate2d = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
+        NSLog(@"atom in worldSpace2d: %@", NSStringFromGLKVector2(worldCoordinate2d));
         
         [worldCoordinates addObject:[NSValue valueWithGLKVector2:worldCoordinate2d]];
       }
@@ -393,6 +381,11 @@
   }
   
   return worldCoordinates;
+}
+
+- (GLKVector4)getCenterPosition {
+  GLKVector4 centerObjectSpace = GLKMatrix4MultiplyVector4(self.objectMatrix, GLKVector4Make(self.center.x, self.center.y, 0, 1));
+  return centerObjectSpace;
 }
 
 - (void)snap:(GLKVector2)offset toHoles:(NSArray *)holes {
