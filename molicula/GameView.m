@@ -58,6 +58,14 @@
   self.molecules = [[NSMutableArray alloc] init];
 }
 
+- (void)drawRect:(CGRect)rect {
+  if (!self.delegate) {
+    [self render];
+  } else {
+    [self.delegate glkView:self drawInRect:rect];
+  }
+}
+
 - (void)render {
   GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
   glClearColor(bg.x, 1.0f, bg.z, bg.w);

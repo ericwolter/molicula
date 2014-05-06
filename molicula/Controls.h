@@ -71,7 +71,7 @@ typedef enum {
 
 - (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress;
 - (void)updateModelViewMatrix;
-- (ControlTransform)hitTestAt:(GLKVector2)point around:(Molecule *)molecule;
+- (ControlTransform)hitTest:(GLKVector2)point;
 - (Quadrant)determineTouchQuadrantFor:(GLKVector2)transformPoint RelativeTo:(GLKVector2)pointerPoint;
 - (LinePosition)determineOnWhichSideOfLine:(GLKVector2*)line LiesPoint:(GLKVector2)point;
 

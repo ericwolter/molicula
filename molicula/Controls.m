@@ -265,11 +265,19 @@
   return self;
 }
 
-- (ControlTransform)hitTestAt:(GLKVector2)point around:(Molecule *)molecule {
+- (ControlTransform)hitTest:(GLKVector2)point {
   
-  CGFloat distance = GLKVector2Distance(point, molecule.position);
-  if(distance <= (1.0f * TUTORIAL_SCALE) * 1.2f && distance >= ((1.0f - ARROW_THICKNESS) * TUTORIAL_SCALE) * 0.8f) {
-    switch ([self determineTouchQuadrantFor:point RelativeTo:GLKVector2Make(molecule.position.x, molecule.position.y)]) {
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  GLKVector4 centerInWorldSpace = GLKMatrix4MultiplyVector4(parentModelViewMatrix, self.position);
+  GLKVector2 center2d = GLKVector2Make(centerInWorldSpace.x/centerInWorldSpace.w, centerInWorldSpace.y/centerInWorldSpace.w);
+  
+  CGFloat distance = GLKVector2Distance(point, center2d);
+  
+  CGFloat radiusInnerBound = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make(((1.0f - ARROW_THICKNESS) * TUTORIAL_SCALE) * 0.8f, 0.0f, 0.0f)).x;
+  CGFloat radiusOuterBound = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make((1.0f * TUTORIAL_SCALE) * 1.2f, 0.0f, 0.0f)).x;
+  
+  if (distance >= radiusInnerBound && distance <= radiusOuterBound) {
+    switch ([self determineTouchQuadrantFor:point RelativeTo:center2d]) {
       case QuadrantLeft:
       case QuadrantRight:
         return Rotate;

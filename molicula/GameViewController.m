@@ -287,7 +287,6 @@ typedef enum {
     Molecule *molecule = [molecules objectAtIndex:i];
     
     [molecule translate:GLKVector2MultiplyScalar(directions[i], LAYOUT_DISTANCE)];
-    [molecule updateAabb];
     [self enforceScreenBoundsForMolecule:molecule];
   }
 }
@@ -429,25 +428,10 @@ typedef enum {
   [gameView render];
   
   if(activeMolecule != nil) {
-    
-    [controls setPosition:[activeMolecule getCenterPosition]];
+    [controls setPosition:[activeMolecule getCenterInObjectSpace]];
     gameView.effect.constantColor = activeMolecule.color;
     [controls render:gameView.effect andRotationInProgress:isRotationInProgress andMirroringInProgress:isMirroringInProgress];
   }
-}
-
-
-- (void)render {
-//  GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
-//  glClearColor(bg.x, bg.y, bg.z, bg.w);
-//  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//  
-//  [grid render:self.effect];
-//  
-//  for (Molecule *molecule in molecules) {
-//    [molecule render:self.effect];
-//  }
-//  
 }
 
 - (CGPoint) touchPointToGLPoint:(CGPoint)point
@@ -472,16 +456,19 @@ typedef enum {
   
   if (activeMolecule != nil) {
     [activeMolecule unsnap];
-    ControlTransform transform = [controls hitTestAt:openglCoordinate around:activeMolecule];
+    ControlTransform transform = [controls hitTest:openglCoordinate];
     switch (transform) {
       case Rotate:
+        NSLog(@"Control Rotate");
         controlTouch = touch;
         isRotationInProgress = YES;
         
-        transformRotationAngle = atan2(openglCoordinate.y - activeMolecule.position.y, openglCoordinate.x - activeMolecule.position.x);
+        GLKVector4 moleculeCenter = [activeMolecule getCenterInParentSpace];
+        transformRotationAngle = atan2(openglCoordinate.y - moleculeCenter.y, openglCoordinate.x - moleculeCenter.x);
         
         return;
       case Mirror:
+        NSLog(@"Control Mirror");
         controlTouch = touch;
         isMirroringInProgress = YES;
         cumulativeMirroringAngle = 0.0f;
@@ -588,13 +575,15 @@ typedef enum {
   }
   
   if(controlTouch != nil) {
-    CGPoint controlPoint = [self touchPointToGLPoint:[controlTouch locationInView:self.view]];
+    CGPoint viewCoordinate = [controlTouch locationInView:self.view];
+    GLKVector2 openglCoordinate = [gameView convertViewCoordinateToOpenGLCoordinate:viewCoordinate];
     if (isRotationInProgress) {
-      CGFloat newTransformRotationAngle = atan2(controlPoint.y - activeMolecule.position.y, controlPoint.x - activeMolecule.position.x);
+      GLKVector4 moleculeCenter = [activeMolecule getCenterInParentSpace];
+      CGFloat newTransformRotationAngle = atan2(openglCoordinate.y - moleculeCenter.y, openglCoordinate.x - moleculeCenter.x);
       [activeMolecule rotate:transformRotationAngle-newTransformRotationAngle];
       transformRotationAngle = newTransformRotationAngle;
     } else if (isMirroringInProgress) {
-      CGFloat newTransformMirroringOffset = controlPoint.x;
+      CGFloat newTransformMirroringOffset = openglCoordinate.x;
       CGFloat deltaAngle = GLKMathDegreesToRadians(transformMirroringOffset - newTransformMirroringOffset) * CONTROL_MIRROR_VELOCITY;
       [activeMolecule mirror:[self constrainMirroring:deltaAngle]];
       transformMirroringOffset = newTransformMirroringOffset;

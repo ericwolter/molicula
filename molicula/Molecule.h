@@ -36,8 +36,6 @@
 @property GLKMatrix4 objectMatrix;
 @property GLKMatrix4 modelViewMatrix;
 
-- (void)updateAabb;
-
 - (void)render:(GLKBaseEffect *)effect;
 
 - (BOOL)hitTest:(GLKVector2)point;
@@ -52,13 +50,15 @@
 
 - (GLKVector4)mapIdentifierToColor;
 
-- (GLKVector4)getCenterPosition;
+- (GLKVector4)getCenterInObjectSpace;
+- (GLKVector4)getCenterInParentSpace;
 
 - (void)translate:(GLKVector2)translation;
-
 - (void)rotate:(CGFloat)angle;
 - (void)mirror:(CGFloat)angle;
 - (GLKQuaternion)snapOrientation;
+
+- (void)updateObjectMatrix;
 
 - (NSArray*)getAtomPositionsInWorld;
 - (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation;

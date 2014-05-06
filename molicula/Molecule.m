@@ -137,11 +137,7 @@
     self.position = GLKVector2Make(0, 0);
     self.orientation = GLKQuaternionIdentity;
     
-    self.objectMatrix = GLKMatrix4Identity;
-    self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-self.center.x, -self.center.y, 0.0f), self.objectMatrix);
-    self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(RENDER_RADIUS, RENDER_RADIUS, 1.0f), self.objectMatrix);
-    
-//    [self updateModelViewMatrix];
+    [self updateObjectMatrix];
 //    [self updateAabb];
     
 //    glGenBuffers(1, &boundingBoxBuffer);
@@ -177,36 +173,6 @@
   }
   
   return GLKVector4Make(1, 1, 1, 0.5f);
-}
-
-- (void)updateAabb {
-  
-  float minX = FLT_MAX;
-  float minY = FLT_MAX;
-  float maxX = -FLT_MAX;
-  float maxY = -FLT_MAX;
-  
-  NSArray *worldPositions = [self getAtomPositionsInWorld];
-  
-  for(NSValue *value in worldPositions) {
-    GLKVector2 position = [value GLKVector2Value];
-    
-    if(position.x < minX) {
-      minX = position.x;
-    }
-    if(position.x > maxX) {
-      maxX = position.x;
-    }
-    if(position.y < minY) {
-      minY = position.y;
-    }
-    if(position.y > maxY) {
-      maxY = position.y;
-    }
-  }
-  
-  self.aabbMin = GLKVector2Make(minX - RENDER_RADIUS, minY - RENDER_RADIUS);
-  self.aabbMax = GLKVector2Make(maxX + RENDER_RADIUS, maxY + RENDER_RADIUS);
 }
 
 - (GLKMatrix4)GLKMatrix4MakeReflection:(GLKVector2)axis {
@@ -249,7 +215,7 @@
   NSArray *worldPositions = [self getAtomPositionsInWorld];
 
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
-  float radius = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make(HIT_RADIUS, HIT_RADIUS, 0.0f)).x;
+  float radius = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make(HIT_RADIUS, 0.0f, 0.0f)).x;
   
   for(NSValue *value in worldPositions) {
     GLKVector2 position = [value GLKVector2Value];
@@ -266,25 +232,24 @@
 - (void)translate:(GLKVector2)translation {
   GLKMatrix4 invertedParentModelViewMatrix = [self.parent invertedModelViewMatrix];
   GLKVector4 objectTranslation = GLKMatrix4MultiplyVector4(invertedParentModelViewMatrix, GLKVector4Make(translation.x, translation.y, 0, 0));
-  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(objectTranslation.x, objectTranslation.y, 0), self.objectMatrix);
+  self.position = GLKVector2Add(self.position, GLKVector2Make(objectTranslation.x, objectTranslation.y));
+  
+  [self updateObjectMatrix];
 }
 
 - (void)setPosition:(GLKVector2)position {
   _position = position;
-
-  [self updateAabb];
 }
 
 - (void)setOrientation:(GLKQuaternion)orientation {
   _orientation = orientation;
-  
-  [self updateAabb];
 }
 
 - (void)rotate:(CGFloat)angle {
   self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(-angle, 0, 0, 1), self.orientation);
   self.orientation = GLKQuaternionNormalize(self.orientation);
-  [self updateAabb];
+  
+  [self updateObjectMatrix];
 }
 
 - (GLKQuaternion)snapOrientation {
@@ -328,9 +293,18 @@
 }
 
 -(void)mirror:(CGFloat)angle {
+  NSLog(@"molecule mirror: %f", angle);
   self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(angle, 0, 1, 0), self.orientation);
   
-  [self updateAabb];
+  [self updateObjectMatrix];
+}
+
+- (void)updateObjectMatrix {
+  self.objectMatrix = GLKMatrix4Identity;
+  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-self.center.x, -self.center.y, 0.0f), self.objectMatrix);
+  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(RENDER_RADIUS, RENDER_RADIUS, 1.0f), self.objectMatrix);
+  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(self.orientation), self.objectMatrix);
+  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(self.position.x, self.position.y, -500.0f), self.objectMatrix);
 }
 
 - (NSArray *)getAtomPositionsInWorld {
@@ -357,7 +331,7 @@
 }
 
 - (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation {
-  NSLog(@"getAtomPositionsInWorldWithFutureOrientation");
+//  NSLog(@"getAtomPositionsInWorldWithFutureOrientation");
   NSMutableArray *worldCoordinates = [[NSMutableArray alloc] init];
   
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
@@ -369,11 +343,11 @@
       Atom *atom = [column objectAtIndex:y];
       if (atom != (id) [NSNull null]) {
         GLKVector4 homogeneousCoordinate = GLKVector4Make(atom.position.x, atom.position.y, 0, 1);
-        NSLog(@"atom in objectSpace: %@", NSStringFromGLKVector4(homogeneousCoordinate));
+//        NSLog(@"atom in objectSpace: %@", NSStringFromGLKVector4(homogeneousCoordinate));
         GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(screenTransformMatrix, homogeneousCoordinate);
-        NSLog(@"atom in worldSpace: %@", NSStringFromGLKVector4(homogeneousWorldCoordinate));
+//        NSLog(@"atom in worldSpace: %@", NSStringFromGLKVector4(homogeneousWorldCoordinate));
         GLKVector2 worldCoordinate2d = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
-        NSLog(@"atom in worldSpace2d: %@", NSStringFromGLKVector2(worldCoordinate2d));
+//        NSLog(@"atom in worldSpace2d: %@", NSStringFromGLKVector2(worldCoordinate2d));
         
         [worldCoordinates addObject:[NSValue valueWithGLKVector2:worldCoordinate2d]];
       }
@@ -383,9 +357,16 @@
   return worldCoordinates;
 }
 
-- (GLKVector4)getCenterPosition {
+- (GLKVector4)getCenterInObjectSpace {
   GLKVector4 centerObjectSpace = GLKMatrix4MultiplyVector4(self.objectMatrix, GLKVector4Make(self.center.x, self.center.y, 0, 1));
   return centerObjectSpace;
+}
+
+- (GLKVector4)getCenterInParentSpace {
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
+
+  return GLKMatrix4MultiplyVector4(screenTransformMatrix, GLKVector4Make(self.center.x, self.center.y, 0, 1));
 }
 
 - (void)snap:(GLKVector2)offset toHoles:(NSArray *)holes {
