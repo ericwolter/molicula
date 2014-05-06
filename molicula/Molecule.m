@@ -239,10 +239,12 @@
 
 - (void)setPosition:(GLKVector2)position {
   _position = position;
+  [self updateObjectMatrix];
 }
 
 - (void)setOrientation:(GLKQuaternion)orientation {
   _orientation = orientation;
+  [self updateObjectMatrix];
 }
 
 - (void)rotate:(CGFloat)angle {
