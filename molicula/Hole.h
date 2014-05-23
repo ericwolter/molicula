@@ -10,7 +10,7 @@
 
 @interface Hole : Hexagon
 
-@property id content;
-@property(nonatomic) GLKVector2 logicalPosition;
+@property (weak, nonatomic) id content;
+@property (nonatomic) GLKVector2 logicalPosition;
 
 @end

@@ -9,8 +9,6 @@
 #import "Hexagon.h"
 #import "ColorTheme.h"
 
-static GLuint vertexBuffer;
-
 @implementation Hexagon
 
 @synthesize modelViewMatrix, parent;
@@ -55,6 +53,12 @@ static GLuint vertexBuffer;
   }
   
   return self;
+}
+
+-(void)dealloc {
+  
+  glDeleteBuffers(1, &vertexBuffer);
+  vertexBuffer = 0;
 }
 
 @end

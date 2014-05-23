@@ -14,7 +14,7 @@
 
 @interface Grid : NSObject
 
-@property id parent;
+@property (weak, nonatomic) id parent;
 
 @property NSMutableArray *holes;
 @property GLKMatrix4 modelViewMatrix;

@@ -20,7 +20,7 @@
   NSInteger numberOfBonds;
 }
 
-@property id parent;
+@property (weak, nonatomic) id parent;
 
 @property NSMutableArray *atoms;
 @property(nonatomic, copy) NSString *identifer;
@@ -58,9 +58,12 @@
 - (void)mirror:(CGFloat)angle;
 - (GLKQuaternion)snapOrientation;
 
+- (GLKMatrix4)makeObjectMatrixWithTranslation:(GLKVector2)position andOrientation:(GLKQuaternion)orientation;
 - (void)updateObjectMatrix;
 
 - (NSArray*)getAtomPositionsInWorld;
 - (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation;
+- (GLKVector2)getAtomPositionInWorld:(Atom*)atom;
+- (GLKVector2)getAtomPositionInWorld:(Atom *)atom withTransform:(GLKMatrix4)transformMatrix;
 
 @end

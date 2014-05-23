@@ -64,10 +64,10 @@ typedef enum {
   GLuint bottomBarArrowBuffer;
 }
 
-@property id parent;
+@property (weak, nonatomic) id parent;
 
-@property(nonatomic) GLKVector4 position;
-@property GLKMatrix4 modelViewMatrix;
+@property (nonatomic) GLKVector4 position;
+@property (nonatomic) GLKMatrix4 modelViewMatrix;
 
 - (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress;
 - (void)updateModelViewMatrix;

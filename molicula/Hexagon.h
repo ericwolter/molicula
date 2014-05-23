@@ -11,13 +11,14 @@
 #import "Constants.h"
 
 @interface Hexagon : NSObject {
+  GLuint vertexBuffer;
 }
 
-@property id parent;
+@property (weak, nonatomic) id parent;
 
-@property(nonatomic) GLKVector2 position;
-@property GLKMatrix4 modelViewMatrix;
-@property GLKMatrix4 objectMatrix;
+@property (nonatomic) GLKVector2 position;
+@property (nonatomic) GLKMatrix4 modelViewMatrix;
+@property (nonatomic) GLKMatrix4 objectMatrix;
 
 - (void)render:(GLKBaseEffect *)effect;
 

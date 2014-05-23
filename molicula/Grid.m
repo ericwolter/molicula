@@ -9,6 +9,7 @@
 #import "Grid.h"
 #import "ColorTheme.h"
 #import "NSValue_GLKVector.h"
+#import "GameView.h"
 
 @implementation Grid
 
@@ -93,12 +94,15 @@
   
   result.holes = [[NSMutableArray alloc] initWithCapacity:molecule.atoms.count];
   
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  float radius = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make(RENDER_HEX_HEIGHT / 2.0f, 0.0f, 0.0f)).x;
+  
   // for each atom three possible scenarios are possible
   // 1. atom is not over the grid at all -> no drop result
   // 2. atom is over a filled hole -> no drop result
   // 3. atom is over an empty hole -> drop result
   for(NSValue *wrappedAtomWorldCoordinate in [molecule getAtomPositionsInWorldWithFutureOrientation:orientation]) {
-    GLKVector2 atomWorldCoordinate = [wrappedAtomWorldCoordinate GLKVector2Value];
+    GLKVector2 atomWorldPosition = [wrappedAtomWorldCoordinate GLKVector2Value];
     
     BOOL isAtomOverGrid = NO;
     
@@ -107,9 +111,17 @@
       for (Hole *hole in column) {
         if(hole != (id)[NSNull null]) {
           
+          GLKVector2 holeWorldPosition = [self getHoleWorldCoordinates:hole];
+          GLKVector2 offset = GLKVector2Subtract(holeWorldPosition, atomWorldPosition);
+          
+//          NSLog(@"holeLogicalPosition: %@", NSStringFromGLKVector2(hole.logicalPosition));
+//          NSLog(@"holeWorldPosition: %@",NSStringFromGLKVector2(holeWorldPosition));
+//          NSLog(@"atomWorldPosition: %@",NSStringFromGLKVector2(atomWorldPosition));
+//          NSLog(@"offset: %@",NSStringFromGLKVector2(offset));
+//          NSLog(@"radius: %f",radius);
+          
           // how far away is the atom from the hole in world coordinates
-          GLKVector2 offset = GLKVector2Subtract([self getHoleWorldCoordinates:hole], atomWorldCoordinate);
-          if(GLKVector2Length(offset) < RENDER_HEX_HEIGHT / 2.0f) {
+          if(GLKVector2Length(offset) < radius) {
             
             // check if the hole is already filled, if yes we can end the complete check
             // if only a single atom can not be dropped the complete molecule also can't
@@ -117,7 +129,10 @@
               result.isOverGrid = NO;
               return result;
             }
-            result.offset = GLKVector2Make(offset.x, offset.y);
+            
+            GLKMatrix4 invertedParentModelViewMatrix = [self.parent invertedModelViewMatrix];
+            GLKVector4 offsetInObjectSpace = GLKMatrix4MultiplyVector4(invertedParentModelViewMatrix, GLKVector4Make(offset.x, offset.y, 0, 0));
+            result.offset = GLKVector2Make(offsetInObjectSpace.x, offsetInObjectSpace.y);
             [result.holes addObject:hole];
             
             isAtomOverGrid = YES;
@@ -131,7 +146,7 @@
       }
     }
     
-    // check if the hole is even above the grid, if not we can end the complete check
+    // check if the atom is even above the grid, if not we can end the complete check
     // if only a single atom is not over the grid, the complete molecule can't be dropped
     if (!isAtomOverGrid) {
       result.isOverGrid = NO;
@@ -145,8 +160,11 @@
 
 - (GLKVector2)getHoleWorldCoordinates:(Hole *)hole {
   
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
+
   GLKVector4 homogeneousCoordinate = GLKVector4Make(hole.position.x, hole.position.y, 0, 1);
-  GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(self.modelViewMatrix, homogeneousCoordinate);
+  GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(screenTransformMatrix, homogeneousCoordinate);
   
   return GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
 }
@@ -174,6 +192,7 @@
 
 -(NSString*)toString {
   NSMutableString *solution = [[NSMutableString alloc] init];
+  
   for (NSArray *column in self.holes) {
     for (Hole *hole in column) {
       if (hole != (id)[NSNull null]) {

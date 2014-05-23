@@ -51,11 +51,17 @@
 }
 
 - (void)setup {
+//  NSLog(@"GameView setup");
   self.effect = [[GLKBaseEffect alloc] init];
-  self.modelViewMatrix = GLKMatrix4MakeScale(0.5f, 0.5f, 1.0f);
+  self.modelViewMatrix = GLKMatrix4MakeScale(.5f, .5f, 1.0f);
   self.invertedModelViewMatrix = GLKMatrix4Invert(self.modelViewMatrix, nil);
   
   self.molecules = [[NSMutableArray alloc] init];
+}
+
+- (void)dealloc {
+//  NSLog(@"GameView dealloc");
+  self.effect = nil;
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -67,8 +73,9 @@
 }
 
 - (void)render {
+//  NSLog(@"GameView render");
   GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
-  glClearColor(bg.x, 1.0f, bg.z, bg.w);
+  glClearColor(bg.x, bg.y, bg.z, bg.w);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   [self.grid render:self.effect];

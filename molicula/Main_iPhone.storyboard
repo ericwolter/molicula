@@ -87,32 +87,54 @@
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="lqH-2S-txU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NRR-cc-pPJ">
-                            <size key="itemSize" width="155" height="155"/>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.93725490196078431" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="NRR-cc-pPJ">
+                            <size key="itemSize" width="106" height="106"/>
                             <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="he2-Th-xJm">
-                                <rect key="frame" x="0.0" y="114" width="155" height="155"/>
+                                <rect key="frame" x="0.0" y="114" width="106" height="106"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="155" height="155"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WYr-Sa-U9J">
-                                            <rect key="frame" x="0.0" y="0.0" width="155" height="155"/>
+                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WYr-Sa-U9J">
+                                            <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="WYr-Sa-U9J" secondAttribute="trailing" id="EN9-rs-P6t"/>
+                                    <constraint firstAttribute="bottom" secondItem="WYr-Sa-U9J" secondAttribute="bottom" id="ENk-X6-KtX"/>
+                                    <constraint firstItem="WYr-Sa-U9J" firstAttribute="top" secondItem="he2-Th-xJm" secondAttribute="top" id="FQA-t4-vat"/>
+                                    <constraint firstItem="WYr-Sa-U9J" firstAttribute="leading" secondItem="he2-Th-xJm" secondAttribute="leading" id="uFi-sl-dxC"/>
+                                </constraints>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="jaB-3E-VoG">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="jaB-3E-VoG" customClass="SolutionCollectionHeaderView">
                             <rect key="frame" x="0.0" y="64" width="320" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c0P-nB-FWQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="c0P-nB-FWQ" firstAttribute="top" secondItem="jaB-3E-VoG" secondAttribute="top" id="KwO-Aq-yZV"/>
+                                <constraint firstAttribute="trailing" secondItem="c0P-nB-FWQ" secondAttribute="trailing" id="X0u-5m-4Sp"/>
+                                <constraint firstItem="c0P-nB-FWQ" firstAttribute="leading" secondItem="jaB-3E-VoG" secondAttribute="leading" id="Yhe-fF-32f"/>
+                                <constraint firstAttribute="bottom" secondItem="c0P-nB-FWQ" secondAttribute="bottom" id="oVZ-na-LEk"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="MissingMoleculeImage" destination="c0P-nB-FWQ" id="Ne5-7k-u7h"/>
+                            </connections>
                         </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="kpD-k2-fGj" id="4sG-lK-Mb3"/>

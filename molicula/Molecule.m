@@ -295,18 +295,23 @@
 }
 
 -(void)mirror:(CGFloat)angle {
-  NSLog(@"molecule mirror: %f", angle);
   self.orientation = GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(angle, 0, 1, 0), self.orientation);
   
   [self updateObjectMatrix];
 }
 
 - (void)updateObjectMatrix {
-  self.objectMatrix = GLKMatrix4Identity;
-  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-self.center.x, -self.center.y, 0.0f), self.objectMatrix);
-  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(RENDER_RADIUS, RENDER_RADIUS, 1.0f), self.objectMatrix);
-  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(self.orientation), self.objectMatrix);
-  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(self.position.x, self.position.y, -500.0f), self.objectMatrix);
+  self.objectMatrix = [self makeObjectMatrixWithTranslation:self.position andOrientation:self.orientation];
+}
+
+- (GLKMatrix4)makeObjectMatrixWithTranslation:(GLKVector2)position andOrientation:(GLKQuaternion)orientation {
+  GLKMatrix4 objectMatrix = GLKMatrix4Identity;
+  objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-self.center.x, -self.center.y, 0.0f), objectMatrix);
+  objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(RENDER_RADIUS, RENDER_RADIUS, 1.0f), objectMatrix);
+  objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(orientation), objectMatrix);
+  objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(position.x, position.y, -500.0f), objectMatrix);
+  
+  return objectMatrix;
 }
 
 - (NSArray *)getAtomPositionsInWorld {
@@ -320,11 +325,8 @@
     for (int y = 0; y < GRID_HEIGHT; y++) {
       Atom *atom = [column objectAtIndex:y];
       if (atom != (id) [NSNull null]) {
-        GLKVector4 homogeneousCoordinate = GLKVector4Make(atom.position.x, atom.position.y, 0, 1);
-        GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(screenTransformMatrix, homogeneousCoordinate);
-        GLKVector2 worldCoordinate2d = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
         
-        [worldCoordinates addObject:[NSValue valueWithGLKVector2:worldCoordinate2d]];
+        [worldCoordinates addObject:[NSValue valueWithGLKVector2:[self getAtomPositionInWorld:atom withTransform:screenTransformMatrix]]];
       }
     }
   }
@@ -332,26 +334,30 @@
   return worldCoordinates;
 }
 
+- (GLKVector2)getAtomPositionInWorld:(Atom *)atom withTransform:(GLKMatrix4)transformMatrix {
+  GLKVector4 homogeneousCoordinate = GLKVector4Make(atom.position.x, atom.position.y, 0, 1);
+  GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(transformMatrix, homogeneousCoordinate);
+  return GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
+}
+
+- (GLKVector2)getAtomPositionInWorld:(Atom*)atom {
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
+  return [self getAtomPositionInWorld:atom withTransform:screenTransformMatrix];
+}
+
 - (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation {
-//  NSLog(@"getAtomPositionsInWorldWithFutureOrientation");
   NSMutableArray *worldCoordinates = [[NSMutableArray alloc] init];
   
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
-  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
+  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, [self makeObjectMatrixWithTranslation:self.position andOrientation:orientation]);
   
   for (int x = 0; x < GRID_WIDTH; x++) {
     NSArray *column = [self.atoms objectAtIndex:x];
     for (int y = 0; y < GRID_HEIGHT; y++) {
       Atom *atom = [column objectAtIndex:y];
       if (atom != (id) [NSNull null]) {
-        GLKVector4 homogeneousCoordinate = GLKVector4Make(atom.position.x, atom.position.y, 0, 1);
-//        NSLog(@"atom in objectSpace: %@", NSStringFromGLKVector4(homogeneousCoordinate));
-        GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(screenTransformMatrix, homogeneousCoordinate);
-//        NSLog(@"atom in worldSpace: %@", NSStringFromGLKVector4(homogeneousWorldCoordinate));
-        GLKVector2 worldCoordinate2d = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
-//        NSLog(@"atom in worldSpace2d: %@", NSStringFromGLKVector2(worldCoordinate2d));
-        
-        [worldCoordinates addObject:[NSValue valueWithGLKVector2:worldCoordinate2d]];
+        [worldCoordinates addObject:[NSValue valueWithGLKVector2:[self getAtomPositionInWorld:atom withTransform:screenTransformMatrix]]];
       }
     }
   }

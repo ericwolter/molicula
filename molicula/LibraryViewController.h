@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class GameView;
 
 @interface LibraryViewController : UICollectionViewController
+
+- (NSDictionary*)generateMoleculePointsFromSolution:(NSString *)solution;
+- (void)addSolutionMolecules:(NSDictionary*)solutionMolecules toGame:(GameView*)gameView;
 
 @end

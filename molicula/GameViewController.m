@@ -17,6 +17,7 @@
 #import "TranslateAnimation.h"
 #import "RotationAnimation.h"
 #import "GameView.h"
+#import "SolutionLibrary.h"
 
 typedef enum {
   NoDirection,
@@ -60,19 +61,9 @@ typedef enum {
   UITouch *controlTouch;
   
   /**
-   * Holds the main playing grid.
-   */
-  Grid *grid;
-  
-  /**
    * Whenever the user picks up a molecule this holds a pointer to it.
    */
   Molecule *activeMolecule;
-  
-  /**
-   * Contains all molecules in the current game.
-   */
-  NSMutableArray *molecules;
   
   BOOL shouldStopUpdating;
   
@@ -84,8 +75,6 @@ typedef enum {
 }
 
 @property(strong, nonatomic) EAGLContext *context;
-
-- (void)render;
 
 - (CGPoint) touchPointToGLPoint:(CGPoint)point;
 
@@ -109,6 +98,11 @@ typedef enum {
   [self updateOnce];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  NSLog(@"GameViewController viewWillAppear");
+  [self setupGL];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
   pointerTouch = nil;
@@ -122,6 +116,8 @@ typedef enum {
 }
 
 - (void)viewDidLoad {
+  NSLog(@"GameViewController viewDidLoad");
+
   [super viewDidLoad];
   
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -143,7 +139,7 @@ typedef enum {
   [self setupGL];
   
   [gameView enableGrid];
-  [gameView addMolecule:[MoleculeFactory purpleMolecule]];
+  //[gameView addMolecule:[MoleculeFactory purpleMolecule]];
   
   animator = [[Animator alloc] init];
   controls = [[Controls alloc] init];
@@ -174,15 +170,17 @@ typedef enum {
 }
 
 - (void)dealloc {
+  NSLog(@"GameViewController dealloc");
   [self tearDownGL];
   
   if ([EAGLContext currentContext] == self.context) {
     [EAGLContext setCurrentContext:nil];
   }
-  
 }
 
 - (void)didReceiveMemoryWarning {
+  NSLog(@"GameViewController didReceiveMemoryWarning");
+
   [super didReceiveMemoryWarning];
   
   if ([self isViewLoaded] && ([[self view] window] == nil)) {
@@ -200,82 +198,49 @@ typedef enum {
 }
 
 - (void)setupGL {
+  NSLog(@"GameViewController setup");
   [EAGLContext setCurrentContext:self.context];
 }
 
 - (void)setupGrid {
   
-  grid = [[Grid alloc] init];
+  NSString *solution = @"000pgg00ppgg0ppyygwwoyrrwwoyr0woyr00oor000";
+  NSLog(@"%@", solution);
+//  NSString *swpYO = [[SolutionLibrary sharedInstance] switchYellowOrange:solution];
+//  NSLog(@"%@", swpYO);
+//  NSString *swpWP = [[SolutionLibrary sharedInstance] switchWhitePurple:solution];
+//  NSLog(@"%@", swpWP);
+//  NSString *flipH = [[SolutionLibrary sharedInstance] flipH:solution];
+//  NSLog(@"%@", flipH);
+  NSString *flipV = [[SolutionLibrary sharedInstance] flipV:solution];
+  NSLog(@"%@", flipV);
   
-  molecules = [[NSMutableArray alloc] initWithCapacity:7];
+//  NSArray *solutionPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"txt" inDirectory:@"solutions"];
+//  NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+//  NSArray *solutions = [standardUserDefaults arrayForKey:@"solutions"];
   
-  //  NSString *solution = @"000oop00bopp0boppybroyyybryww0brww00rrw000";
-  //  int row = 0;
-  //  int col = 0;
-  //  NSMutableDictionary *solutionMolecules = [[NSMutableDictionary alloc] init];
-  //  for (uint i = 0; i < [solution length]; ++i) {
-  //    NSString *identifier = [solution substringWithRange:NSMakeRange(i, 1)];
-  //    row = i / GRID_HEIGHT;
-  //    col = i % GRID_HEIGHT - 1;
-  //    NSLog(@"%d: (%d,%d): %@", i, row, col, identifier);
-  //
-  //    if ([identifier isEqualToString:@"0"]) {
-  //      continue;
-  //    }
-  //
-  //    if (![solutionMolecules objectForKey:identifier]) {
-  //      [solutionMolecules setObject:[NSMutableArray arrayWithCapacity:5] forKey:identifier];
-  //    }
-  //    NSMutableArray *points = [solutionMolecules objectForKey:identifier];
-  //    [points addObject:[NSValue valueWithCGPoint:CGPointMake(row, col)]];
-  //
-  //  }
-  //
-  //  for (id key in solutionMolecules) {
-  //    CGPoint points[5];
-  //    for (uint i=0; i < 5; ++i) {
-  //      NSValue *value = [[solutionMolecules objectForKey:key] objectAtIndex:i];
-  //      points[i] = [value CGPointValue];
-  //    }
-  //
-  //    PMMolecule *m = [[PMMolecule alloc] initWithPoints:points andIdentifier:key];
-  //    [molecules addObject:m];
-  //
-  //    PMHole *h = [[grid.holes objectAtIndex:points[0].x] objectAtIndex:points[0].y + 1];
-  //    PMAtom *a = [[m.atoms objectAtIndex:points[0].x] objectAtIndex:points[0].y + 1];
-  //
-  //    GLKVector4 homogeneousCoordinate = GLKVector4Make(a.position.x, a.position.y, 0, 1);
-  //    GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4([m modelViewMatrix], homogeneousCoordinate);
-  //    GLKVector2 worldCoordinate2d = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
-  //
-  //    GLKVector2 offset = GLKVector2Subtract([grid getHoleWorldCoordinates:h], worldCoordinate2d);
-  //    [m translate:offset];
-  //
-  //    [grid snapMolecule:m];
-  //  }
+  [gameView addMolecule:[MoleculeFactory yellowMolecule]];
+  [gameView addMolecule:[MoleculeFactory orangeMolecule]];
+  [gameView addMolecule:[MoleculeFactory redMolecule]];
+  [gameView addMolecule:[MoleculeFactory blueMolecule]];
+  [gameView addMolecule:[MoleculeFactory greenMolecule]];
+  [gameView addMolecule:[MoleculeFactory whiteMolecule]];
+  [gameView addMolecule:[MoleculeFactory purpleMolecule]];
   
-//  [molecules addObject:[MoleculeFactory blueMolecule]];
-//  [molecules addObject:[MoleculeFactory greenMolecule]];
-//  [molecules addObject:[MoleculeFactory yellowMolecule]];
-//  [molecules addObject:[MoleculeFactory whiteMolecule]];
-//  [molecules addObject:[MoleculeFactory orangeMolecule]];
-//  [molecules addObject:[MoleculeFactory redMolecule]];
-//  [molecules addObject:[MoleculeFactory purpleMolecule]];
-  
-  [self layoutMolecules];
+  //[self layoutMolecules];
 }
 
 - (void)layoutMolecules {
   
-  NSUInteger count = molecules.count;
+  NSUInteger count = gameView.molecules.count;
   for (NSUInteger i = 0; i < count; ++i) {
     // Select a random element between i and end of array to swap with.
     NSInteger nElements = count - i;
     NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
-    [molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
+    [gameView.molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
   }
   for(NSUInteger i = 0; i < count; ++i) {
-    Molecule *molecule = [molecules objectAtIndex:i];
+    Molecule *molecule = [gameView.molecules objectAtIndex:i];
     for (NSUInteger j = 0; j < arc4random_uniform(6); ++j) {
       [molecule rotate:GLKMathDegreesToRadians(60)];
     }
@@ -283,8 +248,8 @@ typedef enum {
   
   GLKVector2 directions[7] = { GLKVector2Make(0.000000f, 3.000000f), GLKVector2Make(-2.934872f, 2.038362f), GLKVector2Make(-3.871667f, -0.753814f), GLKVector2Make(-1.585160f, -2.754376f), GLKVector2Make(1.514443f, -2.776668f), GLKVector2Make(3.846348f, -0.823502f), GLKVector2Make(2.992000f, 1.991096f)};
   
-  for (NSUInteger i = 0; i < molecules.count; ++i) {
-    Molecule *molecule = [molecules objectAtIndex:i];
+  for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
+    Molecule *molecule = [gameView.molecules objectAtIndex:i];
     
     [molecule translate:GLKVector2MultiplyScalar(directions[i], LAYOUT_DISTANCE)];
     [self enforceScreenBoundsForMolecule:molecule];
@@ -303,11 +268,11 @@ typedef enum {
 }
 
 - (void)makeSquareFrame {
-  NSLog(@"makeSquareFrame");
-  NSLog(@"self.view.bounds.origin:(%f,%f)",self.view.bounds.origin.x,self.view.bounds.origin.y);
-  NSLog(@"self.view.bounds.size:(%f,%f)",self.view.bounds.size.width,self.view.bounds.size.height);
-  NSLog(@"self.view.frame.origin:(%f,%f)",self.view.frame.origin.x,self.view.frame.origin.y);
-  NSLog(@"self.view.frame.size:(%f,%f)",self.view.frame.size.width,self.view.frame.size.height);
+//  NSLog(@"makeSquareFrame");
+//  NSLog(@"self.view.bounds.origin:(%f,%f)",self.view.bounds.origin.x,self.view.bounds.origin.y);
+//  NSLog(@"self.view.bounds.size:(%f,%f)",self.view.bounds.size.width,self.view.bounds.size.height);
+//  NSLog(@"self.view.frame.origin:(%f,%f)",self.view.frame.origin.x,self.view.frame.origin.y);
+//  NSLog(@"self.view.frame.size:(%f,%f)",self.view.frame.size.width,self.view.frame.size.height);
   float size = self.view.frame.size.width > self.view.frame.size.height ?
   self.view.frame.size.width : self.view.frame.size.height;
 
@@ -323,11 +288,11 @@ typedef enum {
 }
 
 - (void)makeRectFrame {
-  NSLog(@"makeRectFrame");
-  NSLog(@"self.view.bounds.origin:(%f,%f)",self.view.bounds.origin.x,self.view.bounds.origin.y);
-  NSLog(@"self.view.bounds.size:(%f,%f)",self.view.bounds.size.width,self.view.bounds.size.height);
-  NSLog(@"self.view.frame.origin:(%f,%f)",self.view.frame.origin.x,self.view.frame.origin.y);
-  NSLog(@"self.view.frame.size:(%f,%f)",self.view.frame.size.width,self.view.frame.size.height);
+//  NSLog(@"makeRectFrame");
+//  NSLog(@"self.view.bounds.origin:(%f,%f)",self.view.bounds.origin.x,self.view.bounds.origin.y);
+//  NSLog(@"self.view.bounds.size:(%f,%f)",self.view.bounds.size.width,self.view.bounds.size.height);
+//  NSLog(@"self.view.frame.origin:(%f,%f)",self.view.frame.origin.x,self.view.frame.origin.y);
+//  NSLog(@"self.view.frame.size:(%f,%f)",self.view.frame.size.width,self.view.frame.size.height);
   
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   [self.view setFrame:CGRectMake(0.0f,0.0f, screenRect.size.width, screenRect.size.height)];
@@ -339,6 +304,7 @@ typedef enum {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
 //  NSLog(@"viewWillDisappear");
 //  isDisappearInProgress = YES;
 //  [self makeRectFrame];
@@ -385,13 +351,16 @@ typedef enum {
     trueWidth = tmp;
   }
   
-  for (NSUInteger i = 0; i < molecules.count; ++i) {
-    Molecule *molecule = [molecules objectAtIndex:i];
+  for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
+    Molecule *molecule = [gameView.molecules objectAtIndex:i];
     [self enforceScreenBoundsForMolecule:molecule];
   }
 }
 
 - (void)tearDownGL {
+  
+  NSLog(@"tearDownGL");
+  
   [EAGLContext setCurrentContext:self.context];
 }
 
@@ -425,6 +394,7 @@ typedef enum {
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
+//  NSLog(@"GameViewController render");
   [gameView render];
   
   if(activeMolecule != nil) {
@@ -450,16 +420,16 @@ typedef enum {
   
   UITouch *touch = [touches anyObject];
   CGPoint viewCoordinate = [touch locationInView:self.view];
-  NSLog(@"touchesBegan: viewCoordinate: %@", NSStringFromCGPoint(viewCoordinate));
+//  NSLog(@"touchesBegan: viewCoordinate: %@", NSStringFromCGPoint(viewCoordinate));
   GLKVector2 openglCoordinate = [gameView convertViewCoordinateToOpenGLCoordinate:viewCoordinate];
-  NSLog(@"touchesBegan: openglCoordinate: %@", NSStringFromGLKVector2(openglCoordinate));
+//  NSLog(@"touchesBegan: openglCoordinate: %@", NSStringFromGLKVector2(openglCoordinate));
   
   if (activeMolecule != nil) {
     [activeMolecule unsnap];
     ControlTransform transform = [controls hitTest:openglCoordinate];
     switch (transform) {
       case Rotate:
-        NSLog(@"Control Rotate");
+//        NSLog(@"Control Rotate");
         controlTouch = touch;
         isRotationInProgress = YES;
         
@@ -468,7 +438,7 @@ typedef enum {
         
         return;
       case Mirror:
-        NSLog(@"Control Mirror");
+//        NSLog(@"Control Mirror");
         controlTouch = touch;
         isMirroringInProgress = YES;
         cumulativeMirroringAngle = 0.0f;
@@ -489,7 +459,7 @@ typedef enum {
       Molecule *m = [gameView.molecules objectAtIndex:moleculeIndex];
       if ([m hitTest:openglCoordinate])
       {
-        NSLog(@"molecule hit!");
+//        NSLog(@"molecule hit!");
         pointerTouch = touch;
         previousTouchPoint = openglCoordinate;
         activeMolecule = m;
@@ -501,7 +471,7 @@ typedef enum {
             RotationAnimation *animation = [[RotationAnimation alloc] initWithMolecule:molecule AndTarget:targetOrientation];
             [animator.runningAnimation addObject:animation];
             
-            DropResult *result = [grid drop:molecule withFutureOrientation:targetOrientation];
+            DropResult *result = [gameView.grid drop:molecule withFutureOrientation:targetOrientation];
             if(result.isOverGrid) {
               TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, result.offset)];
               [animator.runningAnimation addObject:animation];
@@ -596,6 +566,10 @@ typedef enum {
 {
   for (UITouch *touch in touches)
   {
+    if (activeMolecule == nil) {
+      return;
+    }
+    
     if (pointerTouch == touch)
     {
       pointerTouch = nil;
@@ -605,7 +579,7 @@ typedef enum {
       RotationAnimation *animation = [[RotationAnimation alloc] initWithMolecule:activeMolecule AndTarget:targetOrientation];
       [animator.runningAnimation addObject:animation];
       
-      DropResult *result = [grid drop:activeMolecule withFutureOrientation:targetOrientation];
+      DropResult *result = [gameView.grid drop:activeMolecule withFutureOrientation:targetOrientation];
       if(result.isOverGrid) {
         TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTarget:GLKVector2Add(activeMolecule.position, result.offset)];
         [animator.runningAnimation addObject:animation];
@@ -627,7 +601,7 @@ typedef enum {
       RotationAnimation *animation = [[RotationAnimation alloc] initWithMolecule:activeMolecule AndTarget:targetOrientation];
       [animator.runningAnimation addObject:animation];
       
-      DropResult *result = [grid drop:activeMolecule withFutureOrientation:targetOrientation];
+      DropResult *result = [gameView.grid drop:activeMolecule withFutureOrientation:targetOrientation];
       if(result.isOverGrid) {
         TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTarget:GLKVector2Add(activeMolecule.position, result.offset)];
         [animator.runningAnimation addObject:animation];
@@ -673,21 +647,21 @@ typedef enum {
 
 - (void)checkForSolution
 {
-  if([grid isFilled]) {
+  if([gameView.grid isFilled]) {
     // continue updating so the finish animation can be played
     shouldStopUpdating = NO;
     activeMolecule = nil;
     
-    NSString *solution = [grid toString];
+    NSString *solution = [gameView.grid toString];
     finishAnimation = YES;
     
-    for (NSInteger moleculeIndex = molecules.count - 1; moleculeIndex >= 0; moleculeIndex--)
+    for (NSInteger moleculeIndex = gameView.molecules.count - 1; moleculeIndex >= 0; moleculeIndex--)
     {
-      Molecule *molecule = [molecules objectAtIndex:moleculeIndex];
+      Molecule *molecule = [gameView.molecules objectAtIndex:moleculeIndex];
       if(!molecule.isSnapped) {
         leftOverMolecule = molecule;
-        [molecules removeObjectAtIndex:moleculeIndex];
-        [molecules addObject:leftOverMolecule];
+        [gameView.molecules removeObjectAtIndex:moleculeIndex];
+        [gameView.molecules addObject:leftOverMolecule];
         break;
       }
     }

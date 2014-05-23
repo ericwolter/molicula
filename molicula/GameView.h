@@ -14,12 +14,12 @@
 @interface GameView : GLKView {
 }
 
-@property(strong, nonatomic) GLKBaseEffect *effect;
-@property GLKMatrix4 modelViewMatrix;
-@property GLKMatrix4 invertedModelViewMatrix;
+@property (strong, nonatomic) GLKBaseEffect *effect;
+@property (nonatomic) GLKMatrix4 modelViewMatrix;
+@property (nonatomic) GLKMatrix4 invertedModelViewMatrix;
 
-@property(strong, nonatomic) Grid *grid;
-@property(strong, nonatomic) NSMutableArray *molecules;
+@property (strong, nonatomic) Grid *grid;
+@property (strong, nonatomic) NSMutableArray *molecules;
 
 - (void)render;
 - (void)updateProjection:(CGSize)size;

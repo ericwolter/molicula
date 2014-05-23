@@ -12,6 +12,54 @@
 		07115F1418095A6F0044735C /* TranslateAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F1318095A6F0044735C /* TranslateAnimation.m */; };
 		07115F171809661E0044735C /* RotationAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F161809661E0044735C /* RotationAnimation.m */; };
 		07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */; };
+		0726445119235F5D00A0E6FE /* SolutionLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 0726445019235F5D00A0E6FE /* SolutionLibrary.m */; };
+		0769830E192CC32900926DD1 /* blue1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B2192CC2F800926DD1 /* blue1.txt */; };
+		0769830F192CC32900926DD1 /* blue2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B3192CC2F800926DD1 /* blue2.txt */; };
+		07698310192CC32900926DD1 /* blue3.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B4192CC2F800926DD1 /* blue3.txt */; };
+		07698311192CC32900926DD1 /* blue4.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B5192CC2F800926DD1 /* blue4.txt */; };
+		07698312192CC32900926DD1 /* blue5.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B6192CC2F800926DD1 /* blue5.txt */; };
+		07698313192CC32900926DD1 /* blue6.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B7192CC2F800926DD1 /* blue6.txt */; };
+		07698314192CC32900926DD1 /* blue7.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B8192CC2F800926DD1 /* blue7.txt */; };
+		07698315192CC32900926DD1 /* green1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B9192CC2F800926DD1 /* green1.txt */; };
+		07698316192CC32900926DD1 /* green2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982BA192CC2F800926DD1 /* green2.txt */; };
+		07698317192CC32900926DD1 /* green3.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982BB192CC2F800926DD1 /* green3.txt */; };
+		07698318192CC32900926DD1 /* green4.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982BC192CC2F800926DD1 /* green4.txt */; };
+		07698319192CC32900926DD1 /* red1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982BD192CC2F800926DD1 /* red1.txt */; };
+		0769831A192CC32900926DD1 /* red2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982BE192CC2F800926DD1 /* red2.txt */; };
+		0769831B192CC32900926DD1 /* white1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982BF192CC2F800926DD1 /* white1.txt */; };
+		0769831C192CC32900926DD1 /* white2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C0192CC2F800926DD1 /* white2.txt */; };
+		0769831D192CC32900926DD1 /* white3.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C1192CC2F800926DD1 /* white3.txt */; };
+		0769831E192CC32900926DD1 /* white4.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C2192CC2F800926DD1 /* white4.txt */; };
+		0769831F192CC32900926DD1 /* white5.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C3192CC2F800926DD1 /* white5.txt */; };
+		07698320192CC32900926DD1 /* yellow1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C4192CC2F800926DD1 /* yellow1.txt */; };
+		07698321192CC32900926DD1 /* yellow2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C5192CC2F800926DD1 /* yellow2.txt */; };
+		07698322192CC32900926DD1 /* yellow3.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C6192CC2F800926DD1 /* yellow3.txt */; };
+		07698323192CC32900926DD1 /* yellow4.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C7192CC2F800926DD1 /* yellow4.txt */; };
+		07698324192CC32900926DD1 /* yellow5.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C8192CC2F800926DD1 /* yellow5.txt */; };
+		07698325192CC32900926DD1 /* yellow6.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982C9192CC2F800926DD1 /* yellow6.txt */; };
+		07698326192CC32900926DD1 /* yellow7.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982CA192CC2F800926DD1 /* yellow7.txt */; };
+		07698327192CC32900926DD1 /* yellow8.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982CB192CC2F800926DD1 /* yellow8.txt */; };
+		07698328192CC32900926DD1 /* yellow9.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982CC192CC2F800926DD1 /* yellow9.txt */; };
+		07698329192CC32900926DD1 /* yellow10.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982CD192CC2F800926DD1 /* yellow10.txt */; };
+		0769832A192CC32900926DD1 /* yellow11.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982CE192CC2F800926DD1 /* yellow11.txt */; };
+		0769832B192CC32900926DD1 /* yellow12.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982CF192CC2F800926DD1 /* yellow12.txt */; };
+		0769832C192CC32900926DD1 /* yellow13.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D0192CC2F800926DD1 /* yellow13.txt */; };
+		0769832D192CC32900926DD1 /* yellow14.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D1192CC2F800926DD1 /* yellow14.txt */; };
+		0769832E192CC32900926DD1 /* yellow15.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D2192CC2F800926DD1 /* yellow15.txt */; };
+		0769832F192CC32900926DD1 /* yellow16.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D3192CC2F800926DD1 /* yellow16.txt */; };
+		07698330192CC32900926DD1 /* yellow17.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D4192CC2F800926DD1 /* yellow17.txt */; };
+		07698331192CC32900926DD1 /* yellow18.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D5192CC2F800926DD1 /* yellow18.txt */; };
+		07698332192CC32900926DD1 /* yellow19.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D6192CC2F800926DD1 /* yellow19.txt */; };
+		07698333192CC32900926DD1 /* yellow20.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D7192CC2F800926DD1 /* yellow20.txt */; };
+		07698334192CC32900926DD1 /* yellow21.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D8192CC2F800926DD1 /* yellow21.txt */; };
+		07698335192CC32900926DD1 /* yellow22.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982D9192CC2F800926DD1 /* yellow22.txt */; };
+		07698336192CC32900926DD1 /* yellow23.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982DA192CC2F800926DD1 /* yellow23.txt */; };
+		07698337192CC32900926DD1 /* yellow24.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982DB192CC2F800926DD1 /* yellow24.txt */; };
+		07698338192CC32900926DD1 /* yellow25.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982DC192CC2F800926DD1 /* yellow25.txt */; };
+		07698339192CC32900926DD1 /* yellow26.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982DD192CC2F800926DD1 /* yellow26.txt */; };
+		0769833A192CC32900926DD1 /* yellow27.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982DE192CC2F800926DD1 /* yellow27.txt */; };
+		0769833B192CC32900926DD1 /* yellow28.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982DF192CC2F800926DD1 /* yellow28.txt */; };
+		076BC06819190AA200EE1AD7 /* SolutionCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076BC06719190AA200EE1AD7 /* SolutionCollectionHeaderView.m */; };
 		076C702A19096F2500F0084D /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076C702919096F2500F0084D /* GameView.m */; };
 		0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0774AD7A17FB2A70008D8B2E /* Images.xcassets */; };
 		077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8217D7CBB0004F1960 /* InfoPlist.strings */; };
@@ -49,6 +97,64 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0726441D19235CD400A0E6FE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = solutions;
+			dstSubfolderSpec = 7;
+			files = (
+				0769830E192CC32900926DD1 /* blue1.txt in CopyFiles */,
+				0769830F192CC32900926DD1 /* blue2.txt in CopyFiles */,
+				07698310192CC32900926DD1 /* blue3.txt in CopyFiles */,
+				07698311192CC32900926DD1 /* blue4.txt in CopyFiles */,
+				07698312192CC32900926DD1 /* blue5.txt in CopyFiles */,
+				07698313192CC32900926DD1 /* blue6.txt in CopyFiles */,
+				07698314192CC32900926DD1 /* blue7.txt in CopyFiles */,
+				07698315192CC32900926DD1 /* green1.txt in CopyFiles */,
+				07698316192CC32900926DD1 /* green2.txt in CopyFiles */,
+				07698317192CC32900926DD1 /* green3.txt in CopyFiles */,
+				07698318192CC32900926DD1 /* green4.txt in CopyFiles */,
+				07698319192CC32900926DD1 /* red1.txt in CopyFiles */,
+				0769831A192CC32900926DD1 /* red2.txt in CopyFiles */,
+				0769831B192CC32900926DD1 /* white1.txt in CopyFiles */,
+				0769831C192CC32900926DD1 /* white2.txt in CopyFiles */,
+				0769831D192CC32900926DD1 /* white3.txt in CopyFiles */,
+				0769831E192CC32900926DD1 /* white4.txt in CopyFiles */,
+				0769831F192CC32900926DD1 /* white5.txt in CopyFiles */,
+				07698320192CC32900926DD1 /* yellow1.txt in CopyFiles */,
+				07698321192CC32900926DD1 /* yellow2.txt in CopyFiles */,
+				07698322192CC32900926DD1 /* yellow3.txt in CopyFiles */,
+				07698323192CC32900926DD1 /* yellow4.txt in CopyFiles */,
+				07698324192CC32900926DD1 /* yellow5.txt in CopyFiles */,
+				07698325192CC32900926DD1 /* yellow6.txt in CopyFiles */,
+				07698326192CC32900926DD1 /* yellow7.txt in CopyFiles */,
+				07698327192CC32900926DD1 /* yellow8.txt in CopyFiles */,
+				07698328192CC32900926DD1 /* yellow9.txt in CopyFiles */,
+				07698329192CC32900926DD1 /* yellow10.txt in CopyFiles */,
+				0769832A192CC32900926DD1 /* yellow11.txt in CopyFiles */,
+				0769832B192CC32900926DD1 /* yellow12.txt in CopyFiles */,
+				0769832C192CC32900926DD1 /* yellow13.txt in CopyFiles */,
+				0769832D192CC32900926DD1 /* yellow14.txt in CopyFiles */,
+				0769832E192CC32900926DD1 /* yellow15.txt in CopyFiles */,
+				0769832F192CC32900926DD1 /* yellow16.txt in CopyFiles */,
+				07698330192CC32900926DD1 /* yellow17.txt in CopyFiles */,
+				07698331192CC32900926DD1 /* yellow18.txt in CopyFiles */,
+				07698332192CC32900926DD1 /* yellow19.txt in CopyFiles */,
+				07698333192CC32900926DD1 /* yellow20.txt in CopyFiles */,
+				07698334192CC32900926DD1 /* yellow21.txt in CopyFiles */,
+				07698335192CC32900926DD1 /* yellow22.txt in CopyFiles */,
+				07698336192CC32900926DD1 /* yellow23.txt in CopyFiles */,
+				07698337192CC32900926DD1 /* yellow24.txt in CopyFiles */,
+				07698338192CC32900926DD1 /* yellow25.txt in CopyFiles */,
+				07698339192CC32900926DD1 /* yellow26.txt in CopyFiles */,
+				0769833A192CC32900926DD1 /* yellow27.txt in CopyFiles */,
+				0769833B192CC32900926DD1 /* yellow28.txt in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		07115F08180959470044735C /* Animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animator.h; sourceTree = "<group>"; };
 		07115F09180959470044735C /* Animator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animator.m; sourceTree = "<group>"; };
@@ -60,6 +166,56 @@
 		07115F161809661E0044735C /* RotationAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationAnimation.m; sourceTree = "<group>"; };
 		07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		07124BB517F9A63900D7B5CD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		0726444F19235F5D00A0E6FE /* SolutionLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SolutionLibrary.h; sourceTree = "<group>"; };
+		0726445019235F5D00A0E6FE /* SolutionLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SolutionLibrary.m; sourceTree = "<group>"; };
+		076982B2192CC2F800926DD1 /* blue1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue1.txt; sourceTree = "<group>"; };
+		076982B3192CC2F800926DD1 /* blue2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue2.txt; sourceTree = "<group>"; };
+		076982B4192CC2F800926DD1 /* blue3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue3.txt; sourceTree = "<group>"; };
+		076982B5192CC2F800926DD1 /* blue4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue4.txt; sourceTree = "<group>"; };
+		076982B6192CC2F800926DD1 /* blue5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue5.txt; sourceTree = "<group>"; };
+		076982B7192CC2F800926DD1 /* blue6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue6.txt; sourceTree = "<group>"; };
+		076982B8192CC2F800926DD1 /* blue7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue7.txt; sourceTree = "<group>"; };
+		076982B9192CC2F800926DD1 /* green1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = green1.txt; sourceTree = "<group>"; };
+		076982BA192CC2F800926DD1 /* green2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = green2.txt; sourceTree = "<group>"; };
+		076982BB192CC2F800926DD1 /* green3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = green3.txt; sourceTree = "<group>"; };
+		076982BC192CC2F800926DD1 /* green4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = green4.txt; sourceTree = "<group>"; };
+		076982BD192CC2F800926DD1 /* red1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = red1.txt; sourceTree = "<group>"; };
+		076982BE192CC2F800926DD1 /* red2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = red2.txt; sourceTree = "<group>"; };
+		076982BF192CC2F800926DD1 /* white1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = white1.txt; sourceTree = "<group>"; };
+		076982C0192CC2F800926DD1 /* white2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = white2.txt; sourceTree = "<group>"; };
+		076982C1192CC2F800926DD1 /* white3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = white3.txt; sourceTree = "<group>"; };
+		076982C2192CC2F800926DD1 /* white4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = white4.txt; sourceTree = "<group>"; };
+		076982C3192CC2F800926DD1 /* white5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = white5.txt; sourceTree = "<group>"; };
+		076982C4192CC2F800926DD1 /* yellow1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow1.txt; sourceTree = "<group>"; };
+		076982C5192CC2F800926DD1 /* yellow2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow2.txt; sourceTree = "<group>"; };
+		076982C6192CC2F800926DD1 /* yellow3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow3.txt; sourceTree = "<group>"; };
+		076982C7192CC2F800926DD1 /* yellow4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow4.txt; sourceTree = "<group>"; };
+		076982C8192CC2F800926DD1 /* yellow5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow5.txt; sourceTree = "<group>"; };
+		076982C9192CC2F800926DD1 /* yellow6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow6.txt; sourceTree = "<group>"; };
+		076982CA192CC2F800926DD1 /* yellow7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow7.txt; sourceTree = "<group>"; };
+		076982CB192CC2F800926DD1 /* yellow8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow8.txt; sourceTree = "<group>"; };
+		076982CC192CC2F800926DD1 /* yellow9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow9.txt; sourceTree = "<group>"; };
+		076982CD192CC2F800926DD1 /* yellow10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow10.txt; sourceTree = "<group>"; };
+		076982CE192CC2F800926DD1 /* yellow11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow11.txt; sourceTree = "<group>"; };
+		076982CF192CC2F800926DD1 /* yellow12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow12.txt; sourceTree = "<group>"; };
+		076982D0192CC2F800926DD1 /* yellow13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow13.txt; sourceTree = "<group>"; };
+		076982D1192CC2F800926DD1 /* yellow14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow14.txt; sourceTree = "<group>"; };
+		076982D2192CC2F800926DD1 /* yellow15.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow15.txt; sourceTree = "<group>"; };
+		076982D3192CC2F800926DD1 /* yellow16.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow16.txt; sourceTree = "<group>"; };
+		076982D4192CC2F800926DD1 /* yellow17.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow17.txt; sourceTree = "<group>"; };
+		076982D5192CC2F800926DD1 /* yellow18.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow18.txt; sourceTree = "<group>"; };
+		076982D6192CC2F800926DD1 /* yellow19.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow19.txt; sourceTree = "<group>"; };
+		076982D7192CC2F800926DD1 /* yellow20.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow20.txt; sourceTree = "<group>"; };
+		076982D8192CC2F800926DD1 /* yellow21.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow21.txt; sourceTree = "<group>"; };
+		076982D9192CC2F800926DD1 /* yellow22.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow22.txt; sourceTree = "<group>"; };
+		076982DA192CC2F800926DD1 /* yellow23.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow23.txt; sourceTree = "<group>"; };
+		076982DB192CC2F800926DD1 /* yellow24.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow24.txt; sourceTree = "<group>"; };
+		076982DC192CC2F800926DD1 /* yellow25.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow25.txt; sourceTree = "<group>"; };
+		076982DD192CC2F800926DD1 /* yellow26.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow26.txt; sourceTree = "<group>"; };
+		076982DE192CC2F800926DD1 /* yellow27.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow27.txt; sourceTree = "<group>"; };
+		076982DF192CC2F800926DD1 /* yellow28.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yellow28.txt; sourceTree = "<group>"; };
+		076BC06619190AA200EE1AD7 /* SolutionCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SolutionCollectionHeaderView.h; sourceTree = "<group>"; };
+		076BC06719190AA200EE1AD7 /* SolutionCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SolutionCollectionHeaderView.m; sourceTree = "<group>"; };
 		076C702819096F2500F0084D /* GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
 		076C702919096F2500F0084D /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
 		0774AD7A17FB2A70008D8B2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -146,6 +302,7 @@
 		07124B9E17F999E900D7B5CD /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				076BC06519190A6300EE1AD7 /* Library */,
 				07115F0B1809598A0044735C /* Animations */,
 				07F16FD117E0F79300D15F36 /* Controls.h */,
 				07F16FD217E0F79300D15F36 /* Controls.m */,
@@ -178,8 +335,6 @@
 				07E1B58118071B9F002D79A1 /* DropResult.m */,
 				076C702819096F2500F0084D /* GameView.h */,
 				076C702919096F2500F0084D /* GameView.m */,
-				07A5C8341917CB56001E5801 /* LibraryViewController.h */,
-				07A5C8351917CB56001E5801 /* LibraryViewController.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -200,9 +355,84 @@
 			name = iPad;
 			sourceTree = "<group>";
 		};
+		072643B919235C1C00A0E6FE /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				072643BA19235C2200A0E6FE /* Solutions */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		072643BA19235C2200A0E6FE /* Solutions */ = {
+			isa = PBXGroup;
+			children = (
+				076982B2192CC2F800926DD1 /* blue1.txt */,
+				076982B3192CC2F800926DD1 /* blue2.txt */,
+				076982B4192CC2F800926DD1 /* blue3.txt */,
+				076982B5192CC2F800926DD1 /* blue4.txt */,
+				076982B6192CC2F800926DD1 /* blue5.txt */,
+				076982B7192CC2F800926DD1 /* blue6.txt */,
+				076982B8192CC2F800926DD1 /* blue7.txt */,
+				076982B9192CC2F800926DD1 /* green1.txt */,
+				076982BA192CC2F800926DD1 /* green2.txt */,
+				076982BB192CC2F800926DD1 /* green3.txt */,
+				076982BC192CC2F800926DD1 /* green4.txt */,
+				076982BD192CC2F800926DD1 /* red1.txt */,
+				076982BE192CC2F800926DD1 /* red2.txt */,
+				076982BF192CC2F800926DD1 /* white1.txt */,
+				076982C0192CC2F800926DD1 /* white2.txt */,
+				076982C1192CC2F800926DD1 /* white3.txt */,
+				076982C2192CC2F800926DD1 /* white4.txt */,
+				076982C3192CC2F800926DD1 /* white5.txt */,
+				076982C4192CC2F800926DD1 /* yellow1.txt */,
+				076982C5192CC2F800926DD1 /* yellow2.txt */,
+				076982C6192CC2F800926DD1 /* yellow3.txt */,
+				076982C7192CC2F800926DD1 /* yellow4.txt */,
+				076982C8192CC2F800926DD1 /* yellow5.txt */,
+				076982C9192CC2F800926DD1 /* yellow6.txt */,
+				076982CA192CC2F800926DD1 /* yellow7.txt */,
+				076982CB192CC2F800926DD1 /* yellow8.txt */,
+				076982CC192CC2F800926DD1 /* yellow9.txt */,
+				076982CD192CC2F800926DD1 /* yellow10.txt */,
+				076982CE192CC2F800926DD1 /* yellow11.txt */,
+				076982CF192CC2F800926DD1 /* yellow12.txt */,
+				076982D0192CC2F800926DD1 /* yellow13.txt */,
+				076982D1192CC2F800926DD1 /* yellow14.txt */,
+				076982D2192CC2F800926DD1 /* yellow15.txt */,
+				076982D3192CC2F800926DD1 /* yellow16.txt */,
+				076982D4192CC2F800926DD1 /* yellow17.txt */,
+				076982D5192CC2F800926DD1 /* yellow18.txt */,
+				076982D6192CC2F800926DD1 /* yellow19.txt */,
+				076982D7192CC2F800926DD1 /* yellow20.txt */,
+				076982D8192CC2F800926DD1 /* yellow21.txt */,
+				076982D9192CC2F800926DD1 /* yellow22.txt */,
+				076982DA192CC2F800926DD1 /* yellow23.txt */,
+				076982DB192CC2F800926DD1 /* yellow24.txt */,
+				076982DC192CC2F800926DD1 /* yellow25.txt */,
+				076982DD192CC2F800926DD1 /* yellow26.txt */,
+				076982DE192CC2F800926DD1 /* yellow27.txt */,
+				076982DF192CC2F800926DD1 /* yellow28.txt */,
+			);
+			name = Solutions;
+			sourceTree = "<group>";
+		};
+		076BC06519190A6300EE1AD7 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				07A5C8341917CB56001E5801 /* LibraryViewController.h */,
+				07A5C8351917CB56001E5801 /* LibraryViewController.m */,
+				076BC06619190AA200EE1AD7 /* SolutionCollectionHeaderView.h */,
+				076BC06719190AA200EE1AD7 /* SolutionCollectionHeaderView.m */,
+				0726444F19235F5D00A0E6FE /* SolutionLibrary.h */,
+				0726445019235F5D00A0E6FE /* SolutionLibrary.m */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
 		077F9A6917D7CBB0004F1960 = {
 			isa = PBXGroup;
 			children = (
+				072643B919235C1C00A0E6FE /* Assets */,
 				077F9A7F17D7CBB0004F1960 /* molicula */,
 				077F9AA717D7CBB0004F1960 /* moliculaTests */,
 				077F9A7417D7CBB0004F1960 /* Frameworks */,
@@ -230,9 +460,9 @@
 		077F9A7F17D7CBB0004F1960 /* molicula */ = {
 			isa = PBXGroup;
 			children = (
+				07124B9E17F999E900D7B5CD /* Shared */,
 				07124BA017F99A0200D7B5CD /* iPad */,
 				07124B9F17F999FE00D7B5CD /* iPhone */,
-				07124B9E17F999E900D7B5CD /* Shared */,
 				0774AD7A17FB2A70008D8B2E /* Images.xcassets */,
 				077F9A8017D7CBB0004F1960 /* Supporting Files */,
 			);
@@ -281,6 +511,7 @@
 				077F9A6E17D7CBB0004F1960 /* Sources */,
 				077F9A6F17D7CBB0004F1960 /* Frameworks */,
 				077F9A7017D7CBB0004F1960 /* Resources */,
+				0726441D19235CD400A0E6FE /* CopyFiles */,
 				077F9AD517D7D1ED004F1960 /* ShellScript */,
 			);
 			buildRules = (
@@ -408,6 +639,7 @@
 				077F9A8617D7CBB0004F1960 /* main.m in Sources */,
 				077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */,
 				07E1B58218071B9F002D79A1 /* DropResult.m in Sources */,
+				0726445119235F5D00A0E6FE /* SolutionLibrary.m in Sources */,
 				077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */,
 				077F9ABA17D7CC44004F1960 /* Grid.m in Sources */,
 				076C702A19096F2500F0084D /* GameView.m in Sources */,
@@ -418,6 +650,7 @@
 				07115F0E180959FF0044735C /* BaseAnimation.m in Sources */,
 				077F9AC917D7CD02004F1960 /* Helper.m in Sources */,
 				077F9ACC17D7CD35004F1960 /* Hexagon.m in Sources */,
+				076BC06819190AA200EE1AD7 /* SolutionCollectionHeaderView.m in Sources */,
 				077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */,
 				07115F1418095A6F0044735C /* TranslateAnimation.m in Sources */,
 				07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */,

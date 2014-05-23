@@ -265,6 +265,17 @@
   return self;
 }
 
+-(void)dealloc {
+  glDeleteBuffers(1, &rightArcBuffer);
+  glDeleteBuffers(1, &rightArcArrowBuffer);
+  glDeleteBuffers(1, &leftArcBuffer);
+  glDeleteBuffers(1, &leftArcArrowBuffer);
+  glDeleteBuffers(1, &topBarBuffer);
+  glDeleteBuffers(1, &topBarArrowBuffer);
+  glDeleteBuffers(1, &bottomBarBuffer);
+  glDeleteBuffers(1, &bottomBarArrowBuffer);
+}
+
 - (ControlTransform)hitTest:(GLKVector2)point {
   
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
