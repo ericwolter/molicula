@@ -138,7 +138,6 @@
     self.orientation = GLKQuaternionIdentity;
     
     [self updateObjectMatrix];
-//    [self updateAabb];
     
 //    glGenBuffers(1, &boundingBoxBuffer);
 //    glBindBuffer(GL_ARRAY_BUFFER, boundingBoxBuffer);
@@ -302,6 +301,43 @@
 
 - (void)updateObjectMatrix {
   self.objectMatrix = [self makeObjectMatrixWithTranslation:self.position andOrientation:self.orientation];
+}
+
+- (CGRect)getWorldAABB {
+  
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  CGFloat renderRadiusInWorld = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make(RENDER_RADIUS, 0.0f, 0.0f)).x;
+  
+  // TODO: Combine getAtomPositionInWorld loops
+  NSArray *worldCoordinateValues = [self getAtomPositionsInWorld];
+  
+  GLKVector2 aabbMin = GLKVector2Make(FLT_MAX, FLT_MAX);
+  GLKVector2 aabbMax = GLKVector2Make(-FLT_MAX, -FLT_MAX);
+//  NSLog(@"[start] aabbMin: %@", NSStringFromGLKVector2(aabbMin));
+//  NSLog(@"[start] aabbMax: %@", NSStringFromGLKVector2(aabbMax));
+  for (NSValue *worldCoordinateValue in worldCoordinateValues) {
+    GLKVector2 atomWorldPosition = [worldCoordinateValue GLKVector2Value];
+    
+    if (atomWorldPosition.x < aabbMin.x) {
+      aabbMin.x = atomWorldPosition.x;
+    } else if (atomWorldPosition.x > aabbMax.x) {
+      aabbMax.x = atomWorldPosition.x;
+    }
+    
+    if (atomWorldPosition.y < aabbMin.y) {
+      aabbMin.y = atomWorldPosition.y;
+    } else if (atomWorldPosition.y > aabbMax.y) {
+      aabbMax.y = atomWorldPosition.y;
+    }
+  }
+  
+  aabbMin = GLKVector2Subtract(aabbMin, GLKVector2Make(renderRadiusInWorld, renderRadiusInWorld));
+  aabbMax = GLKVector2Add(aabbMax, GLKVector2Make(renderRadiusInWorld, renderRadiusInWorld));
+  
+//  NSLog(@"[end] aabbMin: %@", NSStringFromGLKVector2(aabbMin));
+//  NSLog(@"[end] aabbMax: %@", NSStringFromGLKVector2(aabbMax));
+  
+  return CGRectMake(aabbMin.x, aabbMin.y, aabbMax.x-aabbMin.x, aabbMax.y-aabbMin.y);
 }
 
 - (GLKMatrix4)makeObjectMatrixWithTranslation:(GLKVector2)position andOrientation:(GLKQuaternion)orientation {

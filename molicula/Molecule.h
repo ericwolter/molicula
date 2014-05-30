@@ -30,8 +30,6 @@
 @property(nonatomic) GLKVector2 center;
 @property(nonatomic) BOOL isSnapped;
 @property(nonatomic) NSArray *snappedHoles;
-@property GLKVector2 aabbMin;
-@property GLKVector2 aabbMax;
 
 @property GLKMatrix4 objectMatrix;
 @property GLKMatrix4 modelViewMatrix;
@@ -60,6 +58,7 @@
 
 - (GLKMatrix4)makeObjectMatrixWithTranslation:(GLKVector2)position andOrientation:(GLKQuaternion)orientation;
 - (void)updateObjectMatrix;
+- (CGRect)getWorldAABB;
 
 - (NSArray*)getAtomPositionsInWorld;
 - (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation;

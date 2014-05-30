@@ -619,9 +619,12 @@ typedef enum {
 
 - (void)enforceScreenBoundsForMolecule:(Molecule *)molecule {
   
+  CGRect boundingRect = [molecule getWorldAABB];
+  
+  NSLog(@"boundingRect: %@", NSStringFromCGRect(boundingRect));
   GLKVector2 bounding = GLKVector2Make(0, 0);
-  float leftOut = molecule.aabbMin.x - (-trueWidth / 2);
-  float rightOut = molecule.aabbMax.x - trueWidth / 2;
+  float leftOut = CGRectGetMinX(boundingRect) - (-trueWidth / 2);
+  float rightOut = CGRectGetMaxX(boundingRect) - trueWidth / 2;
   if (leftOut < 0)
   {
     bounding.x -= leftOut;
@@ -630,8 +633,8 @@ typedef enum {
   {
     bounding.x -= rightOut;
   }
-  float downOut = molecule.aabbMin.y - (-trueHeight / 2);
-  float upOut = molecule.aabbMax.y - trueHeight / 2;
+  float downOut = CGRectGetMinY(boundingRect) - (-trueHeight / 2);
+  float upOut = CGRectGetMaxY(boundingRect) - trueHeight / 2;
   if (downOut < 0)
   {
     bounding.y -= downOut;
@@ -640,6 +643,10 @@ typedef enum {
   {
     bounding.y -= upOut;
   }
+  const float precision = 1e5;
+//  bounding.x = roundf(bounding.x*precision) / precision;
+//  bounding.y = roundf(bounding.y*precision) / precision;
+  NSLog(@"boundingOffset: %@",NSStringFromGLKVector2(bounding));
   TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, bounding)];
   animation.linearVelocity *= 2.0f;
   [animator.runningAnimation addObject:animation];
