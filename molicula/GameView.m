@@ -53,7 +53,7 @@
 - (void)setup {
 //  NSLog(@"GameView setup");
   self.effect = [[GLKBaseEffect alloc] init];
-  self.modelViewMatrix = GLKMatrix4MakeScale(.5f, .5f, 1.0f);
+  self.modelViewMatrix = GLKMatrix4MakeScale(0.5f, 0.5f, 1.0f);
   self.invertedModelViewMatrix = GLKMatrix4Invert(self.modelViewMatrix, nil);
   
   self.molecules = [[NSMutableArray alloc] init];

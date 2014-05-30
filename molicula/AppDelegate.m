@@ -16,12 +16,19 @@
   [Crashlytics startWithAPIKey:@"bd56c9755da175dbceef21610d31133901bb338b"];
   
   UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+//
+//  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+//  UIViewController *gameViewController = [storyboard instantiateViewControllerWithIdentifier:@"GameViewController"];
+//  
+//  navigationController.viewControllers = [navigationController.viewControllers arrayByAddingObject:gameViewController];
+//  [navigationController popToViewController:gameViewController animated:NO];
   
-  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-  UIViewController *gameViewController = [storyboard instantiateViewControllerWithIdentifier:@"GameViewController"];
+  [navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+  navigationController.navigationBar.shadowImage = [UIImage new];
+  navigationController.navigationBar.translucent = YES;
   
-  navigationController.viewControllers = [navigationController.viewControllers arrayByAddingObject:gameViewController];
-  [navigationController popToViewController:gameViewController animated:NO];
+  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                       forBarMetrics:UIBarMetricsDefault];
   
   // Override point for customization after application launch.
   return YES;

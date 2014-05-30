@@ -11,49 +11,16 @@
                 <navigationController definesPresentationContext="YES" id="LCP-eY-19M" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Uwp-tw-vfz">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.94117647059999998" green="0.93725490199999995" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="N2B-xJ-KG7" kind="relationship" relationship="rootViewController" id="dLW-Yu-KYr"/>
+                        <segue destination="6Fm-Pz-kJy" kind="relationship" relationship="rootViewController" id="AXn-WA-sQd"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1b-OR-NHg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-445" y="599"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="gc9-Ac-J7X">
-            <objects>
-                <viewController id="N2B-xJ-KG7" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1nS-I0-K1o"/>
-                        <viewControllerLayoutGuide type="bottom" id="2SW-sC-hyS"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="IIx-la-GPS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EE7-Km-aLh">
-                                <rect key="frame" x="137" y="269" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="6Fm-Pz-kJy" kind="push" id="mJo-xd-fO1"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="EE7-Km-aLh" secondAttribute="centerX" id="4Dn-I4-3Di"/>
-                            <constraint firstAttribute="centerY" secondItem="EE7-Km-aLh" secondAttribute="centerY" id="RWz-3x-9tP"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="LfO-lq-7SB"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iHm-HQ-aSX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="85" y="599"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="hIb-hH-hkC">
@@ -69,7 +36,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ncc-uu-9AY">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="PX4-HB-Ikn">
+                        <barButtonItem key="rightBarButtonItem" image="RevealIcon" id="PX4-HB-Ikn">
                             <connections>
                                 <segue destination="kpD-k2-fGj" kind="push" id="CBF-Ta-5LW"/>
                             </connections>
@@ -80,7 +47,7 @@
             </objects>
             <point key="canvasLocation" x="631" y="599"/>
         </scene>
-        <!--Library View Controller-->
+        <!--Library View Controller - Solution Library-->
         <scene sceneID="cvG-e3-aLE">
             <objects>
                 <collectionViewController storyboardIdentifier="LibraryViewController" autoresizesArchivedViewToFullSize="NO" id="kpD-k2-fGj" customClass="LibraryViewController" sceneMemberID="viewController">
@@ -141,13 +108,16 @@
                             <outlet property="delegate" destination="kpD-k2-fGj" id="xSE-AV-2VL"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="XeT-Qx-bEu"/>
+                    <navigationItem key="navigationItem" title="Solution Library" id="XeT-Qx-bEu"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WO7-zv-fg5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1196" y="599"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="RevealIcon" width="22" height="17"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
