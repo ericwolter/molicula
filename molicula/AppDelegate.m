@@ -29,6 +29,8 @@
   
   [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                        forBarMetrics:UIBarMetricsDefault];
+  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                       forBarMetrics:UIBarMetricsLandscapePhone];
   
   // Override point for customization after application launch.
   return YES;
