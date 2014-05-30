@@ -313,20 +313,22 @@
   
   GLKVector2 aabbMin = GLKVector2Make(FLT_MAX, FLT_MAX);
   GLKVector2 aabbMax = GLKVector2Make(-FLT_MAX, -FLT_MAX);
-//  NSLog(@"[start] aabbMin: %@", NSStringFromGLKVector2(aabbMin));
-//  NSLog(@"[start] aabbMax: %@", NSStringFromGLKVector2(aabbMax));
+  NSLog(@"[start] aabbMin: %@", NSStringFromGLKVector2(aabbMin));
+  NSLog(@"[start] aabbMax: %@", NSStringFromGLKVector2(aabbMax));
   for (NSValue *worldCoordinateValue in worldCoordinateValues) {
     GLKVector2 atomWorldPosition = [worldCoordinateValue GLKVector2Value];
     
     if (atomWorldPosition.x < aabbMin.x) {
       aabbMin.x = atomWorldPosition.x;
-    } else if (atomWorldPosition.x > aabbMax.x) {
+    }
+    if (atomWorldPosition.x > aabbMax.x) {
       aabbMax.x = atomWorldPosition.x;
     }
     
     if (atomWorldPosition.y < aabbMin.y) {
       aabbMin.y = atomWorldPosition.y;
-    } else if (atomWorldPosition.y > aabbMax.y) {
+    }
+    if (atomWorldPosition.y > aabbMax.y) {
       aabbMax.y = atomWorldPosition.y;
     }
   }
@@ -334,8 +336,8 @@
   aabbMin = GLKVector2Subtract(aabbMin, GLKVector2Make(renderRadiusInWorld, renderRadiusInWorld));
   aabbMax = GLKVector2Add(aabbMax, GLKVector2Make(renderRadiusInWorld, renderRadiusInWorld));
   
-//  NSLog(@"[end] aabbMin: %@", NSStringFromGLKVector2(aabbMin));
-//  NSLog(@"[end] aabbMax: %@", NSStringFromGLKVector2(aabbMax));
+  NSLog(@"[end] aabbMin: %@", NSStringFromGLKVector2(aabbMin));
+  NSLog(@"[end] aabbMax: %@", NSStringFromGLKVector2(aabbMax));
   
   return CGRectMake(aabbMin.x, aabbMin.y, aabbMax.x-aabbMin.x, aabbMax.y-aabbMin.y);
 }
