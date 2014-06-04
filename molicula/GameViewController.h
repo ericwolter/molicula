@@ -11,7 +11,9 @@
 #import "Molecule.h"
 
 @interface GameViewController : GLKViewController <UIGestureRecognizerDelegate> {
+  
 }
+@property (weak, nonatomic) IBOutlet UIView *tutorialView;
 
 - (void)updateOnce;
 

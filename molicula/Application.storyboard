@@ -34,7 +34,24 @@
                     <view key="view" contentMode="scaleToFill" id="psZ-oD-fJv" customClass="GameView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.49999999999999961" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCC-XV-QhQ">
+                                <rect key="frame" x="0.0" y="493" width="320" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="75" id="EAB-2x-kC9"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="flw-pU-8ih"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cCC-XV-QhQ" firstAttribute="leading" secondItem="psZ-oD-fJv" secondAttribute="leading" id="b57-gC-JeY"/>
+                            <constraint firstItem="UVD-Ms-k1N" firstAttribute="top" secondItem="cCC-XV-QhQ" secondAttribute="bottom" id="c6e-9B-TwR"/>
+                            <constraint firstAttribute="trailing" secondItem="cCC-XV-QhQ" secondAttribute="trailing" id="jTu-X2-gmj"/>
+                            <constraint firstItem="cCC-XV-QhQ" firstAttribute="top" secondItem="2l5-dC-CQx" secondAttribute="bottom" priority="500" constant="420" id="n8h-nB-3OI"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ncc-uu-9AY">
                         <barButtonItem key="rightBarButtonItem" image="LibraryIcon" id="PX4-HB-Ikn">
@@ -43,10 +60,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tutorialView" destination="cCC-XV-QhQ" id="cFO-Ik-ec6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5E-46-CWi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="631" y="599"/>
+            <point key="canvasLocation" x="207" y="599"/>
         </scene>
         <!--Library View Controller - Solutions-->
         <scene sceneID="cvG-e3-aLE">
@@ -113,7 +133,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WO7-zv-fg5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1196" y="599"/>
+            <point key="canvasLocation" x="772" y="599"/>
         </scene>
     </scenes>
     <resources>
