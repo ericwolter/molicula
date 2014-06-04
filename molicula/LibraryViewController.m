@@ -183,16 +183,7 @@
   
   UIImageView *solutionImageView = (UIImageView *)[cell viewWithTag:100];
   
-  MLog(@"cell.bounds: %@", NSStringFromCGRect(cell.bounds));
-  MLog(@"cell.frame: %@", NSStringFromCGRect(cell.frame));
-  
-  MLog(@"before image.bounds: %@", NSStringFromCGRect(solutionImageView.bounds));
-  MLog(@"before image.frame: %@", NSStringFromCGRect(solutionImageView.frame));
-  
   solutionImageView.frame = CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height);
-  
-  MLog(@"after image.bounds: %@", NSStringFromCGRect(solutionImageView.bounds));
-  MLog(@"after image.frame: %@", NSStringFromCGRect(solutionImageView.frame));
   
   GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:self.context];
   [gameView setScaling:0.5f];
@@ -231,16 +222,7 @@
     
     UIImageView *moleculeImageView = headerView.MissingMoleculeImage;
     
-    MLog(@"cell.bounds: %@", NSStringFromCGRect(headerView.bounds));
-    MLog(@"cell.frame: %@", NSStringFromCGRect(headerView.frame));
-    
-    MLog(@"before image.bounds: %@", NSStringFromCGRect(moleculeImageView.bounds));
-    MLog(@"before image.frame: %@", NSStringFromCGRect(moleculeImageView.frame));
-    
     moleculeImageView.frame = CGRectMake(0, 0, headerView.bounds.size.width, headerView.bounds.size.height);
-    
-    MLog(@"after image.bounds: %@", NSStringFromCGRect(moleculeImageView.bounds));
-    MLog(@"after image.frame: %@", NSStringFromCGRect(moleculeImageView.frame));
     
     GameView *gameView = [[GameView alloc] initWithFrame:moleculeImageView.bounds context:self.context];
     [gameView setScaling:0.5f];
