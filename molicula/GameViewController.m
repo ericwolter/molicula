@@ -93,14 +93,21 @@ typedef enum {
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  isDisappearInProgress = NO;
-  [self setProjection];
-  [self updateOnce];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   MLog(@"start");
   [self setupGL];
+  isDisappearInProgress = NO;
+  [self setProjection];
+  [self updateOnce];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+  //  NSLog(@"viewWillDisappear");
+  //  isDisappearInProgress = YES;
+  //  [self makeRectFrame];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -112,7 +119,6 @@ typedef enum {
   isMirroringInProgress = false;
   cumulativeMirroringAngle = 0.0f;
   mirroringDirection = NoDirection;
-  
 }
 
 - (void)viewDidLoad {
@@ -139,7 +145,6 @@ typedef enum {
   [self setupGL];
   
   [gameView enableGrid];
-  //[gameView addMolecule:[MoleculeFactory purpleMolecule]];
   
   animator = [[Animator alloc] init];
   controls = [[Controls alloc] init];
@@ -184,16 +189,16 @@ typedef enum {
 
   [super didReceiveMemoryWarning];
   
-  if ([self isViewLoaded] && ([[self view] window] == nil)) {
-    self.view = nil;
-    
-    [self tearDownGL];
-    
-    if ([EAGLContext currentContext] == self.context) {
-      [EAGLContext setCurrentContext:nil];
-    }
-    self.context = nil;
-  }
+//  if ([self isViewLoaded] && ([[self view] window] == nil)) {
+//    self.view = nil;
+//    
+//    [self tearDownGL];
+//    
+//    if ([EAGLContext currentContext] == self.context) {
+//      [EAGLContext setCurrentContext:nil];
+//    }
+//    self.context = nil;
+//  }
   
   // Dispose of any resources that can be recreated.
 }
@@ -201,6 +206,7 @@ typedef enum {
 - (void)setupGL {
   MLog(@"start");
   [EAGLContext setCurrentContext:self.context];
+  [controls setupBuffers];
 }
 
 - (void)setupGrid {
@@ -228,7 +234,7 @@ typedef enum {
   [gameView addMolecule:[MoleculeFactory whiteMolecule]];
   [gameView addMolecule:[MoleculeFactory purpleMolecule]];
   
-  //[self layoutMolecules];
+  [self layoutMolecules];
 }
 
 - (void)layoutMolecules {
@@ -304,13 +310,6 @@ typedef enum {
   [self setProjection];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
-//  NSLog(@"viewWillDisappear");
-//  isDisappearInProgress = YES;
-//  [self makeRectFrame];
-}
-
 - (void)viewWillLayoutSubviews {
 //  if(!isDisappearInProgress) {
 //    [self makeSquareFrame];
@@ -362,6 +361,7 @@ typedef enum {
   
   MLog(@"start");
   MLog(@"%@",self.context);
+  [controls tearDownBuffers];
   [EAGLContext setCurrentContext:self.context];
 }
 
@@ -373,6 +373,7 @@ typedef enum {
 #pragma mark - GLKView and GLKViewController delegate methods
 
 - (void)update {
+  MLog(@"start");
   if (shouldStopUpdating == YES && [animator hasRunningAnimation] == NO) {
     self.paused = YES;
     shouldStopUpdating = NO;
@@ -395,7 +396,7 @@ typedef enum {
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-//  NSLog(@"GameViewController render");
+  MLog(@"start");
   [gameView render];
   
   if(activeMolecule != nil) {

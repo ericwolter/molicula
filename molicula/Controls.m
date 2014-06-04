@@ -21,10 +21,10 @@
 }
 
 - (void)renderRotation {
-  MLog(@"rightArcBuffer: %d",rightArcBuffer);
-  MLog(@"rightArcArrowBuffer: %d",rightArcArrowBuffer);
-  MLog(@"leftArcBuffer: %d",leftArcBuffer);
-  MLog(@"leftArcArrowBuffer: %d",leftArcArrowBuffer);
+//  MLog(@"rightArcBuffer: %d",rightArcBuffer);
+//  MLog(@"rightArcArrowBuffer: %d",rightArcArrowBuffer);
+//  MLog(@"leftArcBuffer: %d",leftArcBuffer);
+//  MLog(@"leftArcArrowBuffer: %d",leftArcArrowBuffer);
 
   glBindBuffer(GL_ARRAY_BUFFER, rightArcBuffer);
   glEnableVertexAttribArray(GLKVertexAttribPosition);
@@ -87,7 +87,6 @@
 
 - (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress {
   MLog(@"start");
-  
   effect.constantColor = GLKVector4Make(effect.constantColor.x, effect.constantColor.y, effect.constantColor.z, 0.5f);
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
   effect.transform.modelviewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.modelViewMatrix);
@@ -214,47 +213,42 @@
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+- (void)initBottomBar {
+  float tip1theta = 3.0f * M_TAU / 4.0f - (1.0f/((TUTORIAL_ARC_RATIO+1)*2.0f)) * M_TAU;
+  float tip2theta = 3.0f * M_TAU / 4.0f + (1.0f/((TUTORIAL_ARC_RATIO+1)*2.0f)) * M_TAU;
+  
+  GLKVector2 unitNormalVector1 = GLKVector2Make(cos(tip1theta) * (1.0f-ARROW_THICKNESS/2.0f), sin(tip1theta) * (1.0f-ARROW_THICKNESS/2.0f));
+  GLKVector2 unitNormalVector2 = GLKVector2Make(cos(tip2theta) * (1.0f-ARROW_THICKNESS/2.0f), sin(tip2theta) * (1.0f-ARROW_THICKNESS/2.0f));
+  
+  bottomBar[0] = GLKVector2Subtract(unitNormalVector1, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
+  bottomBar[1] = GLKVector2Add(unitNormalVector1, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
+  bottomBar[2] = GLKVector2Add(unitNormalVector2, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
+  bottomBar[3] = GLKVector2Subtract(unitNormalVector1, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
+  bottomBar[4] = GLKVector2Add(unitNormalVector2, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
+  bottomBar[5] = GLKVector2Subtract(unitNormalVector2, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
+  
+  glGenBuffers(1, &bottomBarBuffer);
+  glBindBuffer(GL_ARRAY_BUFFER, bottomBarBuffer);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(bottomBar), bottomBar, GL_STATIC_DRAW);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  
+  bottomBarArrow[0] = GLKVector2Subtract(unitNormalVector1, GLKVector2Make(0.0f, ARROW_TIP_WIDTH/2.0f));
+  bottomBarArrow[1] = GLKVector2Add(unitNormalVector1, GLKVector2Make(0.0f, ARROW_TIP_WIDTH/2.0f));
+  bottomBarArrow[2] = GLKVector2Subtract(unitNormalVector1, GLKVector2Make(ARROW_TIP_HEIGHT, 0.0f));
+  bottomBarArrow[3] = GLKVector2Add(unitNormalVector2, GLKVector2Make(0.0f, ARROW_TIP_WIDTH/2.0f));
+  bottomBarArrow[4] = GLKVector2Subtract(unitNormalVector2, GLKVector2Make(0.0f, ARROW_TIP_WIDTH/2.0f));
+  bottomBarArrow[5] = GLKVector2Add(unitNormalVector2, GLKVector2Make(ARROW_TIP_HEIGHT, 0.0f));
+  
+  glGenBuffers(1, &bottomBarArrowBuffer);
+  glBindBuffer(GL_ARRAY_BUFFER, bottomBarArrowBuffer);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(bottomBarArrow), bottomBarArrow, GL_STATIC_DRAW);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 - (id)init {
   if (self = [super init]) {
     
     MLog(@"start");
-    
-    [self initRightArrow];
-    [self initLeftArrow];
-    
-    [self initTopBar];
-    
-    float tip1theta = 3.0f * M_TAU / 4.0f - (1.0f/((TUTORIAL_ARC_RATIO+1)*2.0f)) * M_TAU;
-    float tip2theta = 3.0f * M_TAU / 4.0f + (1.0f/((TUTORIAL_ARC_RATIO+1)*2.0f)) * M_TAU;
-    
-    GLKVector2 unitNormalVector1 = GLKVector2Make(cos(tip1theta) * (1.0f-ARROW_THICKNESS/2.0f), sin(tip1theta) * (1.0f-ARROW_THICKNESS/2.0f));
-    GLKVector2 unitNormalVector2 = GLKVector2Make(cos(tip2theta) * (1.0f-ARROW_THICKNESS/2.0f), sin(tip2theta) * (1.0f-ARROW_THICKNESS/2.0f));
-    
-    bottomBar[0] = GLKVector2Subtract(unitNormalVector1, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
-    bottomBar[1] = GLKVector2Add(unitNormalVector1, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
-    bottomBar[2] = GLKVector2Add(unitNormalVector2, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
-    bottomBar[3] = GLKVector2Subtract(unitNormalVector1, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
-    bottomBar[4] = GLKVector2Add(unitNormalVector2, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
-    bottomBar[5] = GLKVector2Subtract(unitNormalVector2, GLKVector2Make(0.0f, ARROW_THICKNESS/2.0f));
-    
-    glGenBuffers(1, &bottomBarBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, bottomBarBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(bottomBar), bottomBar, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    
-    bottomBarArrow[0] = GLKVector2Subtract(unitNormalVector1, GLKVector2Make(0.0f, ARROW_TIP_WIDTH/2.0f));
-    bottomBarArrow[1] = GLKVector2Add(unitNormalVector1, GLKVector2Make(0.0f, ARROW_TIP_WIDTH/2.0f));
-    bottomBarArrow[2] = GLKVector2Subtract(unitNormalVector1, GLKVector2Make(ARROW_TIP_HEIGHT, 0.0f));
-    bottomBarArrow[3] = GLKVector2Add(unitNormalVector2, GLKVector2Make(0.0f, ARROW_TIP_WIDTH/2.0f));
-    bottomBarArrow[4] = GLKVector2Subtract(unitNormalVector2, GLKVector2Make(0.0f, ARROW_TIP_WIDTH/2.0f));
-    bottomBarArrow[5] = GLKVector2Add(unitNormalVector2, GLKVector2Make(ARROW_TIP_HEIGHT, 0.0f));
-    
-    glGenBuffers(1, &bottomBarArrowBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, bottomBarArrowBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(bottomBarArrow), bottomBarArrow, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    
-    
 //    float size = ARROW_THICKNESS / sqrtf(2.0f);
 //    quadrantCross[0] = GLKVector2Make(0.0f, -size);
 //    quadrantCross[1] = GLKVector2Make(0.0f, +size);
@@ -274,8 +268,8 @@
   return self;
 }
 
--(void)dealloc {
-  MLog("start");
+-(void)tearDownBuffers {
+  MLog(@"start");
   glDeleteBuffers(1, &rightArcBuffer);
   glDeleteBuffers(1, &rightArcArrowBuffer);
   glDeleteBuffers(1, &leftArcBuffer);
@@ -284,6 +278,20 @@
   glDeleteBuffers(1, &topBarArrowBuffer);
   glDeleteBuffers(1, &bottomBarBuffer);
   glDeleteBuffers(1, &bottomBarArrowBuffer);
+}
+
+-(void)setupBuffers {
+  MLog(@"start");
+  [self initRightArrow];
+  [self initLeftArrow];
+  
+  [self initTopBar];
+  [self initBottomBar];
+}
+
+-(void)dealloc {
+  MLog("start");
+  [self tearDownBuffers];
 }
 
 - (ControlTransform)hitTest:(GLKVector2)point {

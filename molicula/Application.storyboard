@@ -62,25 +62,25 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="he2-Th-xJm">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SolutionCell" id="he2-Th-xJm">
                                 <rect key="frame" x="0.0" y="114" width="106" height="106"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WYr-Sa-U9J">
+                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EBU-Wl-RA5">
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="WYr-Sa-U9J" secondAttribute="trailing" id="EN9-rs-P6t"/>
-                                    <constraint firstAttribute="bottom" secondItem="WYr-Sa-U9J" secondAttribute="bottom" id="ENk-X6-KtX"/>
-                                    <constraint firstItem="WYr-Sa-U9J" firstAttribute="top" secondItem="he2-Th-xJm" secondAttribute="top" id="FQA-t4-vat"/>
-                                    <constraint firstItem="WYr-Sa-U9J" firstAttribute="leading" secondItem="he2-Th-xJm" secondAttribute="leading" id="uFi-sl-dxC"/>
+                                    <constraint firstItem="EBU-Wl-RA5" firstAttribute="leading" secondItem="he2-Th-xJm" secondAttribute="leading" id="38r-Tk-8lA"/>
+                                    <constraint firstAttribute="bottom" secondItem="EBU-Wl-RA5" secondAttribute="bottom" id="N2G-Hb-5zk"/>
+                                    <constraint firstAttribute="trailing" secondItem="EBU-Wl-RA5" secondAttribute="trailing" id="Uf0-1k-NEj"/>
+                                    <constraint firstItem="EBU-Wl-RA5" firstAttribute="top" secondItem="he2-Th-xJm" secondAttribute="top" id="h00-cq-4Kf"/>
                                 </constraints>
                             </collectionViewCell>
                         </cells>
@@ -94,10 +94,10 @@
                                 </imageView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="c0P-nB-FWQ" firstAttribute="top" secondItem="jaB-3E-VoG" secondAttribute="top" id="KwO-Aq-yZV"/>
-                                <constraint firstAttribute="trailing" secondItem="c0P-nB-FWQ" secondAttribute="trailing" id="X0u-5m-4Sp"/>
-                                <constraint firstItem="c0P-nB-FWQ" firstAttribute="leading" secondItem="jaB-3E-VoG" secondAttribute="leading" id="Yhe-fF-32f"/>
-                                <constraint firstAttribute="bottom" secondItem="c0P-nB-FWQ" secondAttribute="bottom" id="oVZ-na-LEk"/>
+                                <constraint firstItem="c0P-nB-FWQ" firstAttribute="leading" secondItem="jaB-3E-VoG" secondAttribute="leading" id="D4u-N1-NyW"/>
+                                <constraint firstAttribute="trailing" secondItem="c0P-nB-FWQ" secondAttribute="trailing" id="FUX-1E-wEL"/>
+                                <constraint firstAttribute="bottom" secondItem="c0P-nB-FWQ" secondAttribute="bottom" id="X4b-VK-HxE"/>
+                                <constraint firstItem="c0P-nB-FWQ" firstAttribute="top" secondItem="jaB-3E-VoG" secondAttribute="top" id="YfQ-JR-uOB"/>
                             </constraints>
                             <connections>
                                 <outlet property="MissingMoleculeImage" destination="c0P-nB-FWQ" id="Ne5-7k-u7h"/>

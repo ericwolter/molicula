@@ -69,6 +69,9 @@ typedef enum {
 @property (nonatomic) GLKVector4 position;
 @property (nonatomic) GLKMatrix4 modelViewMatrix;
 
+- (void)setupBuffers;
+- (void)tearDownBuffers;
+
 - (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress;
 - (void)updateModelViewMatrix;
 - (ControlTransform)hitTest:(GLKVector2)point;

@@ -46,6 +46,20 @@
   [self setupGL];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  
+  UICollectionViewFlowLayout *flowLayout = (id)self.collectionViewLayout;
+  
+  if(IS_IPAD) {
+    flowLayout.itemSize = CGSizeMake(188.0f, 188.f);
+    flowLayout.headerReferenceSize = CGSizeMake(100.0f, 100.0f);
+  } else {
+    flowLayout.itemSize = CGSizeMake(106.0f, 106.f);
+    flowLayout.headerReferenceSize = CGSizeMake(50.0f, 50.0f);
+  }
+}
+
 - (void)didReceiveMemoryWarning {
   MLog("start");
   [super didReceiveMemoryWarning];
@@ -163,11 +177,22 @@
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-  static NSString *identifier = @"Cell";
+  static NSString *identifier = @"SolutionCell";
   
   UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
   
-  UIImageView *solutionImageView = (UIImageView *)[cell viewWithTag:200];
+  UIImageView *solutionImageView = (UIImageView *)[cell viewWithTag:100];
+  
+  MLog(@"cell.bounds: %@", NSStringFromCGRect(cell.bounds));
+  MLog(@"cell.frame: %@", NSStringFromCGRect(cell.frame));
+  
+  MLog(@"before image.bounds: %@", NSStringFromCGRect(solutionImageView.bounds));
+  MLog(@"before image.frame: %@", NSStringFromCGRect(solutionImageView.frame));
+  
+  solutionImageView.frame = CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height);
+  
+  MLog(@"after image.bounds: %@", NSStringFromCGRect(solutionImageView.bounds));
+  MLog(@"after image.frame: %@", NSStringFromCGRect(solutionImageView.frame));
   
   GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:self.context];
   [gameView setScaling:0.5f];
@@ -204,9 +229,20 @@
   if (kind == UICollectionElementKindSectionHeader) {
     SolutionCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
     
-    CGRect bounds = headerView.MissingMoleculeImage.bounds;
+    UIImageView *moleculeImageView = headerView.MissingMoleculeImage;
     
-    GameView *gameView = [[GameView alloc] initWithFrame:bounds context:self.context];
+    MLog(@"cell.bounds: %@", NSStringFromCGRect(headerView.bounds));
+    MLog(@"cell.frame: %@", NSStringFromCGRect(headerView.frame));
+    
+    MLog(@"before image.bounds: %@", NSStringFromCGRect(moleculeImageView.bounds));
+    MLog(@"before image.frame: %@", NSStringFromCGRect(moleculeImageView.frame));
+    
+    moleculeImageView.frame = CGRectMake(0, 0, headerView.bounds.size.width, headerView.bounds.size.height);
+    
+    MLog(@"after image.bounds: %@", NSStringFromCGRect(moleculeImageView.bounds));
+    MLog(@"after image.frame: %@", NSStringFromCGRect(moleculeImageView.frame));
+    
+    GameView *gameView = [[GameView alloc] initWithFrame:moleculeImageView.bounds context:self.context];
     [gameView setScaling:0.5f];
     gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
     gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
@@ -229,6 +265,5 @@
   
   return reusableview;
 }
-
 
 @end
