@@ -18,6 +18,8 @@
 #import "RotationAnimation.h"
 #import "GameView.h"
 #import "SolutionLibrary.h"
+#import "MoliculaNavigationBar.h"
+#import "AppDelegate.h"
 
 typedef enum {
   NoDirection,
@@ -92,7 +94,9 @@ typedef enum {
 @implementation GameViewController
 
 - (void)viewDidAppear:(BOOL)animated {
+  MLog(@"start");
   [super viewDidAppear:animated];
+  [self setProjection];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,17 +104,20 @@ typedef enum {
   [self setupGL];
   isDisappearInProgress = NO;
   [self setProjection];
-  [self updateOnce];
+  MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
+  bar.isTouchThroughEnabled = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+  MLog(@"start");
+  MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
+  bar.isTouchThroughEnabled = NO;
+  
   [super viewWillDisappear:animated];
-  //  NSLog(@"viewWillDisappear");
-  //  isDisappearInProgress = YES;
-  //  [self makeRectFrame];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+  MLog(@"start");
   [super viewDidDisappear:animated];
   pointerTouch = nil;
   controlTouch = nil;
@@ -129,6 +136,7 @@ typedef enum {
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   
   if (!self.context) {
+    NSLog(@"Failed to create ES context");
   }
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:NULL];
@@ -151,22 +159,16 @@ typedef enum {
   controls.parent = gameView;
   
   [self setupGrid];
-  
-//  UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-////  [button addTarget:self
-////             action:@selector(aMethod:)
-////   forControlEvents:UIControlEventTouchDown];
-//  UIImage *revealIcon = [UIImage imageNamed:@"Hamburger"];
-//  [button setImage:revealIcon forState:UIControlStateNormal];
-//  
-//  if([[UIDevice currentDevice].systemVersion floatValue] >= 7.0) {
-//    button.frame = CGRectMake(0.0f, 12.0f, 44.0f, 44.0f);
-//  } else {
-//    button.frame = CGRectMake(0.0f, 0.0f, 44.0f, 44.0f);
-//  }
-//  GLKVector4 c = [[ColorTheme sharedSingleton] hole];
-//  button.tintColor = [UIColor colorWithRed:c.x green:c.y blue:c.z alpha:1.0f];
-//  [view addSubview:button];
+}
+
+-(void)dealloc {
+  MLog(@"start");
+  //  NSLog(@"GameViewController dealloc");
+  [self tearDownGL];
+
+  if ([EAGLContext currentContext] == self.context) {
+    [EAGLContext setCurrentContext:nil];
+  }
 }
 
 - (void)applicationWillResignActive {
@@ -174,57 +176,12 @@ typedef enum {
   transformTouch = nil;
 }
 
-- (void)dealloc {
-  MLog(@"start");
-//  NSLog(@"GameViewController dealloc");
-  [self tearDownGL];
-  
-  if ([EAGLContext currentContext] == self.context) {
-    [EAGLContext setCurrentContext:nil];
-  }
-}
-
-- (void)didReceiveMemoryWarning {
-  MLog(@"start");
-
-  [super didReceiveMemoryWarning];
-  
-//  if ([self isViewLoaded] && ([[self view] window] == nil)) {
-//    self.view = nil;
-//    
-//    [self tearDownGL];
-//    
-//    if ([EAGLContext currentContext] == self.context) {
-//      [EAGLContext setCurrentContext:nil];
-//    }
-//    self.context = nil;
-//  }
-  
-  // Dispose of any resources that can be recreated.
-}
-
 - (void)setupGL {
-  MLog(@"start");
   [EAGLContext setCurrentContext:self.context];
   [controls setupBuffers];
 }
 
 - (void)setupGrid {
-  
-  NSString *solution = @"000pgg00ppgg0ppyygwwoyrrwwoyr0woyr00oor000";
-  NSLog(@"%@", solution);
-//  NSString *swpYO = [[SolutionLibrary sharedInstance] switchYellowOrange:solution];
-//  NSLog(@"%@", swpYO);
-//  NSString *swpWP = [[SolutionLibrary sharedInstance] switchWhitePurple:solution];
-//  NSLog(@"%@", swpWP);
-//  NSString *flipH = [[SolutionLibrary sharedInstance] flipH:solution];
-//  NSLog(@"%@", flipH);
-  NSString *flipV = [[SolutionLibrary sharedInstance] flipV:solution];
-  NSLog(@"%@", flipV);
-  
-//  NSArray *solutionPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"txt" inDirectory:@"solutions"];
-//  NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-//  NSArray *solutions = [standardUserDefaults arrayForKey:@"solutions"];
   
   [gameView addMolecule:[MoleculeFactory yellowMolecule]];
   [gameView addMolecule:[MoleculeFactory orangeMolecule]];
@@ -274,59 +231,21 @@ typedef enum {
   }
 }
 
-- (void)makeSquareFrame {
-//  NSLog(@"makeSquareFrame");
-//  NSLog(@"self.view.bounds.origin:(%f,%f)",self.view.bounds.origin.x,self.view.bounds.origin.y);
-//  NSLog(@"self.view.bounds.size:(%f,%f)",self.view.bounds.size.width,self.view.bounds.size.height);
-//  NSLog(@"self.view.frame.origin:(%f,%f)",self.view.frame.origin.x,self.view.frame.origin.y);
-//  NSLog(@"self.view.frame.size:(%f,%f)",self.view.frame.size.width,self.view.frame.size.height);
-  float size = self.view.frame.size.width > self.view.frame.size.height ?
-  self.view.frame.size.width : self.view.frame.size.height;
-
-  float offset_x = size - self.view.frame.size.width;
-  float offset_y = size - self.view.frame.size.height;
-
-  [self.view setFrame:CGRectMake(
-                                 -offset_x/2.0f,
-                                 -offset_y/2.0f,
-                                 size,
-                                 size)];
-  [self setProjection];
-}
-
-- (void)makeRectFrame {
-//  NSLog(@"makeRectFrame");
-//  NSLog(@"self.view.bounds.origin:(%f,%f)",self.view.bounds.origin.x,self.view.bounds.origin.y);
-//  NSLog(@"self.view.bounds.size:(%f,%f)",self.view.bounds.size.width,self.view.bounds.size.height);
-//  NSLog(@"self.view.frame.origin:(%f,%f)",self.view.frame.origin.x,self.view.frame.origin.y);
-//  NSLog(@"self.view.frame.size:(%f,%f)",self.view.frame.size.width,self.view.frame.size.height);
-  
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
-  [self.view setFrame:CGRectMake(0.0f,0.0f, screenRect.size.width, screenRect.size.height)];
-  if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-    [self.view setFrame:CGRectMake(0.0f,0.0f, screenRect.size.height, screenRect.size.width)];
-  }
-
-  [self setProjection];
-}
-
-- (void)viewWillLayoutSubviews {
-//  if(!isDisappearInProgress) {
-//    [self makeSquareFrame];
-//  }
-}
-
 - (void)setProjection
 {
   float width, height;
   width = [self.view.layer.presentationLayer bounds].size.width;
   height = [self.view.layer.presentationLayer bounds].size.height;
   
+  MLog(@"setProjection: %@", NSStringFromCGSize([self.view.layer.presentationLayer bounds].size))
+  
   [gameView updateProjection:CGSizeMake(width, height)];
+  [self updateOnce];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation) __unused fromInterfaceOrientation
 {
+  MLog(@"start");
   shouldStopUpdating = YES;
   duringDeviceRotation = NO;
   [self setProjection];
@@ -373,13 +292,15 @@ typedef enum {
 #pragma mark - GLKView and GLKViewController delegate methods
 
 - (void)update {
-  MLog(@"start");
   if (shouldStopUpdating == YES && [animator hasRunningAnimation] == NO) {
     self.paused = YES;
     shouldStopUpdating = NO;
   } else {
-    [self setProjection];
     [animator update:self.timeSinceLastUpdate];
+  }
+  
+  if(duringDeviceRotation) {
+    [self setProjection];
   }
   
   if (finishAnimation) {
@@ -422,9 +343,9 @@ typedef enum {
   
   UITouch *touch = [touches anyObject];
   CGPoint viewCoordinate = [touch locationInView:self.view];
-//  NSLog(@"touchesBegan: viewCoordinate: %@", NSStringFromCGPoint(viewCoordinate));
+  MLog(@"touchesBegan: viewCoordinate: %@", NSStringFromCGPoint(viewCoordinate));
   GLKVector2 openglCoordinate = [gameView convertViewCoordinateToOpenGLCoordinate:viewCoordinate];
-//  NSLog(@"touchesBegan: openglCoordinate: %@", NSStringFromGLKVector2(openglCoordinate));
+  MLog(@"touchesBegan: openglCoordinate: %@", NSStringFromGLKVector2(openglCoordinate));
   
   if (activeMolecule != nil) {
     [activeMolecule unsnap];
@@ -623,10 +544,14 @@ typedef enum {
   
   CGRect boundingRect = [molecule getWorldAABB];
   
+  float width, height;
+  width = self.view.bounds.size.width;
+  height = self.view.bounds.size.height;
+  
 //  NSLog(@"boundingRect: %@", NSStringFromCGRect(boundingRect));
   GLKVector2 bounding = GLKVector2Make(0, 0);
-  float leftOut = CGRectGetMinX(boundingRect) - (-trueWidth / 2);
-  float rightOut = CGRectGetMaxX(boundingRect) - trueWidth / 2;
+  float leftOut = CGRectGetMinX(boundingRect) - (-width / 2);
+  float rightOut = CGRectGetMaxX(boundingRect) - width / 2;
   if (leftOut < 0)
   {
     bounding.x -= leftOut;
@@ -635,8 +560,8 @@ typedef enum {
   {
     bounding.x -= rightOut;
   }
-  float downOut = CGRectGetMinY(boundingRect) - (-trueHeight / 2);
-  float upOut = CGRectGetMaxY(boundingRect) - trueHeight / 2;
+  float downOut = CGRectGetMinY(boundingRect) - (-height / 2);
+  float upOut = CGRectGetMaxY(boundingRect) - height / 2;
   if (downOut < 0)
   {
     bounding.y -= downOut;

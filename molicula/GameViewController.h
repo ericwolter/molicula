@@ -13,4 +13,6 @@
 @interface GameViewController : GLKViewController <UIGestureRecognizerDelegate> {
 }
 
+- (void)updateOnce;
+
 @end
