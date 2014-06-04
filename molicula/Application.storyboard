@@ -47,7 +47,7 @@
             </objects>
             <point key="canvasLocation" x="631" y="599"/>
         </scene>
-        <!--Library View Controller - Solution Library-->
+        <!--Library View Controller - Solutions-->
         <scene sceneID="cvG-e3-aLE">
             <objects>
                 <collectionViewController storyboardIdentifier="LibraryViewController" autoresizesArchivedViewToFullSize="NO" id="kpD-k2-fGj" customClass="LibraryViewController" sceneMemberID="viewController">
@@ -108,7 +108,7 @@
                             <outlet property="delegate" destination="kpD-k2-fGj" id="xSE-AV-2VL"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Solution Library" id="XeT-Qx-bEu"/>
+                    <navigationItem key="navigationItem" title="Solutions" id="XeT-Qx-bEu"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WO7-zv-fg5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

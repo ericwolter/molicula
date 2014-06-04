@@ -228,7 +228,7 @@ typedef enum {
   [gameView addMolecule:[MoleculeFactory whiteMolecule]];
   [gameView addMolecule:[MoleculeFactory purpleMolecule]];
   
-  [self layoutMolecules];
+  //[self layoutMolecules];
 }
 
 - (void)layoutMolecules {

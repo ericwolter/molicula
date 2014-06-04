@@ -21,6 +21,11 @@
 }
 
 - (void)renderRotation {
+  MLog(@"rightArcBuffer: %d",rightArcBuffer);
+  MLog(@"rightArcArrowBuffer: %d",rightArcArrowBuffer);
+  MLog(@"leftArcBuffer: %d",leftArcBuffer);
+  MLog(@"leftArcArrowBuffer: %d",leftArcArrowBuffer);
+
   glBindBuffer(GL_ARRAY_BUFFER, rightArcBuffer);
   glEnableVertexAttribArray(GLKVertexAttribPosition);
   glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, 0);
@@ -81,6 +86,8 @@
 }
 
 - (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress {
+  MLog(@"start");
+  
   effect.constantColor = GLKVector4Make(effect.constantColor.x, effect.constantColor.y, effect.constantColor.z, 0.5f);
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
   effect.transform.modelviewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.modelViewMatrix);

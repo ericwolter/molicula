@@ -11,7 +11,7 @@
 		07115F0E180959FF0044735C /* BaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F0D180959FF0044735C /* BaseAnimation.m */; };
 		07115F1418095A6F0044735C /* TranslateAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F1318095A6F0044735C /* TranslateAnimation.m */; };
 		07115F171809661E0044735C /* RotationAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F161809661E0044735C /* RotationAnimation.m */; };
-		07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */; };
+		07124B9B17F9997700D7B5CD /* Application.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Application.storyboard */; };
 		0726445119235F5D00A0E6FE /* SolutionLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 0726445019235F5D00A0E6FE /* SolutionLibrary.m */; };
 		0769830E192CC32900926DD1 /* blue1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B2192CC2F800926DD1 /* blue1.txt */; };
 		0769830F192CC32900926DD1 /* blue2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B3192CC2F800926DD1 /* blue2.txt */; };
@@ -65,7 +65,6 @@
 		077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8217D7CBB0004F1960 /* InfoPlist.strings */; };
 		077F9A8617D7CBB0004F1960 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8517D7CBB0004F1960 /* main.m */; };
 		077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8917D7CBB0004F1960 /* AppDelegate.m */; };
-		077F9A9317D7CBB0004F1960 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9117D7CBB0004F1960 /* Main_iPad.storyboard */; };
 		077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9417D7CBB0004F1960 /* Shader.fsh */; };
 		077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9617D7CBB0004F1960 /* Shader.vsh */; };
 		077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A9917D7CBB0004F1960 /* GameViewController.m */; };
@@ -164,7 +163,7 @@
 		07115F1318095A6F0044735C /* TranslateAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateAnimation.m; sourceTree = "<group>"; };
 		07115F151809661E0044735C /* RotationAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationAnimation.h; sourceTree = "<group>"; };
 		07115F161809661E0044735C /* RotationAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationAnimation.m; sourceTree = "<group>"; };
-		07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
+		07124B9A17F9997700D7B5CD /* Application.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Application.storyboard; sourceTree = "<group>"; };
 		07124BB517F9A63900D7B5CD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0726444F19235F5D00A0E6FE /* SolutionLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SolutionLibrary.h; sourceTree = "<group>"; };
 		0726445019235F5D00A0E6FE /* SolutionLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SolutionLibrary.m; sourceTree = "<group>"; };
@@ -226,7 +225,6 @@
 		077F9A8717D7CBB0004F1960 /* molicula-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "molicula-Prefix.pch"; sourceTree = "<group>"; };
 		077F9A8817D7CBB0004F1960 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		077F9A8917D7CBB0004F1960 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		077F9A9217D7CBB0004F1960 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		077F9A9417D7CBB0004F1960 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
 		077F9A9617D7CBB0004F1960 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		077F9A9817D7CBB0004F1960 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
@@ -302,6 +300,7 @@
 		07124B9E17F999E900D7B5CD /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				07124B9A17F9997700D7B5CD /* Application.storyboard */,
 				076BC06519190A6300EE1AD7 /* Library */,
 				07115F0B1809598A0044735C /* Animations */,
 				07F16FD117E0F79300D15F36 /* Controls.h */,
@@ -337,22 +336,6 @@
 				076C702919096F2500F0084D /* GameView.m */,
 			);
 			name = Shared;
-			sourceTree = "<group>";
-		};
-		07124B9F17F999FE00D7B5CD /* iPhone */ = {
-			isa = PBXGroup;
-			children = (
-				07124B9A17F9997700D7B5CD /* Main_iPhone.storyboard */,
-			);
-			name = iPhone;
-			sourceTree = "<group>";
-		};
-		07124BA017F99A0200D7B5CD /* iPad */ = {
-			isa = PBXGroup;
-			children = (
-				077F9A9117D7CBB0004F1960 /* Main_iPad.storyboard */,
-			);
-			name = iPad;
 			sourceTree = "<group>";
 		};
 		072643B919235C1C00A0E6FE /* Assets */ = {
@@ -461,8 +444,6 @@
 			isa = PBXGroup;
 			children = (
 				07124B9E17F999E900D7B5CD /* Shared */,
-				07124BA017F99A0200D7B5CD /* iPad */,
-				07124B9F17F999FE00D7B5CD /* iPhone */,
 				0774AD7A17FB2A70008D8B2E /* Images.xcassets */,
 				077F9A8017D7CBB0004F1960 /* Supporting Files */,
 			);
@@ -582,8 +563,7 @@
 			files = (
 				077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */,
 				0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */,
-				077F9A9317D7CBB0004F1960 /* Main_iPad.storyboard in Resources */,
-				07124B9B17F9997700D7B5CD /* Main_iPhone.storyboard in Resources */,
+				07124B9B17F9997700D7B5CD /* Application.storyboard in Resources */,
 				077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */,
 				07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */,
 				077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */,
@@ -684,14 +664,6 @@
 				077F9A8317D7CBB0004F1960 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		077F9A9117D7CBB0004F1960 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				077F9A9217D7CBB0004F1960 /* en */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		077F9AAA17D7CBB1004F1960 /* InfoPlist.strings */ = {
