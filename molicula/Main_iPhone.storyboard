@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LCP-eY-19M">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LCP-eY-19M">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -36,7 +36,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ncc-uu-9AY">
-                        <barButtonItem key="rightBarButtonItem" image="RevealIcon" id="PX4-HB-Ikn">
+                        <barButtonItem key="rightBarButtonItem" image="LibraryIcon" id="PX4-HB-Ikn">
                             <connections>
                                 <segue destination="kpD-k2-fGj" kind="push" id="CBF-Ta-5LW"/>
                             </connections>
@@ -116,7 +116,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="RevealIcon" width="22" height="17"/>
+        <image name="LibraryIcon" width="22" height="21"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

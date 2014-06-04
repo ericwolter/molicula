@@ -34,7 +34,7 @@
 
 - (void)viewDidLoad
 {
-  NSLog(@"LibraryViewController viewDidLoad");
+  MLog("start");
   [super viewDidLoad];
   
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -47,7 +47,7 @@
 }
 
 - (void)didReceiveMemoryWarning {
-  NSLog(@"LibraryViewController didReceiveMemoryWarning");
+  MLog("start");
   [super didReceiveMemoryWarning];
   
   if ([self isViewLoaded] && ([[self view] window] == nil)) {
@@ -66,7 +66,7 @@
 }
 
 - (void)dealloc {
-  NSLog(@"LibraryViewController dealloc");
+  MLog(@"start");
   [self tearDownGL];
   
   if ([EAGLContext currentContext] == self.context) {
@@ -76,12 +76,14 @@
 
 - (void)setupGL
 {
-  NSLog(@"LibraryViewController setup");
+  MLog(@"start");
   [EAGLContext setCurrentContext:self.context];
 }
 
 - (void)tearDownGL
 {
+  MLog(@"start");
+  MLog(@"%@", self.context);
   [EAGLContext setCurrentContext:self.context];
 }
 
@@ -168,6 +170,7 @@
   UIImageView *solutionImageView = (UIImageView *)[cell viewWithTag:200];
   
   GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:self.context];
+  [gameView setScaling:0.5f];
   gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
   gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
   gameView.drawableMultisample = GLKViewDrawableMultisample4X;
@@ -204,6 +207,7 @@
     CGRect bounds = headerView.MissingMoleculeImage.bounds;
     
     GameView *gameView = [[GameView alloc] initWithFrame:bounds context:self.context];
+    [gameView setScaling:0.5f];
     gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
     gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
     gameView.drawableMultisample = GLKViewDrawableMultisample4X;

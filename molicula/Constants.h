@@ -9,6 +9,8 @@
 #ifndef molicula_Constants_h
 #define molicula_Constants_h
 
+#define MLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
 #define IS_IPAD                   (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
 
 #define CONTROL_MIRROR_VELOCITY   (IS_IPAD ? 1.2f : 2.4f)

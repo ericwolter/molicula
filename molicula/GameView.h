@@ -21,6 +21,7 @@
 @property (strong, nonatomic) Grid *grid;
 @property (strong, nonatomic) NSMutableArray *molecules;
 
+- (void)setScaling:(float)factor;
 - (void)render;
 - (void)updateProjection:(CGSize)size;
 

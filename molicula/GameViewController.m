@@ -99,7 +99,7 @@ typedef enum {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-  NSLog(@"GameViewController viewWillAppear");
+  MLog(@"start");
   [self setupGL];
 }
 
@@ -116,7 +116,7 @@ typedef enum {
 }
 
 - (void)viewDidLoad {
-  NSLog(@"GameViewController viewDidLoad");
+  MLog("start");
 
   [super viewDidLoad];
   
@@ -170,7 +170,8 @@ typedef enum {
 }
 
 - (void)dealloc {
-  NSLog(@"GameViewController dealloc");
+  MLog(@"start");
+//  NSLog(@"GameViewController dealloc");
   [self tearDownGL];
   
   if ([EAGLContext currentContext] == self.context) {
@@ -179,7 +180,7 @@ typedef enum {
 }
 
 - (void)didReceiveMemoryWarning {
-  NSLog(@"GameViewController didReceiveMemoryWarning");
+  MLog(@"start");
 
   [super didReceiveMemoryWarning];
   
@@ -198,7 +199,7 @@ typedef enum {
 }
 
 - (void)setupGL {
-  NSLog(@"GameViewController setup");
+  MLog(@"start");
   [EAGLContext setCurrentContext:self.context];
 }
 
@@ -359,8 +360,8 @@ typedef enum {
 
 - (void)tearDownGL {
   
-  NSLog(@"tearDownGL");
-  
+  MLog(@"start");
+  MLog(@"%@",self.context);
   [EAGLContext setCurrentContext:self.context];
 }
 
@@ -621,7 +622,7 @@ typedef enum {
   
   CGRect boundingRect = [molecule getWorldAABB];
   
-  NSLog(@"boundingRect: %@", NSStringFromCGRect(boundingRect));
+//  NSLog(@"boundingRect: %@", NSStringFromCGRect(boundingRect));
   GLKVector2 bounding = GLKVector2Make(0, 0);
   float leftOut = CGRectGetMinX(boundingRect) - (-trueWidth / 2);
   float rightOut = CGRectGetMaxX(boundingRect) - trueWidth / 2;
@@ -643,10 +644,10 @@ typedef enum {
   {
     bounding.y -= upOut;
   }
-  const float precision = 1e5;
+//  const float precision = 1e5;
 //  bounding.x = roundf(bounding.x*precision) / precision;
 //  bounding.y = roundf(bounding.y*precision) / precision;
-  NSLog(@"boundingOffset: %@",NSStringFromGLKVector2(bounding));
+//  NSLog(@"boundingOffset: %@",NSStringFromGLKVector2(bounding));
   TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, bounding)];
   animation.linearVelocity *= 2.0f;
   [animator.runningAnimation addObject:animation];

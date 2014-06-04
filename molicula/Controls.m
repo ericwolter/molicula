@@ -210,6 +210,8 @@
 - (id)init {
   if (self = [super init]) {
     
+    MLog(@"start");
+    
     [self initRightArrow];
     [self initLeftArrow];
     
@@ -266,6 +268,7 @@
 }
 
 -(void)dealloc {
+  MLog("start");
   glDeleteBuffers(1, &rightArcBuffer);
   glDeleteBuffers(1, &rightArcArrowBuffer);
   glDeleteBuffers(1, &leftArcBuffer);
