@@ -86,7 +86,6 @@
 }
 
 - (void)render:(GLKBaseEffect *)effect andRotationInProgress:(BOOL)isRotationInProgress andMirroringInProgress:(BOOL)isMirroringInProgress {
-  MLog(@"start");
   effect.constantColor = GLKVector4Make(effect.constantColor.x, effect.constantColor.y, effect.constantColor.z, 0.5f);
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
   effect.transform.modelviewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.modelViewMatrix);

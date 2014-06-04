@@ -9,6 +9,7 @@
         <scene sceneID="kPb-YE-KIN">
             <objects>
                 <navigationController definesPresentationContext="YES" id="LCP-eY-19M" customClass="MoliculaNavigationController" sceneMemberID="viewController">
+                    <size key="freeformSize" width="320" height="568"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Uwp-tw-vfz" customClass="MoliculaNavigationBar">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>

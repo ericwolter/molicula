@@ -234,8 +234,13 @@ typedef enum {
 - (void)setProjection
 {
   float width, height;
-  width = [self.view.layer.presentationLayer bounds].size.width;
-  height = [self.view.layer.presentationLayer bounds].size.height;
+  if (duringDeviceRotation) {
+    width = [self.view.layer.presentationLayer bounds].size.width;
+    height = [self.view.layer.presentationLayer bounds].size.height;
+  } else {
+    width = self.view.bounds.size.width;
+    height = self.view.bounds.size.height;
+  }
   
   MLog(@"setProjection: %@", NSStringFromCGSize([self.view.layer.presentationLayer bounds].size))
   
