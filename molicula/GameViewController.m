@@ -104,6 +104,12 @@ typedef enum {
   [self setupGL];
   isDisappearInProgress = NO;
   [self setProjection];
+  [self updateTrueSize];
+  for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
+    Molecule *molecule = [gameView.molecules objectAtIndex:i];
+    
+    [self enforceScreenBoundsForMolecule:molecule];
+  }
   MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
   bar.isTouchThroughEnabled = YES;
 }
@@ -552,6 +558,8 @@ typedef enum {
   float width, height;
   width = self.view.bounds.size.width;
   height = self.view.bounds.size.height;
+  width = trueWidth;
+  height = trueHeight;
   
 //  NSLog(@"boundingRect: %@", NSStringFromCGRect(boundingRect));
   GLKVector2 bounding = GLKVector2Make(0, 0);
