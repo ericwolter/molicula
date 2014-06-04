@@ -65,8 +65,6 @@
 		077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8217D7CBB0004F1960 /* InfoPlist.strings */; };
 		077F9A8617D7CBB0004F1960 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8517D7CBB0004F1960 /* main.m */; };
 		077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8917D7CBB0004F1960 /* AppDelegate.m */; };
-		077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9417D7CBB0004F1960 /* Shader.fsh */; };
-		077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A9617D7CBB0004F1960 /* Shader.vsh */; };
 		077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A9917D7CBB0004F1960 /* GameViewController.m */; };
 		077F9AAC17D7CBB1004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9AAA17D7CBB1004F1960 /* InfoPlist.strings */; };
 		077F9AAF17D7CBB1004F1960 /* moliculaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AAE17D7CBB1004F1960 /* moliculaTests.m */; };
@@ -225,8 +223,6 @@
 		077F9A8717D7CBB0004F1960 /* molicula-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "molicula-Prefix.pch"; sourceTree = "<group>"; };
 		077F9A8817D7CBB0004F1960 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		077F9A8917D7CBB0004F1960 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		077F9A9417D7CBB0004F1960 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		077F9A9617D7CBB0004F1960 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		077F9A9817D7CBB0004F1960 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		077F9A9917D7CBB0004F1960 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		077F9AA017D7CBB0004F1960 /* moliculaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = moliculaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -295,47 +291,6 @@
 				07115F161809661E0044735C /* RotationAnimation.m */,
 			);
 			name = Animations;
-			sourceTree = "<group>";
-		};
-		07124B9E17F999E900D7B5CD /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				07124B9A17F9997700D7B5CD /* Application.storyboard */,
-				076BC06519190A6300EE1AD7 /* Library */,
-				07115F0B1809598A0044735C /* Animations */,
-				07F16FD117E0F79300D15F36 /* Controls.h */,
-				07F16FD217E0F79300D15F36 /* Controls.m */,
-				077F9A9817D7CBB0004F1960 /* GameViewController.h */,
-				077F9A9917D7CBB0004F1960 /* GameViewController.m */,
-				077F9A8817D7CBB0004F1960 /* AppDelegate.h */,
-				077F9A8917D7CBB0004F1960 /* AppDelegate.m */,
-				077F9A9417D7CBB0004F1960 /* Shader.fsh */,
-				077F9A9617D7CBB0004F1960 /* Shader.vsh */,
-				077F9AB817D7CC44004F1960 /* Grid.h */,
-				077F9AB917D7CC44004F1960 /* Grid.m */,
-				077F9ABE17D7CCB8004F1960 /* Molecule.h */,
-				077F9ABF17D7CCB8004F1960 /* Molecule.m */,
-				077F9AC117D7CCE7004F1960 /* Hole.h */,
-				077F9AC217D7CCE7004F1960 /* Hole.m */,
-				077F9AC417D7CCF6004F1960 /* Atom.h */,
-				077F9AC517D7CCF6004F1960 /* Atom.m */,
-				077F9AC717D7CD02004F1960 /* Helper.h */,
-				077F9AC817D7CD02004F1960 /* Helper.m */,
-				077F9ACA17D7CD35004F1960 /* Hexagon.h */,
-				077F9ACB17D7CD35004F1960 /* Hexagon.m */,
-				077F9ACD17D7CD41004F1960 /* ColorTheme.h */,
-				077F9ACE17D7CD41004F1960 /* ColorTheme.m */,
-				077F9AD017D7CD4D004F1960 /* MoleculeFactory.h */,
-				077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */,
-				077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */,
-				077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */,
-				07124BB517F9A63900D7B5CD /* Constants.h */,
-				07E1B58018071B9F002D79A1 /* DropResult.h */,
-				07E1B58118071B9F002D79A1 /* DropResult.m */,
-				076C702819096F2500F0084D /* GameView.h */,
-				076C702919096F2500F0084D /* GameView.m */,
-			);
-			name = Shared;
 			sourceTree = "<group>";
 		};
 		072643B919235C1C00A0E6FE /* Assets */ = {
@@ -443,9 +398,40 @@
 		077F9A7F17D7CBB0004F1960 /* molicula */ = {
 			isa = PBXGroup;
 			children = (
-				07124B9E17F999E900D7B5CD /* Shared */,
+				07124B9A17F9997700D7B5CD /* Application.storyboard */,
 				0774AD7A17FB2A70008D8B2E /* Images.xcassets */,
 				077F9A8017D7CBB0004F1960 /* Supporting Files */,
+				076BC06519190A6300EE1AD7 /* Library */,
+				07115F0B1809598A0044735C /* Animations */,
+				07F16FD117E0F79300D15F36 /* Controls.h */,
+				07F16FD217E0F79300D15F36 /* Controls.m */,
+				077F9A9817D7CBB0004F1960 /* GameViewController.h */,
+				077F9A9917D7CBB0004F1960 /* GameViewController.m */,
+				077F9A8817D7CBB0004F1960 /* AppDelegate.h */,
+				077F9A8917D7CBB0004F1960 /* AppDelegate.m */,
+				077F9AB817D7CC44004F1960 /* Grid.h */,
+				077F9AB917D7CC44004F1960 /* Grid.m */,
+				077F9ABE17D7CCB8004F1960 /* Molecule.h */,
+				077F9ABF17D7CCB8004F1960 /* Molecule.m */,
+				077F9AC117D7CCE7004F1960 /* Hole.h */,
+				077F9AC217D7CCE7004F1960 /* Hole.m */,
+				077F9AC417D7CCF6004F1960 /* Atom.h */,
+				077F9AC517D7CCF6004F1960 /* Atom.m */,
+				077F9AC717D7CD02004F1960 /* Helper.h */,
+				077F9AC817D7CD02004F1960 /* Helper.m */,
+				077F9ACA17D7CD35004F1960 /* Hexagon.h */,
+				077F9ACB17D7CD35004F1960 /* Hexagon.m */,
+				077F9ACD17D7CD41004F1960 /* ColorTheme.h */,
+				077F9ACE17D7CD41004F1960 /* ColorTheme.m */,
+				077F9AD017D7CD4D004F1960 /* MoleculeFactory.h */,
+				077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */,
+				077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */,
+				077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */,
+				07124BB517F9A63900D7B5CD /* Constants.h */,
+				07E1B58018071B9F002D79A1 /* DropResult.h */,
+				07E1B58118071B9F002D79A1 /* DropResult.m */,
+				076C702819096F2500F0084D /* GameView.h */,
+				076C702919096F2500F0084D /* GameView.m */,
 			);
 			path = molicula;
 			sourceTree = "<group>";
@@ -564,9 +550,7 @@
 				077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */,
 				0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */,
 				07124B9B17F9997700D7B5CD /* Application.storyboard in Resources */,
-				077F9A9517D7CBB0004F1960 /* Shader.fsh in Resources */,
 				07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */,
-				077F9A9717D7CBB0004F1960 /* Shader.vsh in Resources */,
 				07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
