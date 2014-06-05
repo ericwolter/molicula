@@ -19,7 +19,7 @@
 #import "GameView.h"
 #import "SolutionLibrary.h"
 #import "MoliculaNavigationBar.h"
-#import "AppDelegate.h"
+#import "Metrics.h"
 
 typedef enum {
   NoDirection,
@@ -138,6 +138,10 @@ typedef enum {
   MLog("start");
 
   [super viewDidLoad];
+  
+  self.tutorialController = [[TutorialController alloc] init];
+  self.tutorialController.view = self.tutorialView;
+  [self.tutorialController instantHide];
   
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   
@@ -328,7 +332,6 @@ typedef enum {
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-  MLog(@"start");
   [gameView render];
   
   if(activeMolecule != nil) {
@@ -354,9 +357,7 @@ typedef enum {
   
   UITouch *touch = [touches anyObject];
   CGPoint viewCoordinate = [touch locationInView:self.view];
-  MLog(@"touchesBegan: viewCoordinate: %@", NSStringFromCGPoint(viewCoordinate));
   GLKVector2 openglCoordinate = [gameView convertViewCoordinateToOpenGLCoordinate:viewCoordinate];
-  MLog(@"touchesBegan: openglCoordinate: %@", NSStringFromGLKVector2(openglCoordinate));
   
   if (activeMolecule != nil) {
     [activeMolecule unsnap];
@@ -413,6 +414,8 @@ typedef enum {
             }
           }
         }
+        
+        [self.tutorialController toggle];
         // only a single molecule can be selected -> so stop here
         return;
       }
@@ -462,6 +465,8 @@ typedef enum {
   return angle;
 }
 
+NSUInteger totalDistance;
+
 - (void) touchesMoved:(NSSet *) touches withEvent:(UIEvent *)event
 {
   if (!activeMolecule)
@@ -474,8 +479,12 @@ typedef enum {
     CGPoint viewCoordinate = [pointerTouch locationInView:self.view];
     GLKVector2 openglCoordinate = [gameView convertViewCoordinateToOpenGLCoordinate:viewCoordinate];
     GLKVector2 translate = GLKVector2Subtract(openglCoordinate, previousTouchPoint);
+    
     [activeMolecule translate:translate];
     previousTouchPoint = openglCoordinate;
+    
+    [Metrics sharedInstance].totalTranslation += GLKVector2Length(translate);
+    MLog(@"totalTranslation: %f",[Metrics sharedInstance].totalTranslation);
   }
   
   if(controlTouch != nil) {
@@ -484,13 +493,24 @@ typedef enum {
     if (isRotationInProgress) {
       GLKVector4 moleculeCenter = [activeMolecule getCenterInParentSpace];
       CGFloat newTransformRotationAngle = atan2(openglCoordinate.y - moleculeCenter.y, openglCoordinate.x - moleculeCenter.x);
-      [activeMolecule rotate:transformRotationAngle-newTransformRotationAngle];
+      CGFloat deltaAngle = transformRotationAngle-newTransformRotationAngle;
+      
+      [activeMolecule rotate:deltaAngle];
       transformRotationAngle = newTransformRotationAngle;
+      
+      [Metrics sharedInstance].totalRotation += fabs(deltaAngle);
+      
+      MLog(@"totalRotation: %f",[Metrics sharedInstance].totalRotation);
     } else if (isMirroringInProgress) {
       CGFloat newTransformMirroringOffset = openglCoordinate.x;
       CGFloat deltaAngle = GLKMathDegreesToRadians(transformMirroringOffset - newTransformMirroringOffset) * CONTROL_MIRROR_VELOCITY;
+      
       [activeMolecule mirror:[self constrainMirroring:deltaAngle]];
       transformMirroringOffset = newTransformMirroringOffset;
+      
+      [Metrics sharedInstance].totalMirroring += fabs(deltaAngle);
+      
+      MLog(@"totalMirroring: %f",[Metrics sharedInstance].totalMirroring);
     }
   }
   [self enforceScreenBoundsForMolecule:activeMolecule];

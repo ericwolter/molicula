@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
-#import "Molecule.h"
+#import "TutorialController.h"
 
 @interface GameViewController : GLKViewController <UIGestureRecognizerDelegate> {
   
 }
+
+@property (strong, nonatomic) TutorialController *tutorialController;
 @property (weak, nonatomic) IBOutlet UIView *tutorialView;
 
 - (void)updateOnce;

@@ -82,6 +82,9 @@
 		07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A5C8351917CB56001E5801 /* LibraryViewController.m */; };
 		07E1B58218071B9F002D79A1 /* DropResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B58118071B9F002D79A1 /* DropResult.m */; };
 		07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E8B78D181FC28100804CC1 /* Default-568h@2x.png */; };
+		07EE62651940BF2300739544 /* Metrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE62641940BF2300739544 /* Metrics.m */; };
+		07EE626C1940C3AB00739544 /* TutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE626B1940C3AB00739544 /* TutorialController.m */; };
+		07EE626F1940FC8E00739544 /* DDiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE626E1940FC8E00739544 /* DDiCloudSync.m */; };
 		07F16FD317E0F79300D15F36 /* Controls.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F16FD217E0F79300D15F36 /* Controls.m */; };
 		07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07F16FD417E725AD00D15F36 /* appstore_description.rtf */; };
 /* End PBXBuildFile section */
@@ -260,6 +263,13 @@
 		07E1B58018071B9F002D79A1 /* DropResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropResult.h; sourceTree = "<group>"; };
 		07E1B58118071B9F002D79A1 /* DropResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropResult.m; sourceTree = "<group>"; };
 		07E8B78D181FC28100804CC1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07EE62631940BF2300739544 /* Metrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metrics.h; sourceTree = "<group>"; };
+		07EE62641940BF2300739544 /* Metrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metrics.m; sourceTree = "<group>"; };
+		07EE62661940BF6000739544 /* molicula.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = molicula.entitlements; sourceTree = "<group>"; };
+		07EE626A1940C3AB00739544 /* TutorialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialController.h; sourceTree = "<group>"; };
+		07EE626B1940C3AB00739544 /* TutorialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialController.m; sourceTree = "<group>"; };
+		07EE626D1940FC8E00739544 /* DDiCloudSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDiCloudSync.h; sourceTree = "<group>"; };
+		07EE626E1940FC8E00739544 /* DDiCloudSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDiCloudSync.m; sourceTree = "<group>"; };
 		07F16FD117E0F79300D15F36 /* Controls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controls.h; sourceTree = "<group>"; };
 		07F16FD217E0F79300D15F36 /* Controls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controls.m; sourceTree = "<group>"; };
 		07F16FD417E725AD00D15F36 /* appstore_description.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = appstore_description.rtf; sourceTree = "<group>"; };
@@ -299,7 +309,7 @@
 			name = Animations;
 			sourceTree = "<group>";
 		};
-		07146580193F3158006E537B /* Extensions */ = {
+		07146580193F3158006E537B /* Overriding */ = {
 			isa = PBXGroup;
 			children = (
 				0714657A193F1CEE006E537B /* MoliculaNavigationBar.h */,
@@ -307,7 +317,7 @@
 				07146581193F317F006E537B /* MoliculaNavigationController.h */,
 				07146582193F317F006E537B /* MoliculaNavigationController.m */,
 			);
-			name = Extensions;
+			name = Overriding;
 			sourceTree = "<group>";
 		};
 		072643B919235C1C00A0E6FE /* Assets */ = {
@@ -415,16 +425,19 @@
 		077F9A7F17D7CBB0004F1960 /* molicula */ = {
 			isa = PBXGroup;
 			children = (
+				07EE62661940BF6000739544 /* molicula.entitlements */,
 				07124B9A17F9997700D7B5CD /* Application.storyboard */,
 				0774AD7A17FB2A70008D8B2E /* Images.xcassets */,
 				077F9A8017D7CBB0004F1960 /* Supporting Files */,
 				076BC06519190A6300EE1AD7 /* Library */,
 				07115F0B1809598A0044735C /* Animations */,
-				07146580193F3158006E537B /* Extensions */,
+				07146580193F3158006E537B /* Overriding */,
 				07F16FD117E0F79300D15F36 /* Controls.h */,
 				07F16FD217E0F79300D15F36 /* Controls.m */,
 				077F9A9817D7CBB0004F1960 /* GameViewController.h */,
 				077F9A9917D7CBB0004F1960 /* GameViewController.m */,
+				07EE626A1940C3AB00739544 /* TutorialController.h */,
+				07EE626B1940C3AB00739544 /* TutorialController.m */,
 				077F9A8817D7CBB0004F1960 /* AppDelegate.h */,
 				077F9A8917D7CBB0004F1960 /* AppDelegate.m */,
 				077F9AB817D7CC44004F1960 /* Grid.h */,
@@ -450,6 +463,10 @@
 				07E1B58118071B9F002D79A1 /* DropResult.m */,
 				076C702819096F2500F0084D /* GameView.h */,
 				076C702919096F2500F0084D /* GameView.m */,
+				07EE62631940BF2300739544 /* Metrics.h */,
+				07EE62641940BF2300739544 /* Metrics.m */,
+				07EE626D1940FC8E00739544 /* DDiCloudSync.h */,
+				07EE626E1940FC8E00739544 /* DDiCloudSync.m */,
 			);
 			path = molicula;
 			sourceTree = "<group>";
@@ -539,6 +556,11 @@
 				TargetAttributes = {
 					077F9A7117D7CBB0004F1960 = {
 						DevelopmentTeam = 9LMMMFHC36;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -617,6 +639,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07EE626C1940C3AB00739544 /* TutorialController.m in Sources */,
 				07115F171809661E0044735C /* RotationAnimation.m in Sources */,
 				077F9A8617D7CBB0004F1960 /* main.m in Sources */,
 				077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */,
@@ -636,7 +659,9 @@
 				076BC06819190AA200EE1AD7 /* SolutionCollectionHeaderView.m in Sources */,
 				0714657C193F1CEE006E537B /* MoliculaNavigationBar.m in Sources */,
 				077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */,
+				07EE62651940BF2300739544 /* Metrics.m in Sources */,
 				07115F1418095A6F0044735C /* TranslateAnimation.m in Sources */,
+				07EE626F1940FC8E00739544 /* DDiCloudSync.m in Sources */,
 				07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */,
 				077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */,
 				07F16FD317E0F79300D15F36 /* Controls.m in Sources */,
@@ -744,7 +769,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = molicula/molicula.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -754,6 +781,7 @@
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -764,8 +792,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = molicula/molicula.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
