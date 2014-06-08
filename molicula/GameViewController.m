@@ -141,7 +141,7 @@ typedef enum {
   
   self.tutorialController = [[TutorialController alloc] init];
   self.tutorialController.view = self.tutorialView;
-  [self.tutorialController instantHide];
+  [self.tutorialController setup];
   
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   
@@ -157,7 +157,6 @@ typedef enum {
   gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
   gameView.drawableMultisample = GLKViewDrawableMultisample4X;
   gameView.multipleTouchEnabled = YES;
-  gameView.exclusiveTouch = YES;
   [self setPreferredFramesPerSecond:60];
   [self updateTrueSize];
   [self setupGL];
@@ -346,8 +345,10 @@ typedef enum {
   return CGPointMake( point.x - self.view.bounds.size.width / 2, -(point.y - self.view.bounds.size.height / 2) );
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *) __unused event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+  MLog(@"start");
+  
   self.paused = NO;
   [self update];
   

@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) UIView *view;
 
-- (void)instantHide;
 - (void)toggle;
+- (void)setup;
 
 @end
