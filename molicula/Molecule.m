@@ -11,6 +11,7 @@
 #import "NSValue_GLKVector.h"
 #import "ColorTheme.h"
 #import "GameView.h"
+#import "Metrics.h"
 
 @implementation Molecule
 
@@ -421,6 +422,8 @@
   for (Hole *hole in self.snappedHoles) {
     hole.content = self;
   }
+  
+  [Metrics sharedInstance].snapCounter++;
 }
 
 - (void)unsnap {

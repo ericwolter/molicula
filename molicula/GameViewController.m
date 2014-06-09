@@ -399,6 +399,9 @@ typedef enum {
         pointerTouch = touch;
         previousTouchPoint = openglCoordinate;
         activeMolecule = m;
+        
+        [Metrics sharedInstance].selectCounter++;
+        
         [gameView bringToFront:moleculeIndex];
         [m unsnap];
         for(Molecule *molecule in gameView.molecules) {
@@ -416,7 +419,7 @@ typedef enum {
           }
         }
         
-        [self.tutorialController toggle];
+        //[self.tutorialController toggle];
         // only a single molecule can be selected -> so stop here
         return;
       }

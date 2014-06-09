@@ -7,6 +7,7 @@
 //
 
 #import "TutorialController.h"
+#import "MoveMoleculesTutorial.h"
 #import "Constants.h"
 
 #define SLIDE_DURATION 0.2f
@@ -14,29 +15,94 @@
 @implementation TutorialController
 
 - (void)setup {
-  UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
-//  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
-//  UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
-//  leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
-//  UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
-//  rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
-//  UISwipeGestureRecognizer *downSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
-//  downSwipe.direction = UISwipeGestureRecognizerDirectionDown;
   
-//  [self.view addGestureRecognizer:tap];
+  self.tutorials = @[
+                     [[MoveMoleculesTutorial alloc] init]
+                     ];
+  
+  for (TutorialBase *tutorial in self.tutorials) {
+    tutorial.delegate = self;
+  }
+  
+  // TODO sort tutorial by weight
+  
+  UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
   [self.view addGestureRecognizer:pan];
-//  [self.view addGestureRecognizer:leftSwipe];
-//  [self.view addGestureRecognizer:rightSwipe];
-//    [self.view addGestureRecognizer:downSwipe];
   
   showFrame = self.view.frame;
+  showCenter = self.view.center;
   hideFrame = self.view.frame;
   hideFrame.origin.y += hideFrame.size.height;
+  hideCenter = self.view.center;
+  hideCenter.y += self.view.frame.size.height;
   
   self.view.exclusiveTouch = YES;
+  
+  self.progressView = [self.view viewWithTag:100];
+  self.tutorialLabel = (UILabel *)[self.view viewWithTag:200];
+  
+  NSTimer *timer = [NSTimer timerWithTimeInterval:5.0f target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+  [timer setTolerance:1.0f];
+  [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+}
+
+- (TutorialBase *)checkTutorials {
+  MLog(@"start");
+  NSMutableArray *applicableTutorial = [NSMutableArray arrayWithCapacity:self.tutorials.count];
+  for (TutorialBase *tutorial in self.tutorials) {
+    if([tutorial checkIfApplicable]) {
+      [applicableTutorial addObject:tutorial];
+    }
+  }
+  
+  if (applicableTutorial.count > 0) {
+    return [applicableTutorial firstObject];
+  } else {
+    return nil;
+  }
+}
+
+- (void)timerFireMethod:(NSTimer *)timer {
+  MLog(@"start");
+  
+  if (self.activeTutorial) {
+    MLog(@"unfinished tutorial");
+    return;
+  } else {
+    TutorialBase *tutorial = [self checkTutorials];
+    if(tutorial) {
+      [tutorial startReporting];
+    }
+  }
+}
+
+-(void)tutorialWillAppear:(TutorialBase *)tutorial {
+  self.activeTutorial = tutorial;
+  
+  self.tutorialLabel.text = self.activeTutorial.text;
+  
+  self.progressView.frame = CGRectMake(self.progressView.frame.origin.x, self.progressView.frame.origin.y, 0, self.progressView.frame.size.height);
+  MLog(@"show tutorial");
+  
+  [self toggle];
+}
+-(void)tutorialWillDisappear:(TutorialBase *)tutorial {
+  [self toggle];
+  self.activeTutorial = nil;
+}
+
+-(void)didProgressInTutorial:(TutorialBase *)tutorial toPercentage:(CGFloat)progressPercentage {
+  MLog(@"start");
+  
+  [UIView animateWithDuration:SLIDE_DURATION
+                   animations:^{
+                     self.progressView.frame = CGRectMake(self.progressView.frame.origin.x, self.progressView.frame.origin.y, progressPercentage * self.view.bounds.size.width, self.progressView.frame.size.height);
+                   }];
 }
 
 CGPoint startPanCenter;
+CGPoint showCenter;
+CGPoint hideCenter;
 CGRect showFrame;
 CGRect hideFrame;
 
@@ -72,7 +138,9 @@ CGRect hideFrame;
                        }
                        completion:^(BOOL finished){
                          self.view.hidden = YES;
-                         self.view.frame = hideFrame;
+                         self.view.center = hideCenter;
+                         
+                         [self.activeTutorial stopReporting];
                        }];
     } else {
       MLog(@"animate snap back");
@@ -89,35 +157,36 @@ CGRect hideFrame;
 - (void)toggle {
   MLog(@"view.frame: %@", NSStringFromCGRect(self.view.frame));
   
-  CGRect startFrame;
-  CGRect animationFrame;
-  CGRect finalFrame;
+  CGPoint startCenter;
+  CGPoint animationCenter;
+  CGPoint finalCenter;
+  
   BOOL finalHidden = NO;
   
   MLog(@"hidden: %@", (self.view.hidden ? @"YES" : @"NO"));
   if(self.view.isHidden) {
-    startFrame = hideFrame;
-    animationFrame = showFrame;
-    finalFrame = showFrame;
+    startCenter = hideCenter;
+    animationCenter = showCenter;
+    finalCenter = showCenter;
     finalHidden = NO;
   } else {
-    startFrame = showFrame;
-    animationFrame = hideFrame;
-    finalFrame = hideFrame;
+    startCenter = showCenter;
+    animationCenter = hideCenter;
+    finalCenter = hideCenter;
     finalHidden = YES;
   }
   
-  self.view.frame = startFrame;
+  self.view.center = startCenter;
   self.view.hidden = NO;
   
   [UIView animateWithDuration:SLIDE_DURATION
                    animations:^{
-                     self.view.frame = animationFrame;
+                     self.view.center = animationCenter;
                    }
                    completion:^(BOOL finished){
                      MLog(@"completion");
                      self.view.hidden = finalHidden;
-                     self.view.frame = finalFrame;
+                     self.view.center = finalCenter;
                    }];
 }
 

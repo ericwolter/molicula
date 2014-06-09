@@ -14,6 +14,8 @@
 		07124B9B17F9997700D7B5CD /* Application.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Application.storyboard */; };
 		0714657C193F1CEE006E537B /* MoliculaNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0714657B193F1CEE006E537B /* MoliculaNavigationBar.m */; };
 		07146583193F317F006E537B /* MoliculaNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07146582193F317F006E537B /* MoliculaNavigationController.m */; };
+		072407AC1944C1FC00A07838 /* TutorialBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 072407AB1944C1FC00A07838 /* TutorialBase.m */; };
+		072407AF1944C5B600A07838 /* MoveMoleculesTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 072407AE1944C5B600A07838 /* MoveMoleculesTutorial.m */; };
 		0726445119235F5D00A0E6FE /* SolutionLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 0726445019235F5D00A0E6FE /* SolutionLibrary.m */; };
 		0769830E192CC32900926DD1 /* blue1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B2192CC2F800926DD1 /* blue1.txt */; };
 		0769830F192CC32900926DD1 /* blue2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B3192CC2F800926DD1 /* blue2.txt */; };
@@ -172,6 +174,11 @@
 		0714657B193F1CEE006E537B /* MoliculaNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoliculaNavigationBar.m; sourceTree = "<group>"; };
 		07146581193F317F006E537B /* MoliculaNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoliculaNavigationController.h; sourceTree = "<group>"; };
 		07146582193F317F006E537B /* MoliculaNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoliculaNavigationController.m; sourceTree = "<group>"; };
+		072407AA1944C1FC00A07838 /* TutorialBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialBase.h; sourceTree = "<group>"; };
+		072407AB1944C1FC00A07838 /* TutorialBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialBase.m; sourceTree = "<group>"; };
+		072407AD1944C5B600A07838 /* MoveMoleculesTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveMoleculesTutorial.h; sourceTree = "<group>"; };
+		072407AE1944C5B600A07838 /* MoveMoleculesTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveMoleculesTutorial.m; sourceTree = "<group>"; };
+		072407B01944C79400A07838 /* TutorialProgressDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TutorialProgressDelegate.h; sourceTree = "<group>"; };
 		0726444F19235F5D00A0E6FE /* SolutionLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SolutionLibrary.h; sourceTree = "<group>"; };
 		0726445019235F5D00A0E6FE /* SolutionLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SolutionLibrary.m; sourceTree = "<group>"; };
 		076982B2192CC2F800926DD1 /* blue1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue1.txt; sourceTree = "<group>"; };
@@ -320,6 +327,20 @@
 			name = Overriding;
 			sourceTree = "<group>";
 		};
+		072407A81944C0EA00A07838 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				07EE626A1940C3AB00739544 /* TutorialController.h */,
+				07EE626B1940C3AB00739544 /* TutorialController.m */,
+				072407AA1944C1FC00A07838 /* TutorialBase.h */,
+				072407AB1944C1FC00A07838 /* TutorialBase.m */,
+				072407AD1944C5B600A07838 /* MoveMoleculesTutorial.h */,
+				072407AE1944C5B600A07838 /* MoveMoleculesTutorial.m */,
+				072407B01944C79400A07838 /* TutorialProgressDelegate.h */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
 		072643B919235C1C00A0E6FE /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,14 +451,13 @@
 				0774AD7A17FB2A70008D8B2E /* Images.xcassets */,
 				077F9A8017D7CBB0004F1960 /* Supporting Files */,
 				076BC06519190A6300EE1AD7 /* Library */,
+				072407A81944C0EA00A07838 /* Tutorial */,
 				07115F0B1809598A0044735C /* Animations */,
 				07146580193F3158006E537B /* Overriding */,
 				07F16FD117E0F79300D15F36 /* Controls.h */,
 				07F16FD217E0F79300D15F36 /* Controls.m */,
 				077F9A9817D7CBB0004F1960 /* GameViewController.h */,
 				077F9A9917D7CBB0004F1960 /* GameViewController.m */,
-				07EE626A1940C3AB00739544 /* TutorialController.h */,
-				07EE626B1940C3AB00739544 /* TutorialController.m */,
 				077F9A8817D7CBB0004F1960 /* AppDelegate.h */,
 				077F9A8917D7CBB0004F1960 /* AppDelegate.m */,
 				077F9AB817D7CC44004F1960 /* Grid.h */,
@@ -644,10 +664,12 @@
 				077F9A8617D7CBB0004F1960 /* main.m in Sources */,
 				077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */,
 				07E1B58218071B9F002D79A1 /* DropResult.m in Sources */,
+				072407AC1944C1FC00A07838 /* TutorialBase.m in Sources */,
 				0726445119235F5D00A0E6FE /* SolutionLibrary.m in Sources */,
 				077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */,
 				077F9ABA17D7CC44004F1960 /* Grid.m in Sources */,
 				076C702A19096F2500F0084D /* GameView.m in Sources */,
+				072407AF1944C5B600A07838 /* MoveMoleculesTutorial.m in Sources */,
 				077F9AC017D7CCB8004F1960 /* Molecule.m in Sources */,
 				077F9AC317D7CCE7004F1960 /* Hole.m in Sources */,
 				077F9AC617D7CCF6004F1960 /* Atom.m in Sources */,

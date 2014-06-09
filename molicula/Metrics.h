@@ -13,6 +13,8 @@
 @property double totalTranslation;
 @property double totalRotation;
 @property double totalMirroring;
+@property NSUInteger selectCounter;
+@property NSUInteger snapCounter;
 
 + (Metrics *)sharedInstance;
 

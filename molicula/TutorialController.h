@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TutorialProgressDelegate.h"
+@class TutorialBase;
 
-@interface TutorialController : NSObject
+@interface TutorialController : NSObject <TutorialProgressDelegate>
 
 @property (weak, nonatomic) UIView *view;
+@property (weak, nonatomic) UIView *progressView;
+@property (weak, nonatomic) UILabel *tutorialLabel;
+@property (nonatomic) NSArray *tutorials;
+
+@property TutorialBase *activeTutorial;
 
 - (void)toggle;
 - (void)setup;
