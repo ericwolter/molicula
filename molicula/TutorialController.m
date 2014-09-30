@@ -7,8 +7,11 @@
 //
 
 #import "TutorialController.h"
-#import "MoveMoleculesTutorial.h"
 #import "Constants.h"
+#import "ColorTheme.h"
+#import "MoveTutorial.h"
+#import "RotateTutorial.h"
+#import "MirrorTutorial.h"
 
 #define SLIDE_DURATION 0.2f
 
@@ -17,7 +20,9 @@
 - (void)setup {
   
   self.tutorials = @[
-                     [[MoveMoleculesTutorial alloc] init]
+                     [[MoveTutorial alloc] init],
+                     [[RotateTutorial alloc] init],
+                     [[MirrorTutorial alloc] init]
                      ];
   
   for (TutorialBase *tutorial in self.tutorials) {
@@ -25,6 +30,18 @@
   }
   
   // TODO sort tutorial by weight
+  self.tutorials = [self.tutorials sortedArrayUsingComparator:^NSComparisonResult(TutorialBase *obj1, TutorialBase *obj2) {
+    NSUInteger weight1 = obj1.weight;
+    NSUInteger weight2 = obj2.weight;
+    
+    if(weight1 > weight2) {
+      return NSOrderedAscending;
+    } else if (weight1 < weight2) {
+      return NSOrderedDescending;
+    } else {
+      return NSOrderedSame;
+    }
+  }];
   
   UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
   [self.view addGestureRecognizer:pan];
@@ -39,11 +56,14 @@
   self.view.exclusiveTouch = YES;
   
   self.progressView = [self.view viewWithTag:100];
+  self.progressView.frame = CGRectMake(self.progressView.frame.origin.x, self.progressView.frame.origin.y, 0, self.progressView.frame.size.height);
   self.tutorialLabel = (UILabel *)[self.view viewWithTag:200];
+  self.tutorialLabel.text = @"";
   
   NSTimer *timer = [NSTimer timerWithTimeInterval:5.0f target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
   [timer setTolerance:1.0f];
   [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+
 }
 
 - (TutorialBase *)checkTutorials {
@@ -87,8 +107,15 @@
   [self toggle];
 }
 -(void)tutorialWillDisappear:(TutorialBase *)tutorial {
-  [self toggle];
-  self.activeTutorial = nil;
+  
+  UIColor *flashColor = [[UIColor greenColor] colorWithAlphaComponent:0.5];
+  [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse animations:^{
+    self.view.backgroundColor = flashColor;
+  } completion:^(BOOL finished) {
+    self.view.backgroundColor = [UIColor clearColor];
+    [self toggle];
+    self.activeTutorial = nil;
+  }];
 }
 
 -(void)didProgressInTutorial:(TutorialBase *)tutorial toPercentage:(CGFloat)progressPercentage {
@@ -127,7 +154,7 @@ CGRect hideFrame;
     //MLog(@"animate to future center: %@", NSStringFromCGPoint(futureCenter));
     if (fabs(futureCenter.x - startPanCenter.x) > recognizer.view.bounds.size.width) {
       MLog(@"animate exit");
-      [UIView animateWithDuration:SLIDE_DURATION delay:0
+      [UIView animateWithDuration:SLIDE_DURATION delay:0.2f
                           options:UIViewAnimationOptionCurveEaseOut
                        animations:^ {
                          if(velocity.x < 0) {

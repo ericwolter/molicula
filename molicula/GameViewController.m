@@ -43,10 +43,6 @@ typedef enum {
    * In order to conserve battery the screen is only drawn at the refresh rate
    * if the user is currently moving a molecule.
    */
-  
-  float trueWidth;
-  float trueHeight;
-
   BOOL finishAnimation;
   int finishTimer;
   
@@ -97,6 +93,11 @@ typedef enum {
   MLog(@"start");
   [super viewDidAppear:animated];
   [self setProjection];
+  for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
+    Molecule *molecule = [gameView.molecules objectAtIndex:i];
+    
+    [self enforceScreenBoundsForMolecule:molecule];
+  }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -104,12 +105,7 @@ typedef enum {
   [self setupGL];
   isDisappearInProgress = NO;
   [self setProjection];
-  [self updateTrueSize];
-  for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
-    Molecule *molecule = [gameView.molecules objectAtIndex:i];
-    
-    [self enforceScreenBoundsForMolecule:molecule];
-  }
+  
   MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
   bar.isTouchThroughEnabled = YES;
 }
@@ -139,9 +135,9 @@ typedef enum {
 
   [super viewDidLoad];
   
-  self.tutorialController = [[TutorialController alloc] init];
-  self.tutorialController.view = self.tutorialView;
-  [self.tutorialController setup];
+//  self.tutorialController = [[TutorialController alloc] init];
+//  self.tutorialController.view = self.tutorialView;
+//  [self.tutorialController setup];
   
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   
@@ -158,7 +154,6 @@ typedef enum {
   gameView.drawableMultisample = GLKViewDrawableMultisample4X;
   gameView.multipleTouchEnabled = YES;
   [self setPreferredFramesPerSecond:60];
-  [self updateTrueSize];
   [self setupGL];
   
   [gameView enableGrid];
@@ -206,12 +201,12 @@ typedef enum {
 - (void)layoutMolecules {
   
   NSUInteger count = gameView.molecules.count;
-  for (NSUInteger i = 0; i < count; ++i) {
-    // Select a random element between i and end of array to swap with.
-    NSInteger nElements = count - i;
-    NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
-    [gameView.molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
-  }
+//  for (NSUInteger i = 0; i < count; ++i) {
+//    // Select a random element between i and end of array to swap with.
+//    NSInteger nElements = count - i;
+//    NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
+//    [gameView.molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
+//  }
   for(NSUInteger i = 0; i < count; ++i) {
     Molecule *molecule = [gameView.molecules objectAtIndex:i];
     for (NSUInteger j = 0; j < arc4random_uniform(6); ++j) {
@@ -225,18 +220,6 @@ typedef enum {
     Molecule *molecule = [gameView.molecules objectAtIndex:i];
     
     [molecule translate:GLKVector2MultiplyScalar(directions[i], LAYOUT_DISTANCE)];
-    [self enforceScreenBoundsForMolecule:molecule];
-  }
-}
-
-- (void)updateTrueSize {
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
-  if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-    trueWidth = screenRect.size.height;
-    trueHeight = screenRect.size.width;
-  } else {
-    trueWidth = screenRect.size.width;
-    trueHeight = screenRect.size.height;
   }
 }
 
@@ -263,6 +246,10 @@ typedef enum {
   shouldStopUpdating = YES;
   duringDeviceRotation = NO;
   [self setProjection];
+  for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
+    Molecule *molecule = [gameView.molecules objectAtIndex:i];
+    [self enforceScreenBoundsForMolecule:molecule];
+  }
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -276,18 +263,6 @@ typedef enum {
   isMirroringInProgress = false;
   cumulativeMirroringAngle = 0.0f;
   mirroringDirection = NoDirection;
-
-  if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation) !=
-      UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-    float tmp = trueHeight;
-    trueHeight = trueWidth;
-    trueWidth = tmp;
-  }
-  
-  for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
-    Molecule *molecule = [gameView.molecules objectAtIndex:i];
-    [self enforceScreenBoundsForMolecule:molecule];
-  }
 }
 
 - (void)tearDownGL {
@@ -541,7 +516,9 @@ NSUInteger totalDistance;
       if(result.isOverGrid) {
         TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTarget:GLKVector2Add(activeMolecule.position, result.offset)];
         [animator.runningAnimation addObject:animation];
-        [activeMolecule snap:result.offset toHoles:result.holes];
+        if([activeMolecule snap:result.offset toHoles:result.holes]) {
+          [gameView sendToBackMolecule:activeMolecule];
+        }
       }
       
       [self checkForSolution];
@@ -563,7 +540,9 @@ NSUInteger totalDistance;
       if(result.isOverGrid) {
         TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:activeMolecule AndTarget:GLKVector2Add(activeMolecule.position, result.offset)];
         [animator.runningAnimation addObject:animation];
-        [activeMolecule snap:result.offset toHoles:result.holes];
+        if([activeMolecule snap:result.offset toHoles:result.holes]) {
+          [gameView sendToBackMolecule:activeMolecule];
+        }
       }
       
       if(pointerTouch == nil) {
@@ -582,13 +561,13 @@ NSUInteger totalDistance;
   float width, height;
   width = self.view.bounds.size.width;
   height = self.view.bounds.size.height;
-  width = trueWidth;
-  height = trueHeight;
   
-//  NSLog(@"boundingRect: %@", NSStringFromCGRect(boundingRect));
+  NSLog(@"boundingRect: %@", NSStringFromCGRect(boundingRect));
+  NSLog(@"bounds: %f,%f", width/2,height/2);
   GLKVector2 bounding = GLKVector2Make(0, 0);
   float leftOut = CGRectGetMinX(boundingRect) - (-width / 2);
   float rightOut = CGRectGetMaxX(boundingRect) - width / 2;
+  NSLog(@"out: %f,%f", leftOut, rightOut);
   if (leftOut < 0)
   {
     bounding.x -= leftOut;
@@ -607,10 +586,12 @@ NSUInteger totalDistance;
   {
     bounding.y -= upOut;
   }
-//  const float precision = 1e5;
-//  bounding.x = roundf(bounding.x*precision) / precision;
-//  bounding.y = roundf(bounding.y*precision) / precision;
-//  NSLog(@"boundingOffset: %@",NSStringFromGLKVector2(bounding));
+  
+  GLKVector4 homogeneousCoordinate = GLKVector4Make(bounding.x, bounding.y, 0, 1);
+  GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(gameView.invertedModelViewMatrix, homogeneousCoordinate);
+  
+  bounding = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
+  
   TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, bounding)];
   animation.linearVelocity *= 2.0f;
   [animator.runningAnimation addObject:animation];

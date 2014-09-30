@@ -8,12 +8,21 @@
 
 #import "AppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
+#import <RMAppReceipt.h>
+
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [Crashlytics startWithAPIKey:@"bd56c9755da175dbceef21610d31133901bb338b"];
+  
+  self.receiptVerificator = [[RMStoreAppReceiptVerificator alloc] init];
+  self.receiptVerificator.bundleIdentifier = @"com.ericwolter.molicula";
+  self.receiptVerificator.bundleVersion = @"2.0.0";
+  [RMStore defaultStore].receiptVerificator = self.receiptVerificator;
+  BOOL verified = [self.receiptVerificator verifyAppReceipt];
+  BOOL earlyAdopter = [[RMAppReceipt bundleReceipt].originalAppVersion hasPrefix:@"1"];
   
   UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
 //
@@ -27,10 +36,10 @@
   navigationController.navigationBar.shadowImage = [UIImage new];
   navigationController.navigationBar.translucent = YES;
   
-  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
-                                                       forBarMetrics:UIBarMetricsDefault];
-  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
-                                                       forBarMetrics:UIBarMetricsLandscapePhone];
+//  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+//                                                       forBarMetrics:UIBarMetricsDefault];
+//  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+//                                                       forBarMetrics:UIBarMetricsLandscapePhone];
   
   // Override point for customization after application launch.
   return YES;

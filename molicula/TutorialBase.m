@@ -7,12 +7,13 @@
 //
 
 #import "TutorialBase.h"
+#import "Constants.h"
 
 @implementation TutorialBase
 
 -(BOOL)checkIfApplicable {
   [self doesNotRecognizeSelector:_cmd];
-  return nil;
+  return NO;
 }
 
 -(void)startReporting {
@@ -25,10 +26,19 @@
   return;
 }
 
--(BOOL)isFinished {
-  [self doesNotRecognizeSelector:_cmd];
-  return nil;
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  self.currentValue = [(NSNumber *)change[@"new"] doubleValue];
+  self.currentPercentage =(self.currentValue-self.startValue) / self.amount;
+  MLog(@"percentage: %f", self.currentPercentage);
+  [self.delegate didProgressInTutorial:self toPercentage:self.currentPercentage];
+  
+  if([self isFinished]) {
+    [self stopReporting];
+  }
 }
 
+-(BOOL)isFinished {
+  return self.currentPercentage > 1.0f;
+}
 
 @end

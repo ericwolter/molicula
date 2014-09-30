@@ -339,7 +339,7 @@
   
 //  NSLog(@"[end] aabbMin: %@", NSStringFromGLKVector2(aabbMin));
 //  NSLog(@"[end] aabbMax: %@", NSStringFromGLKVector2(aabbMax));
-  
+//  
   return CGRectMake(aabbMin.x, aabbMin.y, aabbMax.x-aabbMin.x, aabbMax.y-aabbMin.y);
 }
 
@@ -416,7 +416,7 @@
   return GLKMatrix4MultiplyVector4(screenTransformMatrix, GLKVector4Make(self.center.x, self.center.y, 0, 1));
 }
 
-- (void)snap:(GLKVector2)offset toHoles:(NSArray *)holes {
+- (BOOL)snap:(GLKVector2)offset toHoles:(NSArray *)holes {
   self.isSnapped = YES;
   self.snappedHoles = holes;
   for (Hole *hole in self.snappedHoles) {
@@ -424,14 +424,17 @@
   }
   
   [Metrics sharedInstance].snapCounter++;
+  return self.isSnapped;
 }
 
-- (void)unsnap {
+- (BOOL)unsnap {
   self.isSnapped = NO;
   for (Hole *hole in self.snappedHoles) {
     hole.content = nil;
   }
   self.snappedHoles = nil;
+  
+  return self.isSnapped;
 }
 
 @end

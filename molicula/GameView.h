@@ -32,5 +32,7 @@
 
 - (GLKVector2)convertViewCoordinateToOpenGLCoordinate:(CGPoint)viewCoordinate;
 - (void)bringToFront:(NSInteger)moleculeIndex;
+- (void)sendToBack:(NSInteger)moleculeIndex;
+- (void)sendToBackMolecule:(Molecule *)molecule;
 
 @end

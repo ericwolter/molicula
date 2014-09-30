@@ -13,7 +13,10 @@
 #import "MoleculeFactory.h"
 #import "GameViewController.h"
 
-@interface LibraryViewController ()
+@interface LibraryViewController () {
+  NSMutableDictionary *headerCache;
+  NSMutableDictionary *solutionCache;
+}
 
 @property(strong, nonatomic) EAGLContext *context;
 
@@ -26,11 +29,39 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  if (self) {
+    headerCache = [[NSMutableDictionary alloc] init];
+    solutionCache = [[NSMutableDictionary alloc] init];
+  }
+  return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+  self = [super initWithCoder:aDecoder];
+  if (self) {
+    headerCache = [[NSMutableDictionary alloc] init];
+    solutionCache = [[NSMutableDictionary alloc] init];
+  }
+  return self;
+}
+
+- (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
+  self = [super initWithCollectionViewLayout:layout];
+  if (self) {
+    headerCache = [[NSMutableDictionary alloc] init];
+    solutionCache = [[NSMutableDictionary alloc] init];
+  }
+  return self;
+}
+
+- (id)init {
+  self = [super init];
+  if (self) {
+    headerCache = [[NSMutableDictionary alloc] init];
+    solutionCache = [[NSMutableDictionary alloc] init];
+  }
+  return self;
 }
 
 - (void)viewDidLoad
@@ -156,9 +187,6 @@
     GLKVector2 holeWorldPosition = [gameView.grid getHoleWorldCoordinates:h];
     GLKVector2 atomWorldPosition = [m getAtomPositionInWorld:a];
     
-    //    NSLog(@"holeWorldPosition: %@",NSStringFromGLKVector2(holeWorldPosition));
-    //    NSLog(@"atomWorldPosition: %@",NSStringFromGLKVector2(atomWorldPosition));
-    
     GLKVector2 offset = GLKVector2Subtract(holeWorldPosition, atomWorldPosition);
     [m translate:offset];
   }
@@ -172,33 +200,40 @@
   UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
   
   UIImageView *solutionImageView = (UIImageView *)[cell viewWithTag:100];
-  
   solutionImageView.frame = CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height);
-  
-  GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:self.context];
-  [gameView setScaling:0.5f];
-  gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
-  gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
-  gameView.drawableMultisample = GLKViewDrawableMultisample4X;
-
-  [gameView updateProjection:gameView.bounds.size];
   
   NSString *sectionColor = [[[SolutionLibrary sharedInstance].sections objectAtIndex:indexPath.section] objectForKey:@"color"];
   NSDictionary *solutionsForColor = [[SolutionLibrary sharedInstance].solutions objectForKey:sectionColor];
   NSString *canonicalString = [[solutionsForColor allKeys] objectAtIndex:indexPath.row];
-  NSDictionary *solution = [solutionsForColor objectForKey:canonicalString];
-  
-  NSString *userSolution = solution[@"canonical"];
-  if(userSolution) {
-    NSDictionary *solutionMolecules = [self generateMoleculePointsFromSolution:userSolution];
-    [self addSolutionMolecules:solutionMolecules toGame:gameView];
-  } else {
-    [gameView enableGrid];
+  if(![solutionCache objectForKey:canonicalString]) {
+    GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:self.context];
+    
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
+        && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
+      [gameView setScaling:1.0f];
+    } else {
+      [gameView setScaling:0.5f];
+    }
+    
+    gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
+    gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
+    gameView.drawableMultisample = GLKViewDrawableMultisample4X;
+    
+    [gameView updateProjection:gameView.bounds.size];
+    
+    NSDictionary *solution = [solutionsForColor objectForKey:canonicalString];
+    NSString *userSolution = solution[@"user"];
+    if(userSolution) {
+      NSDictionary *solutionMolecules = [self generateMoleculePointsFromSolution:userSolution];
+      [self addSolutionMolecules:solutionMolecules toGame:gameView];
+    } else {
+      [gameView enableGrid];
+    }
+    
+    solutionCache[canonicalString] = [gameView snapshot];
   }
   
-  UIImage *image = [gameView snapshot];
-  
-  solutionImageView.image = image;
+  solutionImageView.image = solutionCache[canonicalString];
   
   return cell;
 }
@@ -211,27 +246,31 @@
     SolutionCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
     
     UIImageView *moleculeImageView = headerView.MissingMoleculeImage;
-    
     moleculeImageView.frame = CGRectMake(0, 0, headerView.bounds.size.width, headerView.bounds.size.height);
     
-    GameView *gameView = [[GameView alloc] initWithFrame:moleculeImageView.bounds context:self.context];
-    [gameView setScaling:0.5f];
-    gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
-    gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
-    gameView.drawableMultisample = GLKViewDrawableMultisample4X;
-    
-    [gameView updateProjection:gameView.bounds.size];
-    
     NSString *factoryMethod = [[[SolutionLibrary sharedInstance].sections objectAtIndex:indexPath.section] objectForKey:@"factory"];
-    SEL moleculeFactoryFunction = NSSelectorFromString(factoryMethod);
-    Molecule *molecule = [MoleculeFactory performSelector:moleculeFactoryFunction];
+    if(![headerCache objectForKey:factoryMethod]) {
+      GameView *gameView = [[GameView alloc] initWithFrame:moleculeImageView.bounds context:self.context];
+      if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
+          && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
+        [gameView setScaling:1.0f];
+      } else {
+        [gameView setScaling:0.5f];
+      }
+      gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
+      gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
+      gameView.drawableMultisample = GLKViewDrawableMultisample4X;
+      
+      [gameView updateProjection:gameView.bounds.size];
+      
+      SEL moleculeFactoryFunction = NSSelectorFromString(factoryMethod);
+      Molecule *molecule = [MoleculeFactory performSelector:moleculeFactoryFunction];
+      [gameView addMolecule:molecule];
+      
+      headerCache[factoryMethod] = [gameView snapshot];
+    }
     
-    [gameView addMolecule:molecule];
-    
-    UIImage *image = [gameView snapshot];
-    
-    headerView.MissingMoleculeImage.image = image;
-    
+    headerView.MissingMoleculeImage.image = headerCache[factoryMethod];
     reusableview = headerView;
   }
   

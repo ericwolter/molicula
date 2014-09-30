@@ -38,9 +38,9 @@
 
 - (BOOL)hitTest:(GLKVector2)point;
 
-- (void)snap:(GLKVector2)offset toHoles:(NSArray *)holes;
+- (BOOL)snap:(GLKVector2)offset toHoles:(NSArray *)holes;
 
-- (void)unsnap;
+- (BOOL)unsnap;
 
 + (CGPoint)mapToArrayIndices:(CGPoint)atomCoordinates;
 

@@ -11,12 +11,15 @@
 		07115F0E180959FF0044735C /* BaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F0D180959FF0044735C /* BaseAnimation.m */; };
 		07115F1418095A6F0044735C /* TranslateAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F1318095A6F0044735C /* TranslateAnimation.m */; };
 		07115F171809661E0044735C /* RotationAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07115F161809661E0044735C /* RotationAnimation.m */; };
-		07124B9B17F9997700D7B5CD /* Application.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Application.storyboard */; };
+		07124B9B17F9997700D7B5CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07124B9A17F9997700D7B5CD /* Main.storyboard */; };
 		0714657C193F1CEE006E537B /* MoliculaNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0714657B193F1CEE006E537B /* MoliculaNavigationBar.m */; };
 		07146583193F317F006E537B /* MoliculaNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07146582193F317F006E537B /* MoliculaNavigationController.m */; };
 		072407AC1944C1FC00A07838 /* TutorialBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 072407AB1944C1FC00A07838 /* TutorialBase.m */; };
-		072407AF1944C5B600A07838 /* MoveMoleculesTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 072407AE1944C5B600A07838 /* MoveMoleculesTutorial.m */; };
+		072407AF1944C5B600A07838 /* MoveTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 072407AE1944C5B600A07838 /* MoveTutorial.m */; };
 		0726445119235F5D00A0E6FE /* SolutionLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 0726445019235F5D00A0E6FE /* SolutionLibrary.m */; };
+		0734866C1945D8D800E23EA2 /* RotateTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0734866B1945D8D800E23EA2 /* RotateTutorial.m */; };
+		0734866F1945DF0700E23EA2 /* MirrorTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0734866E1945DF0700E23EA2 /* MirrorTutorial.m */; };
+		0768184819DAB9A000816169 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0768184719DAB9A000816169 /* LaunchScreen.xib */; };
 		0769830E192CC32900926DD1 /* blue1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B2192CC2F800926DD1 /* blue1.txt */; };
 		0769830F192CC32900926DD1 /* blue2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B3192CC2F800926DD1 /* blue2.txt */; };
 		07698310192CC32900926DD1 /* blue3.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B4192CC2F800926DD1 /* blue3.txt */; };
@@ -65,6 +68,9 @@
 		0769833B192CC32900926DD1 /* yellow28.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982DF192CC2F800926DD1 /* yellow28.txt */; };
 		076BC06819190AA200EE1AD7 /* SolutionCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076BC06719190AA200EE1AD7 /* SolutionCollectionHeaderView.m */; };
 		076C702A19096F2500F0084D /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076C702919096F2500F0084D /* GameView.m */; };
+		076F2E1319D963090067E94C /* LaunchGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F2E1219D963090067E94C /* LaunchGridView.m */; };
+		0773F08F19ACA68700F93ABA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0773F08E19ACA68700F93ABA /* StoreKit.framework */; };
+		0773F09119ACA8A800F93ABA /* inapp.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0773F09019ACA8A800F93ABA /* inapp.plist */; };
 		0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0774AD7A17FB2A70008D8B2E /* Images.xcassets */; };
 		077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 077F9A8217D7CBB0004F1960 /* InfoPlist.strings */; };
 		077F9A8617D7CBB0004F1960 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8517D7CBB0004F1960 /* main.m */; };
@@ -81,6 +87,7 @@
 		077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9ACE17D7CD41004F1960 /* ColorTheme.m */; };
 		077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */; };
 		077F9AD717D7D206004F1960 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9AD617D7D206004F1960 /* Crashlytics.framework */; };
+		07A0364719ACDFBC00B96638 /* AppleIncRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 07A0364619ACDFBC00B96638 /* AppleIncRootCertificate.cer */; };
 		07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A5C8351917CB56001E5801 /* LibraryViewController.m */; };
 		07E1B58218071B9F002D79A1 /* DropResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B58118071B9F002D79A1 /* DropResult.m */; };
 		07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E8B78D181FC28100804CC1 /* Default-568h@2x.png */; };
@@ -89,6 +96,7 @@
 		07EE626F1940FC8E00739544 /* DDiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE626E1940FC8E00739544 /* DDiCloudSync.m */; };
 		07F16FD317E0F79300D15F36 /* Controls.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F16FD217E0F79300D15F36 /* Controls.m */; };
 		07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07F16FD417E725AD00D15F36 /* appstore_description.rtf */; };
+		678C7D508FDA4D569C1E0734 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB12BC5FDA4490097E580D2 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,7 +176,7 @@
 		07115F1318095A6F0044735C /* TranslateAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateAnimation.m; sourceTree = "<group>"; };
 		07115F151809661E0044735C /* RotationAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationAnimation.h; sourceTree = "<group>"; };
 		07115F161809661E0044735C /* RotationAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationAnimation.m; sourceTree = "<group>"; };
-		07124B9A17F9997700D7B5CD /* Application.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Application.storyboard; sourceTree = "<group>"; };
+		07124B9A17F9997700D7B5CD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		07124BB517F9A63900D7B5CD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0714657A193F1CEE006E537B /* MoliculaNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoliculaNavigationBar.h; sourceTree = "<group>"; };
 		0714657B193F1CEE006E537B /* MoliculaNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoliculaNavigationBar.m; sourceTree = "<group>"; };
@@ -176,11 +184,16 @@
 		07146582193F317F006E537B /* MoliculaNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoliculaNavigationController.m; sourceTree = "<group>"; };
 		072407AA1944C1FC00A07838 /* TutorialBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialBase.h; sourceTree = "<group>"; };
 		072407AB1944C1FC00A07838 /* TutorialBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialBase.m; sourceTree = "<group>"; };
-		072407AD1944C5B600A07838 /* MoveMoleculesTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveMoleculesTutorial.h; sourceTree = "<group>"; };
-		072407AE1944C5B600A07838 /* MoveMoleculesTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveMoleculesTutorial.m; sourceTree = "<group>"; };
+		072407AD1944C5B600A07838 /* MoveTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveTutorial.h; sourceTree = "<group>"; };
+		072407AE1944C5B600A07838 /* MoveTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveTutorial.m; sourceTree = "<group>"; };
 		072407B01944C79400A07838 /* TutorialProgressDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TutorialProgressDelegate.h; sourceTree = "<group>"; };
 		0726444F19235F5D00A0E6FE /* SolutionLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SolutionLibrary.h; sourceTree = "<group>"; };
 		0726445019235F5D00A0E6FE /* SolutionLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SolutionLibrary.m; sourceTree = "<group>"; };
+		0734866A1945D8D800E23EA2 /* RotateTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotateTutorial.h; sourceTree = "<group>"; };
+		0734866B1945D8D800E23EA2 /* RotateTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotateTutorial.m; sourceTree = "<group>"; };
+		0734866D1945DF0700E23EA2 /* MirrorTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MirrorTutorial.h; sourceTree = "<group>"; };
+		0734866E1945DF0700E23EA2 /* MirrorTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MirrorTutorial.m; sourceTree = "<group>"; };
+		0768184719DAB9A000816169 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = ../LaunchScreen.xib; sourceTree = "<group>"; };
 		076982B2192CC2F800926DD1 /* blue1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue1.txt; sourceTree = "<group>"; };
 		076982B3192CC2F800926DD1 /* blue2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue2.txt; sourceTree = "<group>"; };
 		076982B4192CC2F800926DD1 /* blue3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue3.txt; sourceTree = "<group>"; };
@@ -231,6 +244,10 @@
 		076BC06719190AA200EE1AD7 /* SolutionCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SolutionCollectionHeaderView.m; sourceTree = "<group>"; };
 		076C702819096F2500F0084D /* GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
 		076C702919096F2500F0084D /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
+		076F2E1119D963090067E94C /* LaunchGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchGridView.h; sourceTree = "<group>"; };
+		076F2E1219D963090067E94C /* LaunchGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchGridView.m; sourceTree = "<group>"; };
+		0773F08E19ACA68700F93ABA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		0773F09019ACA8A800F93ABA /* inapp.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = inapp.plist; sourceTree = "<group>"; };
 		0774AD7A17FB2A70008D8B2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		077F9A7217D7CBB0004F1960 /* molicula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = molicula.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		077F9A8117D7CBB0004F1960 /* molicula-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "molicula-Info.plist"; sourceTree = "<group>"; };
@@ -265,6 +282,7 @@
 		077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSValue_GLKVector.h; sourceTree = "<group>"; };
 		077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITouch_TouchSorting.h; sourceTree = "<group>"; };
 		077F9AD617D7D206004F1960 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		07A0364619ACDFBC00B96638 /* AppleIncRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleIncRootCertificate.cer; sourceTree = "<group>"; };
 		07A5C8341917CB56001E5801 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
 		07A5C8351917CB56001E5801 /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
 		07E1B58018071B9F002D79A1 /* DropResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropResult.h; sourceTree = "<group>"; };
@@ -280,6 +298,8 @@
 		07F16FD117E0F79300D15F36 /* Controls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controls.h; sourceTree = "<group>"; };
 		07F16FD217E0F79300D15F36 /* Controls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controls.m; sourceTree = "<group>"; };
 		07F16FD417E725AD00D15F36 /* appstore_description.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = appstore_description.rtf; sourceTree = "<group>"; };
+		559F853DB1A64C0BB6DCF36C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		8FB12BC5FDA4490097E580D2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +308,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				077F9AD717D7D206004F1960 /* Crashlytics.framework in Frameworks */,
+				0773F08F19ACA68700F93ABA /* StoreKit.framework in Frameworks */,
+				678C7D508FDA4D569C1E0734 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,9 +356,13 @@
 				07EE626B1940C3AB00739544 /* TutorialController.m */,
 				072407AA1944C1FC00A07838 /* TutorialBase.h */,
 				072407AB1944C1FC00A07838 /* TutorialBase.m */,
-				072407AD1944C5B600A07838 /* MoveMoleculesTutorial.h */,
-				072407AE1944C5B600A07838 /* MoveMoleculesTutorial.m */,
 				072407B01944C79400A07838 /* TutorialProgressDelegate.h */,
+				072407AD1944C5B600A07838 /* MoveTutorial.h */,
+				072407AE1944C5B600A07838 /* MoveTutorial.m */,
+				0734866A1945D8D800E23EA2 /* RotateTutorial.h */,
+				0734866B1945D8D800E23EA2 /* RotateTutorial.m */,
+				0734866D1945DF0700E23EA2 /* MirrorTutorial.h */,
+				0734866E1945DF0700E23EA2 /* MirrorTutorial.m */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -423,6 +449,7 @@
 				077F9AA717D7CBB0004F1960 /* moliculaTests */,
 				077F9A7417D7CBB0004F1960 /* Frameworks */,
 				077F9A7317D7CBB0004F1960 /* Products */,
+				559F853DB1A64C0BB6DCF36C /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -438,7 +465,9 @@
 		077F9A7417D7CBB0004F1960 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0773F08E19ACA68700F93ABA /* StoreKit.framework */,
 				077F9AD617D7D206004F1960 /* Crashlytics.framework */,
+				8FB12BC5FDA4490097E580D2 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -447,8 +476,9 @@
 			isa = PBXGroup;
 			children = (
 				07EE62661940BF6000739544 /* molicula.entitlements */,
-				07124B9A17F9997700D7B5CD /* Application.storyboard */,
+				07124B9A17F9997700D7B5CD /* Main.storyboard */,
 				0774AD7A17FB2A70008D8B2E /* Images.xcassets */,
+				0768184719DAB9A000816169 /* LaunchScreen.xib */,
 				077F9A8017D7CBB0004F1960 /* Supporting Files */,
 				076BC06519190A6300EE1AD7 /* Library */,
 				072407A81944C0EA00A07838 /* Tutorial */,
@@ -487,6 +517,8 @@
 				07EE62641940BF2300739544 /* Metrics.m */,
 				07EE626D1940FC8E00739544 /* DDiCloudSync.h */,
 				07EE626E1940FC8E00739544 /* DDiCloudSync.m */,
+				076F2E1119D963090067E94C /* LaunchGridView.h */,
+				076F2E1219D963090067E94C /* LaunchGridView.m */,
 			);
 			path = molicula;
 			sourceTree = "<group>";
@@ -494,12 +526,14 @@
 		077F9A8017D7CBB0004F1960 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				07A0364619ACDFBC00B96638 /* AppleIncRootCertificate.cer */,
 				07E8B78D181FC28100804CC1 /* Default-568h@2x.png */,
 				077F9A8117D7CBB0004F1960 /* molicula-Info.plist */,
 				077F9A8217D7CBB0004F1960 /* InfoPlist.strings */,
 				077F9A8517D7CBB0004F1960 /* main.m */,
 				077F9A8717D7CBB0004F1960 /* molicula-Prefix.pch */,
 				07F16FD417E725AD00D15F36 /* appstore_description.rtf */,
+				0773F09019ACA8A800F93ABA /* inapp.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -530,11 +564,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 077F9AB217D7CBB1004F1960 /* Build configuration list for PBXNativeTarget "molicula" */;
 			buildPhases = (
+				F023C1521AC141B0958D24E1 /* Check Pods Manifest.lock */,
 				077F9A6E17D7CBB0004F1960 /* Sources */,
 				077F9A6F17D7CBB0004F1960 /* Frameworks */,
 				077F9A7017D7CBB0004F1960 /* Resources */,
 				0726441D19235CD400A0E6FE /* CopyFiles */,
 				077F9AD517D7D1ED004F1960 /* ShellScript */,
+				C089AED7FA59410986A47223 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -577,6 +613,9 @@
 					077F9A7117D7CBB0004F1960 = {
 						DevelopmentTeam = 9LMMMFHC36;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};
@@ -609,7 +648,10 @@
 			files = (
 				077F9A8417D7CBB0004F1960 /* InfoPlist.strings in Resources */,
 				0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */,
-				07124B9B17F9997700D7B5CD /* Application.storyboard in Resources */,
+				07A0364719ACDFBC00B96638 /* AppleIncRootCertificate.cer in Resources */,
+				07124B9B17F9997700D7B5CD /* Main.storyboard in Resources */,
+				0768184819DAB9A000816169 /* LaunchScreen.xib in Resources */,
+				0773F09119ACA8A800F93ABA /* inapp.plist in Resources */,
 				07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */,
 				07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */,
 			);
@@ -652,6 +694,36 @@
 			shellPath = /bin/sh;
 			shellScript = "./Crashlytics.framework/run bd56c9755da175dbceef21610d31133901bb338b";
 		};
+		C089AED7FA59410986A47223 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F023C1521AC141B0958D24E1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -662,6 +734,7 @@
 				07EE626C1940C3AB00739544 /* TutorialController.m in Sources */,
 				07115F171809661E0044735C /* RotationAnimation.m in Sources */,
 				077F9A8617D7CBB0004F1960 /* main.m in Sources */,
+				076F2E1319D963090067E94C /* LaunchGridView.m in Sources */,
 				077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */,
 				07E1B58218071B9F002D79A1 /* DropResult.m in Sources */,
 				072407AC1944C1FC00A07838 /* TutorialBase.m in Sources */,
@@ -669,7 +742,7 @@
 				077F9A9A17D7CBB0004F1960 /* GameViewController.m in Sources */,
 				077F9ABA17D7CC44004F1960 /* Grid.m in Sources */,
 				076C702A19096F2500F0084D /* GameView.m in Sources */,
-				072407AF1944C5B600A07838 /* MoveMoleculesTutorial.m in Sources */,
+				072407AF1944C5B600A07838 /* MoveTutorial.m in Sources */,
 				077F9AC017D7CCB8004F1960 /* Molecule.m in Sources */,
 				077F9AC317D7CCE7004F1960 /* Hole.m in Sources */,
 				077F9AC617D7CCF6004F1960 /* Atom.m in Sources */,
@@ -687,6 +760,8 @@
 				07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */,
 				077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */,
 				07F16FD317E0F79300D15F36 /* Controls.m in Sources */,
+				0734866F1945DF0700E23EA2 /* MirrorTutorial.m in Sources */,
+				0734866C1945D8D800E23EA2 /* RotateTutorial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,7 +828,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -778,7 +853,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -788,6 +863,7 @@
 		};
 		077F9AB317D7CBB1004F1960 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 559F853DB1A64C0BB6DCF36C /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -801,7 +877,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -811,6 +887,7 @@
 		};
 		077F9AB417D7CBB1004F1960 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 559F853DB1A64C0BB6DCF36C /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -824,7 +901,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

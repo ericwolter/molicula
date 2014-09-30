@@ -51,10 +51,9 @@
 }
 
 - (void)setup {
-//  NSLog(@"GameView setup");
+  NSLog(@"GameView setup");
   self.effect = [[GLKBaseEffect alloc] init];
   [self setScaling:1.0f];
-  self.invertedModelViewMatrix = GLKMatrix4Invert(self.modelViewMatrix, nil);
   
   self.molecules = [[NSMutableArray alloc] init];
 }
@@ -118,6 +117,27 @@
   Molecule *newFrontMostMolecule = [self.molecules objectAtIndex:moleculeIndex];
   [self.molecules removeObjectAtIndex:moleculeIndex];
   [self.molecules addObject:newFrontMostMolecule];
+}
+
+- (void)sendToBack:(NSInteger)moleculeIndex {
+  Molecule *newBackMostMolecule = [self.molecules objectAtIndex:moleculeIndex];
+  [self.molecules removeObjectAtIndex:moleculeIndex];
+  [self.molecules insertObject:newBackMostMolecule atIndex:0];
+}
+
+- (void)sendToBackMolecule:(Molecule *)molecule {
+  [self.molecules removeObject:molecule];
+  [self.molecules insertObject:molecule atIndex:0];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  NSLog(@"GameView traitCollectionDidChange");
+  if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
+      && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
+    [self setScaling:2.0f];
+  } else {
+    [self setScaling:1.0f];
+  }
   
 }
 

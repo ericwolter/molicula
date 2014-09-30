@@ -17,6 +17,13 @@
 @property NSString* text;
 @property id<TutorialProgressDelegate> delegate;
 
+@property double lasttime;
+@property NSUInteger showCount;
+@property double startValue;
+@property double currentValue;
+@property double currentPercentage;
+@property double amount;
+
 -(BOOL)checkIfApplicable;
 
 -(void)startReporting;
