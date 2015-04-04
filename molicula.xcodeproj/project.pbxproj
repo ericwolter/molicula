@@ -19,6 +19,7 @@
 		0726445119235F5D00A0E6FE /* SolutionLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 0726445019235F5D00A0E6FE /* SolutionLibrary.m */; };
 		0734866C1945D8D800E23EA2 /* RotateTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0734866B1945D8D800E23EA2 /* RotateTutorial.m */; };
 		0734866F1945DF0700E23EA2 /* MirrorTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0734866E1945DF0700E23EA2 /* MirrorTutorial.m */; };
+		075D966A19EB0A1D003405EF /* RSSecrets.m in Sources */ = {isa = PBXBuildFile; fileRef = 075D966919EB0A1D003405EF /* RSSecrets.m */; };
 		0768184819DAB9A000816169 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0768184719DAB9A000816169 /* LaunchScreen.xib */; };
 		0769830E192CC32900926DD1 /* blue1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B2192CC2F800926DD1 /* blue1.txt */; };
 		0769830F192CC32900926DD1 /* blue2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B3192CC2F800926DD1 /* blue2.txt */; };
@@ -87,6 +88,7 @@
 		077F9ACF17D7CD41004F1960 /* ColorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9ACE17D7CD41004F1960 /* ColorTheme.m */; };
 		077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */; };
 		077F9AD717D7D206004F1960 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077F9AD617D7D206004F1960 /* Crashlytics.framework */; };
+		07851A971A9E6DE600B2B65B /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07851A961A9E6DE600B2B65B /* PurchaseViewController.m */; };
 		07A0364719ACDFBC00B96638 /* AppleIncRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 07A0364619ACDFBC00B96638 /* AppleIncRootCertificate.cer */; };
 		07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A5C8351917CB56001E5801 /* LibraryViewController.m */; };
 		07E1B58218071B9F002D79A1 /* DropResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B58118071B9F002D79A1 /* DropResult.m */; };
@@ -193,6 +195,8 @@
 		0734866B1945D8D800E23EA2 /* RotateTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotateTutorial.m; sourceTree = "<group>"; };
 		0734866D1945DF0700E23EA2 /* MirrorTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MirrorTutorial.h; sourceTree = "<group>"; };
 		0734866E1945DF0700E23EA2 /* MirrorTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MirrorTutorial.m; sourceTree = "<group>"; };
+		075D966919EB0A1D003405EF /* RSSecrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSecrets.m; sourceTree = "<group>"; };
+		075D966B19EB0A40003405EF /* RSSecrets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSSecrets.h; sourceTree = "<group>"; };
 		0768184719DAB9A000816169 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = ../LaunchScreen.xib; sourceTree = "<group>"; };
 		076982B2192CC2F800926DD1 /* blue1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue1.txt; sourceTree = "<group>"; };
 		076982B3192CC2F800926DD1 /* blue2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue2.txt; sourceTree = "<group>"; };
@@ -282,6 +286,8 @@
 		077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSValue_GLKVector.h; sourceTree = "<group>"; };
 		077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITouch_TouchSorting.h; sourceTree = "<group>"; };
 		077F9AD617D7D206004F1960 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		07851A951A9E6DE600B2B65B /* PurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
+		07851A961A9E6DE600B2B65B /* PurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseViewController.m; sourceTree = "<group>"; };
 		07A0364619ACDFBC00B96638 /* AppleIncRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleIncRootCertificate.cer; sourceTree = "<group>"; };
 		07A5C8341917CB56001E5801 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
 		07A5C8351917CB56001E5801 /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
@@ -298,8 +304,9 @@
 		07F16FD117E0F79300D15F36 /* Controls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controls.h; sourceTree = "<group>"; };
 		07F16FD217E0F79300D15F36 /* Controls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controls.m; sourceTree = "<group>"; };
 		07F16FD417E725AD00D15F36 /* appstore_description.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = appstore_description.rtf; sourceTree = "<group>"; };
-		559F853DB1A64C0BB6DCF36C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		8FB12BC5FDA4490097E580D2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EF6D3C8864FABA6CE1DA927 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B4DE7599F68F5D7A671E941E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,6 +444,8 @@
 				076BC06719190AA200EE1AD7 /* SolutionCollectionHeaderView.m */,
 				0726444F19235F5D00A0E6FE /* SolutionLibrary.h */,
 				0726445019235F5D00A0E6FE /* SolutionLibrary.m */,
+				07851A951A9E6DE600B2B65B /* PurchaseViewController.h */,
+				07851A961A9E6DE600B2B65B /* PurchaseViewController.m */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -449,7 +458,7 @@
 				077F9AA717D7CBB0004F1960 /* moliculaTests */,
 				077F9A7417D7CBB0004F1960 /* Frameworks */,
 				077F9A7317D7CBB0004F1960 /* Products */,
-				559F853DB1A64C0BB6DCF36C /* Pods.xcconfig */,
+				D24BAAD12DF2EAEABCBF47AA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -519,6 +528,8 @@
 				07EE626E1940FC8E00739544 /* DDiCloudSync.m */,
 				076F2E1119D963090067E94C /* LaunchGridView.h */,
 				076F2E1219D963090067E94C /* LaunchGridView.m */,
+				075D966919EB0A1D003405EF /* RSSecrets.m */,
+				075D966B19EB0A40003405EF /* RSSecrets.h */,
 			);
 			path = molicula;
 			sourceTree = "<group>";
@@ -555,6 +566,15 @@
 				077F9AAA17D7CBB1004F1960 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D24BAAD12DF2EAEABCBF47AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9EF6D3C8864FABA6CE1DA927 /* Pods.debug.xcconfig */,
+				B4DE7599F68F5D7A671E941E /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -706,7 +726,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F023C1521AC141B0958D24E1 /* Check Pods Manifest.lock */ = {
@@ -735,6 +755,7 @@
 				07115F171809661E0044735C /* RotationAnimation.m in Sources */,
 				077F9A8617D7CBB0004F1960 /* main.m in Sources */,
 				076F2E1319D963090067E94C /* LaunchGridView.m in Sources */,
+				075D966A19EB0A1D003405EF /* RSSecrets.m in Sources */,
 				077F9A8A17D7CBB0004F1960 /* AppDelegate.m in Sources */,
 				07E1B58218071B9F002D79A1 /* DropResult.m in Sources */,
 				072407AC1944C1FC00A07838 /* TutorialBase.m in Sources */,
@@ -745,6 +766,7 @@
 				072407AF1944C5B600A07838 /* MoveTutorial.m in Sources */,
 				077F9AC017D7CCB8004F1960 /* Molecule.m in Sources */,
 				077F9AC317D7CCE7004F1960 /* Hole.m in Sources */,
+				07851A971A9E6DE600B2B65B /* PurchaseViewController.m in Sources */,
 				077F9AC617D7CCF6004F1960 /* Atom.m in Sources */,
 				07115F0A180959470044735C /* Animator.m in Sources */,
 				07115F0E180959FF0044735C /* BaseAnimation.m in Sources */,
@@ -863,7 +885,7 @@
 		};
 		077F9AB317D7CBB1004F1960 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 559F853DB1A64C0BB6DCF36C /* Pods.xcconfig */;
+			baseConfigurationReference = 9EF6D3C8864FABA6CE1DA927 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -877,7 +899,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -887,7 +909,7 @@
 		};
 		077F9AB417D7CBB1004F1960 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 559F853DB1A64C0BB6DCF36C /* Pods.xcconfig */;
+			baseConfigurationReference = B4DE7599F68F5D7A671E941E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -901,7 +923,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

@@ -247,7 +247,6 @@
 - (id)init {
   if (self = [super init]) {
     
-    MLog(@"start");
 //    float size = ARROW_THICKNESS / sqrtf(2.0f);
 //    quadrantCross[0] = GLKVector2Make(0.0f, -size);
 //    quadrantCross[1] = GLKVector2Make(0.0f, +size);
@@ -268,7 +267,6 @@
 }
 
 -(void)tearDownBuffers {
-  MLog(@"start");
   glDeleteBuffers(1, &rightArcBuffer);
   glDeleteBuffers(1, &rightArcArrowBuffer);
   glDeleteBuffers(1, &leftArcBuffer);
@@ -280,7 +278,6 @@
 }
 
 -(void)setupBuffers {
-  MLog(@"start");
   [self initRightArrow];
   [self initLeftArrow];
   
@@ -289,7 +286,6 @@
 }
 
 -(void)dealloc {
-  MLog("start");
   [self tearDownBuffers];
 }
 

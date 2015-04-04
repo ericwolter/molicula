@@ -9,7 +9,8 @@
 #import "AppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
 #import <RMAppReceipt.h>
-
+#import "SolutionLibrary.h"
+#import "RSSecrets.h"
 
 @implementation AppDelegate
 
@@ -17,31 +18,50 @@
 {
   [Crashlytics startWithAPIKey:@"bd56c9755da175dbceef21610d31133901bb338b"];
   
+  [SolutionLibrary sharedInstance];
+  
   self.receiptVerificator = [[RMStoreAppReceiptVerificator alloc] init];
-  self.receiptVerificator.bundleIdentifier = @"com.ericwolter.molicula";
-  self.receiptVerificator.bundleVersion = @"2.0.0";
+  //self.receiptVerificator.bundleIdentifier = @"com.ericwolter.molicula";
+  //self.receiptVerificator.bundleVersion = @"2.0.0";
   [RMStore defaultStore].receiptVerificator = self.receiptVerificator;
-  BOOL verified = [self.receiptVerificator verifyAppReceipt];
+//  __block BOOL verified = [self.receiptVerificator verifyAppReceipt];
+//  if (!verified) {
+//    [[RMStore defaultStore] refreshReceiptOnSuccess:^{
+//      NSLog(@"Receipt refreshed");
+//      verified = [self.receiptVerificator verifyAppReceipt];
+//    } failure:^(NSError *error) {
+//      NSLog(@"Something went wrong");
+//      verified = NO;
+//    }];
+//  }
+  self.persistor = [[RMStoreKeychainPersistence alloc] init];
+  [RMStore defaultStore].transactionPersistor = self.persistor;
+  
+  NSLog(@"%@",[RMAppReceipt bundleReceipt].originalAppVersion);
   BOOL earlyAdopter = [[RMAppReceipt bundleReceipt].originalAppVersion hasPrefix:@"1"];
   
-  UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-//
-//  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-//  UIViewController *gameViewController = [storyboard instantiateViewControllerWithIdentifier:@"GameViewController"];
-//  
-//  navigationController.viewControllers = [navigationController.viewControllers arrayByAddingObject:gameViewController];
-//  [navigationController popToViewController:gameViewController animated:NO];
+  if (earlyAdopter) {
+    [RSSecrets setString:@"earlyAdopter" forKey:@"com.ericwolter.molicula.solutionlibrary"];
+  } else {
+    [RSSecrets removeKey:@"com.ericwolter.molicula.solutionlibrary"];
+  }
   
+  // make navigation bar transparent
+  UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
   [navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
   navigationController.navigationBar.shadowImage = [UIImage new];
   navigationController.navigationBar.translucent = YES;
   
+  // hide text of back button
 //  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
 //                                                       forBarMetrics:UIBarMetricsDefault];
 //  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
 //                                                       forBarMetrics:UIBarMetricsLandscapePhone];
   
   // Override point for customization after application launch.
+  
+  self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+  
   return YES;
 }
 							

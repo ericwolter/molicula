@@ -28,14 +28,10 @@
   BOOL dontShowIfToEarly = (CACurrentMediaTime() - self.lasttime) > 60; //sec
   BOOL dontShowIfAlreadySurpassed = [Metrics sharedInstance].totalRotation < DEG_TO_RAD(960); // pixels
   BOOL dontShowIfAlreadyDone = self.showCount < 3;
-  MLog(@"dontShowIfToEarly: %@", dontShowIfToEarly ? @"YES" : @"NO");
-  MLog(@"dontShowIfAlreadySurpassed: %@", dontShowIfAlreadySurpassed ? @"YES" : @"NO");
-  MLog(@"dontShowIfAlreadyDone: %@", dontShowIfAlreadyDone ? @"YES" : @"NO");
   return dontShowIfToEarly && dontShowIfAlreadySurpassed && dontShowIfAlreadyDone;
 }
 
 -(void)startReporting {
-  MLog(@"start");
   [self.delegate tutorialWillAppear:self];
   
   self.showCount++;
@@ -46,7 +42,6 @@
 }
 
 -(void)stopReporting {
-  MLog(@"start");
   [[Metrics sharedInstance] removeObserver:self forKeyPath:@"totalRotation"];
   self.lasttime = CACurrentMediaTime();
   

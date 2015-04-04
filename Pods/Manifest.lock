@@ -1,0 +1,21 @@
+PODS:
+  - OpenSSL (1.0.201)
+  - RMStore (0.7.1):
+    - RMStore/Core (= 0.7.1)
+  - RMStore/AppReceiptVerificator (0.7.1):
+    - OpenSSL (~> 1.0.1)
+    - RMStore/Core
+  - RMStore/Core (0.7.1)
+  - RMStore/KeychainPersistence (0.7.1):
+    - RMStore/Core
+
+DEPENDENCIES:
+  - RMStore
+  - RMStore/AppReceiptVerificator
+  - RMStore/KeychainPersistence
+
+SPEC CHECKSUMS:
+  OpenSSL: 4e990d04b14015c49c800c400b86ae44a4818a5c
+  RMStore: 64ba13a9c040e3b7572765d169f77175cd3243e5
+
+COCOAPODS: 0.36.3

@@ -72,8 +72,6 @@ typedef enum {
   Animator *animator;
 }
 
-@property(strong, nonatomic) EAGLContext *context;
-
 - (CGPoint) touchPointToGLPoint:(CGPoint)point;
 
 - (void)enforceScreenBoundsForMolecule:(Molecule *)molecule;
@@ -90,7 +88,6 @@ typedef enum {
 @implementation GameViewController
 
 - (void)viewDidAppear:(BOOL)animated {
-  MLog(@"start");
   [super viewDidAppear:animated];
   [self setProjection];
   for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
@@ -101,7 +98,8 @@ typedef enum {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-  MLog(@"start");
+  [super viewWillAppear:true];
+
   [self setupGL];
   isDisappearInProgress = NO;
   [self setProjection];
@@ -111,7 +109,6 @@ typedef enum {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-  MLog(@"start");
   MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
   bar.isTouchThroughEnabled = NO;
   
@@ -119,7 +116,6 @@ typedef enum {
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-  MLog(@"start");
   [super viewDidDisappear:animated];
   pointerTouch = nil;
   controlTouch = nil;
@@ -131,24 +127,16 @@ typedef enum {
 }
 
 - (void)viewDidLoad {
-  MLog("start");
-
   [super viewDidLoad];
   
 //  self.tutorialController = [[TutorialController alloc] init];
 //  self.tutorialController.view = self.tutorialView;
 //  [self.tutorialController setup];
   
-  self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-  
-  if (!self.context) {
-    NSLog(@"Failed to create ES context");
-  }
-  
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:NULL];
   
   gameView = (GameView *) self.view;
-  gameView.context = self.context;
+  gameView.context = MyAppDelegate.context;
   gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
   gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
   gameView.drawableMultisample = GLKViewDrawableMultisample4X;
@@ -166,13 +154,7 @@ typedef enum {
 }
 
 -(void)dealloc {
-  MLog(@"start");
-  //  NSLog(@"GameViewController dealloc");
   [self tearDownGL];
-
-  if ([EAGLContext currentContext] == self.context) {
-    [EAGLContext setCurrentContext:nil];
-  }
 }
 
 - (void)applicationWillResignActive {
@@ -181,7 +163,7 @@ typedef enum {
 }
 
 - (void)setupGL {
-  [EAGLContext setCurrentContext:self.context];
+  [EAGLContext setCurrentContext:MyAppDelegate.context];
   [controls setupBuffers];
 }
 
@@ -234,15 +216,12 @@ typedef enum {
     height = self.view.bounds.size.height;
   }
   
-  MLog(@"setProjection: %@", NSStringFromCGSize([self.view.layer.presentationLayer bounds].size))
-  
   [gameView updateProjection:CGSizeMake(width, height)];
   [self updateOnce];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation) __unused fromInterfaceOrientation
 {
-  MLog(@"start");
   shouldStopUpdating = YES;
   duringDeviceRotation = NO;
   [self setProjection];
@@ -266,11 +245,7 @@ typedef enum {
 }
 
 - (void)tearDownGL {
-  
-  MLog(@"start");
-  MLog(@"%@",self.context);
   [controls tearDownBuffers];
-  [EAGLContext setCurrentContext:self.context];
 }
 
 - (void)updateOnce {
@@ -322,8 +297,6 @@ typedef enum {
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  MLog(@"start");
-  
   self.paused = NO;
   [self update];
   
@@ -463,7 +436,6 @@ NSUInteger totalDistance;
     previousTouchPoint = openglCoordinate;
     
     [Metrics sharedInstance].totalTranslation += GLKVector2Length(translate);
-    MLog(@"totalTranslation: %f",[Metrics sharedInstance].totalTranslation);
   }
   
   if(controlTouch != nil) {
@@ -479,7 +451,6 @@ NSUInteger totalDistance;
       
       [Metrics sharedInstance].totalRotation += fabs(deltaAngle);
       
-      MLog(@"totalRotation: %f",[Metrics sharedInstance].totalRotation);
     } else if (isMirroringInProgress) {
       CGFloat newTransformMirroringOffset = openglCoordinate.x;
       CGFloat deltaAngle = GLKMathDegreesToRadians(transformMirroringOffset - newTransformMirroringOffset) * CONTROL_MIRROR_VELOCITY;
@@ -489,7 +460,6 @@ NSUInteger totalDistance;
       
       [Metrics sharedInstance].totalMirroring += fabs(deltaAngle);
       
-      MLog(@"totalMirroring: %f",[Metrics sharedInstance].totalMirroring);
     }
   }
   [self enforceScreenBoundsForMolecule:activeMolecule];
@@ -562,12 +532,9 @@ NSUInteger totalDistance;
   width = self.view.bounds.size.width;
   height = self.view.bounds.size.height;
   
-  NSLog(@"boundingRect: %@", NSStringFromCGRect(boundingRect));
-  NSLog(@"bounds: %f,%f", width/2,height/2);
   GLKVector2 bounding = GLKVector2Make(0, 0);
   float leftOut = CGRectGetMinX(boundingRect) - (-width / 2);
   float rightOut = CGRectGetMaxX(boundingRect) - width / 2;
-  NSLog(@"out: %f,%f", leftOut, rightOut);
   if (leftOut < 0)
   {
     bounding.x -= leftOut;
@@ -616,6 +583,14 @@ NSUInteger totalDistance;
         [gameView.molecules addObject:leftOverMolecule];
         break;
       }
+    }
+    
+    SolutionResult result = [[SolutionLibrary sharedInstance] checkSolutionForGrid:solution WithMissingMolecule:leftOverMolecule.identifer];
+    
+    if(result) {
+      MLog(@"result OK!");
+    } else {
+      MLog(@"result failed!");
     }
     
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];

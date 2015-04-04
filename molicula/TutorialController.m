@@ -67,7 +67,6 @@
 }
 
 - (TutorialBase *)checkTutorials {
-  MLog(@"start");
   NSMutableArray *applicableTutorial = [NSMutableArray arrayWithCapacity:self.tutorials.count];
   for (TutorialBase *tutorial in self.tutorials) {
     if([tutorial checkIfApplicable]) {
@@ -83,10 +82,8 @@
 }
 
 - (void)timerFireMethod:(NSTimer *)timer {
-  MLog(@"start");
   
   if (self.activeTutorial) {
-    MLog(@"unfinished tutorial");
     return;
   } else {
     TutorialBase *tutorial = [self checkTutorials];
@@ -102,7 +99,6 @@
   self.tutorialLabel.text = self.activeTutorial.text;
   
   self.progressView.frame = CGRectMake(self.progressView.frame.origin.x, self.progressView.frame.origin.y, 0, self.progressView.frame.size.height);
-  MLog(@"show tutorial");
   
   [self toggle];
 }
@@ -119,7 +115,6 @@
 }
 
 -(void)didProgressInTutorial:(TutorialBase *)tutorial toPercentage:(CGFloat)progressPercentage {
-  MLog(@"start");
   
   [UIView animateWithDuration:SLIDE_DURATION
                    animations:^{
@@ -134,17 +129,14 @@ CGRect showFrame;
 CGRect hideFrame;
 
 - (void)handlePanFrom:(UIPanGestureRecognizer*)recognizer {
-  MLog(@"start");
   
   CGPoint translation = [recognizer translationInView:recognizer.view];
   CGPoint velocity = [recognizer velocityInView:recognizer.view];
   
   if(recognizer.state == UIGestureRecognizerStateBegan) {
     CGPoint center = recognizer.view.center;
-    MLog(@"center: %@", NSStringFromCGPoint(center));
     startPanCenter = center;
   } else if(recognizer.state == UIGestureRecognizerStateChanged) {
-    MLog(@"track movement: %@", NSStringFromCGPoint(translation));
     if(fabs(translation.x) < recognizer.view.bounds.size.width / 2) {
       recognizer.view.center = CGPointMake(startPanCenter.x+translation.x, startPanCenter.y);
     }
@@ -153,7 +145,6 @@ CGRect hideFrame;
     CGPoint futureCenter = CGPointMake(startPanCenter.x+translation.x+velocity.x, startPanCenter.y);
     //MLog(@"animate to future center: %@", NSStringFromCGPoint(futureCenter));
     if (fabs(futureCenter.x - startPanCenter.x) > recognizer.view.bounds.size.width) {
-      MLog(@"animate exit");
       [UIView animateWithDuration:SLIDE_DURATION delay:0.2f
                           options:UIViewAnimationOptionCurveEaseOut
                        animations:^ {
@@ -170,7 +161,6 @@ CGRect hideFrame;
                          [self.activeTutorial stopReporting];
                        }];
     } else {
-      MLog(@"animate snap back");
       [UIView animateWithDuration:0.2 delay:0
                           options:UIViewAnimationOptionCurveEaseOut
                        animations:^ {
@@ -182,7 +172,6 @@ CGRect hideFrame;
 }
 
 - (void)toggle {
-  MLog(@"view.frame: %@", NSStringFromCGRect(self.view.frame));
   
   CGPoint startCenter;
   CGPoint animationCenter;
@@ -190,7 +179,6 @@ CGRect hideFrame;
   
   BOOL finalHidden = NO;
   
-  MLog(@"hidden: %@", (self.view.hidden ? @"YES" : @"NO"));
   if(self.view.isHidden) {
     startCenter = hideCenter;
     animationCenter = showCenter;
@@ -211,7 +199,6 @@ CGRect hideFrame;
                      self.view.center = animationCenter;
                    }
                    completion:^(BOOL finished){
-                     MLog(@"completion");
                      self.view.hidden = finalHidden;
                      self.view.center = finalCenter;
                    }];

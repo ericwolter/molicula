@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 @class GameView;
+@class PurchaseViewController;
 
 @interface LibraryViewController : UICollectionViewController
 
+@property PurchaseViewController *purchaseController;
+
 - (NSDictionary*)generateMoleculePointsFromSolution:(NSString *)solution;
 - (void)addSolutionMolecules:(NSDictionary*)solutionMolecules toGame:(GameView*)gameView;
+
+- (void)unlock;
 
 @end

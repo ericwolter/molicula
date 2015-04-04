@@ -51,7 +51,6 @@
 }
 
 - (void)setup {
-  NSLog(@"GameView setup");
   self.effect = [[GLKBaseEffect alloc] init];
   [self setScaling:1.0f];
   
@@ -131,7 +130,6 @@
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-  NSLog(@"GameView traitCollectionDidChange");
   if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
       && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
     [self setScaling:2.0f];

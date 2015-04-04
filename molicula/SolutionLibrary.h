@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- * Enum type used to describe the quadrant the transform touch is relative
- * to the pointer touch
- */
 typedef enum {
   SolutionIsNew,
   SolutionIsKnown,

@@ -25,12 +25,12 @@
   effect.transform.modelviewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, GLKMatrix4Multiply(self.modelViewMatrix, self.objectMatrix));
   [effect prepareToDraw];
   
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-  glEnableVertexAttribArray(GLKVertexAttribPosition);
-  glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, 0);
-  glDrawArrays(GL_TRIANGLE_FAN, 0, CIRCLE_RESOLUTION);
-  glDisableVertexAttribArray(GLKVertexAttribPosition);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer); CHECK_GL_ERROR();
+  glEnableVertexAttribArray(GLKVertexAttribPosition); CHECK_GL_ERROR();
+  glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, 0); CHECK_GL_ERROR();
+  glDrawArrays(GL_TRIANGLE_FAN, 0, CIRCLE_RESOLUTION); CHECK_GL_ERROR();
+  glDisableVertexAttribArray(GLKVertexAttribPosition); CHECK_GL_ERROR();
+  glBindBuffer(GL_ARRAY_BUFFER, 0);CHECK_GL_ERROR();
 }
 
 - (id)init {
@@ -43,10 +43,10 @@
       vertices[i] = circlePoint;
     }
     
-    glGenBuffers(1, &vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glGenBuffers(1, &vertexBuffer); CHECK_GL_ERROR();
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer); CHECK_GL_ERROR();
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); CHECK_GL_ERROR();
+    glBindBuffer(GL_ARRAY_BUFFER, 0); CHECK_GL_ERROR();
     
     self.objectMatrix = GLKMatrix4MakeScale(CIRCLE_SCALE, CIRCLE_SCALE, 1.0f);
     self.modelViewMatrix = GLKMatrix4Identity;

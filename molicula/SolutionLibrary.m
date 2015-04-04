@@ -47,6 +47,29 @@
       NSMutableDictionary *solution = [NSMutableDictionary dictionary];
       [solution setObject:canonicalSolution forKey:@"canonical"];
       
+      NSMutableArray *variations = [NSMutableArray array];
+      [variations addObject:canonicalSolution];
+      
+      [variations addObject:[self flipH:canonicalSolution]];
+      [variations addObject:[self flipV:canonicalSolution]];
+      [variations addObject:[self flipV:[self flipH:canonicalSolution]]];
+      
+      [variations addObject:[self switchYellowOrange:canonicalSolution]];
+      [variations addObject:[self switchYellowOrange:[self flipH:canonicalSolution]]];
+      [variations addObject:[self switchYellowOrange:[self flipV:canonicalSolution]]];
+      [variations addObject:[self switchYellowOrange:[self flipV:[self flipH:canonicalSolution]]]];
+      
+      [variations addObject:[self switchWhitePurple:canonicalSolution]];
+      [variations addObject:[self switchWhitePurple:[self flipH:canonicalSolution]]];
+      [variations addObject:[self switchWhitePurple:[self flipV:canonicalSolution]]];
+      [variations addObject:[self switchWhitePurple:[self flipV:[self flipH:canonicalSolution]]]];
+      
+      [variations addObject:[self switchYellowOrange:[self switchWhitePurple:[self flipH:canonicalSolution]]]];
+      [variations addObject:[self switchYellowOrange:[self switchWhitePurple:[self flipV:canonicalSolution]]]];
+      [variations addObject:[self switchYellowOrange:[self switchWhitePurple:[self flipV:[self flipH:canonicalSolution]]]]];
+      
+      [solution setObject:variations forKey:@"variations"];
+      
       [solutionsForColor setObject:solution forKey:canonicalSolution];
     }
   }
@@ -175,7 +198,7 @@
 
 - (NSString*)flipH:(NSString*)solution {
   NSUInteger len = [solution length];
-  unichar buffer[len+1];
+  unichar buffer[len];
   
   [solution getCharacters:buffer range:NSMakeRange(0, len)];
   
@@ -184,8 +207,8 @@
   [self reverseUnicharBuffer:buffer fromStart:0 toEnd:len-1];
   
   for (int c = 0; c < GRID_WIDTH; c++) {
-    NSUInteger column_start = c*GRID_WIDTH;
-    NSUInteger column_end = column_start + GRID_HEIGHT;
+    NSUInteger column_start = c*(GRID_WIDTH - 1);
+    NSUInteger column_end = column_start + GRID_HEIGHT - 1;
     
     [self reverseUnicharBufferIgnoringZeros:buffer fromStart:column_start toEnd:column_end];
   }
@@ -195,7 +218,7 @@
 
 - (NSString*)flipV:(NSString*)solution {
   NSUInteger len = [solution length];
-  unichar buffer[len+1];
+  unichar buffer[len];
   
   assert(len % GRID_WIDTH == 0);
   
@@ -212,16 +235,30 @@
 }
 
 - (SolutionResult)checkSolutionForGrid:(NSString *)proposedSolution WithMissingMolecule:(NSString *)color {
-  NSString *userSolution = [NSString stringWithString:proposedSolution];
   if([color isEqualToString:@"o"]) {
     color = @"y";
-    proposedSolution = [self switchYellowOrange:proposedSolution];
   } else if ([color isEqualToString:@"p"]) {
     color = @"w";
-    proposedSolution = [self switchWhitePurple:proposedSolution];
+  }
+  NSDictionary *solutionsForColor = [self.solutions objectForKey:color];
+  
+  MLog(@"%@",proposedSolution);
+  for (NSString *canonicalSolution in solutionsForColor) {
+    MLog(@"%@",canonicalSolution);
+    NSMutableDictionary *solution = [solutionsForColor objectForKey:canonicalSolution];
+    
+    NSArray *variations = [solution objectForKey:@"variations"];
+    
+    for (NSString *variation in variations) {
+      //MLog(@"%@",variation);
+      if([variation isEqualToString:proposedSolution]) {
+        [solution setObject:proposedSolution forKey:@"user"];
+        return SolutionIsDuplicate;
+      }
+    }
   }
   
-  NSDictionary *solutionsForColor = [self.solutions objectForKey:color];
+  return SolutionIsNew;
 }
 
 @end

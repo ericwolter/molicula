@@ -12,3 +12,14 @@
   #import <UIKit/UIKit.h>
   #import <Foundation/Foundation.h>
 #endif
+
+#import "AppDelegate.h"
+#define MyAppDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
+
+#ifdef DEBUG
+  #define MLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+  #define CHECK_GL_ERROR() ({ GLenum __error = glGetError(); if(__error) printf("OpenGL error 0x%04X in %s [Line %d]\n", __error, __PRETTY_FUNCTION__, __LINE__); (__error ? NO : YES); })
+#else
+  #undef MLog
+  #define MLog(fmt, ...)
+#endif

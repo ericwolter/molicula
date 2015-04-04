@@ -12,16 +12,14 @@
 #import "SolutionLibrary.h"
 #import "MoleculeFactory.h"
 #import "GameViewController.h"
+#import "PurchaseViewController.h"
 
 @interface LibraryViewController () {
   NSMutableDictionary *headerCache;
   NSMutableDictionary *solutionCache;
 }
 
-@property(strong, nonatomic) EAGLContext *context;
-
 - (void)setupGL;
-- (void)tearDownGL;
 
 @end
 
@@ -66,15 +64,7 @@
 
 - (void)viewDidLoad
 {
-  MLog("start");
   [super viewDidLoad];
-  
-  self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-  
-  if (!self.context) {
-    NSLog(@"Failed to create ES context");
-  }
-  
   [self setupGL];
 }
 
@@ -90,47 +80,40 @@
     flowLayout.itemSize = CGSizeMake(106.0f, 106.f);
     flowLayout.headerReferenceSize = CGSizeMake(50.0f, 50.0f);
   }
+  
+  self.purchaseController = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseViewController"];
+  self.purchaseController.delegate = self;
+  
+  if (![PurchaseViewController isEarlyAdopter] && ![PurchaseViewController isPurchased]) {
+    self.purchaseController = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseViewController"];
+    self.purchaseController.delegate = self;
+    
+    [self addChildViewController:self.purchaseController];
+    [self.view addSubview:self.purchaseController.view];
+    [self.purchaseController didMoveToParentViewController:self];
+  }
+}
+
+- (void)unlock {
+  [self setupGL];
+  
+  [solutionCache removeAllObjects];
+  [self.collectionView reloadItemsAtIndexPaths:[self.collectionView indexPathsForVisibleItems]];
 }
 
 - (void)didReceiveMemoryWarning {
-  MLog("start");
   [super didReceiveMemoryWarning];
   
   if ([self isViewLoaded] && ([[self view] window] == nil)) {
     self.view = nil;
-    
-    [self tearDownGL];
-    
-    if ([EAGLContext currentContext] == self.context) {
-      [EAGLContext setCurrentContext:nil];
-    }
-    
-    self.context = nil;
   }
   
   // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-  MLog(@"start");
-  [self tearDownGL];
-  
-  if ([EAGLContext currentContext] == self.context) {
-    [EAGLContext setCurrentContext:nil];
-  }
-}
-
 - (void)setupGL
 {
-  MLog(@"start");
-  [EAGLContext setCurrentContext:self.context];
-}
-
-- (void)tearDownGL
-{
-  MLog(@"start");
-  MLog(@"%@", self.context);
-  [EAGLContext setCurrentContext:self.context];
+  [EAGLContext setCurrentContext:MyAppDelegate.context];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -206,7 +189,7 @@
   NSDictionary *solutionsForColor = [[SolutionLibrary sharedInstance].solutions objectForKey:sectionColor];
   NSString *canonicalString = [[solutionsForColor allKeys] objectAtIndex:indexPath.row];
   if(![solutionCache objectForKey:canonicalString]) {
-    GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:self.context];
+    GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:MyAppDelegate.context];
     
     if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
         && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
@@ -250,7 +233,7 @@
     
     NSString *factoryMethod = [[[SolutionLibrary sharedInstance].sections objectAtIndex:indexPath.section] objectForKey:@"factory"];
     if(![headerCache objectForKey:factoryMethod]) {
-      GameView *gameView = [[GameView alloc] initWithFrame:moleculeImageView.bounds context:self.context];
+      GameView *gameView = [[GameView alloc] initWithFrame:moleculeImageView.bounds context:MyAppDelegate.context];
       if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
           && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
         [gameView setScaling:1.0f];

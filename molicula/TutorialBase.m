@@ -29,7 +29,6 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
   self.currentValue = [(NSNumber *)change[@"new"] doubleValue];
   self.currentPercentage =(self.currentValue-self.startValue) / self.amount;
-  MLog(@"percentage: %f", self.currentPercentage);
   [self.delegate didProgressInTutorial:self toPercentage:self.currentPercentage];
   
   if([self isFinished]) {

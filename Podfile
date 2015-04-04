@@ -2,3 +2,4 @@
 platform :ios, "7.0"
 pod 'RMStore'
 pod 'RMStore/AppReceiptVerificator'
+pod 'RMStore/KeychainPersistence'
