@@ -16,10 +16,14 @@
 
 +(BOOL)isEarlyAdopter
 {
-  BOOL result = [[RSSecrets stringForKey:@"com.ericwolter.molicula.earlyadopter"] isEqualToString:@"YES"] ||
-                [[RMAppReceipt bundleReceipt].originalAppVersion hasPrefix:@"1"];
-  MLog(@"%d", result);
-  return result;
+  if([[RSSecrets stringForKey:@"com.ericwolter.molicula.earlyadopter"] isEqualToString:@"YES"]) {
+    return YES;
+  } else if ([[RMAppReceipt bundleReceipt].originalAppVersion hasPrefix:@"1"]) {
+    [[RSSecrets setString:@"YES" forKey:@"com.ericwolter.molicula.earlyadopter"]];
+    return YES;
+  } else {
+    return NO;
+  }
 }
 
 +(BOOL)isPurchased
@@ -95,7 +99,7 @@
   //    exit
   MLog(@"restore");
   [[RMStore defaultStore] restoreTransactionsOnSuccess:^(NSArray *transactions){
-    if([PurchaseViewController isPurchased]) {
+    if([PurchaseViewController isEarlyAdopter] || [PurchaseViewController isPurchased]) {
       [self unlock];
     }
     
