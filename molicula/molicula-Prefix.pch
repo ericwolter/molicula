@@ -22,4 +22,6 @@
 #else
   #undef MLog
   #define MLog(fmt, ...)
+  #undef CHECK_GL_ERROR
+  #define CHECK_GL_ERROR()
 #endif

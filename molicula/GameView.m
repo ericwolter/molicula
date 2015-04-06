@@ -51,6 +51,10 @@
 }
 
 - (void)setup {
+  
+  self.drawableDepthFormat = GLKViewDrawableDepthFormat16;
+  self.drawableMultisample = GLKViewDrawableMultisample4X;
+  
   self.effect = [[GLKBaseEffect alloc] init];
   [self setScaling:1.0f];
   
@@ -62,11 +66,6 @@
   self.invertedModelViewMatrix = GLKMatrix4Invert(self.modelViewMatrix, nil);
 }
 
-- (void)dealloc {
-//  NSLog(@"GameView dealloc");
-  self.effect = nil;
-}
-
 - (void)drawRect:(CGRect)rect {
   if (!self.delegate) {
     [self render];
@@ -76,7 +75,6 @@
 }
 
 - (void)render {
-//  NSLog(@"GameView render");
   GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
   glClearColor(bg.x, bg.y,bg.z,bg.w);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

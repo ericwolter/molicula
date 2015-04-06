@@ -11,6 +11,8 @@
 
 @implementation Hexagon
 
+static GLuint vertexBuffer;
+
 @synthesize modelViewMatrix, parent;
 @synthesize position = _position;
 
@@ -23,7 +25,7 @@
 - (void)render:(GLKBaseEffect *)effect {
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
   effect.transform.modelviewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, GLKMatrix4Multiply(self.modelViewMatrix, self.objectMatrix));
-  [effect prepareToDraw];
+  [effect prepareToDraw]; CHECK_GL_ERROR();
   
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer); CHECK_GL_ERROR();
   glEnableVertexAttribArray(GLKVertexAttribPosition); CHECK_GL_ERROR();
@@ -35,30 +37,26 @@
 
 - (id)init {
   if (self = [super init]) {
-    GLKVector2 vertices[CIRCLE_RESOLUTION];
-    for (int i = 0; i < CIRCLE_RESOLUTION; i++) {
-      float theta = ((float) i / CIRCLE_RESOLUTION) * 2 * M_PI;
-      
-      GLKVector2 circlePoint = GLKVector2Make(cos(theta) * 1.0f, sin(theta) * 1.0f);
-      vertices[i] = circlePoint;
-    }
     
-    glGenBuffers(1, &vertexBuffer); CHECK_GL_ERROR();
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer); CHECK_GL_ERROR();
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); CHECK_GL_ERROR();
-    glBindBuffer(GL_ARRAY_BUFFER, 0); CHECK_GL_ERROR();
+    if (!vertexBuffer) {
+      GLKVector2 vertices[CIRCLE_RESOLUTION];
+      for (int i = 0; i < CIRCLE_RESOLUTION; i++) {
+        float theta = ((float) i / CIRCLE_RESOLUTION) * 2 * M_PI;
+        
+        GLKVector2 circlePoint = GLKVector2Make(cos(theta) * 1.0f, sin(theta) * 1.0f);
+        vertices[i] = circlePoint;
+      }
+      glGenBuffers(1, &vertexBuffer); CHECK_GL_ERROR();
+      glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer); CHECK_GL_ERROR();
+      glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); CHECK_GL_ERROR();
+      glBindBuffer(GL_ARRAY_BUFFER, 0); CHECK_GL_ERROR();
+    }
     
     self.objectMatrix = GLKMatrix4MakeScale(CIRCLE_SCALE, CIRCLE_SCALE, 1.0f);
     self.modelViewMatrix = GLKMatrix4Identity;
   }
   
   return self;
-}
-
--(void)dealloc {
-  
-  glDeleteBuffers(1, &vertexBuffer);
-  vertexBuffer = 0;
 }
 
 @end

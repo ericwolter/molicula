@@ -73,7 +73,8 @@
   
   UICollectionViewFlowLayout *flowLayout = (id)self.collectionViewLayout;
   
-  if(IS_IPAD) {
+  if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
+      && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
     flowLayout.itemSize = CGSizeMake(188.0f, 188.f);
     flowLayout.headerReferenceSize = CGSizeMake(100.0f, 100.0f);
   } else {
@@ -81,17 +82,16 @@
     flowLayout.headerReferenceSize = CGSizeMake(50.0f, 50.0f);
   }
   
-  self.purchaseController = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseViewController"];
-  self.purchaseController.delegate = self;
-  
-  if (![PurchaseViewController isEarlyAdopter] && ![PurchaseViewController isPurchased]) {
-    self.purchaseController = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseViewController"];
-    self.purchaseController.delegate = self;
-    
-    [self addChildViewController:self.purchaseController];
-    [self.view addSubview:self.purchaseController.view];
-    [self.purchaseController didMoveToParentViewController:self];
-  }
+//  if (![PurchaseViewController isEarlyAdopter] && ![PurchaseViewController isPurchased]) {
+//    self.purchaseController = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseViewController"];
+//    self.purchaseController.delegate = self;
+//    
+//    [self addChildViewController:self.purchaseController];
+////    self.purchaseController.view.frame = self.view.bounds;
+//    self.purchaseController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    [self.view addSubview:self.purchaseController.view];
+//    [self.purchaseController didMoveToParentViewController:self];
+//  }
 }
 
 - (void)unlock {
@@ -134,7 +134,6 @@
     NSString *identifier = [solution substringWithRange:NSMakeRange(i, 1)];
     row = i / GRID_HEIGHT;
     col = i % GRID_HEIGHT - 1;
-    //    NSLog(@"%d: (%d,%d): %@", i, row, col, identifier);
     
     if ([identifier isEqualToString:@"0"]) {
       continue;
@@ -198,14 +197,10 @@
       [gameView setScaling:0.5f];
     }
     
-    gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
-    gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
-    gameView.drawableMultisample = GLKViewDrawableMultisample4X;
-    
     [gameView updateProjection:gameView.bounds.size];
     
     NSDictionary *solution = [solutionsForColor objectForKey:canonicalString];
-    NSString *userSolution = solution[@"user"];
+    NSString *userSolution = canonicalString;
     if(userSolution) {
       NSDictionary *solutionMolecules = [self generateMoleculePointsFromSolution:userSolution];
       [self addSolutionMolecules:solutionMolecules toGame:gameView];
@@ -240,10 +235,6 @@
       } else {
         [gameView setScaling:0.5f];
       }
-      gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
-      gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
-      gameView.drawableMultisample = GLKViewDrawableMultisample4X;
-      
       [gameView updateProjection:gameView.bounds.size];
       
       SEL moleculeFactoryFunction = NSSelectorFromString(factoryMethod);

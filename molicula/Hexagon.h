@@ -10,9 +10,7 @@
 #import <GLKit/GLKit.h>
 #import "Constants.h"
 
-@interface Hexagon : NSObject {
-  GLuint vertexBuffer;
-}
+@interface Hexagon : NSObject
 
 @property (weak, nonatomic) id parent;
 

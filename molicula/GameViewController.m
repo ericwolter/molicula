@@ -87,36 +87,50 @@ typedef enum {
 
 @implementation GameViewController
 
+#pragma mark - UIViewController lifecycle methods
+
 - (void)viewDidAppear:(BOOL)animated {
+  MLog(@"[begin]");
   [super viewDidAppear:animated];
+  
   [self setProjection];
+  
   for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
     Molecule *molecule = [gameView.molecules objectAtIndex:i];
     
     [self enforceScreenBoundsForMolecule:molecule];
   }
+  MLog(@"[end]");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:true];
-
-  [self setupGL];
-  isDisappearInProgress = NO;
-  [self setProjection];
+  MLog(@"[begin]");
+  [super viewWillAppear:animated];
   
+  // reset OpenGL context to global rendering context
+  [EAGLContext setCurrentContext:MyAppDelegate.context];
+  isDisappearInProgress = NO;
+  
+  // only the game view controller should allow touch events on navigation bar
+  // this allows molecules to be picked up anywhere on the screen
   MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
   bar.isTouchThroughEnabled = YES;
+  MLog(@"[end]");
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+  MLog(@"[begin]");
+  // only the game view controller should allow touch events on navigation bar
+  // this allows molecules to be picked up anywhere on the screen
   MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
   bar.isTouchThroughEnabled = NO;
   
   [super viewWillDisappear:animated];
+  MLog(@"[end]");
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-  [super viewDidDisappear:animated];
+  MLog(@"[begin]");
   pointerTouch = nil;
   controlTouch = nil;
   activeMolecule = nil;
@@ -124,25 +138,22 @@ typedef enum {
   isMirroringInProgress = false;
   cumulativeMirroringAngle = 0.0f;
   mirroringDirection = NoDirection;
+  
+  [super viewDidDisappear:animated];
+  MLog(@"[end]");
 }
 
 - (void)viewDidLoad {
-  [super viewDidLoad];
+  MLog(@"[begin]");
   
-//  self.tutorialController = [[TutorialController alloc] init];
-//  self.tutorialController.view = self.tutorialView;
-//  [self.tutorialController setup];
+  [super viewDidLoad];
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:NULL];
   
   gameView = (GameView *) self.view;
   gameView.context = MyAppDelegate.context;
-  gameView.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
-  gameView.drawableDepthFormat = GLKViewDrawableDepthFormat16;
-  gameView.drawableMultisample = GLKViewDrawableMultisample4X;
   gameView.multipleTouchEnabled = YES;
   [self setPreferredFramesPerSecond:60];
-  [self setupGL];
   
   [gameView enableGrid];
   
@@ -150,16 +161,25 @@ typedef enum {
   controls = [[Controls alloc] init];
   controls.parent = gameView;
   
+  [self setupGL];
   [self setupGrid];
-}
-
--(void)dealloc {
-  [self tearDownGL];
+  
+  MLog(@"[end]");
 }
 
 - (void)applicationWillResignActive {
+  MLog(@"[begin]");
+  // clear active pointers incase app is interrupted
+  // otherwise the user might not be able to select another molecule once the app is active again
   pointerTouch = nil;
   transformTouch = nil;
+  MLog(@"[end]");
+}
+
+-(void)dealloc {
+  MLog(@"[begin]");
+  [self tearDownGL];
+  MLog(@"[end]");
 }
 
 - (void)setupGL {
@@ -167,8 +187,11 @@ typedef enum {
   [controls setupBuffers];
 }
 
+- (void)tearDownGL {
+  [controls tearDownBuffers];
+}
+
 - (void)setupGrid {
-  
   [gameView addMolecule:[MoleculeFactory yellowMolecule]];
   [gameView addMolecule:[MoleculeFactory orangeMolecule]];
   [gameView addMolecule:[MoleculeFactory redMolecule]];
@@ -244,10 +267,6 @@ typedef enum {
   mirroringDirection = NoDirection;
 }
 
-- (void)tearDownGL {
-  [controls tearDownBuffers];
-}
-
 - (void)updateOnce {
   self.paused = NO;
   shouldStopUpdating = YES;
@@ -313,7 +332,6 @@ typedef enum {
     ControlTransform transform = [controls hitTest:openglCoordinate];
     switch (transform) {
       case Rotate:
-//        NSLog(@"Control Rotate");
         controlTouch = touch;
         isRotationInProgress = YES;
         
@@ -322,7 +340,6 @@ typedef enum {
         
         return;
       case Mirror:
-//        NSLog(@"Control Mirror");
         controlTouch = touch;
         isMirroringInProgress = YES;
         cumulativeMirroringAngle = 0.0f;
@@ -343,7 +360,6 @@ typedef enum {
       Molecule *m = [gameView.molecules objectAtIndex:moleculeIndex];
       if ([m hitTest:openglCoordinate])
       {
-//        NSLog(@"molecule hit!");
         pointerTouch = touch;
         previousTouchPoint = openglCoordinate;
         activeMolecule = m;
@@ -367,8 +383,6 @@ typedef enum {
           }
         }
         
-        //[self.tutorialController toggle];
-        // only a single molecule can be selected -> so stop here
         return;
       }
     }
@@ -386,28 +400,23 @@ typedef enum {
     mirroringDirection = PositiveDirection;
   }
   
-//  NSLog(@"delta, cum: %f,%f", angle, cumulativeMirroringAngle);
   switch (mirroringDirection) {
     case NegativeDirection:
       if (cumulativeMirroringAngle < -M_PI) {
         angle -= cumulativeMirroringAngle - (-M_PI);
         cumulativeMirroringAngle = -M_PI;
-//        NSLog(@"-< delta, cum: %f,%f", angle, cumulativeMirroringAngle);
       } else if (cumulativeMirroringAngle > 0) {
         angle -= cumulativeMirroringAngle - 0;
         cumulativeMirroringAngle = 0;
-//        NSLog(@"-> delta, cum: %f,%f", angle, cumulativeMirroringAngle);
       }
       break;
     case PositiveDirection:
       if (cumulativeMirroringAngle > M_PI) {
         angle -= cumulativeMirroringAngle - M_PI;
         cumulativeMirroringAngle = M_PI;
-//        NSLog(@"+> delta, cum: %f,%f", angle, cumulativeMirroringAngle);
       } else if (cumulativeMirroringAngle < 0) {
         angle -= cumulativeMirroringAngle - 0;
         cumulativeMirroringAngle = 0;
-//        NSLog(@"+< delta, cum: %f,%f", angle, cumulativeMirroringAngle);
       }
       break;
     default:

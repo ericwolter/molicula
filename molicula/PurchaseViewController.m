@@ -19,7 +19,7 @@
   if([[RSSecrets stringForKey:@"com.ericwolter.molicula.earlyadopter"] isEqualToString:@"YES"]) {
     return YES;
   } else if ([[RMAppReceipt bundleReceipt].originalAppVersion hasPrefix:@"1"]) {
-    [[RSSecrets setString:@"YES" forKey:@"com.ericwolter.molicula.earlyadopter"]];
+    [RSSecrets setString:@"YES" forKey:@"com.ericwolter.molicula.earlyadopter"];
     return YES;
   } else {
     return NO;
@@ -35,70 +35,30 @@
 }
 
 -(IBAction)upgrade:(id)sender {
-  // upgrade
+  if ([PurchaseViewController isEarlyAdopter]) {
+    [RSSecrets setString:@"YES" forKey:@"com.ericwolter.molicula.earlyadopter"];
+    [self unlock];
+    return;
+  }
   
-//  if ([PurchaseViewController isEarlyAdopter]) {
-//    [RSSecrets setString:@"YES" forKey:@"com.ericwolter.molicula.earlyadopter"];
-//    [self unlock];
-//    return;
-//  }
-  
-  MLog(@"Purchasing...");
   [self.upgradeButton setTitle:@"Purchasing..." forState:UIControlStateNormal];
   self.upgradeButton.enabled = NO;
   self.alreadyPurchasedButton.enabled = NO;
   [[RMStore defaultStore] addPayment:@"com.ericwolter.molicula.solutionlibrary" success:^(SKPaymentTransaction *transaction) {
-    NSLog(@"Purchased!");
     [self unlock];
-
     [self.upgradeButton setTitle:@"Upgrade" forState:UIControlStateNormal];
     self.upgradeButton.enabled = YES;
     self.alreadyPurchasedButton.enabled = YES;
   } failure:^(SKPaymentTransaction *transaction, NSError *error) {
-    NSLog(@"Something went wrong");
     [self.upgradeButton setTitle:@"Upgrade" forState:UIControlStateNormal];
     self.upgradeButton.enabled = YES;
     self.alreadyPurchasedButton.enabled = YES;
   }];
-  
-  // if v1
-  //    unlock purchase
-  //    exit
-  // if refresh needed
-  //    refresh receipt
-  //    if v1
-  //        unlock purchase
-  //        exit
-  //    if failed
-  //        show error
-  //        exit
-  // if item already purchased
-  //    unlock purchase
-  //    exit
-  // execute purchase
-  // unlock purchase
-  // exit
 }
 
 -(IBAction)alreadyPurchased:(id)sender {
-  // already purchased
-  // check app store receipt bundleVersion
-  // if v1
-  //    unlock purchase
-  //    exit
-  // if refresh needed
-  //    refresh receipt
-  //    if v1
-  //        unlock purchase
-  //        exit
-  //    if failed
-  //        show error
-  //        exit
-  // if item already purchased
-  //    unlock purchase
-  //    exit
-  MLog(@"restore");
   [[RMStore defaultStore] restoreTransactionsOnSuccess:^(NSArray *transactions){
+    
     if([PurchaseViewController isEarlyAdopter] || [PurchaseViewController isPurchased]) {
       [self unlock];
     }
@@ -141,7 +101,6 @@
     
   } failure:^(NSError *error) {
     [self.upgradeButton setTitle:@"No internet" forState:UIControlStateNormal];
-    //MLog(@"Something went wrong");
   }];
 }
 

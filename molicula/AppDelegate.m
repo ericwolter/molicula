@@ -38,13 +38,6 @@
   [RMStore defaultStore].transactionPersistor = self.persistor;
   
   NSLog(@"%@",[RMAppReceipt bundleReceipt].originalAppVersion);
-  BOOL earlyAdopter = [[RMAppReceipt bundleReceipt].originalAppVersion hasPrefix:@"1"];
-  
-  if (earlyAdopter) {
-    [RSSecrets setString:@"earlyAdopter" forKey:@"com.ericwolter.molicula.solutionlibrary"];
-  } else {
-    [RSSecrets removeKey:@"com.ericwolter.molicula.solutionlibrary"];
-  }
   
   // make navigation bar transparent
   UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
@@ -53,10 +46,10 @@
   navigationController.navigationBar.translucent = YES;
   
   // hide text of back button
-//  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
-//                                                       forBarMetrics:UIBarMetricsDefault];
-//  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
-//                                                       forBarMetrics:UIBarMetricsLandscapePhone];
+  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                       forBarMetrics:UIBarMetricsDefault];
+  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                       forBarMetrics:UIBarMetricsLandscapePhone];
   
   // Override point for customization after application launch.
   
