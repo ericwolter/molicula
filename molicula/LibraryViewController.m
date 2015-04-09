@@ -200,7 +200,8 @@
     [gameView updateProjection:gameView.bounds.size];
     
     NSDictionary *solution = [solutionsForColor objectForKey:canonicalString];
-    NSString *userSolution = canonicalString;
+    NSArray *userSolutions = [solution objectForKey:@"user"];
+    NSString *userSolution = [[userSolutions firstObject] objectForKey:@"solution"];
     if(userSolution) {
       NSDictionary *solutionMolecules = [self generateMoleculePointsFromSolution:userSolution];
       [self addSolutionMolecules:solutionMolecules toGame:gameView];

@@ -19,8 +19,8 @@
   dispatch_once(&onceToken, ^{
     sharedInstance = [[SolutionLibrary alloc] init];
     sharedInstance.solutions = [NSDictionary dictionary];
+    sharedInstance.variations = [NSDictionary dictionary];
     [sharedInstance readSolutions];
-    // Do any other initialisation stuff here
     
   });
   return sharedInstance;
@@ -30,6 +30,7 @@
   NSArray *solutionPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"txt" inDirectory:@"solutions"];
   
   NSMutableDictionary *solutions = [[NSMutableDictionary alloc] initWithCapacity:5];
+  NSMutableDictionary *variations = [[NSMutableDictionary alloc] initWithCapacity:5];
 
   for (NSString *solutionPath in solutionPaths) {
     NSString *canonicalSolution = [NSString stringWithContentsOfFile:solutionPath encoding:NSASCIIStringEncoding error:NULL];
@@ -40,13 +41,20 @@
     if(![solutions objectForKey:color]) {
       [solutions setValue:[NSMutableDictionary dictionary] forKey:color];
     }
+    if(![variations objectForKey:color]) {
+      [variations setValue:[NSMutableDictionary dictionary] forKey:color];
+    }
     
     NSMutableDictionary *solutionsForColor = [solutions objectForKey:color];
+    NSMutableDictionary *variationsForColor = [variations objectForKey:color];
     
     if (![solutionsForColor objectForKey:canonicalSolution]) {
       NSMutableDictionary *solution = [NSMutableDictionary dictionary];
-      [solution setObject:canonicalSolution forKey:@"canonical"];
-      
+      [solution setObject:[NSMutableArray array] forKey:@"user"];
+      [solutionsForColor setObject:solution forKey:canonicalSolution];
+    }
+    
+    if (![variationsForColor objectForKey:canonicalSolution]) {
       NSMutableArray *variations = [NSMutableArray array];
       [variations addObject:canonicalSolution];
       
@@ -68,13 +76,12 @@
       [variations addObject:[self switchYellowOrange:[self switchWhitePurple:[self flipV:canonicalSolution]]]];
       [variations addObject:[self switchYellowOrange:[self switchWhitePurple:[self flipV:[self flipH:canonicalSolution]]]]];
       
-      [solution setObject:variations forKey:@"variations"];
-      
-      [solutionsForColor setObject:solution forKey:canonicalSolution];
+      [variationsForColor setObject:variations forKey:canonicalSolution];
     }
   }
   
   self.solutions = solutions;
+  self.variations = variations;
   
   NSMutableArray *sections = [NSMutableArray array];
   for (NSString *color in self.solutions.allKeys) {
@@ -241,23 +248,65 @@
     color = @"w";
   }
   NSDictionary *solutionsForColor = [self.solutions objectForKey:color];
+  NSDictionary *variationsForColor = [self.variations objectForKey:color];
   
   MLog(@"%@",proposedSolution);
   for (NSString *canonicalSolution in solutionsForColor) {
     MLog(@"%@",canonicalSolution);
     NSMutableDictionary *solution = [solutionsForColor objectForKey:canonicalSolution];
     
-    NSArray *variations = [solution objectForKey:@"variations"];
+    NSArray *variations = [variationsForColor objectForKey:canonicalSolution];
     
     for (NSString *variation in variations) {
       //MLog(@"%@",variation);
       if([variation isEqualToString:proposedSolution]) {
-        [solution setObject:proposedSolution forKey:@"user"];
+        
+        NSMutableArray *userSolutions = [solution objectForKey:@"user"];
+        
+        NSUInteger previouslyFoundIndex = [userSolutions indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+          return [[obj objectForKey:@"solution"] isEqualToString:proposedSolution];
+        }];
+        
+        if (previouslyFoundIndex == NSNotFound) {
+          // the user has not found this variation before so we add it with timestamp
+          // this allows solutions to be sorted by discovery order
+          // TODO: Do we really need to store every found variation? Wouldn't a simple overall counter be enough?
+          //       What do we gain by again storing all the variations and as a downside increase amount of synced data?
+          NSMutableDictionary *userSolution = [NSMutableDictionary dictionaryWithDictionary:@{@"solution": proposedSolution, @"timestamp": [NSDate date], @"count": @1}];
+          [userSolutions addObject:userSolution];
+        } else {
+          // the user has found this variation before
+          // so we just increment the counter to remember how often this solutions has already been found
+          NSMutableDictionary *userSolution = [userSolutions objectAtIndex:previouslyFoundIndex];
+          NSUInteger count = [[userSolution objectForKey:@"count"] unsignedIntegerValue] + 1;
+          [userSolution setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
+        }
+        
         return SolutionIsDuplicate;
       }
     }
   }
   
+  /*
+@{
+   'y': @{
+           'canonicalSolution': @{ 'variations': @[], 'user': 'proposedSolution'},
+           ...
+         },
+   ...
+ }
+*/
+
+/*
+@{
+   'y': @{
+           'canonicalSolution': @{ 'variations': @[], 'user': @[ @{ 'solution': @"", 'timestamp': Date, 'count': 1 } ]},
+           ...
+         },
+   ...
+ }
+*/
+  // this should never happen, otherwise brute-force solution finder has an error
   return SolutionIsNew;
 }
 

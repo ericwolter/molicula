@@ -19,6 +19,7 @@ typedef enum {
 + (SolutionLibrary *)sharedInstance;
 
 @property NSDictionary *solutions;
+@property NSDictionary *variations;
 @property NSArray *sections;
 
 - (void)readSolutions;
