@@ -186,7 +186,20 @@
   
   NSString *sectionColor = [[[SolutionLibrary sharedInstance].sections objectAtIndex:indexPath.section] objectForKey:@"color"];
   NSDictionary *solutionsForColor = [[SolutionLibrary sharedInstance].solutions objectForKey:sectionColor];
-  NSString *canonicalString = [[solutionsForColor allKeys] objectAtIndex:indexPath.row];
+  NSString *canonicalString = [[solutionsForColor keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    NSDate *timestamp1 = [[[obj1 objectForKey:@"user"] firstObject] objectForKey:@"timestamp"];
+    NSDate *timestamp2 = [[[obj2 objectForKey:@"user"] firstObject] objectForKey:@"timestamp"];
+    
+    if (timestamp1 && timestamp2) {
+      return [timestamp1 compare:timestamp2];
+    } else if (timestamp1) {
+      return NSOrderedAscending;
+    } else if (timestamp2) {
+      return NSOrderedDescending;
+    } else {
+      return NSOrderedSame;
+    }
+  }] objectAtIndex:indexPath.row];
   if(![solutionCache objectForKey:canonicalString]) {
     GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:MyAppDelegate.context];
     
