@@ -100,6 +100,12 @@ typedef enum {
     
     [self enforceScreenBoundsForMolecule:molecule];
   }
+  
+  UIView *navView = self.navigationController.view;
+  UIView *libraryButtonView = [self.libraryButton valueForKey:@"view"];
+  [navView addConstraint:[NSLayoutConstraint constraintWithItem:self.foundLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:libraryButtonView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0]];
+  [navView addConstraint:[NSLayoutConstraint constraintWithItem:self.foundLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:libraryButtonView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+  
   MLog(@"[end]");
 }
 
@@ -115,6 +121,7 @@ typedef enum {
   // this allows molecules to be picked up anywhere on the screen
   MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
   bar.isTouchThroughEnabled = YES;
+  
   MLog(@"[end]");
 }
 
@@ -124,6 +131,9 @@ typedef enum {
   // this allows molecules to be picked up anywhere on the screen
   MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
   bar.isTouchThroughEnabled = NO;
+  
+  bounce = NO;
+  self.foundLabel.hidden = YES;
   
   [super viewWillDisappear:animated];
   MLog(@"[end]");
@@ -163,6 +173,16 @@ typedef enum {
   
   [self setupGL];
   [self setupGrid];
+  
+  self.foundLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 10, 20, 20)];
+  self.foundLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  self.foundLabel.textAlignment = NSTextAlignmentRight;
+  self.foundLabel.text = @"New solution found!";
+  self.foundLabel.hidden = YES;
+  [self.foundLabel sizeToFit];
+  
+  UIView *navView = self.navigationController.view;
+  [navView addSubview:self.foundLabel];
   
   MLog(@"[end]");
 }
@@ -314,6 +334,20 @@ typedef enum {
   return CGPointMake( point.x - self.view.bounds.size.width / 2, -(point.y - self.view.bounds.size.height / 2) );
 }
 
+BOOL bounce = YES;
+
+- (void)bounceSolutionFound {
+  self.foundLabel.transform = CGAffineTransformMakeTranslation(-50, 0);
+  [UIView animateWithDuration:1.0 delay:0.0 options:(UIViewAnimationCurveEaseOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction) animations:^{
+    self.foundLabel.transform = CGAffineTransformMakeTranslation(0, 0);
+  } completion:^(BOOL finished) {
+    if (bounce) {
+    
+      [self bounceSolutionFound];
+    }
+  }];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
   self.paused = NO;
@@ -353,7 +387,7 @@ typedef enum {
   }
   
   if (pointerTouch == nil) {
-
+    
     // check if any molecule was selected
     for (NSInteger moleculeIndex = gameView.molecules.count - 1; moleculeIndex >= 0; moleculeIndex--)
     {
@@ -601,6 +635,18 @@ NSUInteger totalDistance;
     } else {
       MLog(@"result failed!");
     }
+    
+    self.foundLabel.hidden = NO;
+    bounce = YES;
+    [self bounceSolutionFound];
+    
+    [UIView animateWithDuration:20.0 delay:0.0 options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut animations:^{
+      self.foundLabel.alpha = 0.0;
+    } completion:^(BOOL finished) {
+      bounce = NO;
+      self.foundLabel.alpha = 1.0;
+      self.foundLabel.hidden = YES;
+    }];
     
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSArray *solutions = [standardUserDefaults arrayForKey:@"solutions"];
