@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
+  SolutionIsUnknown,
   SolutionIsNew,
-  SolutionIsKnown,
   SolutionIsDuplicate
 } SolutionResult;
 

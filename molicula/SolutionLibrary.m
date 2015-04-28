@@ -274,15 +274,17 @@
           //       What do we gain by again storing all the variations and as a downside increase amount of synced data?
           NSMutableDictionary *userSolution = [NSMutableDictionary dictionaryWithDictionary:@{@"solution": proposedSolution, @"timestamp": [NSDate date], @"count": @1}];
           [userSolutions addObject:userSolution];
+          
+          return SolutionIsNew;
         } else {
           // the user has found this variation before
           // so we just increment the counter to remember how often this solutions has already been found
           NSMutableDictionary *userSolution = [userSolutions objectAtIndex:previouslyFoundIndex];
           NSUInteger count = [[userSolution objectForKey:@"count"] unsignedIntegerValue] + 1;
           [userSolution setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
+          
+          return SolutionIsDuplicate;
         }
-        
-        return SolutionIsDuplicate;
       }
     }
   }
@@ -307,7 +309,7 @@
  }
 */
   // this should never happen, otherwise brute-force solution finder has an error
-  return SolutionIsNew;
+  return SolutionIsUnknown;
 }
 
 @end
