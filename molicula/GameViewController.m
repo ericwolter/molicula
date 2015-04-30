@@ -337,12 +337,11 @@ typedef enum {
 BOOL bounce = YES;
 
 - (void)bounceSolutionFound {
-  self.foundLabel.transform = CGAffineTransformMakeTranslation(-50, 0);
-  [UIView animateWithDuration:1.0 delay:0.0 options:(UIViewAnimationCurveEaseOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction) animations:^{
-    self.foundLabel.transform = CGAffineTransformMakeTranslation(0, 0);
+  [UIView animateWithDuration:1.0 delay:0.0 options:(UIViewAnimationCurveEaseIn | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction) animations:^{
+    self.foundLabel.transform = CGAffineTransformMakeTranslation(-50, 0);
   } completion:^(BOOL finished) {
+    self.foundLabel.transform = CGAffineTransformMakeTranslation(0, 0);
     if (bounce) {
-    
       [self bounceSolutionFound];
     }
   }];
