@@ -14,7 +14,7 @@ typedef enum {
   SolutionIsDuplicate
 } SolutionResult;
 
-@interface SolutionLibrary : NSObject
+@interface SolutionLibrary : NSObject <DDiCloudSyncDelegate>
 
 + (SolutionLibrary *)sharedInstance;
 
@@ -23,6 +23,7 @@ typedef enum {
 @property NSArray *sections;
 
 - (void)readSolutions;
+- (void)readSolutionsFormVersion1;
 
 - (NSArray*)blueMolecule;
 - (NSArray*)greenMolecule;
@@ -30,6 +31,7 @@ typedef enum {
 - (NSArray*)whiteMolecule;
 - (NSArray*)yellowMolecule;
 
+- (SolutionResult)recordSolution:(NSString *)proposedSolution WithMissingMolecule:(NSString *)color;
 - (SolutionResult)checkSolutionForGrid:(NSString *)proposedSolution WithMissingMolecule:(NSString *)color;
 - (NSString*)flipH:(NSString*)solution;
 - (NSString*)flipV:(NSString*)solution;

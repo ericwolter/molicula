@@ -628,7 +628,7 @@ NSUInteger totalDistance;
       }
     }
     
-    SolutionResult result = [[SolutionLibrary sharedInstance] checkSolutionForGrid:solution WithMissingMolecule:leftOverMolecule.identifer];
+    SolutionResult result = [[SolutionLibrary sharedInstance] recordSolution:solution WithMissingMolecule:leftOverMolecule.identifer];
     
     if(result) {
       MLog(@"result OK!");
@@ -647,16 +647,6 @@ NSUInteger totalDistance;
       self.foundLabel.alpha = 1.0;
       self.foundLabel.hidden = YES;
     }];
-    
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSArray *solutions = [standardUserDefaults arrayForKey:@"solutions"];
-    if(solutions == nil) {
-      solutions = [NSArray array];
-    }
-    if(![solutions containsObject:solution]) {
-      [standardUserDefaults setObject:[solutions arrayByAddingObject:solution] forKey:@"solutions"];
-      [standardUserDefaults synchronize];
-    }
   }
 }
 

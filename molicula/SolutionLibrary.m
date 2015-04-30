@@ -30,6 +30,21 @@
   NSArray *solutionPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"txt" inDirectory:@"solutions"];
   
   NSMutableDictionary *solutions = [[NSMutableDictionary alloc] initWithCapacity:5];
+  /*
+   solutions: {
+     'y': {
+       '000...000': {
+         'user': []
+       },
+       '000...001': {
+         ...
+       }
+     },
+     'w': {
+       ...
+     }
+   }
+   */
   NSMutableDictionary *variations = [[NSMutableDictionary alloc] initWithCapacity:5];
 
   for (NSString *solutionPath in solutionPaths) {
@@ -112,6 +127,42 @@
     NSNumber *bNumberOfSolutions = [b objectForKey:@"numberOfSolutions"];
     return [bNumberOfSolutions compare:aNumberOfSolutions];
   }];
+  
+  [self readSolutionsFormVersion1];
+}
+
+- (void)readSolutionsFormVersion1 {
+  
+  NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+  NSArray *solutions = [standardUserDefaults arrayForKey:@"solutions"];
+  if(solutions != nil) {
+    // determine missing color
+    // check solution
+    for (NSString *solution in solutions) {
+      MLog(@"%@", solution);
+      NSString *missingColor;
+      if (![solution containsString:@"y"]) {
+        missingColor = @"y";
+      } else if (![solution containsString:@"o"]) {
+        missingColor = @"o";
+      } else if (![solution containsString:@"w"]) {
+        missingColor = @"w";
+      } else if (![solution containsString:@"p"]) {
+        missingColor = @"p";
+      } else if (![solution containsString:@"g"]) {
+        missingColor = @"g";
+      } else if (![solution containsString:@"b"]) {
+        missingColor = @"b";
+      } else if (![solution containsString:@"r"]) {
+        missingColor = @"r";
+      } else {
+        continue;
+      }
+      MLog(@"%@",missingColor);
+      [self recordSolution:solution WithMissingMolecule:missingColor];
+    }
+  }
+  // delete solutions
 }
 
 - (NSArray*)blueMolecule {
@@ -241,7 +292,27 @@
   return [NSString stringWithCharacters:buffer length:len];
 }
 
+- (SolutionResult)recordSolution:(NSString *)proposedSolution WithMissingMolecule:(NSString *)color {
+  SolutionResult result = [self checkSolutionForGrid:proposedSolution WithMissingMolecule:color];
+  // sync to userdefaults
+  NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+  
+//  NSMutableSet *solutions = [NSMutableSet setWithArray:[standardUserDefaults arrayForKey:@"solutions"]];
+//  [solutions addObject:proposedSolution];
+//  [standardUserDefaults setObject:[solutions allObjects] forKey:@"solutions"];
+  
+  [standardUserDefaults setObject:self.solutions forKey:@"solutions2"];
+  [standardUserDefaults synchronize];
+  
+  return result;
+}
+
 - (SolutionResult)checkSolutionForGrid:(NSString *)proposedSolution WithMissingMolecule:(NSString *)color {
+  
+  // some pieces have the same shape but different colors
+  // the canonical solution however is only defined as a specific color
+  // we change the non canonical color to the canonical color here
+  // so that the correct solutions can be found
   if([color isEqualToString:@"o"]) {
     color = @"y";
   } else if ([color isEqualToString:@"p"]) {
@@ -288,28 +359,106 @@
       }
     }
   }
-  
-  /*
-@{
-   'y': @{
-           'canonicalSolution': @{ 'variations': @[], 'user': 'proposedSolution'},
-           ...
-         },
-   ...
- }
-*/
 
-/*
-@{
-   'y': @{
-           'canonicalSolution': @{ 'variations': @[], 'user': @[ @{ 'solution': @"", 'timestamp': Date, 'count': 1 } ]},
-           ...
-         },
-   ...
- }
-*/
   // this should never happen, otherwise brute-force solution finder has an error
   return SolutionIsUnknown;
+}
+
+- (NSDictionary*)mergedDefaultsForUpdatingCloud:(NSDictionary*)dictInCloud withLocalDefaults:(NSDictionary*)dict {
+  
+  NSMutableDictionary *mergedDict = dict.mutableCopy;
+  
+  // version 1
+  NSSet *solutionsFromVersion1InCloud = [NSSet setWithArray:dictInCloud[@"solutions"]];
+  NSSet *solutionsFromVersion1InLocal = [NSSet setWithArray:dict[@"solutions"]];
+  
+  NSMutableSet *mergedSolutions = [NSMutableSet setWithSet:solutionsFromVersion1InCloud];
+  [mergedSolutions unionSet:solutionsFromVersion1InLocal];
+  mergedDict[@"solutions"] = [mergedSolutions allObjects];
+  
+  // version 2
+  NSDictionary *solutionsFromVersion2InCloud = [NSDictionary dictionaryWithDictionary:dictInCloud[@"solutions2"]];
+  NSDictionary *solutionsFromVersion2InLocal = [NSDictionary dictionaryWithDictionary:dict[@"solutions2"]];
+  
+  NSMutableDictionary *mergedSolutions2 = [NSMutableDictionary dictionary];
+  
+  for (NSString *color in solutionsFromVersion2InLocal) {
+    NSMutableDictionary *mergedSolutionsForColor = [NSMutableDictionary dictionary];
+    [mergedSolutions2 setObject:mergedSolutionsForColor forKey:color];
+    
+    NSDictionary *solutionsForColor = [solutionsFromVersion2InLocal objectForKey:color];
+    
+    for (NSString *canonicalSolution in solutionsForColor) {
+      NSMutableDictionary *mergedSolution = [NSMutableDictionary dictionary];
+      [mergedSolutionsForColor setObject:mergedSolution forKey:canonicalSolution];
+      NSMutableArray *mergedUserSolutions = [NSMutableArray array];
+      [mergedSolution setObject:mergedUserSolutions forKey:@"user"];
+      
+      NSDictionary *solution = [solutionsForColor objectForKey:canonicalSolution];
+      NSArray *userSolutions = [solution objectForKey:@"user"];
+      
+      for (NSDictionary *userSolution in userSolutions) {
+        NSString *proposedSolution = userSolution[@"solution"];
+        
+        NSUInteger previouslyFoundIndex = [mergedUserSolutions indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+          return [[obj objectForKey:@"solution"] isEqualToString:proposedSolution];
+        }];
+        
+        if (previouslyFoundIndex == NSNotFound) {
+          [mergedUserSolutions addObject:userSolution.mutableCopy];
+        } else {
+          NSMutableDictionary *mergedUserSolution = [mergedUserSolutions objectAtIndex:previouslyFoundIndex];
+          NSUInteger count = [[mergedUserSolution objectForKey:@"count"] unsignedIntegerValue] + 1;
+          [mergedUserSolution setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
+        }
+      }
+    }
+  }
+  
+  for (NSString *color in solutionsFromVersion2InCloud) {
+    NSMutableDictionary *mergedSolutionsForColor = [mergedSolutions2 objectForKey:color];
+    NSDictionary *solutionsForColor = [solutionsFromVersion2InCloud objectForKey:color];
+    
+    for (NSString *canonicalSolution in solutionsForColor) {
+      NSMutableDictionary *mergedSolution = [mergedSolutionsForColor objectForKey:canonicalSolution];
+      NSMutableArray *mergedUserSolutions = [mergedSolution objectForKey:@"user"];
+      
+      NSDictionary *solution = [solutionsForColor objectForKey:canonicalSolution];
+      NSArray *userSolutions = [solution objectForKey:@"user"];
+      
+      for (NSDictionary *userSolution in userSolutions) {
+        NSString *proposedSolution = userSolution[@"solution"];
+        
+        NSUInteger previouslyFoundIndex = [mergedUserSolutions indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+          return [[obj objectForKey:@"solution"] isEqualToString:proposedSolution];
+        }];
+        
+        if (previouslyFoundIndex == NSNotFound) {
+          [mergedUserSolutions addObject:userSolution.copy];
+        } else {
+          NSMutableDictionary *mergedUserSolution = [mergedUserSolutions objectAtIndex:previouslyFoundIndex];
+          NSUInteger count = [[mergedUserSolution objectForKey:@"count"] unsignedIntegerValue] + 1;
+          [mergedUserSolution setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
+        }
+      }
+    }
+  }
+  
+  mergedDict[@"solutions2"] = mergedSolutions2;
+  
+  return mergedDict;
+}
+
+- (NSDictionary*)mergedDefaultsForUpdatingLocalDefaults:(NSDictionary*)dict withCloud:(NSDictionary*)dictInCloud {
+  NSSet *solutionsFromVersion1InCloud = [NSSet setWithArray:dictInCloud[@"solutions"]];
+  NSSet *solutionsFromVersion1InLocal = [NSSet setWithArray:dict[@"solutions"]];
+  
+  NSMutableDictionary *mergedDict = dictInCloud.mutableCopy;
+  
+  NSMutableSet *mergedSolutions = [NSMutableSet setWithSet:solutionsFromVersion1InLocal];
+  [mergedSolutions unionSet:solutionsFromVersion1InCloud];
+  mergedDict[@"solutions"] = [mergedSolutions allObjects];
+  return mergedDict;
 }
 
 @end
