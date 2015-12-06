@@ -45,21 +45,6 @@
   [self setupGL];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-  
-  UICollectionViewFlowLayout *flowLayout = (id)self.collectionViewLayout;
-  
-  if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
-      && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
-    flowLayout.itemSize = CGSizeMake(188.0f, 188.f);
-    flowLayout.headerReferenceSize = CGSizeMake(100.0f, 100.0f);
-  } else {
-    flowLayout.itemSize = CGSizeMake(106.0f, 106.f);
-    flowLayout.headerReferenceSize = CGSizeMake(50.0f, 50.0f);
-  }
-}
-
 - (void)unlock {
   [self setupGL];
   
@@ -166,14 +151,7 @@
   }] objectAtIndex:indexPath.row];
   if(![solutionCache objectForKey:canonicalString]) {
     GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:MyAppDelegate.context];
-    
-    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
-        && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
-      [gameView setScaling:1.0f];
-    } else {
-      [gameView setScaling:0.5f];
-    }
-    
+    [gameView setScaling:.5f];
     [gameView updateProjection:gameView.bounds.size];
     
     NSDictionary *solution = [solutionsForColor objectForKey:canonicalString];
@@ -207,12 +185,7 @@
     NSString *factoryMethod = [[[SolutionLibrary sharedInstance].sections objectAtIndex:indexPath.section] objectForKey:@"factory"];
     if(![headerCache objectForKey:factoryMethod]) {
       GameView *gameView = [[GameView alloc] initWithFrame:moleculeImageView.bounds context:MyAppDelegate.context];
-      if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular
-          && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
-        [gameView setScaling:1.0f];
-      } else {
-        [gameView setScaling:0.5f];
-      }
+      [gameView setScaling:.5f];
       [gameView updateProjection:gameView.bounds.size];
       
       SEL moleculeFactoryFunction = NSSelectorFromString(factoryMethod);
