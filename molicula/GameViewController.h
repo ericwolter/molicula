@@ -18,7 +18,6 @@
 @property (strong, nonatomic) TutorialController *tutorialController;
 @property (weak, nonatomic) IBOutlet UIView *tutorialView;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *libraryButton;
-@property (strong, nonatomic) UILabel *foundLabel;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 
 - (void)updateOnce;

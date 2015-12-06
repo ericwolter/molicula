@@ -100,12 +100,36 @@ typedef enum {
     [self enforceScreenBoundsForMolecule:molecule];
   }
   
-  UIView *navView = self.navigationController.view;
-  UIView *libraryButtonView = [self.libraryButton valueForKey:@"view"];
-  [navView addConstraint:[NSLayoutConstraint constraintWithItem:self.foundLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:libraryButtonView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0]];
-  [navView addConstraint:[NSLayoutConstraint constraintWithItem:self.foundLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:libraryButtonView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
-  
+
   MLog(@"[end]");
+}
+
+-(void)makeViewShine:(UIView*) view
+{
+  ColorTheme *theme = [ColorTheme sharedSingleton];
+  UIColor *shine = [UIColor colorWithRed:[theme hole].x green:[theme hole].y blue:[theme hole].z alpha:1.0f];
+  view.layer.shadowColor = shine.CGColor;
+  view.layer.shadowRadius = 0.0f;
+  view.layer.shadowOpacity = 1.0f;
+  view.layer.shadowOffset = CGSizeZero;
+  
+  CABasicAnimation *animationRadius=[CABasicAnimation animationWithKeyPath:@"shadowRadius"];
+  animationRadius.fromValue=[NSNumber numberWithFloat:0.0f];
+  animationRadius.toValue=[NSNumber numberWithFloat:10.0f];
+  CABasicAnimation *animationOpacity=[CABasicAnimation animationWithKeyPath:@"shadowOpacity"];
+  animationOpacity.fromValue=[NSNumber numberWithFloat:0.0f];
+  animationOpacity.toValue=[NSNumber numberWithFloat:1.0f];
+  CABasicAnimation *animationScale=[CABasicAnimation animationWithKeyPath:@"transform"];
+  animationScale.toValue=[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.15f, 1.15f, 1.0f)];
+  
+  CAAnimationGroup *group = [CAAnimationGroup animation];
+  group.duration = 1.0f;
+  group.repeatCount = 7;
+  group.autoreverses = YES;
+  group.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+  group.animations = @[animationRadius,animationScale];
+  
+  [view.layer addAnimation:group forKey:@"libraryAnimation"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -130,9 +154,6 @@ typedef enum {
   // this allows molecules to be picked up anywhere on the screen
   MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
   bar.isTouchThroughEnabled = NO;
-  
-  bounce = NO;
-  self.foundLabel.hidden = YES;
   
   [super viewWillDisappear:animated];
   MLog(@"[end]");
@@ -173,17 +194,7 @@ typedef enum {
   [self setupGL];
   [self setupGrid];
   
-  self.foundLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 10, 20, 20)];
-  self.foundLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  self.foundLabel.textAlignment = NSTextAlignmentRight;
-  self.foundLabel.text = @"New solution found!";
-  self.foundLabel.hidden = YES;
-  [self.foundLabel sizeToFit];
-  
-  UIView *navView = self.navigationController.view;
-  [navView addSubview:self.foundLabel];
-  
-  NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
+//  NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
   self.bannerView.adUnitID = @"ca-app-pub-5717136270400903/1281141100";
   self.bannerView.rootViewController = self;
   [self.bannerView loadRequest:[self createRequest]];
@@ -396,19 +407,6 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 - (CGPoint) touchPointToGLPoint:(CGPoint)point
 {
   return CGPointMake( point.x - self.view.bounds.size.width / 2, -(point.y - self.view.bounds.size.height / 2) );
-}
-
-BOOL bounce = YES;
-
-- (void)bounceSolutionFound {
-  [UIView animateWithDuration:1.0 delay:0.0 options:(UIViewAnimationCurveEaseIn | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction) animations:^{
-    self.foundLabel.transform = CGAffineTransformMakeTranslation(-50, 0);
-  } completion:^(BOOL finished) {
-    self.foundLabel.transform = CGAffineTransformMakeTranslation(0, 0);
-    if (bounce) {
-      [self bounceSolutionFound];
-    }
-  }];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -633,14 +631,11 @@ NSUInteger totalDistance;
 - (void)enforceScreenBoundsForMolecule:(Molecule *)molecule {
   
   CGRect screenRect = self.view.bounds;
-  MLog(@"SC :%@", NSStringFromCGRect(screenRect));
   CGRect adRect = self.bannerView.frame;
+
   adRect = CGRectMake(adRect.origin.x, screenRect.size.height - adRect.origin.y - adRect.size.height, adRect.size.width, adRect.size.height);
-  MLog(@"AD :%@", NSStringFromCGRect(adRect));
   CGRect moleculeRectInOpenGL = [molecule getWorldAABB];
-  MLog(@"mGL:%@", NSStringFromCGRect(moleculeRectInOpenGL));
   CGRect moleculeRect = CGRectOffset(moleculeRectInOpenGL, screenRect.size.width/2, screenRect.size.height/2);
-  MLog(@"mSC:%@", NSStringFromCGRect(moleculeRect));
   
   GLKVector2 keepInsideVector = [Helper keepRect:moleculeRect insideOf:screenRect];
   // simulate moved molecule
@@ -684,21 +679,10 @@ NSUInteger totalDistance;
     
     if(result) {
       MLog(@"result OK!");
+      [self makeViewShine:[self.libraryButton valueForKey:@"view"]];
     } else {
       MLog(@"result failed!");
     }
-    
-    self.foundLabel.hidden = NO;
-    bounce = YES;
-    [self bounceSolutionFound];
-    
-    [UIView animateWithDuration:20.0 delay:0.0 options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut animations:^{
-      self.foundLabel.alpha = 0.0;
-    } completion:^(BOOL finished) {
-      bounce = NO;
-      self.foundLabel.alpha = 1.0;
-      self.foundLabel.hidden = YES;
-    }];
   }
 }
 
