@@ -1,0 +1,18 @@
+
+/* Class = "UIButton"; normalTitle = "Loading..."; ObjectID = "CGy-hP-cI7"; */
+"CGy-hP-cI7.normalTitle" = "Loading...";
+
+/* Class = "UILabel"; text = "Automatically record your solutions and try to find them all"; ObjectID = "PGV-ib-8rT"; */
+"PGV-ib-8rT.text" = "Automatically record your solutions and try to find them all";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "Ra7-Gy-a7t"; */
+"Ra7-Gy-a7t.text" = "...";
+
+/* Class = "UINavigationItem"; title = "Solutions"; ObjectID = "XeT-Qx-bEu"; */
+"XeT-Qx-bEu.title" = "Lösungen";
+
+/* Class = "UILabel"; text = "Upgrade Molicula"; ObjectID = "bwO-gf-4ka"; */
+"bwO-gf-4ka.text" = "Upgrade Molicula";
+
+/* Class = "UIButton"; normalTitle = "Already purchased?"; ObjectID = "vje-IE-cDF"; */
+"vje-IE-cDF.normalTitle" = "Already purchased?";

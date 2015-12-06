@@ -12,7 +12,7 @@
 #import "SolutionLibrary.h"
 #import "MoleculeFactory.h"
 #import "GameViewController.h"
-#import "PurchaseViewController.h"
+
 
 @interface LibraryViewController () {
   NSMutableDictionary *headerCache;
@@ -25,41 +25,18 @@
 
 @implementation LibraryViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    headerCache = [[NSMutableDictionary alloc] init];
-    solutionCache = [[NSMutableDictionary alloc] init];
-  }
-  return self;
-}
-
 - (id)initWithCoder:(NSCoder *)aDecoder {
   self = [super initWithCoder:aDecoder];
   if (self) {
-    headerCache = [[NSMutableDictionary alloc] init];
-    solutionCache = [[NSMutableDictionary alloc] init];
+    [self setup];
   }
   return self;
 }
 
-- (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
-  self = [super initWithCollectionViewLayout:layout];
-  if (self) {
-    headerCache = [[NSMutableDictionary alloc] init];
-    solutionCache = [[NSMutableDictionary alloc] init];
-  }
-  return self;
-}
-
-- (id)init {
-  self = [super init];
-  if (self) {
-    headerCache = [[NSMutableDictionary alloc] init];
-    solutionCache = [[NSMutableDictionary alloc] init];
-  }
-  return self;
+-(void)setup
+{
+  headerCache = [[NSMutableDictionary alloc] init];
+  solutionCache = [[NSMutableDictionary alloc] init];
 }
 
 - (void)viewDidLoad
@@ -81,17 +58,6 @@
     flowLayout.itemSize = CGSizeMake(106.0f, 106.f);
     flowLayout.headerReferenceSize = CGSizeMake(50.0f, 50.0f);
   }
-  
-//  if (![PurchaseViewController isEarlyAdopter] && ![PurchaseViewController isPurchased]) {
-//    self.purchaseController = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseViewController"];
-//    self.purchaseController.delegate = self;
-//    
-//    [self addChildViewController:self.purchaseController];
-////    self.purchaseController.view.frame = self.view.bounds;
-//    self.purchaseController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//    [self.view addSubview:self.purchaseController.view];
-//    [self.purchaseController didMoveToParentViewController:self];
-//  }
 }
 
 - (void)unlock {
@@ -107,8 +73,6 @@
   if ([self isViewLoaded] && ([[self view] window] == nil)) {
     self.view = nil;
   }
-  
-  // Dispose of any resources that can be recreated.
 }
 
 - (void)setupGL

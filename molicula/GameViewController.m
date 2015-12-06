@@ -20,6 +20,7 @@
 #import "SolutionLibrary.h"
 #import "MoliculaNavigationBar.h"
 #import "Metrics.h"
+#import "Helper.h"
 
 typedef enum {
   NoDirection,
@@ -36,8 +37,6 @@ typedef enum {
    * Holds the left over molecule for the finish animation
    */
   Molecule *leftOverMolecule;
-  
-  bool duringDeviceRotation;
   
   /**
    * In order to conserve battery the screen is only drawn at the refresh rate
@@ -184,7 +183,43 @@ typedef enum {
   UIView *navView = self.navigationController.view;
   [navView addSubview:self.foundLabel];
   
+  NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
+  self.bannerView.adUnitID = @"ca-app-pub-5717136270400903/1281141100";
+  self.bannerView.rootViewController = self;
+  [self.bannerView loadRequest:[self createRequest]];
+  
+  // workaround for scroll offset issue
+  // see: http://stackoverflow.com/questions/24763692/admob-ios-banner-offset-issue
+  UIView *view = [[UIView alloc] init];
+  [self.view insertSubview:view belowSubview:self.bannerView];
+  
   MLog(@"[end]");
+}
+
+#pragma mark GADRequest generation
+
+// Here we're creating a simple GADRequest and whitelisting the application
+// for test ads. You should request test ads during development to avoid
+// generating invalid impressions and clicks.
+- (GADRequest *)createRequest {
+  GADRequest *request = [GADRequest request];
+  
+  // Make the request for a test ad. Put in an identifier for the simulator as
+  // well as any devices you want to receive test ads.
+  request.testDevices = @[ kGADSimulatorID, @"124951ea9459d87245681f1666e46039" ];
+  return request;
+}
+
+#pragma mark GADBannerViewDelegate callbacks
+
+// We've received an ad successfully.
+- (void)adViewDidReceiveAd:(GADBannerView *)adView {
+  NSLog(@"Received ad successfully");
+}
+
+- (void)adView:(GADBannerView *)view
+didFailToReceiveAdWithError:(GADRequestError *)error {
+  NSLog(@"Failed to receive ad with error: %@", [error localizedFailureReason]);
 }
 
 - (void)applicationWillResignActive {
@@ -226,12 +261,12 @@ typedef enum {
 - (void)layoutMolecules {
   
   NSUInteger count = gameView.molecules.count;
-//  for (NSUInteger i = 0; i < count; ++i) {
-//    // Select a random element between i and end of array to swap with.
-//    NSInteger nElements = count - i;
-//    NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
-//    [gameView.molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
-//  }
+  for (NSUInteger i = 0; i < count; ++i) {
+    // Select a random element between i and end of array to swap with.
+    NSInteger nElements = count - i;
+    NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
+    [gameView.molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
+  }
   for(NSUInteger i = 0; i < count; ++i) {
     Molecule *molecule = [gameView.molecules objectAtIndex:i];
     for (NSUInteger j = 0; j < arc4random_uniform(6); ++j) {
@@ -248,35 +283,33 @@ typedef enum {
   }
 }
 
+/**
+ *  Description
+ */
 - (void)setProjection
 {
   float width, height;
-  if (duringDeviceRotation) {
-    width = [self.view.layer.presentationLayer bounds].size.width;
-    height = [self.view.layer.presentationLayer bounds].size.height;
-  } else {
-    width = self.view.bounds.size.width;
-    height = self.view.bounds.size.height;
-  }
-  
+  // during rotation we want to resize the view continuously
+  // however the views bounds are only updated at the very end
+  // the presentation layer is however updating throughout the rotation
+  // TODO: presentation layer bounds still seem to lag a few frames
+  //       resulting in a noticable wobble effect
+  CGSize currentSize = [self.view.layer.presentationLayer bounds].size;
+  width = currentSize.width;
+  height = currentSize.height;
+    
+  // set the new projection on the actual render view
   [gameView updateProjection:CGSizeMake(width, height)];
+  
+  // update screen once to reflect the new projection
   [self updateOnce];
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation) __unused fromInterfaceOrientation
-{
-  shouldStopUpdating = YES;
-  duringDeviceRotation = NO;
-  [self setProjection];
-  for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
-    Molecule *molecule = [gameView.molecules objectAtIndex:i];
-    [self enforceScreenBoundsForMolecule:molecule];
-  }
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+  MLog(@"start");
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  
   self.paused = NO;
-  duringDeviceRotation = YES;
   
   pointerTouch = nil;
   controlTouch = nil;
@@ -285,8 +318,28 @@ typedef enum {
   isMirroringInProgress = false;
   cumulativeMirroringAngle = 0.0f;
   mirroringDirection = NoDirection;
+  
+  [coordinator animateAlongsideTransitionInView:self.view animation:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+  } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+    // update control flags
+    shouldStopUpdating = YES;
+    
+    [self setProjection];
+    
+    // because of the rotation some molecules are now either completely
+    // or partially of screen. We have to force them back onto the screen
+    // so that the player can continue to interact with them
+    for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
+      Molecule *molecule = [gameView.molecules objectAtIndex:i];
+      [self enforceScreenBoundsForMolecule:molecule];
+    }
+  }];
 }
 
+/**
+ *  Updates the screen once by enabling rendering and at the same time
+ *  already setting the flag to stop rendering after the next update
+ */
 - (void)updateOnce {
   self.paused = NO;
   shouldStopUpdating = YES;
@@ -294,7 +347,12 @@ typedef enum {
 
 #pragma mark - GLKView and GLKViewController delegate methods
 
+/**
+ *  Continuously called by the render loop
+ */
 - (void)update {
+  
+  // if we should stop
   if (shouldStopUpdating == YES && [animator hasRunningAnimation] == NO) {
     self.paused = YES;
     shouldStopUpdating = NO;
@@ -302,14 +360,17 @@ typedef enum {
     [animator update:self.timeSinceLastUpdate];
   }
   
-  if(duringDeviceRotation) {
-    [self setProjection];
-  }
+  // continuously update the projection during device rotation to provide
+  // a smooth transition between the orientations
+  [self setProjection];
   
+  // execute the finish animation: rotating the left over molecule quickly multiple times
   if (finishAnimation) {
     [leftOverMolecule rotate:GLKMathDegreesToRadians(60)];
     finishTimer += 1;
     
+    // finish rotating after hard-coded number of rotations
+    // rendering will stop after the next pass
     if(finishTimer > 7*5) {
       finishTimer = 0;
       finishAnimation = false;
@@ -319,6 +380,9 @@ typedef enum {
   
 }
 
+/**
+ *  Continuously called by the render loop
+ */
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
   [gameView render];
   
@@ -568,40 +632,29 @@ NSUInteger totalDistance;
 
 - (void)enforceScreenBoundsForMolecule:(Molecule *)molecule {
   
-  CGRect boundingRect = [molecule getWorldAABB];
+  CGRect screenRect = self.view.bounds;
+  MLog(@"SC :%@", NSStringFromCGRect(screenRect));
+  CGRect adRect = self.bannerView.frame;
+  adRect = CGRectMake(adRect.origin.x, screenRect.size.height - adRect.origin.y - adRect.size.height, adRect.size.width, adRect.size.height);
+  MLog(@"AD :%@", NSStringFromCGRect(adRect));
+  CGRect moleculeRectInOpenGL = [molecule getWorldAABB];
+  MLog(@"mGL:%@", NSStringFromCGRect(moleculeRectInOpenGL));
+  CGRect moleculeRect = CGRectOffset(moleculeRectInOpenGL, screenRect.size.width/2, screenRect.size.height/2);
+  MLog(@"mSC:%@", NSStringFromCGRect(moleculeRect));
   
-  float width, height;
-  width = self.view.bounds.size.width;
-  height = self.view.bounds.size.height;
+  GLKVector2 keepInsideVector = [Helper keepRect:moleculeRect insideOf:screenRect];
+  // simulate moved molecule
+  moleculeRect = CGRectOffset(moleculeRect, keepInsideVector.x, keepInsideVector.y);
+  GLKVector2 keepOutsideVector = [Helper keepRect:moleculeRect outsideOf:adRect];
   
-  GLKVector2 bounding = GLKVector2Make(0, 0);
-  float leftOut = CGRectGetMinX(boundingRect) - (-width / 2);
-  float rightOut = CGRectGetMaxX(boundingRect) - width / 2;
-  if (leftOut < 0)
-  {
-    bounding.x -= leftOut;
-  }
-  if (rightOut > 0)
-  {
-    bounding.x -= rightOut;
-  }
-  float downOut = CGRectGetMinY(boundingRect) - (-height / 2);
-  float upOut = CGRectGetMaxY(boundingRect) - height / 2;
-  if (downOut < 0)
-  {
-    bounding.y -= downOut;
-  }
-  if (upOut > 0)
-  {
-    bounding.y -= upOut;
-  }
+  GLKVector2 boundsVector = GLKVector2Add(keepInsideVector, keepOutsideVector);
   
-  GLKVector4 homogeneousCoordinate = GLKVector4Make(bounding.x, bounding.y, 0, 1);
+  GLKVector4 homogeneousCoordinate = GLKVector4Make(boundsVector.x, boundsVector.y, 0, 1);
   GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(gameView.invertedModelViewMatrix, homogeneousCoordinate);
   
-  bounding = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
+  boundsVector = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
   
-  TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, bounding)];
+  TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, boundsVector)];
   animation.linearVelocity *= 2.0f;
   [animator.runningAnimation addObject:animation];
 }

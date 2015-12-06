@@ -21,11 +21,6 @@
 }
 
 - (void)renderRotation {
-//  MLog(@"rightArcBuffer: %d",rightArcBuffer);
-//  MLog(@"rightArcArrowBuffer: %d",rightArcArrowBuffer);
-//  MLog(@"leftArcBuffer: %d",leftArcBuffer);
-//  MLog(@"leftArcArrowBuffer: %d",leftArcArrowBuffer);
-
   glBindBuffer(GL_ARRAY_BUFFER, rightArcBuffer);
   glEnableVertexAttribArray(GLKVertexAttribPosition);
   glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, 0);

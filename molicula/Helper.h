@@ -14,5 +14,7 @@
 
 + (GLKVector2)fakeGLLineFrom:(GLKVector2)from to:(GLKVector2)to withWidth:(float)width;
 + (float)GLKQuaternionInnerProductBetween:(GLKQuaternion)a and:(GLKQuaternion)b;
++ (GLKVector2)keepRect:(CGRect)movingRect outsideOf:(CGRect)fixedRect;
++ (GLKVector2)keepRect:(CGRect)movingRect insideOf:(CGRect)fixedRect;
 
 @end

@@ -7,48 +7,23 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import <RMAppReceipt.h>
+
 #import "SolutionLibrary.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [Crashlytics startWithAPIKey:@"bd56c9755da175dbceef21610d31133901bb338b"];
-  
+  [Fabric with:@[[Crashlytics class]]];
   [SolutionLibrary sharedInstance];
-  
-  self.receiptVerificator = [[RMStoreAppReceiptVerificator alloc] init];
-  //self.receiptVerificator.bundleIdentifier = @"com.ericwolter.molicula";
-  //self.receiptVerificator.bundleVersion = @"2.0.0";
-  [RMStore defaultStore].receiptVerificator = self.receiptVerificator;
-//  __block BOOL verified = [self.receiptVerificator verifyAppReceipt];
-//  if (!verified) {
-//    [[RMStore defaultStore] refreshReceiptOnSuccess:^{
-//      NSLog(@"Receipt refreshed");
-//      verified = [self.receiptVerificator verifyAppReceipt];
-//    } failure:^(NSError *error) {
-//      NSLog(@"Something went wrong");
-//      verified = NO;
-//    }];
-//  }
-  self.persistor = [[RMStoreKeychainPersistence alloc] init];
-  [RMStore defaultStore].transactionPersistor = self.persistor;
-  
-  NSLog(@"%@",[RMAppReceipt bundleReceipt].originalAppVersion);
   
   // make navigation bar transparent
   UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
   [navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
   navigationController.navigationBar.shadowImage = [UIImage new];
   navigationController.navigationBar.translucent = YES;
-  
-  // hide text of back button
-  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
-                                                       forBarMetrics:UIBarMetricsDefault];
-  [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
-                                                       forBarMetrics:UIBarMetricsLandscapePhone];
   
   // Override point for customization after application launch.
   

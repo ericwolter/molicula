@@ -51,14 +51,13 @@
 }
 
 - (void)setup {
-  
   self.drawableDepthFormat = GLKViewDrawableDepthFormat16;
   self.drawableMultisample = GLKViewDrawableMultisample4X;
   
   self.effect = [[GLKBaseEffect alloc] init];
   [self setScaling:1.0f];
-  
   self.molecules = [[NSMutableArray alloc] init];
+  
 }
 
 -(void)setScaling:(float)factor {
@@ -134,7 +133,6 @@
   } else {
     [self setScaling:1.0f];
   }
-  
 }
 
 @end
