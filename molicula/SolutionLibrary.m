@@ -294,6 +294,22 @@
 
 - (SolutionResult)recordSolution:(NSString *)proposedSolution WithMissingMolecule:(NSString *)color {
   SolutionResult result = [self checkSolutionForGrid:proposedSolution WithMissingMolecule:color];
+  
+  switch (result) {
+    case SolutionIsBrandNew:
+      MLog("Solution is brand new!");
+      break;
+    case SolutionIsNewVariation:
+      MLog("Solution is new variation.");
+      break;
+    case SolutionIsDuplicate:
+      MLog("Solution is duplicate");
+      break;
+    default:
+      MLog("solution is unknown");
+      break;
+  }
+  
   // sync to userdefaults
   NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
   
@@ -346,7 +362,11 @@
           NSMutableDictionary *userSolution = [NSMutableDictionary dictionaryWithDictionary:@{@"solution": proposedSolution, @"timestamp": [NSDate date], @"count": @1}];
           [userSolutions addObject:userSolution];
           
-          return SolutionIsNew;
+          if (userSolutions.count == 1) {
+            return SolutionIsBrandNew;
+          }
+          
+          return SolutionIsNewVariation;
         } else {
           // the user has found this variation before
           // so we just increment the counter to remember how often this solutions has already been found

@@ -676,12 +676,8 @@ NSUInteger totalDistance;
     }
     
     SolutionResult result = [[SolutionLibrary sharedInstance] recordSolution:solution WithMissingMolecule:leftOverMolecule.identifer];
-    
-    if(result) {
-      MLog(@"result OK!");
+    if (result == SolutionIsBrandNew) {
       [self makeViewShine:[self.libraryButton valueForKey:@"view"]];
-    } else {
-      MLog(@"result failed!");
     }
   }
 }

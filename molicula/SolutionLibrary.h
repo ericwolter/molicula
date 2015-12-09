@@ -10,7 +10,8 @@
 
 typedef enum {
   SolutionIsUnknown,
-  SolutionIsNew,
+  SolutionIsBrandNew,
+  SolutionIsNewVariation,
   SolutionIsDuplicate
 } SolutionResult;
 
