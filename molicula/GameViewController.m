@@ -632,10 +632,18 @@ NSUInteger totalDistance;
   
   CGRect screenRect = self.view.bounds;
   CGRect adRect = self.bannerView.frame;
-
   adRect = CGRectMake(adRect.origin.x, screenRect.size.height - adRect.origin.y - adRect.size.height, adRect.size.width, adRect.size.height);
   CGRect moleculeRectInOpenGL = [molecule getWorldAABB];
   CGRect moleculeRect = CGRectOffset(moleculeRectInOpenGL, screenRect.size.width/2, screenRect.size.height/2);
+  
+  if (@available(iOS 11.0, *)) {
+    MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
+    UIEdgeInsets insets = self.view.safeAreaInsets;
+    screenRect.origin.x += insets.left;
+    screenRect.origin.y += insets.bottom;
+    screenRect.size.width -= (insets.left + insets.right);
+    screenRect.size.height -= (insets.top + insets.bottom - bar.frame.size.height);
+  }
   
   GLKVector2 keepInsideVector = [Helper keepRect:moleculeRect insideOf:screenRect];
   // simulate moved molecule
