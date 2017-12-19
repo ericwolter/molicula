@@ -34,6 +34,8 @@
 @property GLKMatrix4 objectMatrix;
 @property GLKMatrix4 modelViewMatrix;
 
+@property UIAccessibilityElement *access;
+
 - (UIColor *)getUIColor;
 
 - (void)render:(GLKBaseEffect *)effect;

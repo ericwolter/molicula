@@ -61,6 +61,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <accessibility key="accessibilityConfiguration" identifier="GameView"/>
                         <constraints>
                             <constraint firstItem="OOD-ZJ-XGD" firstAttribute="centerX" secondItem="psZ-oD-fJv" secondAttribute="centerX" id="0Oh-4L-ckh"/>
                             <constraint firstItem="0sB-VA-bir" firstAttribute="centerX" secondItem="psZ-oD-fJv" secondAttribute="centerX" id="ERq-Cs-SoL"/>

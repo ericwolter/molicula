@@ -35,10 +35,14 @@
   MLog(@"building solution library");
   NSArray *solutionPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"txt" inDirectory:@"solutions"];
   
+#ifndef MAKE_SCREENSHOT
   NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
   NSDictionary *immutableSolutionsInUserDefaults = [standardUserDefaults objectForKey:@"solutions2"];
   NSMutableDictionary *solutions = CFBridgingRelease(CFPropertyListCreateDeepCopy(NULL, (__bridge CFPropertyListRef)(immutableSolutionsInUserDefaults), kCFPropertyListMutableContainersAndLeaves));
-  
+#else
+  NSMutableDictionary *solutions = nil;
+#endif
+
   if(!solutions) {
     solutions = [[NSMutableDictionary alloc] initWithCapacity:5];
   }
@@ -145,11 +149,13 @@
 }
 
 - (void)updateLocalSolutions {
+#ifndef MAKE_SCREENSHOT
   NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
   if ([standardUserDefaults objectForKey:@"solutions2"]) {
     self.solutions = (NSMutableDictionary *)CFBridgingRelease(CFPropertyListCreateDeepCopy(kCFAllocatorDefault, (CFDictionaryRef)[standardUserDefaults objectForKey:@"solutions2"], kCFPropertyListMutableContainers));
   }
   [self readSolutionsFromVersion1];
+#endif
 }
 
 - (void)readSolutionsFromVersion1 {

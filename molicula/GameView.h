@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSMutableArray *molecules;
 @property (assign) CGFloat projectionWidth;
 @property (assign) CGFloat projectionHeight;
+@property(nonatomic, strong) NSMutableArray *accessibilityElements;
 
 - (void)setScaling:(float)factor;
 - (void)render;

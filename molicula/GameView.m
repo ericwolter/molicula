@@ -58,6 +58,7 @@
   [self setScaling:1.0f];
   self.molecules = [[NSMutableArray alloc] init];
   
+  self.accessibilityElements = [[NSMutableArray alloc] init];
 }
 
 -(void)setScaling:(float)factor {
@@ -113,9 +114,32 @@
   self.grid = nil;
 }
 
+- (BOOL)isAccessibilityElement {
+  return NO;
+}
+
+- (NSInteger)accessibilityElementCount {
+  return self.accessibilityElements.count;
+}
+
+- (id)accessibilityElementAtIndex:(NSInteger)index {
+  if (index < self.accessibilityElements.count) {
+    return [self.accessibilityElements objectAtIndex:index];
+  } else {
+    return nil;
+  }
+}
+
+- (NSInteger)indexOfAccessibilityElement:(id)element {
+  return [self.accessibilityElements indexOfObject:element];
+}
+
 - (void)addMolecule:(Molecule *)molecule {
   molecule.parent = self;
   [self.molecules addObject:molecule];
+  molecule.access = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:molecule.parent];
+  molecule.access.accessibilityIdentifier = molecule.identifer;
+  [self.accessibilityElements addObject:molecule.access];
 }
 
 - (void)bringToFront:(NSInteger)moleculeIndex {

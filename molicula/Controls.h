@@ -69,6 +69,8 @@ typedef enum {
 @property (nonatomic) GLKVector4 position;
 @property (nonatomic) GLKMatrix4 modelViewMatrix;
 
+@property UIAccessibilityElement *access;
+
 - (void)setupBuffers;
 - (void)tearDownBuffers;
 

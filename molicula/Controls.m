@@ -103,6 +103,20 @@
   self.modelViewMatrix = GLKMatrix4Identity;
   self.modelViewMatrix = GLKMatrix4Scale(self.modelViewMatrix, TUTORIAL_SCALE, TUTORIAL_SCALE, 1.0f);
   self.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(self.position.x, self.position.y, 0), self.modelViewMatrix);
+  
+  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
+  GLKVector4 centerInWorldSpace = GLKMatrix4MultiplyVector4(parentModelViewMatrix, self.position);
+  GLKVector2 center2d = GLKVector2Make(centerInWorldSpace.x/centerInWorldSpace.w, centerInWorldSpace.y/centerInWorldSpace.w);
+  
+  CGFloat radiusInnerBound = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make(((1.0f - ARROW_THICKNESS) * TUTORIAL_SCALE) * 0.8f, 0.0f, 0.0f)).x;
+  CGFloat radiusOuterBound = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make((1.0f * TUTORIAL_SCALE) * 1.2f, 0.0f, 0.0f)).x;
+  
+  CGRect controlsRectOpenGL = CGRectMake(center2d.x - radiusInnerBound, center2d.y - radiusInnerBound, radiusInnerBound * 2, radiusInnerBound * 2);
+  UIView *parentView = self.parent;
+  CGRect screenRect = parentView.bounds;
+  CGRect controlsRect = CGRectOffset(controlsRectOpenGL, screenRect.size.width/2, screenRect.size.height/2);
+  controlsRect.origin.y = screenRect.size.height - controlsRect.origin.y - controlsRect.size.height;
+  self.access.accessibilityFrameInContainerSpace = controlsRect;
 }
 
 - (void)initRightArrow {

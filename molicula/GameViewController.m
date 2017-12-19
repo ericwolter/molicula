@@ -69,6 +69,8 @@ typedef enum {
   BOOL isDisappearInProgress;
   
   Animator *animator;
+  
+  NSMutableArray *accessibleElements;
 }
 
 - (GLKVector2)calculateBoundsVectorForMolecule:(Molecule *)molecule withTranslation:(GLKVector2)translation andOrientation:(GLKQuaternion)orientation;
@@ -189,6 +191,10 @@ typedef enum {
   animator = [[Animator alloc] init];
   controls = [[Controls alloc] init];
   controls.parent = gameView;
+  
+  controls.access = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:gameView];
+  controls.access.accessibilityIdentifier = @"controls";
+  [gameView.accessibilityElements addObject:controls.access];
   
   [self setupGL];
   [self setupGrid];
@@ -660,8 +666,8 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(300), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
   };
   
-#ifndef MAKE_SCREENSHOT
   NSUInteger count = gameView.molecules.count;
+#ifndef MAKE_SCREENSHOT
   for (NSUInteger i = 0; i < count; ++i) {
     // Select a random element between i and end of array to swap with.
     NSInteger nElements = count - i;
