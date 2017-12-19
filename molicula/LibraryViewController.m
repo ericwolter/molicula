@@ -123,8 +123,6 @@
   }
 }
 
-
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
   static NSString *identifier = @"SolutionCell";
   
