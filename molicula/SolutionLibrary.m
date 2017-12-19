@@ -8,6 +8,7 @@
 
 #import "SolutionLibrary.h"
 #import "Constants.h"
+#import <Crashlytics/Crashlytics.h> // If using Answers with Crashlytics
 
 @implementation SolutionLibrary
 
@@ -358,12 +359,14 @@
   NSDictionary *variationsForColor = [self.variations objectForKey:color];
   
 //  MLog(@"%@",proposedSolution);
+  NSNumber *canonicalIndex = @0;
   for (NSString *canonicalSolution in solutionsForColor) {
 //    MLog(@"%@",canonicalSolution);
     NSMutableDictionary *solution = [solutionsForColor objectForKey:canonicalSolution];
     
     NSArray *variations = [variationsForColor objectForKey:canonicalSolution];
     
+    NSNumber *variationIndex = @0;
     for (NSString *variation in variations) {
       //MLog(@"%@",variation);
       if([variation isEqualToString:proposedSolution]) {
@@ -383,6 +386,12 @@
           [userSolutions addObject:userSolution];
           
           if (userSolutions.count == 1) {
+            [Answers logLevelEnd:[NSString stringWithFormat:@"%@;%@;%@", color, canonicalIndex, variationIndex]
+                           score:@1
+                         success:@YES
+                customAttributes:@{
+                                   @"solution": proposedSolution
+                                   }];
             return SolutionIsBrandNew;
           }
           
@@ -394,10 +403,20 @@
           NSUInteger count = [[userSolution objectForKey:@"count"] unsignedIntegerValue] + 1;
           [userSolution setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
           
+          [Answers logLevelEnd:[NSString stringWithFormat:@"%@;%@;%@", color, canonicalIndex, variationIndex]
+                         score:[NSNumber numberWithUnsignedInteger:count]
+                       success:@YES
+              customAttributes:@{
+                                 @"solution": proposedSolution
+                                 }];
+          
           return SolutionIsDuplicate;
         }
       }
+      variationIndex = @([variationIndex unsignedIntValue] + 1);
     }
+    
+    canonicalIndex = @([canonicalIndex unsignedIntValue] + 1);
   }
 
   // this should never happen, otherwise brute-force solution finder has an error
