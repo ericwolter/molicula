@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "DDiCloudSync.h"
 
+//#define MAKE_SCREENSHOT
+//
 @interface AppDelegate : UIResponder <UIApplicationDelegate, DDiCloudSyncDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

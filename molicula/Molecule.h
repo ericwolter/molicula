@@ -34,6 +34,8 @@
 @property GLKMatrix4 objectMatrix;
 @property GLKMatrix4 modelViewMatrix;
 
+- (UIColor *)getUIColor;
+
 - (void)render:(GLKBaseEffect *)effect;
 
 - (BOOL)hitTest:(GLKVector2)point;
@@ -59,9 +61,10 @@
 - (GLKMatrix4)makeObjectMatrixWithTranslation:(GLKVector2)position andOrientation:(GLKQuaternion)orientation;
 - (void)updateObjectMatrix;
 - (CGRect)getWorldAABB;
+- (CGRect)getWorldAABBWithTranslation:(GLKVector2)translation andOrientation:(GLKQuaternion)orientation;
 
 - (NSArray*)getAtomPositionsInWorld;
-- (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation;
+- (NSArray*)getAtomPositionsInWorldWithFutureTranslation:(GLKVector2)translation andFutureOrientation:(GLKQuaternion)orientation;
 - (GLKVector2)getAtomPositionInWorld:(Atom*)atom;
 - (GLKVector2)getAtomPositionInWorld:(Atom *)atom withTransform:(GLKMatrix4)transformMatrix;
 

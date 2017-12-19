@@ -22,6 +22,8 @@ typedef enum {
 @property NSDictionary *solutions;
 @property NSDictionary *variations;
 @property NSArray *sections;
+@property NSString *currentSolution;
+@property Boolean currentSolutionIsBrandNew;
 
 - (void)readSolutions;
 - (void)readSolutionsFromVersion1;

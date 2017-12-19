@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <GoogleMobileAds/GADMobileAds.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -16,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [GADMobileAds disableSDKCrashReporting];
   [Fabric with:@[[Crashlytics class]]];
   [SolutionLibrary sharedInstance];
   
@@ -29,14 +31,14 @@
   
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   
+#ifndef MAKE_SCREENSHOT
   self.cloudSync = [DDiCloudSync sharedSync];
   self.cloudSync.delegate = [SolutionLibrary sharedInstance];
   [self.cloudSync start];
+#endif
   
   return YES;
 }
-
-
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

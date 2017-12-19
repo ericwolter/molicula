@@ -101,7 +101,7 @@
   // 1. atom is not over the grid at all -> no drop result
   // 2. atom is over a filled hole -> no drop result
   // 3. atom is over an empty hole -> drop result
-  for(NSValue *wrappedAtomWorldCoordinate in [molecule getAtomPositionsInWorldWithFutureOrientation:orientation]) {
+  for(NSValue *wrappedAtomWorldCoordinate in [molecule getAtomPositionsInWorldWithFutureTranslation:GLKVector2Make(0, 0) andFutureOrientation:orientation]) {
     GLKVector2 atomWorldPosition = [wrappedAtomWorldCoordinate GLKVector2Value];
     
     BOOL isAtomOverGrid = NO;

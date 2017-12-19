@@ -15,9 +15,11 @@
   
 }
 
-@property (strong, nonatomic) TutorialController *tutorialController;
-@property (weak, nonatomic) IBOutlet UIView *tutorialView;
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *libraryButton;
+//@property (strong, nonatomic) TutorialController *tutorialController;
+//@property (weak, nonatomic) IBOutlet UIView *tutorialView;
+@property (weak, nonatomic) IBOutlet UIButton *restartButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *libraryButton;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 
 - (void)updateOnce;

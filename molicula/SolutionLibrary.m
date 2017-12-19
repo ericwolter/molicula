@@ -30,9 +30,17 @@
 }
 
 - (void)readSolutions {
+  MLog(@"[start]");
+  MLog(@"building solution library");
   NSArray *solutionPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"txt" inDirectory:@"solutions"];
   
-  NSMutableDictionary *solutions = [[NSMutableDictionary alloc] initWithCapacity:5];
+  NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+  NSDictionary *immutableSolutionsInUserDefaults = [standardUserDefaults objectForKey:@"solutions2"];
+  NSMutableDictionary *solutions = CFBridgingRelease(CFPropertyListCreateDeepCopy(NULL, (__bridge CFPropertyListRef)(immutableSolutionsInUserDefaults), kCFPropertyListMutableContainersAndLeaves));
+  
+  if(!solutions) {
+    solutions = [[NSMutableDictionary alloc] initWithCapacity:5];
+  }
   /*
    solutions: {
      'y': {
@@ -90,6 +98,7 @@
       [variations addObject:[self switchWhitePurple:[self flipV:canonicalSolution]]];
       [variations addObject:[self switchWhitePurple:[self flipV:[self flipH:canonicalSolution]]]];
       
+      [variations addObject:[self switchYellowOrange:[self switchWhitePurple:canonicalSolution]]];
       [variations addObject:[self switchYellowOrange:[self switchWhitePurple:[self flipH:canonicalSolution]]]];
       [variations addObject:[self switchYellowOrange:[self switchWhitePurple:[self flipV:canonicalSolution]]]];
       [variations addObject:[self switchYellowOrange:[self switchWhitePurple:[self flipV:[self flipH:canonicalSolution]]]]];
@@ -147,6 +156,7 @@
   NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
   NSArray *solutions = [standardUserDefaults arrayForKey:@"solutions"];
   if(solutions != nil) {
+    MLog(@"found solutions from version 1");
     // determine missing color
     // check solution
     for (NSString *solution in solutions) {
@@ -172,6 +182,8 @@
       MLog(@"%@",missingColor);
       [self recordSolution:solution WithMissingMolecule:missingColor];
     }
+  } else {
+    MLog(@"did not find any solutions from version 1");
   }
   // delete solutions
   [standardUserDefaults setValue:@[] forKey:@"solutions"];
@@ -326,6 +338,7 @@
   NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
   [standardUserDefaults setObject:self.solutions forKey:@"solutions2"];
   [standardUserDefaults synchronize];
+  MLog(@"Saving solution to user defaults");
   
   return result;
 }

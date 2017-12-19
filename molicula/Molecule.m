@@ -139,14 +139,13 @@
     self.orientation = GLKQuaternionIdentity;
     
     [self updateObjectMatrix];
-    
-//    glGenBuffers(1, &boundingBoxBuffer);
-//    glBindBuffer(GL_ARRAY_BUFFER, boundingBoxBuffer);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(boundingBoxVertices), boundingBoxVertices, GL_STATIC_DRAW);
-//    glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
   
   return self;
+}
+
+- (UIColor *)getUIColor {
+  return [UIColor colorWithRed:color.x green:color.y blue:color.z alpha:color.w];
 }
 
 - (GLKVector4)mapIdentifierToColor {
@@ -305,12 +304,14 @@
 }
 
 - (CGRect)getWorldAABB {
-  
+  return [self getWorldAABBWithTranslation:GLKVector2Make(0, 0) andOrientation:self.orientation];
+}
+
+- (CGRect)getWorldAABBWithTranslation:(GLKVector2)translation andOrientation:(GLKQuaternion)orientation {
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
   CGFloat renderRadiusInWorld = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make(RENDER_RADIUS, 0.0f, 0.0f)).x;
   
-  // TODO: Combine getAtomPositionInWorld loops
-  NSArray *worldCoordinateValues = [self getAtomPositionsInWorld];
+  NSArray *worldCoordinateValues = [self getAtomPositionsInWorldWithFutureTranslation:translation andFutureOrientation:orientation];
   
   GLKVector2 aabbMin = GLKVector2Make(FLT_MAX, FLT_MAX);
   GLKVector2 aabbMax = GLKVector2Make(-FLT_MAX, -FLT_MAX);
@@ -380,11 +381,15 @@
   return [self getAtomPositionInWorld:atom withTransform:screenTransformMatrix];
 }
 
-- (NSArray*)getAtomPositionsInWorldWithFutureOrientation:(GLKQuaternion)orientation {
+- (NSArray*)getAtomPositionsInWorldWithFutureTranslation:(GLKVector2)translation andFutureOrientation:(GLKQuaternion)futureOrientation {
   NSMutableArray *worldCoordinates = [[NSMutableArray alloc] init];
   
+  GLKMatrix4 invertedParentModelViewMatrix = [self.parent invertedModelViewMatrix];
+  GLKVector4 objectTranslation = GLKMatrix4MultiplyVector4(invertedParentModelViewMatrix, GLKVector4Make(translation.x, translation.y, 0, 0));
+  GLKVector2 futurePosition = GLKVector2Add(self.position, GLKVector2Make(objectTranslation.x, objectTranslation.y));
+  
   GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
-  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, [self makeObjectMatrixWithTranslation:self.position andOrientation:orientation]);
+  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, [self makeObjectMatrixWithTranslation:futurePosition andOrientation:futureOrientation]);
   
   for (int x = 0; x < GRID_WIDTH; x++) {
     NSArray *column = [self.atoms objectAtIndex:x];

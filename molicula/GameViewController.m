@@ -71,8 +71,7 @@ typedef enum {
   Animator *animator;
 }
 
-- (CGPoint) touchPointToGLPoint:(CGPoint)point;
-
+- (GLKVector2)calculateBoundsVectorForMolecule:(Molecule *)molecule withTranslation:(GLKVector2)translation andOrientation:(GLKQuaternion)orientation;
 - (void)enforceScreenBoundsForMolecule:(Molecule *)molecule;
 
 - (void)checkForSolution;
@@ -81,13 +80,12 @@ typedef enum {
 - (void)setupGrid;
 - (void)tearDownGL;
 
-- (void)layoutMolecules;
+- (void)randomizeLayout:(BOOL)animated;
 @end
 
 @implementation GameViewController
 
 #pragma mark - UIViewController lifecycle methods
-
 - (void)viewDidAppear:(BOOL)animated {
   MLog(@"[begin]");
   [super viewDidAppear:animated];
@@ -99,8 +97,6 @@ typedef enum {
     
     [self enforceScreenBoundsForMolecule:molecule];
   }
-  
-
   MLog(@"[end]");
 }
 
@@ -135,6 +131,7 @@ typedef enum {
 - (void)viewWillAppear:(BOOL)animated {
   MLog(@"[begin]");
   [super viewWillAppear:animated];
+  [self.navigationItem setLeftBarButtonItem:nil animated:NO];
   
   // reset OpenGL context to global rendering context
   [EAGLContext setCurrentContext:MyAppDelegate.context];
@@ -144,6 +141,8 @@ typedef enum {
   // this allows molecules to be picked up anywhere on the screen
   MoliculaNavigationBar *bar = (id)self.navigationController.navigationBar;
   bar.isTouchThroughEnabled = YES;
+  
+  [self checkForSolution];
   
   MLog(@"[end]");
 }
@@ -193,7 +192,8 @@ typedef enum {
   
   [self setupGL];
   [self setupGrid];
-  
+
+#ifndef MAKE_SCREENSHOT
 //  NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
   self.bannerView.adUnitID = @"ca-app-pub-5717136270400903/1281141100";
   self.bannerView.rootViewController = self;
@@ -203,6 +203,7 @@ typedef enum {
   // see: http://stackoverflow.com/questions/24763692/admob-ios-banner-offset-issue
   UIView *view = [[UIView alloc] init];
   [self.view insertSubview:view belowSubview:self.bannerView];
+#endif
   
   MLog(@"[end]");
 }
@@ -258,40 +259,15 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 }
 
 - (void)setupGrid {
-  [gameView addMolecule:[MoleculeFactory yellowMolecule]];
-  [gameView addMolecule:[MoleculeFactory orangeMolecule]];
-  [gameView addMolecule:[MoleculeFactory redMolecule]];
   [gameView addMolecule:[MoleculeFactory blueMolecule]];
   [gameView addMolecule:[MoleculeFactory greenMolecule]];
+  [gameView addMolecule:[MoleculeFactory yellowMolecule]];
   [gameView addMolecule:[MoleculeFactory whiteMolecule]];
+  [gameView addMolecule:[MoleculeFactory orangeMolecule]];
+  [gameView addMolecule:[MoleculeFactory redMolecule]];
   [gameView addMolecule:[MoleculeFactory purpleMolecule]];
   
-  [self layoutMolecules];
-}
-
-- (void)layoutMolecules {
-  
-  NSUInteger count = gameView.molecules.count;
-  for (NSUInteger i = 0; i < count; ++i) {
-    // Select a random element between i and end of array to swap with.
-    NSInteger nElements = count - i;
-    NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
-    [gameView.molecules exchangeObjectAtIndex:i withObjectAtIndex:n];
-  }
-  for(NSUInteger i = 0; i < count; ++i) {
-    Molecule *molecule = [gameView.molecules objectAtIndex:i];
-    for (NSUInteger j = 0; j < arc4random_uniform(6); ++j) {
-      [molecule rotate:GLKMathDegreesToRadians(60)];
-    }
-  }
-  
-  GLKVector2 directions[7] = { GLKVector2Make(0.000000f, 3.000000f), GLKVector2Make(-2.934872f, 2.038362f), GLKVector2Make(-3.871667f, -0.753814f), GLKVector2Make(-1.585160f, -2.754376f), GLKVector2Make(1.514443f, -2.776668f), GLKVector2Make(3.846348f, -0.823502f), GLKVector2Make(2.992000f, 1.991096f)};
-  
-  for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
-    Molecule *molecule = [gameView.molecules objectAtIndex:i];
-    
-    [molecule translate:GLKVector2MultiplyScalar(directions[i], LAYOUT_DISTANCE)];
-  }
+  [self randomizeLayout:NO];
 }
 
 /**
@@ -404,16 +380,12 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
   }
 }
 
-- (CGPoint) touchPointToGLPoint:(CGPoint)point
-{
-  return CGPointMake( point.x - self.view.bounds.size.width / 2, -(point.y - self.view.bounds.size.height / 2) );
-}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
   self.paused = NO;
   [self update];
   
+  // do not allow touch input during the finish animation
   if(finishAnimation) {
     return;
   }
@@ -521,9 +493,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
   return angle;
 }
 
-NSUInteger totalDistance;
-
-- (void) touchesMoved:(NSSet *) touches withEvent:(UIEvent *)event
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
   if (!activeMolecule)
   {
@@ -569,7 +539,7 @@ NSUInteger totalDistance;
   [self enforceScreenBoundsForMolecule:activeMolecule];
 }
 
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *) __unused event
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *) __unused event
 {
   for (UITouch *touch in touches)
   {
@@ -628,12 +598,15 @@ NSUInteger totalDistance;
   }
 }
 
-- (void)enforceScreenBoundsForMolecule:(Molecule *)molecule {
-  
+- (GLKVector2)calculateBoundsVectorForMolecule:(Molecule *)molecule withTranslation:(GLKVector2)translation andOrientation:(GLKQuaternion)orientation {
   CGRect screenRect = self.view.bounds;
+#ifdef MAKE_SCREENSHOT
+  screenRect = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width - 20,  screenRect.size.height - 20);
+#endif
   CGRect adRect = self.bannerView.frame;
+  
   adRect = CGRectMake(adRect.origin.x, screenRect.size.height - adRect.origin.y - adRect.size.height, adRect.size.width, adRect.size.height);
-  CGRect moleculeRectInOpenGL = [molecule getWorldAABB];
+  CGRect moleculeRectInOpenGL = [molecule getWorldAABBWithTranslation:translation andOrientation:orientation];
   CGRect moleculeRect = CGRectOffset(moleculeRectInOpenGL, screenRect.size.width/2, screenRect.size.height/2);
   
   if (@available(iOS 11.0, *)) {
@@ -648,7 +621,11 @@ NSUInteger totalDistance;
   GLKVector2 keepInsideVector = [Helper keepRect:moleculeRect insideOf:screenRect];
   // simulate moved molecule
   moleculeRect = CGRectOffset(moleculeRect, keepInsideVector.x, keepInsideVector.y);
+#ifndef MAKE_SCREENSHOT
   GLKVector2 keepOutsideVector = [Helper keepRect:moleculeRect outsideOf:adRect];
+#else
+  GLKVector2 keepOutsideVector = GLKVector2Make(0, 0);
+#endif
   
   GLKVector2 boundsVector = GLKVector2Add(keepInsideVector, keepOutsideVector);
   
@@ -656,10 +633,102 @@ NSUInteger totalDistance;
   GLKVector4 homogeneousWorldCoordinate = GLKMatrix4MultiplyVector4(gameView.invertedModelViewMatrix, homogeneousCoordinate);
   
   boundsVector = GLKVector2Make(homogeneousWorldCoordinate.x/homogeneousWorldCoordinate.w, homogeneousWorldCoordinate.y/homogeneousWorldCoordinate.w);
+  return boundsVector;
+}
+
+- (void)enforceScreenBoundsForMolecule:(Molecule *)molecule {
+  GLKVector2 boundsVector = [self calculateBoundsVectorForMolecule:molecule withTranslation:GLKVector2Make(0, 0) andOrientation:molecule.orientation];
   
   TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:GLKVector2Add(molecule.position, boundsVector)];
   animation.linearVelocity *= 2.0f;
   [animator.runningAnimation addObject:animation];
+}
+
+- (void)randomizeLayout:(BOOL)animated; {
+  const GLKQuaternion orientations[12] = {
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(60), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(120), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(240), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(300), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(60), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(120), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(240), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+    GLKQuaternionNormalize(GLKQuaternionMultiply(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(300), 0, 0, 1), GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(180), 0, 1, 0))),
+  };
+  
+#ifndef MAKE_SCREENSHOT
+  NSUInteger count = gameView.molecules.count;
+  for (NSUInteger i = 0; i < count; ++i) {
+    // Select a random element between i and end of array to swap with.
+    NSInteger nElements = count - i;
+    NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
+    GLKVector2 tmp = HEPTAGON[i];
+    HEPTAGON[i] = HEPTAGON[n];
+    HEPTAGON[n] = tmp;
+  }
+#endif
+
+  for (NSUInteger i = 0; i < count; ++i) {
+    Molecule *molecule = [gameView.molecules objectAtIndex:i];
+    [molecule unsnap];
+    
+    GLKVector2 targetPosition = GLKVector2MultiplyScalar(HEPTAGON[i], LAYOUT_DISTANCE);
+    GLKVector2 targetTranslation = GLKVector2Subtract(targetPosition, molecule.position);
+    GLKQuaternion targetOrientation = orientations[arc4random_uniform(12)];
+    
+    GLKVector2 boundsVector = [self calculateBoundsVectorForMolecule:molecule withTranslation:targetTranslation andOrientation:targetOrientation];
+    targetPosition = GLKVector2Add(targetPosition, boundsVector);
+    
+    if(animated) {
+      TranslateAnimation *animation = [[TranslateAnimation alloc] initWithMolecule:molecule AndTarget:targetPosition];
+      animation.linearVelocity *= 2.0f;
+      [animator.runningAnimation addObject:animation];
+      
+      RotationAnimation *rotateAnimation = [[RotationAnimation alloc] initWithMolecule:molecule AndTarget:targetOrientation];
+      [animator.runningAnimation addObject:rotateAnimation];
+    } else {
+      [molecule setPosition:targetPosition];
+#ifndef MAKE_SCREENSHOT
+      [molecule setOrientation:targetOrientation];
+#endif
+    }
+  }
+}
+
+- (IBAction)shareButtonTapped:(id)sender {
+//  [self randomizeLayout:YES];
+//  NSString *linkToShare = @"http://appstore.com/molicula";
+//  NSString *textToShare = [NSString stringWithFormat:@"I just found another solution in molicula! Can you find them all? Try it here: %@", linkToShare];
+//  NSURL *urlToShare = [NSURL URLWithString:linkToShare];
+//  
+//  NSArray *objectsToShare = @[textToShare, urlToShare];
+//  
+//  UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+//  
+//  NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+//                                 UIActivityTypePrint,
+//                                 UIActivityTypeCopyToPasteboard,
+//                                 UIActivityTypeAssignToContact,
+//                                 UIActivityTypeSaveToCameraRoll,
+//                                 UIActivityTypeAddToReadingList,
+//                                 UIActivityTypePostToFlickr,
+//                                 UIActivityTypePostToVimeo];
+//  
+//  activityVC.excludedActivityTypes = excludeActivities;
+//  
+//  [self presentViewController:activityVC animated:YES completion:nil];
+}
+
+- (void)showShareButton {
+//  [self.navigationItem setLeftBarButtonItem:self.shareButton animated:YES];
+}
+
+- (void)hideShareButton {
+//  [self.navigationItem setLeftBarButtonItem:nil animated:YES];
 }
 
 - (void)checkForSolution
@@ -683,11 +752,35 @@ NSUInteger totalDistance;
       }
     }
     
-    SolutionResult result = [[SolutionLibrary sharedInstance] recordSolution:solution WithMissingMolecule:leftOverMolecule.identifer];
+    SolutionLibrary *library = [SolutionLibrary sharedInstance];
+    if(![solution isEqualToString:library.currentSolution]) {
+      library.currentSolutionIsBrandNew = NO;
+    }
+    library.currentSolution = solution;
+    
+    SolutionResult result = [library recordSolution:solution WithMissingMolecule:leftOverMolecule.identifer];
     if (result == SolutionIsBrandNew) {
       [self makeViewShine:[self.libraryButton valueForKey:@"view"]];
+      library.currentSolutionIsBrandNew = YES;
     }
+    [self showShareButton];
+    [self.restartButton setTitleColor:[leftOverMolecule getUIColor] forState:UIControlStateNormal];
+    [UIView transitionWithView:self.restartButton duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void){
+      [self.restartButton setHidden:NO];
+    } completion:nil];
+  } else {
+    [self hideShareButton];
+    self.restartButton.hidden = YES;
   }
+}
+- (IBAction)restartButtonTapped:(id)sender {
+  SolutionLibrary *library = [SolutionLibrary sharedInstance];
+  library.currentSolution = @"";
+  [self randomizeLayout:YES];
+
+  [UIView transitionWithView:self.restartButton duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void){
+    [self.restartButton setHidden:YES];
+  } completion:nil];
 }
 
 @end

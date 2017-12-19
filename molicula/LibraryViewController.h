@@ -16,7 +16,7 @@
 
 - (NSDictionary*)generateMoleculePointsFromSolution:(NSString *)solution;
 - (void)addSolutionMolecules:(NSDictionary*)solutionMolecules toGame:(GameView*)gameView;
-
 - (void)unlock;
+- (void)setDifferenceView:(UICollectionViewCell *)cell forSolutionOnGrid:(NSString *)gridSolution andSolutionInLibrary:(NSString *)librarySolution;
 
 @end

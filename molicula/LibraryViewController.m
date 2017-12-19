@@ -12,7 +12,7 @@
 #import "SolutionLibrary.h"
 #import "MoleculeFactory.h"
 #import "GameViewController.h"
-
+#import "ColorTheme.h"
 
 @interface LibraryViewController () {
   NSMutableDictionary *headerCache;
@@ -129,8 +129,6 @@
   UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
   
   UIImageView *solutionImageView = (UIImageView *)[cell viewWithTag:100];
-  solutionImageView.frame = CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height);
-  
   NSString *sectionColor = [[[SolutionLibrary sharedInstance].sections objectAtIndex:indexPath.section] objectForKey:@"color"];
   NSDictionary *solutionsForColor = [[SolutionLibrary sharedInstance].solutions objectForKey:sectionColor];
   NSString *canonicalString = [[solutionsForColor keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -147,14 +145,15 @@
       return NSOrderedSame;
     }
   }] objectAtIndex:indexPath.row];
+  NSDictionary *solution = [solutionsForColor objectForKey:canonicalString];
+  NSArray *userSolutions = [solution objectForKey:@"user"];
+  NSString *userSolution = [[userSolutions firstObject] objectForKey:@"solution"];
+  
   if(![solutionCache objectForKey:canonicalString]) {
     GameView *gameView = [[GameView alloc] initWithFrame:solutionImageView.bounds context:MyAppDelegate.context];
-    [gameView setScaling:.5f];
+    [gameView setScaling:gameView.bounds.size.width/cell.bounds.size.width/2.0f];
     [gameView updateProjection:gameView.bounds.size];
     
-    NSDictionary *solution = [solutionsForColor objectForKey:canonicalString];
-    NSArray *userSolutions = [solution objectForKey:@"user"];
-    NSString *userSolution = [[userSolutions firstObject] objectForKey:@"solution"];
     if(userSolution) {
       NSDictionary *solutionMolecules = [self generateMoleculePointsFromSolution:userSolution];
       [self addSolutionMolecules:solutionMolecules toGame:gameView];
@@ -166,8 +165,88 @@
   }
   
   solutionImageView.image = solutionCache[canonicalString];
+  MLog(@"ir:%d, %d", indexPath.section, indexPath.row);
+  MLog(@"cb:%@", NSStringFromCGRect(cell.bounds));
+  MLog(@"cf:%@", NSStringFromCGRect(cell.frame));
+  MLog(@"ib:%@", NSStringFromCGRect(solutionImageView.bounds));
+  MLog(@"if:%@", NSStringFromCGRect(solutionImageView.frame));
+  [self setDifferenceView:cell forSolutionOnGrid:[SolutionLibrary sharedInstance].currentSolution andSolutionInLibrary:userSolution];
   
   return cell;
+}
+
+- (void)setDifferenceView:(UICollectionViewCell *)cell forSolutionOnGrid:(NSString *)gridSolution andSolutionInLibrary:(NSString *)librarySolution {
+  UIView *stackViewContainer = [cell viewWithTag:200];
+  if (!librarySolution) {
+    stackViewContainer.hidden = YES;
+    return;
+  } else {
+    stackViewContainer.hidden = NO;
+  }
+  
+  SolutionLibrary *library = [SolutionLibrary sharedInstance];
+  
+  UIStackView *stackView = [stackViewContainer viewWithTag:210];
+  for (UIImageView *solutionDifferenceView in stackView.subviews) {
+    solutionDifferenceView.hidden = YES;
+  }
+  
+  if([gridSolution isEqualToString:librarySolution]) {
+    if([library currentSolutionIsBrandNew]) {
+      [stackView viewWithTag:211].hidden = NO;
+    } else {
+      [stackView viewWithTag:212].hidden = NO;
+    }
+  } else if([gridSolution isEqualToString:[library flipH:librarySolution]]) {
+    [stackView viewWithTag:213].hidden = NO;
+  } else if([gridSolution isEqualToString:[library flipV:librarySolution]]) {
+    [stackView viewWithTag:214].hidden = NO;
+  } else if([gridSolution isEqualToString:[library flipV:[library flipH:librarySolution]]]) {
+    [stackView viewWithTag:213].hidden = NO;
+    [stackView viewWithTag:214].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchYellowOrange:librarySolution]]) {
+    [stackView viewWithTag:215].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchYellowOrange:[library flipH:librarySolution]]]) {
+    [stackView viewWithTag:213].hidden = NO;
+    [stackView viewWithTag:215].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchYellowOrange:[library flipV:librarySolution]]]) {
+    [stackView viewWithTag:214].hidden = NO;
+    [stackView viewWithTag:215].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchYellowOrange:[library flipV:[library flipH:librarySolution]]]]) {
+    [stackView viewWithTag:213].hidden = NO;
+    [stackView viewWithTag:214].hidden = NO;
+    [stackView viewWithTag:215].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchWhitePurple:librarySolution]]) {
+    [stackView viewWithTag:216].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchWhitePurple:[library flipH:librarySolution]]]) {
+    [stackView viewWithTag:213].hidden = NO;
+    [stackView viewWithTag:216].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchWhitePurple:[library flipV:librarySolution]]]) {
+    [stackView viewWithTag:214].hidden = NO;
+    [stackView viewWithTag:216].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchWhitePurple:[library flipV:[library flipH:librarySolution]]]]) {
+    [stackView viewWithTag:213].hidden = NO;
+    [stackView viewWithTag:214].hidden = NO;
+    [stackView viewWithTag:216].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchYellowOrange:[library switchWhitePurple:librarySolution]]]) {
+    [stackView viewWithTag:215].hidden = NO;
+    [stackView viewWithTag:216].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchYellowOrange:[library switchWhitePurple:[library flipH:librarySolution]]]]) {
+    [stackView viewWithTag:213].hidden = NO;
+    [stackView viewWithTag:215].hidden = NO;
+    [stackView viewWithTag:216].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchYellowOrange:[library switchWhitePurple:[library flipV:librarySolution]]]]) {
+    [stackView viewWithTag:214].hidden = NO;
+    [stackView viewWithTag:215].hidden = NO;
+    [stackView viewWithTag:216].hidden = NO;
+  } else if([gridSolution isEqualToString:[library switchYellowOrange:[library switchWhitePurple:[library flipV:[library flipH:librarySolution]]]]]) {
+    [stackView viewWithTag:213].hidden = NO;
+    [stackView viewWithTag:214].hidden = NO;
+    [stackView viewWithTag:215].hidden = NO;
+    [stackView viewWithTag:216].hidden = NO;
+  } else {
+    stackViewContainer.hidden = YES;
+  }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -183,14 +262,48 @@
     NSString *factoryMethod = [[[SolutionLibrary sharedInstance].sections objectAtIndex:indexPath.section] objectForKey:@"factory"];
     if(![headerCache objectForKey:factoryMethod]) {
       GameView *gameView = [[GameView alloc] initWithFrame:moleculeImageView.bounds context:MyAppDelegate.context];
-      [gameView setScaling:.5f];
+      [gameView enableGrid];
+      [gameView setScaling:0.8f];
       [gameView updateProjection:gameView.bounds.size];
       
-      SEL moleculeFactoryFunction = NSSelectorFromString(factoryMethod);
-      Molecule *molecule = [MoleculeFactory performSelector:moleculeFactoryFunction];
-      [gameView addMolecule:molecule];
+      if([factoryMethod isEqualToString:@"yellowMolecule"]) {
+        SEL moleculeFactoryFunction1 = NSSelectorFromString(factoryMethod);
+        SEL moleculeFactoryFunction2 = NSSelectorFromString(@"orangeMolecule");
+        
+        Molecule *molecule1 = [MoleculeFactory performSelector:moleculeFactoryFunction1];
+        Molecule *molecule2 = [MoleculeFactory performSelector:moleculeFactoryFunction2];
+        [gameView addMolecule:molecule1];
+        [gameView addMolecule:molecule2];
+        
+        Hole *h = [[gameView.grid.holes objectAtIndex:0] objectAtIndex:3];
+        GLKVector2 holeWorldPosition = [gameView.grid getHoleWorldCoordinates:h];
+        
+        [molecule1 translate:GLKVector2Make(holeWorldPosition.x, 0.0f)];
+        [molecule2 translate:GLKVector2Make(-holeWorldPosition.x, 0.0f)];
+      } else if ([factoryMethod isEqualToString:@"whiteMolecule"]) {
+        SEL moleculeFactoryFunction1 = NSSelectorFromString(factoryMethod);
+        SEL moleculeFactoryFunction2 = NSSelectorFromString(@"purpleMolecule");
+        
+        Molecule *molecule1 = [MoleculeFactory performSelector:moleculeFactoryFunction1];
+        Molecule *molecule2 = [MoleculeFactory performSelector:moleculeFactoryFunction2];
+        [gameView addMolecule:molecule1];
+        [gameView addMolecule:molecule2];
+        
+        Hole *h = [[gameView.grid.holes objectAtIndex:0] objectAtIndex:3];
+        GLKVector2 holeWorldPosition = [gameView.grid getHoleWorldCoordinates:h];
+        
+        [molecule1 translate:GLKVector2Make(holeWorldPosition.x, 0.0f)];
+        [molecule2 translate:GLKVector2Make(-holeWorldPosition.x, 0.0f)];
+      } else {
+        SEL moleculeFactoryFunction = NSSelectorFromString(factoryMethod);
+        
+        Molecule *molecule1 = [MoleculeFactory performSelector:moleculeFactoryFunction];
+        [gameView addMolecule:molecule1];
+      }
       
+      [gameView disableGrid];
       headerCache[factoryMethod] = [gameView snapshot];
+      
     }
     
     headerView.MissingMoleculeImage.image = headerCache[factoryMethod];

@@ -85,6 +85,15 @@
   }
 }
 
+/**
+ * Converts a coordinate from the iOS viewspace to OpenGL coordinates.
+ * UIKit has 0,0 in the upper left corner of the screen, with x increasing to the right and y to bottom.
+ * The OpenGL coordinate system is, however centered. This means 0,0 is in the center of the view.
+ * In this space x is increasing to the right and y is increasing upwards.
+ *
+ * @param viewCoordinate An coordinate in from iOS view.
+ * @return An vector containing the OpenGL coordinate.
+ */
 - (GLKVector2)convertViewCoordinateToOpenGLCoordinate:(CGPoint)viewCoordinate {
   return GLKVector2Make(viewCoordinate.x - self.bounds.size.width / 2, -(viewCoordinate.y - self.bounds.size.height / 2) );
 }

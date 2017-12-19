@@ -9,6 +9,8 @@
 #ifndef molicula_Constants_h
 #define molicula_Constants_h
 
+@import GLKit;
+
 #define IS_IPAD                   (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
 
 #define CONTROL_MIRROR_VELOCITY   (IS_IPAD ? 1.2f : 2.4f)
@@ -48,5 +50,7 @@
 #define ARROW_TIP_HEIGHT          (0.1f)
 #define ARROW_TIP_WIDTH           (0.2f)
 #define BAR_OFFSET_Y              (0.0f)
+
+static GLKVector2 HEPTAGON[7] = { {0.000000f, 3.000000f}, {-2.934872f, 2.038362f}, {-3.871667f, -0.753814f}, {-1.585160f, -2.754376f}, {1.514443f, -2.776668f}, {3.846348f, -0.823502f}, {2.992000f, 1.991096f}};
 
 #endif
