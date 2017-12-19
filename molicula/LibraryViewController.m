@@ -165,11 +165,6 @@
   }
   
   solutionImageView.image = solutionCache[canonicalString];
-  MLog(@"ir:%d, %d", indexPath.section, indexPath.row);
-  MLog(@"cb:%@", NSStringFromCGRect(cell.bounds));
-  MLog(@"cf:%@", NSStringFromCGRect(cell.frame));
-  MLog(@"ib:%@", NSStringFromCGRect(solutionImageView.bounds));
-  MLog(@"if:%@", NSStringFromCGRect(solutionImageView.frame));
   [self setDifferenceView:cell forSolutionOnGrid:[SolutionLibrary sharedInstance].currentSolution andSolutionInLibrary:userSolution];
   
   return cell;
