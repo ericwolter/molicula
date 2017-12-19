@@ -24,7 +24,8 @@ typedef enum {
 @property NSArray *sections;
 
 - (void)readSolutions;
-- (void)readSolutionsFormVersion1;
+- (void)readSolutionsFromVersion1;
+- (void)updateLocalSolutions;
 
 - (NSArray*)blueMolecule;
 - (NSArray*)greenMolecule;
@@ -39,5 +40,7 @@ typedef enum {
 - (NSString*)switchYellowOrange:(NSString *)solution;
 - (NSString*)switchWhitePurple:(NSString *)solution;
 
+- (NSArray*)mergeSolutionVersion1:(NSSet *)base with:(NSSet*)addition;
+- (NSDictionary*)mergeSolutionVersion2:(NSDictionary*)base with:(NSDictionary*)addition;
 @end
 

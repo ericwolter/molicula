@@ -22,7 +22,7 @@
     sharedInstance.variations = [NSDictionary dictionary];
     [sharedInstance readSolutions];
     [[NSNotificationCenter defaultCenter] addObserver:sharedInstance
-                                             selector:@selector(readSolutions)
+                                             selector:@selector(updateLocalSolutions)
                                                  name:kDDiCloudDidSyncNotification
                                                object:nil];
   });
@@ -131,10 +131,18 @@
     return [bNumberOfSolutions compare:aNumberOfSolutions];
   }];
   
-  [self readSolutionsFormVersion1];
+  [self updateLocalSolutions];
 }
 
-- (void)readSolutionsFormVersion1 {
+- (void)updateLocalSolutions {
+  NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+  if ([standardUserDefaults objectForKey:@"solutions2"]) {
+    self.solutions = (NSMutableDictionary *)CFBridgingRelease(CFPropertyListCreateDeepCopy(kCFAllocatorDefault, (CFDictionaryRef)[standardUserDefaults objectForKey:@"solutions2"], kCFPropertyListMutableContainers));
+  }
+  [self readSolutionsFromVersion1];
+}
+
+- (void)readSolutionsFromVersion1 {
   
   NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
   NSArray *solutions = [standardUserDefaults arrayForKey:@"solutions"];
@@ -166,6 +174,7 @@
     }
   }
   // delete solutions
+  [standardUserDefaults setValue:@[] forKey:@"solutions"];
 }
 
 - (NSArray*)blueMolecule {
@@ -315,11 +324,6 @@
   
   // sync to userdefaults
   NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-  
-//  NSMutableSet *solutions = [NSMutableSet setWithArray:[standardUserDefaults arrayForKey:@"solutions"]];
-//  [solutions addObject:proposedSolution];
-//  [standardUserDefaults setObject:[solutions allObjects] forKey:@"solutions"];
-  
   [standardUserDefaults setObject:self.solutions forKey:@"solutions2"];
   [standardUserDefaults synchronize];
   
@@ -387,29 +391,20 @@
   return SolutionIsUnknown;
 }
 
-- (NSDictionary*)mergedDefaultsForUpdatingCloud:(NSDictionary*)dictInCloud withLocalDefaults:(NSDictionary*)dict {
-  
-  NSMutableDictionary *mergedDict = dict.mutableCopy;
-  
-  // version 1
-  NSSet *solutionsFromVersion1InCloud = [NSSet setWithArray:dictInCloud[@"solutions"]];
-  NSSet *solutionsFromVersion1InLocal = [NSSet setWithArray:dict[@"solutions"]];
-  
-  NSMutableSet *mergedSolutions = [NSMutableSet setWithSet:solutionsFromVersion1InCloud];
-  [mergedSolutions unionSet:solutionsFromVersion1InLocal];
-  mergedDict[@"solutions"] = [mergedSolutions allObjects];
-  
-  // version 2
-  NSDictionary *solutionsFromVersion2InCloud = [NSDictionary dictionaryWithDictionary:dictInCloud[@"solutions2"]];
-  NSDictionary *solutionsFromVersion2InLocal = [NSDictionary dictionaryWithDictionary:dict[@"solutions2"]];
-  
+- (NSArray*)mergeSolutionVersion1:(NSSet *)base with:(NSSet*)addition {
+  NSMutableSet *mergedSolutions = [NSMutableSet setWithSet:base];
+  [mergedSolutions unionSet:addition];
+  return [mergedSolutions allObjects];
+}
+
+- (NSDictionary*)mergeSolutionVersion2:(NSDictionary*)base with:(NSDictionary*)addition {
   NSMutableDictionary *mergedSolutions2 = [NSMutableDictionary dictionary];
   
-  for (NSString *color in solutionsFromVersion2InLocal) {
+  for (NSString *color in base) {
     NSMutableDictionary *mergedSolutionsForColor = [NSMutableDictionary dictionary];
     [mergedSolutions2 setObject:mergedSolutionsForColor forKey:color];
     
-    NSDictionary *solutionsForColor = [solutionsFromVersion2InLocal objectForKey:color];
+    NSDictionary *solutionsForColor = [base objectForKey:color];
     
     for (NSString *canonicalSolution in solutionsForColor) {
       NSMutableDictionary *mergedSolution = [NSMutableDictionary dictionary];
@@ -438,9 +433,9 @@
     }
   }
   
-  for (NSString *color in solutionsFromVersion2InCloud) {
+  for (NSString *color in addition) {
     NSMutableDictionary *mergedSolutionsForColor = [mergedSolutions2 objectForKey:color];
-    NSDictionary *solutionsForColor = [solutionsFromVersion2InCloud objectForKey:color];
+    NSDictionary *solutionsForColor = [addition objectForKey:color];
     
     for (NSString *canonicalSolution in solutionsForColor) {
       NSMutableDictionary *mergedSolution = [mergedSolutionsForColor objectForKey:canonicalSolution];
@@ -467,20 +462,42 @@
     }
   }
   
-  mergedDict[@"solutions2"] = mergedSolutions2;
+  return mergedSolutions2;
+}
+
+- (NSDictionary*)mergedDefaultsForUpdatingCloud:(NSDictionary*)dictInCloud withLocalDefaults:(NSDictionary*)dict {
+  
+  NSMutableDictionary *mergedDict = dict.mutableCopy;
+  
+  // version 1
+  // should not be needed once move to solutions2 format is done
+//  NSSet *solutionsFromVersion1InLocal = [NSSet setWithArray:dict[@"solutions"]];
+//  NSSet *solutionsFromVersion1InCloud = [NSSet setWithArray:dictInCloud[@"solutions"]];
+//  mergedDict[@"solutions"] = [self mergeSolutionVersion1:solutionsFromVersion1InCloud with:solutionsFromVersion1InLocal];
+  mergedDict[@"solutions"] = @[];
+  
+  // version 2
+  NSDictionary *solutionsFromVersion2InLocal = [NSDictionary dictionaryWithDictionary:dict[@"solutions2"]];
+  NSDictionary *solutionsFromVersion2InCloud = [NSDictionary dictionaryWithDictionary:dictInCloud[@"solutions2"]];
+  mergedDict[@"solutions2"] = [self mergeSolutionVersion2:solutionsFromVersion2InCloud with:solutionsFromVersion2InLocal];
   
   return mergedDict;
 }
 
 - (NSDictionary*)mergedDefaultsForUpdatingLocalDefaults:(NSDictionary*)dict withCloud:(NSDictionary*)dictInCloud {
-  NSSet *solutionsFromVersion1InCloud = [NSSet setWithArray:dictInCloud[@"solutions"]];
-  NSSet *solutionsFromVersion1InLocal = [NSSet setWithArray:dict[@"solutions"]];
-  
+
   NSMutableDictionary *mergedDict = dictInCloud.mutableCopy;
   
-  NSMutableSet *mergedSolutions = [NSMutableSet setWithSet:solutionsFromVersion1InLocal];
-  [mergedSolutions unionSet:solutionsFromVersion1InCloud];
-  mergedDict[@"solutions"] = [mergedSolutions allObjects];
+  // version 1
+  NSSet *solutionsFromVersion1InLocal = [NSSet setWithArray:dict[@"solutions"]];
+  NSSet *solutionsFromVersion1InCloud = [NSSet setWithArray:dictInCloud[@"solutions"]];
+  mergedDict[@"solutions"] = [self mergeSolutionVersion1:solutionsFromVersion1InCloud with:solutionsFromVersion1InLocal];
+  
+  // version 2
+  NSDictionary *solutionsFromVersion2InLocal = [NSDictionary dictionaryWithDictionary:dict[@"solutions2"]];
+  NSDictionary *solutionsFromVersion2InCloud = [NSDictionary dictionaryWithDictionary:dictInCloud[@"solutions2"]];
+  mergedDict[@"solutions2"] = [self mergeSolutionVersion2:solutionsFromVersion2InCloud with:solutionsFromVersion2InLocal];
+
   return mergedDict;
 }
 
