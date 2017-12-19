@@ -107,7 +107,7 @@ NSString *kDDiCloudDidSyncNotification = @"DDiCloudSyncDidUpdateToLatest";
                                                selector:@selector(updateToiCloud:)
                                                    name:NSUserDefaultsDidChangeNotification
                                                  object:nil];
-      
+      [[NSUbiquitousKeyValueStore defaultStore] synchronize];
 #if TARGET_IPHONE_SIMULATOR
 #else
     } else {
