@@ -21,7 +21,10 @@
     sharedInstance.solutions = [NSDictionary dictionary];
     sharedInstance.variations = [NSDictionary dictionary];
     [sharedInstance readSolutions];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:sharedInstance
+                                             selector:@selector(readSolutions)
+                                                 name:kDDiCloudDidSyncNotification
+                                               object:nil];
   });
   return sharedInstance;
 }
@@ -337,9 +340,9 @@
   NSDictionary *solutionsForColor = [self.solutions objectForKey:color];
   NSDictionary *variationsForColor = [self.variations objectForKey:color];
   
-  MLog(@"%@",proposedSolution);
+//  MLog(@"%@",proposedSolution);
   for (NSString *canonicalSolution in solutionsForColor) {
-    MLog(@"%@",canonicalSolution);
+//    MLog(@"%@",canonicalSolution);
     NSMutableDictionary *solution = [solutionsForColor objectForKey:canonicalSolution];
     
     NSArray *variations = [variationsForColor objectForKey:canonicalSolution];
