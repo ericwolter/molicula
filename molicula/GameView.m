@@ -108,10 +108,33 @@
 - (void)enableGrid {
   self.grid = [[Grid alloc] init];
   self.grid.parent = self;
+  
+  for (NSArray *column in self.grid.holes) {
+    for (Hole *hole in column) {
+      if (hole != (id)[NSNull null]) {
+        hole.access = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:self];
+        hole.access.accessibilityIdentifier = [NSString stringWithFormat:@"%d;%d", (int)hole.logicalPosition.x, (int)hole.logicalPosition.y];
+        
+        GLKVector2 holeWorldCoordinates = [self.grid getHoleWorldCoordinates:hole];
+
+        CGFloat radius = GLKMatrix4MultiplyVector3(self.modelViewMatrix, GLKVector3Make(RENDER_RADIUS, 0.0f, 0.0f)).x;
+        CGRect screenRect = self.bounds;
+        CGRect holeRect = CGRectMake(holeWorldCoordinates.x - radius, holeWorldCoordinates.y - radius, radius * 2, radius * 2);
+        holeRect = CGRectOffset(holeRect, screenRect.size.width/2, screenRect.size.height/2);
+        holeRect.origin.y = screenRect.size.height - holeRect.origin.y - holeRect.size.height;
+        
+        hole.access.accessibilityFrame = holeRect;
+        [self.accessibilityElements addObject:hole.access];
+      }
+    }
+  }
 }
 
 - (void)disableGrid {
-  self.grid = nil;
+  if(self.grid) {
+    [self.accessibilityElements removeObject:self.grid];
+    self.grid = nil;
+  }
 }
 
 - (BOOL)isAccessibilityElement {

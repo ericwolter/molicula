@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) id content;
 @property (nonatomic) GLKVector2 logicalPosition;
+@property UIAccessibilityElement *access;
 
 @end

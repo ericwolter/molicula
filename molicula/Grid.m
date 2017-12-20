@@ -43,6 +43,18 @@
     CGPointMake(0, 4), CGPointMake(1, 4), CGPointMake(2, 4), CGPointMake(3, 4)
   };
   
+  
+  float gridHeight = RENDER_HEX_HEIGHT * GRID_HEIGHT;
+  float hexWidth = RENDER_HEX_HEIGHT / sinf(GLKMathDegreesToRadians(60));
+  
+  // -----   -----   -----   -----
+  //     -----   -----   -----
+  float gridWidth = GRID_WIDTH * hexWidth - (GRID_WIDTH - 1) * hexWidth / 4.0f;
+  
+  self.objectMatrix = GLKMatrix4MakeScale(RENDER_HEX_HEIGHT / 2.0f, RENDER_HEX_HEIGHT / 2.0f, 1.0f);
+  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-gridWidth / 2.0f + hexWidth / 2.0f, gridHeight / 2.0f, -500.0f), self.objectMatrix);
+  self.modelViewMatrix = GLKMatrix4Identity;
+  
   for (int i = 0; i < NUMBER_OF_HOLES; i++) {
     CGPoint holeCoordinate = holeCoordinates[i];
     
@@ -58,19 +70,9 @@
     hole.position = GLKVector2Make(x, y);
     hole.parent = self;
     hole.logicalPosition = GLKVector2Make(holeCoordinate.x, holeCoordinate.y);
+    
     [column replaceObjectAtIndex:arrayIndices.y withObject:hole];
   }
-  
-  float gridHeight = RENDER_HEX_HEIGHT * GRID_HEIGHT;
-  float hexWidth = RENDER_HEX_HEIGHT / sinf(GLKMathDegreesToRadians(60));
-  
-  // -----   -----   -----   -----
-  //     -----   -----   -----
-  float gridWidth = GRID_WIDTH * hexWidth - (GRID_WIDTH - 1) * hexWidth / 4.0f;
-  
-  self.objectMatrix = GLKMatrix4MakeScale(RENDER_HEX_HEIGHT / 2.0f, RENDER_HEX_HEIGHT / 2.0f, 1.0f);
-  self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-gridWidth / 2.0f + hexWidth / 2.0f, gridHeight / 2.0f, -500.0f), self.objectMatrix);
-  self.modelViewMatrix = GLKMatrix4Identity;
 }
 
 - (void)render:(GLKBaseEffect *)effect {

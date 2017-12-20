@@ -2,27 +2,20 @@
 
 # A list of devices you want to take the screenshots from
 devices([
-  "iPhone SE"
-])
-# devices([
 #   "iPhone 4s",
 #   "iPhone SE",
 #   "iPhone 8",
-#   "iPhone 8 Plus",
-#   "iPhone X",
+  "iPhone 8 Plus",
+  "iPhone X",
 #   "iPad Pro (9.7-inch)",
 #   "iPad Pro (10.5-inch)",
-#   "iPad Pro (12.9-inch) (2nd generation)",
-# ])
-
-languages([
-  "en-US"
+  "iPad Pro (12.9-inch) (2nd generation)",
 ])
 
-# languages([
-#   "en-US",
-#   "de-DE"
-# ])
+languages([
+  "en-US",
+  "de-DE"
+])
 
 # The name of the scheme which contains the UI Tests
 # scheme "SchemeName"

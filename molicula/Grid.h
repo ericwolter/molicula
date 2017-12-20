@@ -13,7 +13,6 @@
 #import "DropResult.h"
 
 @interface Grid : NSObject
-
 @property (weak, nonatomic) id parent;
 
 @property NSMutableArray *holes;

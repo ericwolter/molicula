@@ -109,7 +109,6 @@
   GLKVector2 center2d = GLKVector2Make(centerInWorldSpace.x/centerInWorldSpace.w, centerInWorldSpace.y/centerInWorldSpace.w);
   
   CGFloat radiusInnerBound = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make(((1.0f - ARROW_THICKNESS) * TUTORIAL_SCALE) * 0.8f, 0.0f, 0.0f)).x;
-  CGFloat radiusOuterBound = GLKMatrix4MultiplyVector3(parentModelViewMatrix, GLKVector3Make((1.0f * TUTORIAL_SCALE) * 1.2f, 0.0f, 0.0f)).x;
   
   CGRect controlsRectOpenGL = CGRectMake(center2d.x - radiusInnerBound, center2d.y - radiusInnerBound, radiusInnerBound * 2, radiusInnerBound * 2);
   UIView *parentView = self.parent;
