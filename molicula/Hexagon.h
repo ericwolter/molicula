@@ -9,14 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 #import "Constants.h"
+#import "GLObject.h"
 
-@interface Hexagon : NSObject
-
-@property (weak, nonatomic) id parent;
+@interface Hexagon : GLModel
 
 @property (nonatomic) GLKVector2 position;
-@property (nonatomic) GLKMatrix4 modelViewMatrix;
-@property (nonatomic) GLKMatrix4 objectMatrix;
 
 - (void)render:(GLKBaseEffect *)effect;
 

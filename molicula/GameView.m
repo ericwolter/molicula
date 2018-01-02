@@ -18,6 +18,12 @@
 
 @implementation GameView
 
+@synthesize invertedModelViewMatrix;
+@synthesize modelMatrix;
+@synthesize objectMatrix;
+@synthesize parent;
+@synthesize modelViewMatrix;
+
 - (id)init {
   if (self = [super init]) {
     [self setup];
@@ -80,7 +86,7 @@
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   [self.grid render:self.effect];
-
+  
   for (Molecule *molecule in self.molecules) {
     [molecule render:self.effect];
   }
@@ -116,7 +122,7 @@
         hole.access.accessibilityIdentifier = [NSString stringWithFormat:@"%d;%d", (int)hole.logicalPosition.x, (int)hole.logicalPosition.y];
         
         GLKVector2 holeWorldCoordinates = [self.grid getHoleWorldCoordinates:hole];
-
+        
         CGFloat radius = GLKMatrix4MultiplyVector3(self.modelViewMatrix, GLKVector3Make(RENDER_RADIUS, 0.0f, 0.0f)).x;
         CGRect screenRect = self.bounds;
         CGRect holeRect = CGRectMake(holeWorldCoordinates.x - radius, holeWorldCoordinates.y - radius, radius * 2, radius * 2);
@@ -189,6 +195,10 @@
   } else {
     [self setScaling:1.0f];
   }
+}
+
+- (GLKMatrix4)calculateModelViewMatrix {
+  return GLKMatrix4Identity;
 }
 
 @end

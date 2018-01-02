@@ -87,6 +87,7 @@
 		077F9AD217D7CD4D004F1960 /* MoleculeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */; };
 		0783A0EE1C14643A00ACDC47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0783A0F01C14643A00ACDC47 /* Main.storyboard */; };
 		07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A5C8351917CB56001E5801 /* LibraryViewController.m */; };
+		07C1FC971FEA8C7F007AA98E /* GLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C1FC961FEA8C7F007AA98E /* GLObject.m */; };
 		07E1B58218071B9F002D79A1 /* DropResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B58118071B9F002D79A1 /* DropResult.m */; };
 		07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E8B78D181FC28100804CC1 /* Default-568h@2x.png */; };
 		07EE62651940BF2300739544 /* Metrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE62641940BF2300739544 /* Metrics.m */; };
@@ -280,6 +281,8 @@
 		0783A0FA1C14655300ACDC47 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		07A5C8341917CB56001E5801 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
 		07A5C8351917CB56001E5801 /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
+		07C1FC951FEA8C7F007AA98E /* GLObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLObject.h; sourceTree = "<group>"; };
+		07C1FC961FEA8C7F007AA98E /* GLObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLObject.m; sourceTree = "<group>"; };
 		07E1B58018071B9F002D79A1 /* DropResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropResult.h; sourceTree = "<group>"; };
 		07E1B58118071B9F002D79A1 /* DropResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropResult.m; sourceTree = "<group>"; };
 		07E8B78D181FC28100804CC1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -521,6 +524,8 @@
 				07EE626E1940FC8E00739544 /* DDiCloudSync.m */,
 				076F2E1119D963090067E94C /* LaunchGridView.h */,
 				076F2E1219D963090067E94C /* LaunchGridView.m */,
+				07C1FC951FEA8C7F007AA98E /* GLObject.h */,
+				07C1FC961FEA8C7F007AA98E /* GLObject.m */,
 			);
 			path = molicula;
 			sourceTree = "<group>";
@@ -691,6 +696,7 @@
 				077F9AC017D7CCB8004F1960 /* Molecule.m in Sources */,
 				077F9AC317D7CCE7004F1960 /* Hole.m in Sources */,
 				077F9AC617D7CCF6004F1960 /* Atom.m in Sources */,
+				07C1FC971FEA8C7F007AA98E /* GLObject.m in Sources */,
 				07115F0A180959470044735C /* Animator.m in Sources */,
 				07115F0E180959FF0044735C /* BaseAnimation.m in Sources */,
 				077F9AC917D7CD02004F1960 /* Helper.m in Sources */,

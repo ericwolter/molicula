@@ -11,12 +11,10 @@
 
 #import "Grid.h"
 
-@interface GameView : GLKView {
+@interface GameView : GLKView<GLObject> {
 }
 
 @property (strong, nonatomic) GLKBaseEffect *effect;
-@property (nonatomic) GLKMatrix4 modelViewMatrix;
-@property (nonatomic) GLKMatrix4 invertedModelViewMatrix;
 
 @property (strong, nonatomic) Grid *grid;
 @property (strong, nonatomic) NSMutableArray *molecules;

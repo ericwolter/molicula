@@ -302,7 +302,7 @@
 - (void)updateObjectMatrix {
   self.objectMatrix = [self makeObjectMatrixWithTranslation:self.position andOrientation:self.orientation];
   
-  UIView *parentView = self.parent;
+  UIView *parentView = (UIView*)self.parent;
   CGRect screenRect = parentView.bounds;
   CGRect moleculeRect = CGRectOffset([self getWorldAABB], screenRect.size.width/2, screenRect.size.height/2);
   moleculeRect.origin.y = screenRect.size.height - moleculeRect.origin.y - moleculeRect.size.height;

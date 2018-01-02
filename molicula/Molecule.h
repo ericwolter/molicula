@@ -14,13 +14,11 @@
 #import "Atom.h"
 #import "Grid.h"
 
-@interface Molecule : NSObject {
+@interface Molecule : GLModel {
   GLKVector2 *bondPoints;
   GLushort *bondIndices;
   NSInteger numberOfBonds;
 }
-
-@property (weak, nonatomic) id parent;
 
 @property NSMutableArray *atoms;
 @property(nonatomic, copy) NSString *identifer;
@@ -30,9 +28,6 @@
 @property(nonatomic) GLKVector2 center;
 @property(nonatomic) BOOL isSnapped;
 @property(nonatomic) NSArray *snappedHoles;
-
-@property GLKMatrix4 objectMatrix;
-@property GLKMatrix4 modelViewMatrix;
 
 @property UIAccessibilityElement *access;
 

@@ -12,12 +12,9 @@
 #import "Molecule.h"
 #import "DropResult.h"
 
-@interface Grid : NSObject
-@property (weak, nonatomic) id parent;
+@interface Grid : GLModel
 
 @property NSMutableArray *holes;
-@property GLKMatrix4 modelViewMatrix;
-@property GLKMatrix4 objectMatrix;
 
 - (void)setupGrid;
 - (void)render:(GLKBaseEffect *)effect;
