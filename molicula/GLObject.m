@@ -21,4 +21,15 @@
 @synthesize modelViewMatrix;
 @synthesize parent;
 
+- (id)init {
+  if (self = [super init]) {
+    self.objectMatrix = GLKMatrix4Identity;
+    self.modelMatrix = GLKMatrix4Identity;
+    self.modelViewMatrix = GLKMatrix4Identity;
+    self.invertedModelViewMatrix = GLKMatrix4Invert(self.modelViewMatrix, nil);
+  }
+  
+  return self;
+}
+
 @end

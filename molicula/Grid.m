@@ -53,7 +53,6 @@
   
   self.objectMatrix = GLKMatrix4MakeScale(RENDER_HEX_HEIGHT / 2.0f, RENDER_HEX_HEIGHT / 2.0f, 1.0f);
   self.objectMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-gridWidth / 2.0f + hexWidth / 2.0f, gridHeight / 2.0f, -500.0f), self.objectMatrix);
-  self.modelViewMatrix = GLKMatrix4Identity;
   
   for (int i = 0; i < NUMBER_OF_HOLES; i++) {
     CGPoint holeCoordinate = holeCoordinates[i];
@@ -76,8 +75,8 @@
 }
 
 - (void)render:(GLKBaseEffect *)effect {
-  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
-  self.modelViewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
+  self.modelViewMatrix = [self calculateModelViewMatrix];
+  
   effect.constantColor = [[ColorTheme sharedSingleton] hole];
 
   for (NSArray *column in self.holes) {

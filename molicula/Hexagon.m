@@ -16,13 +16,14 @@ static GLuint vertexBuffer;
 @synthesize position = _position;
 
 - (void)setPosition:(GLKVector2)position {
+  self.modelMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(position.x - _position.x, position.y - _position.y, 0.0f), self.modelMatrix);
   _position = position;
-  
-  self.modelMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(position.x, position.y, 0.0f), self.modelMatrix);
 }
 
 - (void)render:(GLKBaseEffect *)effect {
-  effect.transform.modelviewMatrix = [self calculateModelViewMatrix];
+  self.modelViewMatrix = [self calculateModelViewMatrix];
+  
+  effect.transform.modelviewMatrix = self.modelViewMatrix;
   [effect prepareToDraw]; CHECK_GL_ERROR();
   
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer); CHECK_GL_ERROR();
@@ -50,8 +51,8 @@ static GLuint vertexBuffer;
       glBindBuffer(GL_ARRAY_BUFFER, 0); CHECK_GL_ERROR();
     }
     
+    _position = GLKVector2Make(0, 0);
     self.objectMatrix = GLKMatrix4MakeScale(CIRCLE_SCALE, CIRCLE_SCALE, 1.0f);
-    self.modelMatrix = GLKMatrix4Identity;
   }
   
   return self;

@@ -199,8 +199,7 @@
 }
 
 - (void)render:(GLKBaseEffect *)effect {
-  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
-  self.modelViewMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
+  self.modelViewMatrix = [self calculateModelViewMatrix];
   
   effect.constantColor = self.color;
   effect.transform.modelviewMatrix = self.modelViewMatrix;
@@ -358,9 +357,7 @@
 - (NSArray *)getAtomPositionsInWorld {
   NSMutableArray *worldCoordinates = [[NSMutableArray alloc] init];
   
-  GLKMatrix4 parentModelViewMatrix = [self.parent modelViewMatrix];
-  GLKMatrix4 screenTransformMatrix = GLKMatrix4Multiply(parentModelViewMatrix, self.objectMatrix);
-  
+  GLKMatrix4 screenTransformMatrix = [self calculateModelViewMatrix];
   for (int x = 0; x < GRID_WIDTH; x++) {
     NSArray *column = [self.atoms objectAtIndex:x];
     for (int y = 0; y < GRID_HEIGHT; y++) {

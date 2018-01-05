@@ -48,17 +48,17 @@ class moliculaUITests: XCTestCase {
     start.press(forDuration: 0, thenDragTo: finish)
   }
   
-  func getHolesCenterPoint(game: XCUIElement, holeIdentifers: [String]) -> XCUICoordinate {
+  func getHolesCenterPoint(query: XCUIElementQuery, holeIdentifers: [String]) -> XCUICoordinate {
     
     var center = CGPoint.zero
     for holeIdentifier in holeIdentifers {
-      let holeElement = game.children(matching: XCUIElement.ElementType.other).matching(identifier: holeIdentifier).element
+      let holeElement = query.matching(identifier: holeIdentifier).element
       let coordinate = holeElement.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
       center = CGPoint(x: center.x + coordinate.screenPoint.x, y: center.y + coordinate.screenPoint.y)
     }
     center = CGPoint(x: center.x / CGFloat(holeIdentifers.count), y: center.y / CGFloat(holeIdentifers.count))
     
-    let holeElement = game.children(matching: XCUIElement.ElementType.other).matching(identifier: holeIdentifers[0]).element
+    let holeElement = query.matching(identifier: holeIdentifers[0]).element
     let coordinate = holeElement.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
     
     let offsetVector = CGVector(dx: center.x - coordinate.screenPoint.x, dy: center.y - coordinate.screenPoint.y)
@@ -82,24 +82,26 @@ class moliculaUITests: XCTestCase {
   func testScreenSolution() {
     let app = XCUIApplication()
     let gameView = app.otherElements.matching(identifier: "GameView").element
-    let controls = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "controls").element
-    let holeElement = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "0;2").element
+    let gameQuery = gameView.children(matching: XCUIElement.ElementType.other)
     
-    let blueMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "b").element
-    let purpleMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "p").element
-    let redMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "r").element
-    let orangeMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "o").element
-    let whiteMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "w").element
+    let controls = gameQuery.matching(identifier: "controls").element
+    let holeElement = gameQuery.matching(identifier: "0;2").element
+    
+    let blueMolecule = gameQuery.matching(identifier: "b").element
+    let purpleMolecule = gameQuery.matching(identifier: "p").element
+    let redMolecule = gameQuery.matching(identifier: "r").element
+    let orangeMolecule = gameQuery.matching(identifier: "o").element
+    let whiteMolecule = gameQuery.matching(identifier: "w").element
 //    let yellowMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "y").element
-    let greenMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "g").element
+    let greenMolecule = gameQuery.matching(identifier: "g").element
 
-    let blueTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["1;1", "2;0", "3;-1", "4;-1", "5;-1"])
-    let purpleTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["0;4", "1;3", "1;4", "2;3", "2;4"])
-    let redTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["0;2", "0;3", "1;2", "2;1", "3;0"])
-    let orangeTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["2;2", "3;2", "3;3", "3;4", "4;3"])
-    let whiteTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
-//    let yellowTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
-    let greenTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["3;1", "4;0", "4;1", "5;0", "6;-1"])
+    let blueTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["1;1", "2;0", "3;-1", "4;-1", "5;-1"])
+    let purpleTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["0;4", "1;3", "1;4", "2;3", "2;4"])
+    let redTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["0;2", "0;3", "1;2", "2;1", "3;0"])
+    let orangeTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["2;2", "3;2", "3;3", "3;4", "4;3"])
+    let whiteTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
+//    let yellowTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
+    let greenTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["3;1", "4;0", "4;1", "5;0", "6;-1"])
     
     blueMolecule.tap()
     move(element: blueMolecule, target: blueTarget)
@@ -138,23 +140,25 @@ class moliculaUITests: XCTestCase {
     let app = XCUIApplication()
     
     let gameView = app.otherElements.matching(identifier: "GameView").element
-    let controls = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "controls").element
+    let gameQuery = gameView.children(matching: XCUIElement.ElementType.other)
     
-    let blueMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "b").element
-    let purpleMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "p").element
-    let redMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "r").element
-    let orangeMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "o").element
-    let whiteMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "w").element
+    let controls = gameQuery.matching(identifier: "controls").element
+    
+    let blueMolecule = gameQuery.matching(identifier: "b").element
+    let purpleMolecule = gameQuery.matching(identifier: "p").element
+    let redMolecule = gameQuery.matching(identifier: "r").element
+    let orangeMolecule = gameQuery.matching(identifier: "o").element
+    let whiteMolecule = gameQuery.matching(identifier: "w").element
     //    let yellowMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "y").element
-    let greenMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "g").element
+    let greenMolecule = gameQuery.matching(identifier: "g").element
     
-    let blueTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["1;1", "2;0", "3;-1", "4;-1", "5;-1"])
-    let purpleTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["0;4", "1;3", "1;4", "2;3", "2;4"])
-    let redTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["0;2", "0;3", "1;2", "2;1", "3;0"])
-    let orangeTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["2;2", "3;2", "3;3", "3;4", "4;3"])
-    let whiteTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
-    //    let yellowTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
-    let greenTarget = getHolesCenterPoint(game: gameView, holeIdentifers: ["3;1", "4;0", "4;1", "5;0", "6;-1"])
+    let blueTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["1;1", "2;0", "3;-1", "4;-1", "5;-1"])
+    let purpleTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["0;4", "1;3", "1;4", "2;3", "2;4"])
+    let redTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["0;2", "0;3", "1;2", "2;1", "3;0"])
+    let orangeTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["2;2", "3;2", "3;3", "3;4", "4;3"])
+    let whiteTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
+    //    let yellowTarget = getHolesCenterPoint(game: gameQuery, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
+    let greenTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["3;1", "4;0", "4;1", "5;0", "6;-1"])
     
     blueMolecule.tap()
     move(element: blueMolecule, target: blueTarget)

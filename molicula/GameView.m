@@ -70,6 +70,39 @@
 -(void)setScaling:(float)factor {
   self.modelViewMatrix = GLKMatrix4MakeScale(factor, factor, 1.0f);
   self.invertedModelViewMatrix = GLKMatrix4Invert(self.modelViewMatrix, nil);
+  
+  for (NSArray *column in self.grid.holes) {
+    for (Hole *hole in column) {
+      if (hole != (id)[NSNull null] && hole.access) {
+        [self.accessibilityElements addObject:hole.access];
+      }
+    }
+  }
+  
+  for (NSArray *column in self.grid.holes) {
+    for (Hole *hole in column) {
+      if (hole != (id)[NSNull null]) {
+        hole.access = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:self];
+        hole.access.accessibilityIdentifier = [NSString stringWithFormat:@"%d;%d", (int)hole.logicalPosition.x, (int)hole.logicalPosition.y];
+        
+        GLKVector2 holeWorldCoordinates = [self.grid getHoleWorldCoordinates:hole];
+        
+        MLog(@"logica: %@", [NSString stringWithFormat:@"%d;%d", (int)hole.logicalPosition.x, (int)hole.logicalPosition.y]);
+        CGFloat radius = GLKMatrix4MultiplyVector3(self.modelViewMatrix, GLKVector3Make(RENDER_RADIUS, 0.0f, 0.0f)).x;
+        MLog(@"radius: %f", radius);
+        CGRect screenRect = self.bounds;
+        MLog(@"screen: %@", NSStringFromCGRect(screenRect));
+        CGRect holeRect = CGRectMake(holeWorldCoordinates.x - radius, holeWorldCoordinates.y - radius, radius * 2, radius * 2);
+        MLog(@"hole1 : %@", NSStringFromCGRect(holeRect));
+        holeRect = CGRectOffset(holeRect, screenRect.size.width/2, screenRect.size.height/2);
+        holeRect.origin.y = screenRect.size.height - holeRect.origin.y - holeRect.size.height;
+        MLog(@"hole2 : %@", NSStringFromCGRect(holeRect));
+        
+        hole.access.accessibilityFrame = holeRect;
+        [self.accessibilityElements addObject:hole.access];
+      }
+    }
+  }
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -114,26 +147,6 @@
 - (void)enableGrid {
   self.grid = [[Grid alloc] init];
   self.grid.parent = self;
-  
-  for (NSArray *column in self.grid.holes) {
-    for (Hole *hole in column) {
-      if (hole != (id)[NSNull null]) {
-        hole.access = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:self];
-        hole.access.accessibilityIdentifier = [NSString stringWithFormat:@"%d;%d", (int)hole.logicalPosition.x, (int)hole.logicalPosition.y];
-        
-        GLKVector2 holeWorldCoordinates = [self.grid getHoleWorldCoordinates:hole];
-        
-        CGFloat radius = GLKMatrix4MultiplyVector3(self.modelViewMatrix, GLKVector3Make(RENDER_RADIUS, 0.0f, 0.0f)).x;
-        CGRect screenRect = self.bounds;
-        CGRect holeRect = CGRectMake(holeWorldCoordinates.x - radius, holeWorldCoordinates.y - radius, radius * 2, radius * 2);
-        holeRect = CGRectOffset(holeRect, screenRect.size.width/2, screenRect.size.height/2);
-        holeRect.origin.y = screenRect.size.height - holeRect.origin.y - holeRect.size.height;
-        
-        hole.access.accessibilityFrame = holeRect;
-        [self.accessibilityElements addObject:hole.access];
-      }
-    }
-  }
 }
 
 - (void)disableGrid {
