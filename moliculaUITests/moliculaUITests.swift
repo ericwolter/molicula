@@ -19,8 +19,9 @@ class moliculaUITests: XCTestCase {
     continueAfterFailure = false
     // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
     let app = XCUIApplication()
+    
     setupSnapshot(app)
-    XCUIApplication().launch()
+    app.launch()
 
     // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
   }
@@ -78,15 +79,15 @@ class moliculaUITests: XCTestCase {
     whiteMolecule.tap()
     snapshot("01Selected")
   }
-  
+
   func testScreenSolution() {
     let app = XCUIApplication()
     let gameView = app.otherElements.matching(identifier: "GameView").element
     let gameQuery = gameView.children(matching: XCUIElement.ElementType.other)
-    
+
     let controls = gameQuery.matching(identifier: "controls").element
     let holeElement = gameQuery.matching(identifier: "0;2").element
-    
+
     let blueMolecule = gameQuery.matching(identifier: "b").element
     let purpleMolecule = gameQuery.matching(identifier: "p").element
     let redMolecule = gameQuery.matching(identifier: "r").element
@@ -102,7 +103,7 @@ class moliculaUITests: XCTestCase {
     let whiteTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
 //    let yellowTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
     let greenTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["3;1", "4;0", "4;1", "5;0", "6;-1"])
-    
+
     blueMolecule.tap()
     move(element: blueMolecule, target: blueTarget)
 
@@ -117,7 +118,7 @@ class moliculaUITests: XCTestCase {
     rotateClockwise(controls: controls)
     rotateClockwise(controls: controls)
     move(element: greenMolecule, target: greenTarget)
-    
+
     whiteMolecule.tap()
     rotateCounterClockwise(controls: controls)
     rotateCounterClockwise(controls: controls)
@@ -138,12 +139,12 @@ class moliculaUITests: XCTestCase {
   
   func testScreenLibrary() {
     let app = XCUIApplication()
-    
+
     let gameView = app.otherElements.matching(identifier: "GameView").element
     let gameQuery = gameView.children(matching: XCUIElement.ElementType.other)
-    
+
     let controls = gameQuery.matching(identifier: "controls").element
-    
+
     let blueMolecule = gameQuery.matching(identifier: "b").element
     let purpleMolecule = gameQuery.matching(identifier: "p").element
     let redMolecule = gameQuery.matching(identifier: "r").element
@@ -151,7 +152,7 @@ class moliculaUITests: XCTestCase {
     let whiteMolecule = gameQuery.matching(identifier: "w").element
     //    let yellowMolecule = gameView.children(matching: XCUIElement.ElementType.other).matching(identifier: "y").element
     let greenMolecule = gameQuery.matching(identifier: "g").element
-    
+
     let blueTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["1;1", "2;0", "3;-1", "4;-1", "5;-1"])
     let purpleTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["0;4", "1;3", "1;4", "2;3", "2;4"])
     let redTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["0;2", "0;3", "1;2", "2;1", "3;0"])
@@ -159,32 +160,32 @@ class moliculaUITests: XCTestCase {
     let whiteTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
     //    let yellowTarget = getHolesCenterPoint(game: gameQuery, holeIdentifers: ["4;2", "5;1", "5;2", "6;0", "6;1"])
     let greenTarget = getHolesCenterPoint(query: gameQuery, holeIdentifers: ["3;1", "4;0", "4;1", "5;0", "6;-1"])
-    
+
     blueMolecule.tap()
     move(element: blueMolecule, target: blueTarget)
-    
+
     redMolecule.tap()
     rotateClockwise(controls: controls)
     rotateClockwise(controls: controls)
     rotateClockwise(controls: controls)
     move(element: redMolecule, target: redTarget)
-    
+
     greenMolecule.tap()
     flip(controls: controls)
     rotateClockwise(controls: controls)
     rotateClockwise(controls: controls)
     move(element: greenMolecule, target: greenTarget)
-    
+
     whiteMolecule.tap()
     rotateCounterClockwise(controls: controls)
     rotateCounterClockwise(controls: controls)
     rotateCounterClockwise(controls: controls)
     move(element: whiteMolecule, target: whiteTarget)
-    
+
     purpleMolecule.tap()
     rotateClockwise(controls: controls)
     move(element: purpleMolecule, target: purpleTarget)
-    
+
     orangeMolecule.tap()
     flip(controls: controls)
     rotateClockwise(controls: controls)

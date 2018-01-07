@@ -1,0 +1,11 @@
+Molicula ist ein faszinierend einfaches Puzzle. Rotiere und spiegele die Teile um das Gitter zu füllen.  Nur 6 der 7 Teile werden benötigt um das Gitter zu vervollständigen. Welches Teil du weglässt entscheidet über die Schwierigkeit eine Lösung zu finden.
+
+Kannst du alle Lösungen finden?
+
+• Einfache Grafik
+• Intuitive Gesten
+• Über 40 einzigartige Lösungen
+
+Hast du Fragen, Probleme oder Feedback? Sende mir eine Mail an molicula@ericwolter.com
+
+Hinweis: Dies ist eine digitale Version des physikalischen Puzzles "Fantastic Island" (manchmal auch "Atompuzzle").

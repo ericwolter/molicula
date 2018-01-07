@@ -18,8 +18,8 @@
 		0726445119235F5D00A0E6FE /* SolutionLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 0726445019235F5D00A0E6FE /* SolutionLibrary.m */; };
 		0734866C1945D8D800E23EA2 /* RotateTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0734866B1945D8D800E23EA2 /* RotateTutorial.m */; };
 		0734866F1945DF0700E23EA2 /* MirrorTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0734866E1945DF0700E23EA2 /* MirrorTutorial.m */; };
+		0742EEAB1FFF99CE001AF47C /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0742EEAA1FFF99CE001AF47C /* SnapshotHelper.swift */; };
 		0745354C1FE9A02E00B17334 /* moliculaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745354B1FE9A02E00B17334 /* moliculaUITests.swift */; };
-		074535541FE9A07200B17334 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074535531FE9A07200B17334 /* SnapshotHelper.swift */; };
 		0768184819DAB9A000816169 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0768184719DAB9A000816169 /* LaunchScreen.xib */; };
 		0769830E192CC32900926DD1 /* blue1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B2192CC2F800926DD1 /* blue1.txt */; };
 		0769830F192CC32900926DD1 /* blue2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982B3192CC2F800926DD1 /* blue2.txt */; };
@@ -88,19 +88,12 @@
 		0783A0EE1C14643A00ACDC47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0783A0F01C14643A00ACDC47 /* Main.storyboard */; };
 		07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A5C8351917CB56001E5801 /* LibraryViewController.m */; };
 		07C1FC971FEA8C7F007AA98E /* GLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C1FC961FEA8C7F007AA98E /* GLObject.m */; };
-		07D3665D1FFCD4B30013F0A6 /* Snapfile in Resources */ = {isa = PBXBuildFile; fileRef = 07D3665C1FFCD4B30013F0A6 /* Snapfile */; };
-		07D3665F1FFCD4EF0013F0A6 /* Framefile.json in Resources */ = {isa = PBXBuildFile; fileRef = 07D3665E1FFCD4EF0013F0A6 /* Framefile.json */; };
-		07D3666C1FFCD7550013F0A6 /* keyword.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07D3666B1FFCD7550013F0A6 /* keyword.strings */; };
-		07D3666E1FFCD7630013F0A6 /* keyword.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07D3666D1FFCD7630013F0A6 /* keyword.strings */; };
-		07D366701FFCD76E0013F0A6 /* title.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07D3666F1FFCD76E0013F0A6 /* title.strings */; };
-		07D366721FFCD77B0013F0A6 /* title.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07D366711FFCD77B0013F0A6 /* title.strings */; };
 		07E1B58218071B9F002D79A1 /* DropResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B58118071B9F002D79A1 /* DropResult.m */; };
 		07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E8B78D181FC28100804CC1 /* Default-568h@2x.png */; };
 		07EE62651940BF2300739544 /* Metrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE62641940BF2300739544 /* Metrics.m */; };
 		07EE626C1940C3AB00739544 /* TutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE626B1940C3AB00739544 /* TutorialController.m */; };
 		07EE626F1940FC8E00739544 /* DDiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE626E1940FC8E00739544 /* DDiCloudSync.m */; };
 		07F16FD317E0F79300D15F36 /* Controls.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F16FD217E0F79300D15F36 /* Controls.m */; };
-		07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07F16FD417E725AD00D15F36 /* appstore_description.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,10 +189,10 @@
 		0734866B1945D8D800E23EA2 /* RotateTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotateTutorial.m; sourceTree = "<group>"; };
 		0734866D1945DF0700E23EA2 /* MirrorTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MirrorTutorial.h; sourceTree = "<group>"; };
 		0734866E1945DF0700E23EA2 /* MirrorTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MirrorTutorial.m; sourceTree = "<group>"; };
+		0742EEAA1FFF99CE001AF47C /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		074535491FE9A02E00B17334 /* moliculaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = moliculaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0745354B1FE9A02E00B17334 /* moliculaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moliculaUITests.swift; sourceTree = "<group>"; };
 		0745354D1FE9A02E00B17334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		074535531FE9A07200B17334 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		0768184719DAB9A000816169 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = ../LaunchScreen.xib; sourceTree = "<group>"; };
 		076982B2192CC2F800926DD1 /* blue1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue1.txt; sourceTree = "<group>"; };
 		076982B3192CC2F800926DD1 /* blue2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blue2.txt; sourceTree = "<group>"; };
@@ -283,20 +276,13 @@
 		077F9AD117D7CD4D004F1960 /* MoleculeFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoleculeFactory.m; sourceTree = "<group>"; };
 		077F9AD317D7CD77004F1960 /* NSValue_GLKVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSValue_GLKVector.h; sourceTree = "<group>"; };
 		077F9AD417D7CE08004F1960 /* UITouch_TouchSorting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITouch_TouchSorting.h; sourceTree = "<group>"; };
+		078047D620015691004715E3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		0783A0F91C14654200ACDC47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07A5C8341917CB56001E5801 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
 		07A5C8351917CB56001E5801 /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
 		07C1FC951FEA8C7F007AA98E /* GLObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLObject.h; sourceTree = "<group>"; };
 		07C1FC961FEA8C7F007AA98E /* GLObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLObject.m; sourceTree = "<group>"; };
-		07D3665C1FFCD4B30013F0A6 /* Snapfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Snapfile; sourceTree = SOURCE_ROOT; };
-		07D3665E1FFCD4EF0013F0A6 /* Framefile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Framefile.json; path = screenshots/Framefile.json; sourceTree = SOURCE_ROOT; };
-		07D3666B1FFCD7550013F0A6 /* keyword.strings */ = {isa = PBXFileReference; fileEncoding = 2415919360; lastKnownFileType = text.plist.strings; path = keyword.strings; sourceTree = "<group>"; };
-		07D3666D1FFCD7630013F0A6 /* keyword.strings */ = {isa = PBXFileReference; fileEncoding = 2415919360; lastKnownFileType = text.plist.strings; path = keyword.strings; sourceTree = "<group>"; };
-		07D3666F1FFCD76E0013F0A6 /* title.strings */ = {isa = PBXFileReference; fileEncoding = 2415919360; lastKnownFileType = text.plist.strings; path = title.strings; sourceTree = "<group>"; };
-		07D366711FFCD77B0013F0A6 /* title.strings */ = {isa = PBXFileReference; fileEncoding = 2415919360; lastKnownFileType = text.plist.strings; path = title.strings; sourceTree = "<group>"; };
-		07D366741FFCED7A0013F0A6 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		07D366791FFF8C1B0013F0A6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		07D3667A1FFF8C580013F0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		07D3667B1FFF8CAB0013F0A6 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Main.strings; sourceTree = "<group>"; };
 		07D3667C1FFF8CB70013F0A6 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		07D3667D1FFF8CE40013F0A6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
@@ -312,7 +298,6 @@
 		07EE626E1940FC8E00739544 /* DDiCloudSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDiCloudSync.m; sourceTree = "<group>"; };
 		07F16FD117E0F79300D15F36 /* Controls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controls.h; sourceTree = "<group>"; };
 		07F16FD217E0F79300D15F36 /* Controls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controls.m; sourceTree = "<group>"; };
-		07F16FD417E725AD00D15F36 /* appstore_description.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = appstore_description.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,7 +429,7 @@
 		0745354A1FE9A02E00B17334 /* moliculaUITests */ = {
 			isa = PBXGroup;
 			children = (
-				074535531FE9A07200B17334 /* SnapshotHelper.swift */,
+				0742EEAA1FFF99CE001AF47C /* SnapshotHelper.swift */,
 				0745354B1FE9A02E00B17334 /* moliculaUITests.swift */,
 				0745354D1FE9A02E00B17334 /* Info.plist */,
 			);
@@ -467,7 +452,6 @@
 		077F9A6917D7CBB0004F1960 = {
 			isa = PBXGroup;
 			children = (
-				07D366651FFCD6DF0013F0A6 /* Fastlane */,
 				072643B919235C1C00A0E6FE /* Assets */,
 				077F9A7F17D7CBB0004F1960 /* molicula */,
 				0745354A1FE9A02E00B17334 /* moliculaUITests */,
@@ -555,55 +539,8 @@
 				077F9A8117D7CBB0004F1960 /* molicula-Info.plist */,
 				077F9A8517D7CBB0004F1960 /* main.m */,
 				077F9A8717D7CBB0004F1960 /* molicula-Prefix.pch */,
-				07F16FD417E725AD00D15F36 /* appstore_description.rtf */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		07D366651FFCD6DF0013F0A6 /* Fastlane */ = {
-			isa = PBXGroup;
-			children = (
-				07D366681FFCD7260013F0A6 /* screenshots */,
-				07D3665C1FFCD4B30013F0A6 /* Snapfile */,
-			);
-			name = Fastlane;
-			sourceTree = "<group>";
-		};
-		07D366681FFCD7260013F0A6 /* screenshots */ = {
-			isa = PBXGroup;
-			children = (
-				07D366731FFCED130013F0A6 /* fonts */,
-				07D3665E1FFCD4EF0013F0A6 /* Framefile.json */,
-				07D366691FFCD7380013F0A6 /* en-US */,
-				07D3666A1FFCD73D0013F0A6 /* de-DE */,
-			);
-			path = screenshots;
-			sourceTree = "<group>";
-		};
-		07D366691FFCD7380013F0A6 /* en-US */ = {
-			isa = PBXGroup;
-			children = (
-				07D3666D1FFCD7630013F0A6 /* keyword.strings */,
-				07D3666F1FFCD76E0013F0A6 /* title.strings */,
-			);
-			path = "en-US";
-			sourceTree = "<group>";
-		};
-		07D3666A1FFCD73D0013F0A6 /* de-DE */ = {
-			isa = PBXGroup;
-			children = (
-				07D3666B1FFCD7550013F0A6 /* keyword.strings */,
-				07D366711FFCD77B0013F0A6 /* title.strings */,
-			);
-			path = "de-DE";
-			sourceTree = "<group>";
-		};
-		07D366731FFCED130013F0A6 /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				07D366741FFCED7A0013F0A6 /* SF-Pro-Display-Regular.otf */,
-			);
-			path = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -681,6 +618,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				de,
 			);
 			mainGroup = 077F9A6917D7CBB0004F1960;
 			productRefGroup = 077F9A7317D7CBB0004F1960 /* Products */;
@@ -705,17 +643,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07D3665D1FFCD4B30013F0A6 /* Snapfile in Resources */,
 				0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */,
-				07D366721FFCD77B0013F0A6 /* title.strings in Resources */,
-				07D3666E1FFCD7630013F0A6 /* keyword.strings in Resources */,
 				0783A0EE1C14643A00ACDC47 /* Main.storyboard in Resources */,
-				07D3665F1FFCD4EF0013F0A6 /* Framefile.json in Resources */,
-				07D3666C1FFCD7550013F0A6 /* keyword.strings in Resources */,
 				0768184819DAB9A000816169 /* LaunchScreen.xib in Resources */,
 				07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */,
-				07F16FD517E725AD00D15F36 /* appstore_description.rtf in Resources */,
-				07D366701FFCD76E0013F0A6 /* title.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,7 +674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0745354C1FE9A02E00B17334 /* moliculaUITests.swift in Sources */,
-				074535541FE9A07200B17334 /* SnapshotHelper.swift in Sources */,
+				0742EEAB1FFF99CE001AF47C /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,10 +733,10 @@
 			children = (
 				0783A0F91C14654200ACDC47 /* Base */,
 				07D366791FFF8C1B0013F0A6 /* zh-Hans */,
-				07D3667A1FFF8C580013F0A6 /* de */,
 				07D3667B1FFF8CAB0013F0A6 /* hi */,
 				07D3667C1FFF8CB70013F0A6 /* es */,
 				07D3667D1FFF8CE40013F0A6 /* ar */,
+				078047D620015691004715E3 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

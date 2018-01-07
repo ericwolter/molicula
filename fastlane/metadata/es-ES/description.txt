@@ -1,0 +1,11 @@
+Molicula es un juego de rompecabezas fascinantemente simple. Gire y voltee las piezas para llenar la cuadrícula. Solo 6 de las 7 piezas son requeridas para completar la grilla. La pieza que omites determina la dificultad de encontrar una solución.
+
+¿Puedes encontrar todas las soluciones?
+
+• Gráficos simples
+• Gestos intuitivos
+• Más de 40 soluciones únicas
+
+¿Tiene preguntas, problemas o comentarios? Contácteme en molicula@ericwolter.com
+
+Nota: Esta es una adaptación digital del rompecabezas físico "Fantastic Island" (a veces llamado "Atompuzzle").
