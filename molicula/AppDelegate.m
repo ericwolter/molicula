@@ -12,13 +12,26 @@
 #import <Crashlytics/Crashlytics.h>
 
 #import "SolutionLibrary.h"
+#import "GlobalSettings.h"
 
 @implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  if ([[[NSProcessInfo processInfo] arguments] containsObject:@"-ui_testing"]) {
+    [GlobalSettings sharedInstance].isUITesting = YES;
+  } else {
+    [GlobalSettings sharedInstance].isUITesting = NO;
+  }
+  
+  return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [GADMobileAds disableSDKCrashReporting];
   [Fabric with:@[[Crashlytics class]]];
+  
   [SolutionLibrary sharedInstance];
   
   // make navigation bar transparent
@@ -31,11 +44,11 @@
   
   self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   
-#ifndef MAKE_SCREENSHOT
-  self.cloudSync = [DDiCloudSync sharedSync];
-  self.cloudSync.delegate = [SolutionLibrary sharedInstance];
-  [self.cloudSync start];
-#endif
+  if(NO == [GlobalSettings sharedInstance].isUITesting) {
+    self.cloudSync = [DDiCloudSync sharedSync];
+    self.cloudSync.delegate = [SolutionLibrary sharedInstance];
+    [self.cloudSync start];
+  }
   
   return YES;
 }

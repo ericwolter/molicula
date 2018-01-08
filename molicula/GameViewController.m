@@ -21,6 +21,7 @@
 #import "MoliculaNavigationBar.h"
 #import "Metrics.h"
 #import "Helper.h"
+#import "GlobalSettings.h"
 
 typedef enum {
   NoDirection,
@@ -192,24 +193,26 @@ typedef enum {
   controls = [[Controls alloc] init];
   controls.parent = gameView;
   
-  controls.access = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:gameView];
-  controls.access.accessibilityIdentifier = @"controls";
-  [gameView.accessibilityElements addObject:controls.access];
+  if(YES == [GlobalSettings sharedInstance].isUITesting) {
+    controls.access = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:gameView];
+    controls.access.accessibilityIdentifier = @"controls";
+    [gameView.accessibilityElements addObject:controls.access];
+  }
   
   [self setupGL];
   [self setupGrid];
 
-#ifndef MAKE_SCREENSHOT
-//  NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
-  self.bannerView.adUnitID = @"ca-app-pub-5717136270400903/1281141100";
-  self.bannerView.rootViewController = self;
-  [self.bannerView loadRequest:[self createRequest]];
-  
-  // workaround for scroll offset issue
-  // see: http://stackoverflow.com/questions/24763692/admob-ios-banner-offset-issue
-  UIView *view = [[UIView alloc] init];
-  [self.view insertSubview:view belowSubview:self.bannerView];
-#endif
+  if(NO == [GlobalSettings sharedInstance].isUITesting) {
+    //  NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
+    self.bannerView.adUnitID = @"ca-app-pub-5717136270400903/1281141100";
+    self.bannerView.rootViewController = self;
+    [self.bannerView loadRequest:[self createRequest]];
+    
+    // workaround for scroll offset issue
+    // see: http://stackoverflow.com/questions/24763692/admob-ios-banner-offset-issue
+    UIView *view = [[UIView alloc] init];
+    [self.view insertSubview:view belowSubview:self.bannerView];
+  }
   
   MLog(@"[end]");
 }
@@ -606,9 +609,9 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 
 - (GLKVector2)calculateBoundsVectorForMolecule:(Molecule *)molecule withTranslation:(GLKVector2)translation andOrientation:(GLKQuaternion)orientation {
   CGRect screenRect = self.view.bounds;
-#ifdef MAKE_SCREENSHOT
-  screenRect = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width - 20,  screenRect.size.height - 20);
-#endif
+  if(YES == [GlobalSettings sharedInstance].isUITesting) {
+    screenRect = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width - 20,  screenRect.size.height - 20);
+  }
   CGRect adRect = self.bannerView.frame;
   
   adRect = CGRectMake(adRect.origin.x, screenRect.size.height - adRect.origin.y - adRect.size.height, adRect.size.width, adRect.size.height);
@@ -627,11 +630,13 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
   GLKVector2 keepInsideVector = [Helper keepRect:moleculeRect insideOf:screenRect];
   // simulate moved molecule
   moleculeRect = CGRectOffset(moleculeRect, keepInsideVector.x, keepInsideVector.y);
-#ifndef MAKE_SCREENSHOT
-  GLKVector2 keepOutsideVector = [Helper keepRect:moleculeRect outsideOf:adRect];
-#else
-  GLKVector2 keepOutsideVector = GLKVector2Make(0, 0);
-#endif
+  
+  GLKVector2 keepOutsideVector;
+  if(NO == [GlobalSettings sharedInstance].isUITesting) {
+    keepOutsideVector = [Helper keepRect:moleculeRect outsideOf:adRect];
+  } else {
+    keepOutsideVector = GLKVector2Make(0, 0);
+  }
   
   GLKVector2 boundsVector = GLKVector2Add(keepInsideVector, keepOutsideVector);
   
@@ -667,16 +672,16 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
   };
   
   NSUInteger count = gameView.molecules.count;
-#ifndef MAKE_SCREENSHOT
-  for (NSUInteger i = 0; i < count; ++i) {
-    // Select a random element between i and end of array to swap with.
-    NSInteger nElements = count - i;
-    NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
-    GLKVector2 tmp = HEPTAGON[i];
-    HEPTAGON[i] = HEPTAGON[n];
-    HEPTAGON[n] = tmp;
+  if(NO == [GlobalSettings sharedInstance].isUITesting) {
+    for (NSUInteger i = 0; i < count; ++i) {
+      // Select a random element between i and end of array to swap with.
+      NSInteger nElements = count - i;
+      NSInteger n = (arc4random_uniform((unsigned int)nElements)) + i;
+      GLKVector2 tmp = HEPTAGON[i];
+      HEPTAGON[i] = HEPTAGON[n];
+      HEPTAGON[n] = tmp;
+    }
   }
-#endif
 
   for (NSUInteger i = 0; i < count; ++i) {
     Molecule *molecule = [gameView.molecules objectAtIndex:i];
@@ -698,9 +703,9 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
       [animator.runningAnimation addObject:rotateAnimation];
     } else {
       [molecule setPosition:targetPosition];
-#ifndef MAKE_SCREENSHOT
-      [molecule setOrientation:targetOrientation];
-#endif
+      if(NO == [GlobalSettings sharedInstance].isUITesting) {
+        [molecule setOrientation:targetOrientation];
+      }
     }
   }
 }

@@ -12,6 +12,7 @@
 #import "ColorTheme.h"
 #import "GameView.h"
 #import "Metrics.h"
+#import "GlobalSettings.h"
 
 @implementation Molecule
 
@@ -305,7 +306,10 @@
   CGRect screenRect = parentView.bounds;
   CGRect moleculeRect = CGRectOffset([self getWorldAABB], screenRect.size.width/2, screenRect.size.height/2);
   moleculeRect.origin.y = screenRect.size.height - moleculeRect.origin.y - moleculeRect.size.height;
-  self.access.accessibilityFrameInContainerSpace = moleculeRect;
+  
+  if(YES == [GlobalSettings sharedInstance].isUITesting) {
+    self.access.accessibilityFrameInContainerSpace = moleculeRect;
+  }
 }
 
 - (CGRect)getWorldAABB {

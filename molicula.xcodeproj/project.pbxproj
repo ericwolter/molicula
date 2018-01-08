@@ -88,6 +88,7 @@
 		0783A0EE1C14643A00ACDC47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0783A0F01C14643A00ACDC47 /* Main.storyboard */; };
 		07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A5C8351917CB56001E5801 /* LibraryViewController.m */; };
 		07C1FC971FEA8C7F007AA98E /* GLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C1FC961FEA8C7F007AA98E /* GLObject.m */; };
+		07E1073920037CA3008332AC /* GlobalSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1073820037CA3008332AC /* GlobalSettings.m */; };
 		07E1B58218071B9F002D79A1 /* DropResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B58118071B9F002D79A1 /* DropResult.m */; };
 		07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E8B78D181FC28100804CC1 /* Default-568h@2x.png */; };
 		07EE62651940BF2300739544 /* Metrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE62641940BF2300739544 /* Metrics.m */; };
@@ -286,6 +287,8 @@
 		07D3667B1FFF8CAB0013F0A6 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Main.strings; sourceTree = "<group>"; };
 		07D3667C1FFF8CB70013F0A6 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		07D3667D1FFF8CE40013F0A6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		07E1073720037CA3008332AC /* GlobalSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalSettings.h; sourceTree = "<group>"; };
+		07E1073820037CA3008332AC /* GlobalSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalSettings.m; sourceTree = "<group>"; };
 		07E1B58018071B9F002D79A1 /* DropResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropResult.h; sourceTree = "<group>"; };
 		07E1B58118071B9F002D79A1 /* DropResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropResult.m; sourceTree = "<group>"; };
 		07E8B78D181FC28100804CC1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -519,6 +522,8 @@
 				07E1B58018071B9F002D79A1 /* DropResult.h */,
 				07E1B58118071B9F002D79A1 /* DropResult.m */,
 				076C702819096F2500F0084D /* GameView.h */,
+				07E1073720037CA3008332AC /* GlobalSettings.h */,
+				07E1073820037CA3008332AC /* GlobalSettings.m */,
 				076C702919096F2500F0084D /* GameView.m */,
 				07EE62631940BF2300739544 /* Metrics.h */,
 				07EE62641940BF2300739544 /* Metrics.m */,
@@ -714,6 +719,7 @@
 				07F16FD317E0F79300D15F36 /* Controls.m in Sources */,
 				0734866F1945DF0700E23EA2 /* MirrorTutorial.m in Sources */,
 				0734866C1945D8D800E23EA2 /* RotateTutorial.m in Sources */,
+				07E1073920037CA3008332AC /* GlobalSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

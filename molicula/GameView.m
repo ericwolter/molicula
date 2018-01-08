@@ -9,6 +9,7 @@
 #import "GameView.h"
 #import "ColorTheme.h"
 #import "Molecule.h"
+#import "GlobalSettings.h"
 
 @interface GameView () {}
 
@@ -64,12 +65,18 @@
   [self setScaling:1.0f];
   self.molecules = [[NSMutableArray alloc] init];
   
-  self.accessibilityElements = [[NSMutableArray alloc] init];
+  if(YES == [GlobalSettings sharedInstance].isUITesting) {
+    self.accessibilityElements = [[NSMutableArray alloc] init];
+  }
 }
 
 -(void)setScaling:(float)factor {
   self.modelViewMatrix = GLKMatrix4MakeScale(factor, factor, 1.0f);
   self.invertedModelViewMatrix = GLKMatrix4Invert(self.modelViewMatrix, nil);
+  
+  if(NO == [GlobalSettings sharedInstance].isUITesting) {
+    return;
+  }
   
   for (NSArray *column in self.grid.holes) {
     for (Hole *hole in column) {
@@ -151,7 +158,9 @@
 
 - (void)disableGrid {
   if(self.grid) {
-    [self.accessibilityElements removeObject:self.grid];
+    if(YES == [GlobalSettings sharedInstance].isUITesting) {
+      [self.accessibilityElements removeObject:self.grid];
+    }
     self.grid = nil;
   }
 }
@@ -179,9 +188,12 @@
 - (void)addMolecule:(Molecule *)molecule {
   molecule.parent = self;
   [self.molecules addObject:molecule];
-  molecule.access = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:molecule.parent];
-  molecule.access.accessibilityIdentifier = molecule.identifer;
-  [self.accessibilityElements addObject:molecule.access];
+  
+  if(YES == [GlobalSettings sharedInstance].isUITesting) {
+    molecule.access = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:molecule.parent];
+    molecule.access.accessibilityIdentifier = molecule.identifer;
+    [self.accessibilityElements addObject:molecule.access];
+  }
 }
 
 - (void)bringToFront:(NSInteger)moleculeIndex {

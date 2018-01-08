@@ -8,6 +8,7 @@
 
 #import "Controls.h"
 #import "ColorTheme.h"
+#import "GlobalSettings.h"
 
 @implementation Controls
 
@@ -115,7 +116,10 @@
   CGRect screenRect = parentView.bounds;
   CGRect controlsRect = CGRectOffset(controlsRectOpenGL, screenRect.size.width/2, screenRect.size.height/2);
   controlsRect.origin.y = screenRect.size.height - controlsRect.origin.y - controlsRect.size.height;
-  self.access.accessibilityFrameInContainerSpace = controlsRect;
+  
+  if(YES == [GlobalSettings sharedInstance].isUITesting) {
+    self.access.accessibilityFrameInContainerSpace = controlsRect;
+  }
 }
 
 - (void)initRightArrow {
