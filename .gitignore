@@ -17,3 +17,5 @@ profile
 DerivedData
 .idea/
 screenshots/
+fastlane/report.xml
+Preview.html
