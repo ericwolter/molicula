@@ -48,8 +48,14 @@
 - (void)unlock {
   [self setupGL];
   
+  [headerCache removeAllObjects];
   [solutionCache removeAllObjects];
+  [self.collectionView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.collectionView.numberOfSections)]];
   [self.collectionView reloadItemsAtIndexPaths:[self.collectionView indexPathsForVisibleItems]];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [self unlock];
 }
 
 - (void)didReceiveMemoryWarning {

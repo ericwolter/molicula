@@ -8,8 +8,6 @@
 
 #import "AppDelegate.h"
 #import <GoogleMobileAds/GADMobileAds.h>
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 
 #import "SolutionLibrary.h"
 #import "GlobalSettings.h"
@@ -30,8 +28,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [GADMobileAds disableSDKCrashReporting];
-  [Fabric with:@[[Crashlytics class]]];
-  
   [SolutionLibrary sharedInstance];
   
   // make navigation bar transparent

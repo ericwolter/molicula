@@ -42,9 +42,12 @@ NSString *kDDiCloudDidSyncNotification = @"DDiCloudSyncDidUpdateToLatest";
   
   //set up store
   [dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-    [[NSUbiquitousKeyValueStore defaultStore] setObject:obj forKey:key];
+    if ([key isKindOfClass:[NSString class]] && [key containsString:@"/google/ads"]) {
+    } else {
+      [[NSUbiquitousKeyValueStore defaultStore] setObject:obj forKey:key];
+    }
   }];
-  
+
   //sync
   self.lastSyncedDict = dict;
   [[NSUbiquitousKeyValueStore defaultStore] synchronize];

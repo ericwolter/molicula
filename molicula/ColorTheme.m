@@ -10,16 +10,16 @@
 
 #define THEME_5
 
-@implementation ColorTheme
+@implementation ColorThemeBck
 
-+ (ColorTheme *)sharedSingleton
++ (ColorThemeBck *)sharedSingleton
 {
-  static ColorTheme *sharedSingleton;
+  static ColorThemeBck *sharedSingleton;
   
   @synchronized(self)
   {
     if (!sharedSingleton)
-      sharedSingleton = [[ColorTheme alloc] init];
+      sharedSingleton = [[ColorThemeBck alloc] init];
     
     return sharedSingleton;
   }

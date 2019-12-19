@@ -17,4 +17,6 @@
 + (GLKVector2)keepRect:(CGRect)movingRect outsideOf:(CGRect)fixedRect;
 + (GLKVector2)keepRect:(CGRect)movingRect insideOf:(CGRect)fixedRect;
 
++ (GLKVector4)makeVectorFromUIColor:(UIColor*)color;
+
 @end

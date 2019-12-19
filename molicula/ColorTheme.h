@@ -10,9 +10,9 @@
 
 #import "Helper.h"
 
-@interface ColorTheme : NSObject
+@interface ColorThemeBck : NSObject
 
-+ (ColorTheme *)sharedSingleton;
++ (ColorThemeBck *)sharedSingleton;
 
 -(GLKVector4)bg;
 -(GLKVector4)hole;

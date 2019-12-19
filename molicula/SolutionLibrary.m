@@ -9,7 +9,6 @@
 #import "SolutionLibrary.h"
 #import "Constants.h"
 #import "GlobalSettings.h"
-#import <Crashlytics/Crashlytics.h> // If using Answers with Crashlytics
 
 @implementation SolutionLibrary
 
@@ -394,12 +393,6 @@
           [userSolutions addObject:userSolution];
           
           if (userSolutions.count == 1) {
-            [Answers logLevelEnd:[NSString stringWithFormat:@"%@;%@;%@", color, canonicalIndex, variationIndex]
-                           score:@1
-                         success:@YES
-                customAttributes:@{
-                                   @"solution": proposedSolution
-                                   }];
             return SolutionIsBrandNew;
           }
           
@@ -410,14 +403,7 @@
           NSMutableDictionary *userSolution = [userSolutions objectAtIndex:previouslyFoundIndex];
           NSUInteger count = [[userSolution objectForKey:@"count"] unsignedIntegerValue] + 1;
           [userSolution setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
-          
-          [Answers logLevelEnd:[NSString stringWithFormat:@"%@;%@;%@", color, canonicalIndex, variationIndex]
-                         score:[NSNumber numberWithUnsignedInteger:count]
-                       success:@YES
-              customAttributes:@{
-                                 @"solution": proposedSolution
-                                 }];
-          
+                    
           return SolutionIsDuplicate;
         }
       }

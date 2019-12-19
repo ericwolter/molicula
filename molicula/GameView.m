@@ -121,8 +121,8 @@
 }
 
 - (void)render {
-  GLKVector4 bg = [[ColorTheme sharedSingleton] bg];
-  glClearColor(bg.x, bg.y,bg.z,bg.w);
+  GLKVector4 bg = [Helper makeVectorFromUIColor:[UIColor colorNamed:@"Background"]];
+  glClearColor(bg.r, bg.y,bg.z,bg.w);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   [self.grid render:self.effect];

@@ -69,9 +69,6 @@
 		0769833B192CC32900926DD1 /* yellow28.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 076982DF192CC2F800926DD1 /* yellow28.txt */; };
 		076BC06819190AA200EE1AD7 /* SolutionCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076BC06719190AA200EE1AD7 /* SolutionCollectionHeaderView.m */; };
 		076C702A19096F2500F0084D /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076C702919096F2500F0084D /* GameView.m */; };
-		076E1F5F1C039A78001A8C6B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076E1F5D1C039A78001A8C6B /* Fabric.framework */; };
-		076E1F601C039A78001A8C6B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076E1F5E1C039A78001A8C6B /* Crashlytics.framework */; };
-		076E1F661C039F18001A8C6B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 076E1F651C039F18001A8C6B /* GoogleMobileAds.framework */; };
 		076F2E1319D963090067E94C /* LaunchGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F2E1219D963090067E94C /* LaunchGridView.m */; };
 		0774AD7B17FB2A70008D8B2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0774AD7A17FB2A70008D8B2E /* Images.xcassets */; };
 		077F9A8617D7CBB0004F1960 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F9A8517D7CBB0004F1960 /* main.m */; };
@@ -89,6 +86,7 @@
 		07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A5C8351917CB56001E5801 /* LibraryViewController.m */; };
 		07C1FC971FEA8C7F007AA98E /* GLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C1FC961FEA8C7F007AA98E /* GLObject.m */; };
 		07E1073920037CA3008332AC /* GlobalSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1073820037CA3008332AC /* GlobalSettings.m */; };
+		07E1962F215F5F9F003EDAC3 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E1962E215F5F9E003EDAC3 /* GoogleMobileAds.framework */; };
 		07E1B58218071B9F002D79A1 /* DropResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B58118071B9F002D79A1 /* DropResult.m */; };
 		07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E8B78D181FC28100804CC1 /* Default-568h@2x.png */; };
 		07EE62651940BF2300739544 /* Metrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE62641940BF2300739544 /* Metrics.m */; };
@@ -245,9 +243,6 @@
 		076BC06719190AA200EE1AD7 /* SolutionCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SolutionCollectionHeaderView.m; sourceTree = "<group>"; };
 		076C702819096F2500F0084D /* GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
 		076C702919096F2500F0084D /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
-		076E1F5D1C039A78001A8C6B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		076E1F5E1C039A78001A8C6B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		076E1F651C039F18001A8C6B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		076F2E1119D963090067E94C /* LaunchGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchGridView.h; sourceTree = "<group>"; };
 		076F2E1219D963090067E94C /* LaunchGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchGridView.m; sourceTree = "<group>"; };
 		0774AD7A17FB2A70008D8B2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -289,6 +284,7 @@
 		07D3667D1FFF8CE40013F0A6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		07E1073720037CA3008332AC /* GlobalSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalSettings.h; sourceTree = "<group>"; };
 		07E1073820037CA3008332AC /* GlobalSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalSettings.m; sourceTree = "<group>"; };
+		07E1962E215F5F9E003EDAC3 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		07E1B58018071B9F002D79A1 /* DropResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropResult.h; sourceTree = "<group>"; };
 		07E1B58118071B9F002D79A1 /* DropResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropResult.m; sourceTree = "<group>"; };
 		07E8B78D181FC28100804CC1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -315,9 +311,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				076E1F601C039A78001A8C6B /* Crashlytics.framework in Frameworks */,
-				076E1F661C039F18001A8C6B /* GoogleMobileAds.framework in Frameworks */,
-				076E1F5F1C039A78001A8C6B /* Fabric.framework in Frameworks */,
+				07E1962F215F5F9F003EDAC3 /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,9 +469,7 @@
 		077F9A7417D7CBB0004F1960 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				076E1F5E1C039A78001A8C6B /* Crashlytics.framework */,
-				076E1F651C039F18001A8C6B /* GoogleMobileAds.framework */,
-				076E1F5D1C039A78001A8C6B /* Fabric.framework */,
+				07E1962E215F5F9E003EDAC3 /* GoogleMobileAds.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -577,7 +569,6 @@
 				077F9A6F17D7CBB0004F1960 /* Frameworks */,
 				077F9A7017D7CBB0004F1960 /* Resources */,
 				0726441D19235CD400A0E6FE /* CopyFiles */,
-				076E1F5C1BFE33E5001A8C6B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -596,11 +587,12 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Eric Wolter";
 				TargetAttributes = {
 					074535481FE9A02E00B17334 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 077F9A7117D7CBB0004F1960;
 					};
@@ -619,11 +611,16 @@
 			};
 			buildConfigurationList = 077F9A6D17D7CBB0004F1960 /* Build configuration list for PBXProject "molicula" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
 				de,
+				"zh-Hans",
+				hi,
+				es,
+				ar,
+				en,
 			);
 			mainGroup = 077F9A6917D7CBB0004F1960;
 			productRefGroup = 077F9A7317D7CBB0004F1960 /* Products */;
@@ -656,22 +653,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		076E1F5C1BFE33E5001A8C6B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run bd56c9755da175dbceef21610d31133901bb338b addf57950e00fd489839c95b4d13f6abfabf6ec7b97f32402fea456ee911f17c";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		074535451FE9A02E00B17334 /* Sources */ = {
@@ -775,7 +756,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = molicula;
 			};
@@ -807,7 +788,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ericwolter.moliculaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = molicula;
 			};
@@ -825,11 +806,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -855,7 +838,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -874,11 +857,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -896,7 +881,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -913,6 +898,7 @@
 				CODE_SIGN_ENTITLEMENTS = molicula/molicula.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -922,7 +908,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 2.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ericwolter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -939,6 +926,7 @@
 				CODE_SIGN_ENTITLEMENTS = molicula/molicula.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -948,7 +936,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 2.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ericwolter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

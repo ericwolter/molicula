@@ -105,8 +105,7 @@ typedef enum {
 
 -(void)makeViewShine:(UIView*) view
 {
-  ColorTheme *theme = [ColorTheme sharedSingleton];
-  UIColor *shine = [UIColor colorWithRed:[theme hole].x green:[theme hole].y blue:[theme hole].z alpha:1.0f];
+  UIColor *shine = [UIColor colorNamed: @"Hole"];
   view.layer.shadowColor = shine.CGColor;
   view.layer.shadowRadius = 0.0f;
   view.layer.shadowOpacity = 1.0f;
@@ -318,15 +317,15 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
   [coordinator animateAlongsideTransitionInView:self.view animation:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
   } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
     // update control flags
-    shouldStopUpdating = YES;
+    self->shouldStopUpdating = YES;
     
     [self setProjection];
     
     // because of the rotation some molecules are now either completely
     // or partially of screen. We have to force them back onto the screen
     // so that the player can continue to interact with them
-    for (NSUInteger i = 0; i < gameView.molecules.count; ++i) {
-      Molecule *molecule = [gameView.molecules objectAtIndex:i];
+    for (NSUInteger i = 0; i < self->gameView.molecules.count; ++i) {
+      Molecule *molecule = [self->gameView.molecules objectAtIndex:i];
       [self enforceScreenBoundsForMolecule:molecule];
     }
   }];

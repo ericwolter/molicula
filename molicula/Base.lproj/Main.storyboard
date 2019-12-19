@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LCP-eY-19M">
-    <device id="retina4_0" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LCP-eY-19M">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,7 +13,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="LCP-eY-19M" customClass="MoliculaNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Uwp-tw-vfz" customClass="MoliculaNavigationBar">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.41960784313725491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.94117647059999998" green="0.93725490199999995" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -40,7 +39,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOD-ZJ-XGD">
-                                <rect key="frame" x="120" y="221" width="81" height="127"/>
+                                <rect key="frame" x="120.5" y="220.5" width="79" height="127"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="96"/>
                                 <size key="titleShadowOffset" width="3" height="3"/>
                                 <state key="normal" title="↻">
@@ -99,7 +98,7 @@
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="lqH-2S-txU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.94117647058823528" green="0.93725490196078431" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="Background"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="NRR-cc-pPJ">
                             <size key="itemSize" width="106" height="106"/>
                             <size key="headerReferenceSize" width="50" height="100"/>
@@ -118,10 +117,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                         </imageView>
                                         <view tag="200" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sr7-rW-qkg">
-                                            <rect key="frame" x="2" y="42" width="101" height="21"/>
+                                            <rect key="frame" x="2.5" y="42.5" width="101" height="21"/>
                                             <subviews>
                                                 <stackView opaque="NO" tag="210" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="nvm-eL-VP7">
-                                                    <rect key="frame" x="2" y="3" width="96" height="16"/>
+                                                    <rect key="frame" x="2.5" y="2.5" width="96" height="16"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" tag="211" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="New" translatesAutoresizingMaskIntoConstraints="NO" id="SPW-2c-y3y">
                                                             <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
@@ -223,10 +222,13 @@
     <resources>
         <image name="FlipH" width="48" height="48"/>
         <image name="FlipV" width="48" height="48"/>
-        <image name="LibraryIcon" width="22" height="21"/>
+        <image name="LibraryIcon" width="22" height="21.5"/>
         <image name="New" width="48" height="48"/>
         <image name="Same" width="48" height="48"/>
         <image name="SwitchW" width="48" height="48"/>
         <image name="SwitchY" width="48" height="48"/>
+        <namedColor name="Background">
+            <color red="0.94117647058823528" green="0.93725490196078431" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

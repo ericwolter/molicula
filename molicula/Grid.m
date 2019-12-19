@@ -77,7 +77,7 @@
 - (void)render:(GLKBaseEffect *)effect {
   self.modelViewMatrix = [self calculateModelViewMatrix];
   
-  effect.constantColor = [[ColorTheme sharedSingleton] hole];
+  effect.constantColor = [Helper makeVectorFromUIColor:[UIColor colorNamed:@"Hole"]];
 
   for (NSArray *column in self.holes) {
     for (id hole in column) {

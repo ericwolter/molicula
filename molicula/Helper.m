@@ -10,6 +10,10 @@
 
 @implementation Helper
 
++ (GLKVector4)makeVectorFromUIColor:(UIColor*)color {
+  const CGFloat *colors = CGColorGetComponents( color.CGColor );
+  return GLKVector4Make(colors[0], colors[1], colors[2], colors[3]);
+}
 + (GLKVector2)fakeGLLineFrom:(GLKVector2)from to:(GLKVector2)to withWidth:(float)width {
   GLKVector2 direction = GLKVector2Subtract(from, to);
   GLKVector2 perpendicular = GLKVector2Make(direction.y, -direction.x);

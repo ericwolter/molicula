@@ -151,25 +151,25 @@
 
 - (GLKVector4)mapIdentifierToColor {
   if ([self.identifer rangeOfString:@"b"].location != NSNotFound) {
-    return [[ColorTheme sharedSingleton] blue];
+    return [Helper makeVectorFromUIColor:[UIColor colorNamed:@"Blue"]];
   }
   if ([self.identifer rangeOfString:@"g"].location != NSNotFound) {
-    return [[ColorTheme sharedSingleton] green];
+    return [Helper makeVectorFromUIColor:[UIColor colorNamed:@"Green"]];
   }
   if ([self.identifer rangeOfString:@"r"].location != NSNotFound) {
-    return [[ColorTheme sharedSingleton] red];
+    return [Helper makeVectorFromUIColor:[UIColor colorNamed:@"Red"]];
   }
   if ([self.identifer rangeOfString:@"p"].location != NSNotFound) {
-    return [[ColorTheme sharedSingleton] purple];
+    return [Helper makeVectorFromUIColor:[UIColor colorNamed:@"Purple"]];
   }
   if ([self.identifer rangeOfString:@"o"].location != NSNotFound) {
-    return [[ColorTheme sharedSingleton] orange];
+    return [Helper makeVectorFromUIColor:[UIColor colorNamed:@"Orange"]];
   }
   if ([self.identifer rangeOfString:@"y"].location != NSNotFound) {
-    return [[ColorTheme sharedSingleton] yellow];
+    return [Helper makeVectorFromUIColor:[UIColor colorNamed:@"Yellow"]];
   }
   if ([self.identifer rangeOfString:@"w"].location != NSNotFound) {
-    return [[ColorTheme sharedSingleton] white];
+    return [Helper makeVectorFromUIColor:[UIColor colorNamed:@"White"]];
   }
   
   return GLKVector4Make(1, 1, 1, 0.5f);
