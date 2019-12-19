@@ -18,5 +18,7 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-5717136270400903~8804407909</string>
 </dict>
 </plist>
