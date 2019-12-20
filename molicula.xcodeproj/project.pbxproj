@@ -92,6 +92,8 @@
 		07EE626C1940C3AB00739544 /* TutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE626B1940C3AB00739544 /* TutorialController.m */; };
 		07EE626F1940FC8E00739544 /* DDiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE626E1940FC8E00739544 /* DDiCloudSync.m */; };
 		07F16FD317E0F79300D15F36 /* Controls.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F16FD217E0F79300D15F36 /* Controls.m */; };
+		0C26957B5A73AF7B07C7F181 /* libPods-moliculaUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9777EE2D2AD11F5520B5330 /* libPods-moliculaUITests.a */; };
+		2DF3FA5FCDD6EBCCB79163E2 /* libPods-molicula.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 250F543B0A6025454EDD5138 /* libPods-molicula.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -295,6 +297,12 @@
 		07EE626E1940FC8E00739544 /* DDiCloudSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDiCloudSync.m; sourceTree = "<group>"; };
 		07F16FD117E0F79300D15F36 /* Controls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controls.h; sourceTree = "<group>"; };
 		07F16FD217E0F79300D15F36 /* Controls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controls.m; sourceTree = "<group>"; };
+		19C655B28AE71ADBE4FA9870 /* Pods-molicula.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-molicula.release.xcconfig"; path = "Pods/Target Support Files/Pods-molicula/Pods-molicula.release.xcconfig"; sourceTree = "<group>"; };
+		250F543B0A6025454EDD5138 /* libPods-molicula.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-molicula.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D6B8D69D843250F5EBC7E83 /* Pods-moliculaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moliculaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-moliculaUITests/Pods-moliculaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AC0589531E8CED57C19B4984 /* Pods-moliculaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moliculaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-moliculaUITests/Pods-moliculaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B9777EE2D2AD11F5520B5330 /* libPods-moliculaUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-moliculaUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D81A19383F99AC1F03E54BC8 /* Pods-molicula.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-molicula.debug.xcconfig"; path = "Pods/Target Support Files/Pods-molicula/Pods-molicula.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,6 +310,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C26957B5A73AF7B07C7F181 /* libPods-moliculaUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +318,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DF3FA5FCDD6EBCCB79163E2 /* libPods-molicula.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +460,8 @@
 				077F9A7F17D7CBB0004F1960 /* molicula */,
 				0745354A1FE9A02E00B17334 /* moliculaUITests */,
 				077F9A7317D7CBB0004F1960 /* Products */,
+				E5C3922FE0F8DCD3A7FCF875 /* Pods */,
+				C31A97D3108FB036EBBD1C95 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -528,6 +540,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C31A97D3108FB036EBBD1C95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				250F543B0A6025454EDD5138 /* libPods-molicula.a */,
+				B9777EE2D2AD11F5520B5330 /* libPods-moliculaUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E5C3922FE0F8DCD3A7FCF875 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D81A19383F99AC1F03E54BC8 /* Pods-molicula.debug.xcconfig */,
+				19C655B28AE71ADBE4FA9870 /* Pods-molicula.release.xcconfig */,
+				AC0589531E8CED57C19B4984 /* Pods-moliculaUITests.debug.xcconfig */,
+				8D6B8D69D843250F5EBC7E83 /* Pods-moliculaUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -535,6 +567,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 074535501FE9A02E00B17334 /* Build configuration list for PBXNativeTarget "moliculaUITests" */;
 			buildPhases = (
+				AD3898E8CE00B5A7F6A58C2F /* [CP] Check Pods Manifest.lock */,
 				074535451FE9A02E00B17334 /* Sources */,
 				074535461FE9A02E00B17334 /* Frameworks */,
 				074535471FE9A02E00B17334 /* Resources */,
@@ -553,10 +586,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 077F9AB217D7CBB1004F1960 /* Build configuration list for PBXNativeTarget "molicula" */;
 			buildPhases = (
+				A1D85B91EE860201755E2BAA /* [CP] Check Pods Manifest.lock */,
 				077F9A6E17D7CBB0004F1960 /* Sources */,
 				077F9A6F17D7CBB0004F1960 /* Frameworks */,
 				077F9A7017D7CBB0004F1960 /* Resources */,
 				0726441D19235CD400A0E6FE /* CopyFiles */,
+				34C9463F63D0AE6A6BBE0276 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -642,6 +677,65 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		34C9463F63D0AE6A6BBE0276 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-molicula/Pods-molicula-resources.sh",
+				"${PODS_ROOT}/Appodeal/APDAppLovinAdapter.embeddedframework/Resources/AppLovinSDKResources.bundle",
+				"${PODS_ROOT}/Appodeal/APDStartAppAdapter.embeddedframework/Resources/StartApp.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/StartApp.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-molicula/Pods-molicula-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1D85B91EE860201755E2BAA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-molicula-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD3898E8CE00B5A7F6A58C2F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-moliculaUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		074535451FE9A02E00B17334 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -721,6 +815,7 @@
 /* Begin XCBuildConfiguration section */
 		074535511FE9A02E00B17334 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC0589531E8CED57C19B4984 /* Pods-moliculaUITests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -752,6 +847,7 @@
 		};
 		074535521FE9A02E00B17334 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D6B8D69D843250F5EBC7E83 /* Pods-moliculaUITests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -880,6 +976,7 @@
 		};
 		077F9AB317D7CBB1004F1960 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D81A19383F99AC1F03E54BC8 /* Pods-molicula.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -908,6 +1005,7 @@
 		};
 		077F9AB417D7CBB1004F1960 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19C655B28AE71ADBE4FA9870 /* Pods-molicula.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

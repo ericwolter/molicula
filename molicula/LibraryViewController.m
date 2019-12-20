@@ -14,6 +14,9 @@
 #import "GameViewController.h"
 #import "ColorTheme.h"
 
+#import "GlobalSettings.h"
+#import <Appodeal/Appodeal.h>
+
 @interface LibraryViewController () {
   NSMutableDictionary *headerCache;
   NSMutableDictionary *solutionCache;
@@ -43,6 +46,17 @@
 {
   [super viewDidLoad];
   [self setupGL];
+  
+  if(NO == [GlobalSettings sharedInstance].isUITesting) {
+    [Appodeal showAd:AppodealShowStyleBannerBottom rootViewController:self];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+  if(NO == [GlobalSettings sharedInstance].isUITesting) {
+    [Appodeal showAd:AppodealShowStyleBannerBottom rootViewController:self];
+  }
 }
 
 - (void)unlock {

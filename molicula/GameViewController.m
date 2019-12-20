@@ -23,6 +23,8 @@
 #import "Helper.h"
 #import "GlobalSettings.h"
 
+#import <Appodeal/Appodeal.h>
+
 typedef enum {
   NoDirection,
   NegativeDirection,
@@ -100,6 +102,11 @@ typedef enum {
     
     [self enforceScreenBoundsForMolecule:molecule];
   }
+  
+  if(NO == [GlobalSettings sharedInstance].isUITesting) {
+    [Appodeal showAd:AppodealShowStyleBannerBottom rootViewController:self];
+  }
+
   MLog(@"[end]");
 }
 
@@ -202,15 +209,7 @@ typedef enum {
   [self setupGrid];
 
   if(NO == [GlobalSettings sharedInstance].isUITesting) {
-//    //  NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
-//    self.bannerView.adUnitID = @"ca-app-pub-5717136270400903/1281141100";
-//    self.bannerView.rootViewController = self;
-//    [self.bannerView loadRequest:[self createRequest]];
-//
-//    // workaround for scroll offset issue
-//    // see: http://stackoverflow.com/questions/24763692/admob-ios-banner-offset-issue
-//    UIView *view = [[UIView alloc] init];
-//    [self.view insertSubview:view belowSubview:self.bannerView];
+    [Appodeal showAd:AppodealShowStyleBannerBottom rootViewController:self];
   }
   
   MLog(@"[end]");
@@ -602,7 +601,7 @@ typedef enum {
   
   GLKVector2 keepInsideVector = [Helper keepRect:moleculeRect insideOf:screenRect];
   // simulate moved molecule
-  moleculeRect = CGRectOffset(moleculeRect, keepInsideVector.x, keepInsideVector.y);
+//  moleculeRect = CGRectOffset(moleculeRect, keepInsideVector.x, keepInsideVector.y);
   
   GLKVector2 keepOutsideVector = GLKVector2Make(0, 0);
 //  if(NO == [GlobalSettings sharedInstance].isUITesting) {
