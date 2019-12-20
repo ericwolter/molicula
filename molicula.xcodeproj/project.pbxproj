@@ -86,7 +86,6 @@
 		07A5C8361917CB56001E5801 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A5C8351917CB56001E5801 /* LibraryViewController.m */; };
 		07C1FC971FEA8C7F007AA98E /* GLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C1FC961FEA8C7F007AA98E /* GLObject.m */; };
 		07E1073920037CA3008332AC /* GlobalSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1073820037CA3008332AC /* GlobalSettings.m */; };
-		07E1962F215F5F9F003EDAC3 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E1962E215F5F9E003EDAC3 /* GoogleMobileAds.framework */; };
 		07E1B58218071B9F002D79A1 /* DropResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E1B58118071B9F002D79A1 /* DropResult.m */; };
 		07E8B78E181FC28100804CC1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E8B78D181FC28100804CC1 /* Default-568h@2x.png */; };
 		07EE62651940BF2300739544 /* Metrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE62641940BF2300739544 /* Metrics.m */; };
@@ -284,7 +283,6 @@
 		07D3667D1FFF8CE40013F0A6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		07E1073720037CA3008332AC /* GlobalSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalSettings.h; sourceTree = "<group>"; };
 		07E1073820037CA3008332AC /* GlobalSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalSettings.m; sourceTree = "<group>"; };
-		07E1962E215F5F9E003EDAC3 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		07E1B58018071B9F002D79A1 /* DropResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropResult.h; sourceTree = "<group>"; };
 		07E1B58118071B9F002D79A1 /* DropResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropResult.m; sourceTree = "<group>"; };
 		07E8B78D181FC28100804CC1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -311,7 +309,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07E1962F215F5F9F003EDAC3 /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,7 +449,6 @@
 				072643B919235C1C00A0E6FE /* Assets */,
 				077F9A7F17D7CBB0004F1960 /* molicula */,
 				0745354A1FE9A02E00B17334 /* moliculaUITests */,
-				077F9A7417D7CBB0004F1960 /* Frameworks */,
 				077F9A7317D7CBB0004F1960 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -464,14 +460,6 @@
 				074535491FE9A02E00B17334 /* moliculaUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		077F9A7417D7CBB0004F1960 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				07E1962E215F5F9E003EDAC3 /* GoogleMobileAds.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		077F9A7F17D7CBB0004F1960 /* molicula */ = {

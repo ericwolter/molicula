@@ -50,22 +50,12 @@
                                     <action selector="restartButtonTapped:" destination="6Fm-Pz-kJy" eventType="touchUpInside" id="LKr-PP-Fn4"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sB-VA-bir" customClass="GADBannerView">
-                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="efD-H0-3ly"/>
-                                    <constraint firstAttribute="height" constant="50" id="hj3-1t-vx5"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <accessibility key="accessibilityConfiguration" identifier="GameView"/>
                         <constraints>
                             <constraint firstItem="OOD-ZJ-XGD" firstAttribute="centerX" secondItem="psZ-oD-fJv" secondAttribute="centerX" id="0Oh-4L-ckh"/>
-                            <constraint firstItem="0sB-VA-bir" firstAttribute="centerX" secondItem="psZ-oD-fJv" secondAttribute="centerX" id="ERq-Cs-SoL"/>
                             <constraint firstItem="OOD-ZJ-XGD" firstAttribute="centerY" secondItem="psZ-oD-fJv" secondAttribute="centerY" id="ZKL-Sy-wvq"/>
-                            <constraint firstItem="UVD-Ms-k1N" firstAttribute="top" secondItem="0sB-VA-bir" secondAttribute="bottom" id="cxj-LJ-z5a"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ncc-uu-9AY">
@@ -81,7 +71,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bannerView" destination="0sB-VA-bir" id="fzg-Er-iVW"/>
                         <outlet property="libraryButton" destination="PX4-HB-Ikn" id="0pl-XI-xlB"/>
                         <outlet property="restartButton" destination="OOD-ZJ-XGD" id="4E6-lC-Tvu"/>
                         <outlet property="shareButton" destination="BU1-Zy-OYd" id="DAq-gB-4T9"/>

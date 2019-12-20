@@ -202,44 +202,18 @@ typedef enum {
   [self setupGrid];
 
   if(NO == [GlobalSettings sharedInstance].isUITesting) {
-    //  NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
-    self.bannerView.adUnitID = @"ca-app-pub-5717136270400903/1281141100";
-    self.bannerView.rootViewController = self;
-    [self.bannerView loadRequest:[self createRequest]];
-    
-    // workaround for scroll offset issue
-    // see: http://stackoverflow.com/questions/24763692/admob-ios-banner-offset-issue
-    UIView *view = [[UIView alloc] init];
-    [self.view insertSubview:view belowSubview:self.bannerView];
+//    //  NSLog(@"Google Mobile Ads SDK version: %@", [GADRequest sdkVersion]);
+//    self.bannerView.adUnitID = @"ca-app-pub-5717136270400903/1281141100";
+//    self.bannerView.rootViewController = self;
+//    [self.bannerView loadRequest:[self createRequest]];
+//
+//    // workaround for scroll offset issue
+//    // see: http://stackoverflow.com/questions/24763692/admob-ios-banner-offset-issue
+//    UIView *view = [[UIView alloc] init];
+//    [self.view insertSubview:view belowSubview:self.bannerView];
   }
   
   MLog(@"[end]");
-}
-
-#pragma mark GADRequest generation
-
-// Here we're creating a simple GADRequest and whitelisting the application
-// for test ads. You should request test ads during development to avoid
-// generating invalid impressions and clicks.
-- (GADRequest *)createRequest {
-  GADRequest *request = [GADRequest request];
-  
-  // Make the request for a test ad. Put in an identifier for the simulator as
-  // well as any devices you want to receive test ads.
-  request.testDevices = @[ kGADSimulatorID, @"124951ea9459d87245681f1666e46039" ];
-  return request;
-}
-
-#pragma mark GADBannerViewDelegate callbacks
-
-// We've received an ad successfully.
-- (void)adViewDidReceiveAd:(GADBannerView *)adView {
-  NSLog(@"Received ad successfully");
-}
-
-- (void)adView:(GADBannerView *)view
-didFailToReceiveAdWithError:(GADRequestError *)error {
-  NSLog(@"Failed to receive ad with error: %@", [error localizedFailureReason]);
 }
 
 - (void)applicationWillResignActive {
@@ -611,9 +585,9 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
   if(YES == [GlobalSettings sharedInstance].isUITesting) {
     screenRect = CGRectMake(screenRect.origin.x, screenRect.origin.y, screenRect.size.width - 20,  screenRect.size.height - 20);
   }
-  CGRect adRect = self.bannerView.frame;
-  
-  adRect = CGRectMake(adRect.origin.x, screenRect.size.height - adRect.origin.y - adRect.size.height, adRect.size.width, adRect.size.height);
+//  CGRect adRect = self.bannerView.frame;
+//
+//  adRect = CGRectMake(adRect.origin.x, screenRect.size.height - adRect.origin.y - adRect.size.height, adRect.size.width, adRect.size.height);
   CGRect moleculeRectInOpenGL = [molecule getWorldAABBWithTranslation:translation andOrientation:orientation];
   CGRect moleculeRect = CGRectOffset(moleculeRectInOpenGL, screenRect.size.width/2, screenRect.size.height/2);
   
@@ -630,12 +604,12 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
   // simulate moved molecule
   moleculeRect = CGRectOffset(moleculeRect, keepInsideVector.x, keepInsideVector.y);
   
-  GLKVector2 keepOutsideVector;
-  if(NO == [GlobalSettings sharedInstance].isUITesting) {
-    keepOutsideVector = [Helper keepRect:moleculeRect outsideOf:adRect];
-  } else {
-    keepOutsideVector = GLKVector2Make(0, 0);
-  }
+  GLKVector2 keepOutsideVector = GLKVector2Make(0, 0);
+//  if(NO == [GlobalSettings sharedInstance].isUITesting) {
+//    keepOutsideVector = [Helper keepRect:moleculeRect outsideOf:adRect];
+//  } else {
+//    keepOutsideVector = GLKVector2Make(0, 0);
+//  }
   
   GLKVector2 boundsVector = GLKVector2Add(keepInsideVector, keepOutsideVector);
   

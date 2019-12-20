@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <GoogleMobileAds/GADMobileAds.h>
 
 #import "SolutionLibrary.h"
 #import "GlobalSettings.h"
@@ -27,7 +26,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GADMobileAds disableSDKCrashReporting];
   [SolutionLibrary sharedInstance];
   
   // make navigation bar transparent

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
-@import GoogleMobileAds;
 #import "TutorialController.h"
 
 @interface GameViewController : GLKViewController <UIGestureRecognizerDelegate> {
@@ -20,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *restartButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *libraryButton;
-@property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 
 - (void)updateOnce;
 
