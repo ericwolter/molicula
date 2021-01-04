@@ -23,8 +23,6 @@
 #import "Helper.h"
 #import "GlobalSettings.h"
 
-#import <Appodeal/Appodeal.h>
-
 typedef enum {
   NoDirection,
   NegativeDirection,
@@ -103,10 +101,6 @@ typedef enum {
     [self enforceScreenBoundsForMolecule:molecule];
   }
   
-  if(NO == [GlobalSettings sharedInstance].isUITesting) {
-    [Appodeal showAd:AppodealShowStyleBannerBottom rootViewController:self];
-  }
-
   MLog(@"[end]");
 }
 
@@ -208,10 +202,6 @@ typedef enum {
   [self setupGL];
   [self setupGrid];
 
-  if(NO == [GlobalSettings sharedInstance].isUITesting) {
-    [Appodeal showAd:AppodealShowStyleBannerBottom rootViewController:self];
-  }
-  
   MLog(@"[end]");
 }
 

@@ -93,7 +93,6 @@
 		07EE626F1940FC8E00739544 /* DDiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EE626E1940FC8E00739544 /* DDiCloudSync.m */; };
 		07F16FD317E0F79300D15F36 /* Controls.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F16FD217E0F79300D15F36 /* Controls.m */; };
 		0C26957B5A73AF7B07C7F181 /* libPods-moliculaUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9777EE2D2AD11F5520B5330 /* libPods-moliculaUITests.a */; };
-		2DF3FA5FCDD6EBCCB79163E2 /* libPods-molicula.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 250F543B0A6025454EDD5138 /* libPods-molicula.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -297,12 +296,8 @@
 		07EE626E1940FC8E00739544 /* DDiCloudSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDiCloudSync.m; sourceTree = "<group>"; };
 		07F16FD117E0F79300D15F36 /* Controls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controls.h; sourceTree = "<group>"; };
 		07F16FD217E0F79300D15F36 /* Controls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Controls.m; sourceTree = "<group>"; };
-		19C655B28AE71ADBE4FA9870 /* Pods-molicula.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-molicula.release.xcconfig"; path = "Pods/Target Support Files/Pods-molicula/Pods-molicula.release.xcconfig"; sourceTree = "<group>"; };
 		250F543B0A6025454EDD5138 /* libPods-molicula.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-molicula.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D6B8D69D843250F5EBC7E83 /* Pods-moliculaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moliculaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-moliculaUITests/Pods-moliculaUITests.release.xcconfig"; sourceTree = "<group>"; };
-		AC0589531E8CED57C19B4984 /* Pods-moliculaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moliculaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-moliculaUITests/Pods-moliculaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B9777EE2D2AD11F5520B5330 /* libPods-moliculaUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-moliculaUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D81A19383F99AC1F03E54BC8 /* Pods-molicula.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-molicula.debug.xcconfig"; path = "Pods/Target Support Files/Pods-molicula/Pods-molicula.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,7 +313,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DF3FA5FCDD6EBCCB79163E2 /* libPods-molicula.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,7 +454,6 @@
 				077F9A7F17D7CBB0004F1960 /* molicula */,
 				0745354A1FE9A02E00B17334 /* moliculaUITests */,
 				077F9A7317D7CBB0004F1960 /* Products */,
-				E5C3922FE0F8DCD3A7FCF875 /* Pods */,
 				C31A97D3108FB036EBBD1C95 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -549,17 +542,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E5C3922FE0F8DCD3A7FCF875 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D81A19383F99AC1F03E54BC8 /* Pods-molicula.debug.xcconfig */,
-				19C655B28AE71ADBE4FA9870 /* Pods-molicula.release.xcconfig */,
-				AC0589531E8CED57C19B4984 /* Pods-moliculaUITests.debug.xcconfig */,
-				8D6B8D69D843250F5EBC7E83 /* Pods-moliculaUITests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -586,12 +568,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 077F9AB217D7CBB1004F1960 /* Build configuration list for PBXNativeTarget "molicula" */;
 			buildPhases = (
-				A1D85B91EE860201755E2BAA /* [CP] Check Pods Manifest.lock */,
 				077F9A6E17D7CBB0004F1960 /* Sources */,
 				077F9A6F17D7CBB0004F1960 /* Frameworks */,
 				077F9A7017D7CBB0004F1960 /* Resources */,
 				0726441D19235CD400A0E6FE /* CopyFiles */,
-				34C9463F63D0AE6A6BBE0276 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -610,7 +590,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Eric Wolter";
 				TargetAttributes = {
 					074535481FE9A02E00B17334 = {
@@ -678,44 +658,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		34C9463F63D0AE6A6BBE0276 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-molicula/Pods-molicula-resources.sh",
-				"${PODS_ROOT}/Appodeal/APDAppLovinAdapter.embeddedframework/Resources/AppLovinSDKResources.bundle",
-				"${PODS_ROOT}/Appodeal/APDStartAppAdapter.embeddedframework/Resources/StartApp.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/StartApp.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-molicula/Pods-molicula-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A1D85B91EE860201755E2BAA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-molicula-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		AD3898E8CE00B5A7F6A58C2F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -815,7 +757,6 @@
 /* Begin XCBuildConfiguration section */
 		074535511FE9A02E00B17334 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC0589531E8CED57C19B4984 /* Pods-moliculaUITests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -832,7 +773,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = moliculaUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ericwolter.moliculaUITests;
@@ -847,7 +788,6 @@
 		};
 		074535521FE9A02E00B17334 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8D6B8D69D843250F5EBC7E83 /* Pods-moliculaUITests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -866,7 +806,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = moliculaUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ericwolter.moliculaUITests;
@@ -898,6 +838,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -922,7 +863,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -949,6 +890,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -965,7 +907,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -976,7 +918,6 @@
 		};
 		077F9AB317D7CBB1004F1960 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D81A19383F99AC1F03E54BC8 /* Pods-molicula.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -992,6 +933,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"GLES_SILENCE_DEPRECATION=1",
+				);
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.3.1;
@@ -1005,7 +951,6 @@
 		};
 		077F9AB417D7CBB1004F1960 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19C655B28AE71ADBE4FA9870 /* Pods-molicula.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1021,6 +966,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "GLES_SILENCE_DEPRECATION=1";
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2.3.1;

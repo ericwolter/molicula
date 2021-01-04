@@ -11,8 +11,6 @@
 #import "SolutionLibrary.h"
 #import "GlobalSettings.h"
 
-#import <Appodeal/Appodeal.h>
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -45,12 +43,7 @@
     self.cloudSync.delegate = [SolutionLibrary sharedInstance];
     [self.cloudSync start];
   }
-  
-//  [Appodeal setTestingEnabled:YES];
-  [Appodeal setLocationTracking:NO];
-  [Appodeal setSmartBannersEnabled:YES];
-  [Appodeal initializeWithApiKey:@"a86e2a5c8ac57d4a492ee86a6145424729a3a9511eb3fb98" types:AppodealAdTypeBanner hasConsent:NO];
-  
+    
   return YES;
 }
 
