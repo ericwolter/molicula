@@ -590,7 +590,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "Eric Wolter";
 				TargetAttributes = {
 					074535481FE9A02E00B17334 = {
@@ -939,7 +939,7 @@
 					"GLES_SILENCE_DEPRECATION=1",
 				);
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 2.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ericwolter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -968,7 +968,7 @@
 				GCC_PREFIX_HEADER = "molicula/molicula-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "GLES_SILENCE_DEPRECATION=1";
 				INFOPLIST_FILE = "molicula/molicula-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 2.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ericwolter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
